@@ -318,11 +318,82 @@
 import SwiftUI
 import CoreImage.CIFilterBuiltins
 import AVFoundation
+import FirebaseFirestore
+
+//struct ContentView: View {
+//    @State private var isShowingScanner = false
+//    @State private var isShowingAlert = false
+//    @State private var scannedDeviceName = ""
+//
+//    var body: some View {
+//        NavigationView {
+//            VStack {
+//                Text("Scanned device: \(scannedDeviceName)")
+//                    .padding()
+//                    .font(.headline)
+//                QRCodeView()
+//                Button("Scan QR Code") {
+//                    isShowingScanner.toggle()
+//                }
+//                .sheet(isPresented: $isShowingScanner) {
+//                    QRCodeScannerView(scannedDeviceName: $scannedDeviceName) { code, deviceName in
+//                        isShowingScanner = false
+//                        if code == UIDevice.current.identifierForVendor?.uuidString {
+//                            scannedDeviceName = deviceName
+//                            isShowingAlert = true
+//                        }
+//                    }
+//                }
+//            }
+//            .alert(isPresented: $isShowingAlert) {
+//                Alert(title: Text("QR Code Scanned"), message: Text("Scanned device: \(scannedDeviceName)"), dismissButton: .default(Text("OK")))
+//            }
+//            .navigationBarTitle("QR Code")
+//        }
+//    }
+//}
+//
+//
+//struct QRCodeView: View {
+//    let context = CIContext()
+//    let filter = CIFilter.qrCodeGenerator()
+//
+//    var body: some View {
+//        if let image = generateQRCodeImage() {
+//            Image(uiImage: image)
+//                .interpolation(.none)
+//                .resizable()
+//                .scaledToFit()
+//        } else {
+//            Text("Failed to generate QR Code")
+//        }
+//    }
+//
+//    func generateQRCodeImage() -> UIImage? {
+//        let uuid = UIDevice.current.identifierForVendor?.uuidString ?? ""
+//        let deviceName = UIDevice.current.name
+//        let combinedString = "\(uuid)|\(deviceName)"
+//        let data = Data(combinedString.utf8)
+//        filter.setValue(data, forKey: "inputMessage")
+//
+//        if let outputImage = filter.outputImage,
+//           let cgImage = context.createCGImage(outputImage, from: outputImage.extent) {
+//            return UIImage(cgImage: cgImage)
+//        }
+//
+//        return nil
+//    }
+//
+//}
+
 struct ContentView: View {
     @State private var isShowingScanner = false
     @State private var isShowingAlert = false
     @State private var scannedDeviceName = ""
-    
+    @State private var isQRCodeExpired = false
+    @State private var timer: Timer?
+    @State private var timeRemaining = 10
+
     var body: some View {
         NavigationView {
             VStack {
@@ -330,6 +401,9 @@ struct ContentView: View {
                     .padding()
                     .font(.headline)
                 QRCodeView()
+                Text("\(timeRemaining) seconds remaining")
+                    .font(.callout)
+                    .foregroundColor(.red)
                 Button("Scan QR Code") {
                     isShowingScanner.toggle()
                 }
@@ -342,20 +416,48 @@ struct ContentView: View {
                         }
                     }
                 }
+                Button("Regenerate QR Code") {
+                    isQRCodeExpired = false
+                    timeRemaining = 10
+                    startTimer()
+                }
+                .disabled(!isQRCodeExpired)
+                if isQRCodeExpired {
+                    Text("만료되었습니다")
+                        .foregroundColor(.red)
+                        .font(.headline)
+                }
             }
             .alert(isPresented: $isShowingAlert) {
                 Alert(title: Text("QR Code Scanned"), message: Text("Scanned device: \(scannedDeviceName)"), dismissButton: .default(Text("OK")))
             }
             .navigationBarTitle("QR Code")
+            .onAppear {
+                startTimer()
+            }
+            .onDisappear {
+                timer?.invalidate()
+            }
+        }
+    }
+
+    func startTimer() {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            if timeRemaining > 0 {
+                timeRemaining -= 1
+            } else {
+                isQRCodeExpired = true
+                timer.invalidate()
+            }
         }
     }
 }
 
-
 struct QRCodeView: View {
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
-    
+
     var body: some View {
         if let image = generateQRCodeImage() {
             Image(uiImage: image)
@@ -366,23 +468,23 @@ struct QRCodeView: View {
             Text("Failed to generate QR Code")
         }
     }
-    
+
     func generateQRCodeImage() -> UIImage? {
         let uuid = UIDevice.current.identifierForVendor?.uuidString ?? ""
         let deviceName = UIDevice.current.name
         let combinedString = "\(uuid)|\(deviceName)"
         let data = Data(combinedString.utf8)
         filter.setValue(data, forKey: "inputMessage")
-        
+
         if let outputImage = filter.outputImage,
            let cgImage = context.createCGImage(outputImage, from: outputImage.extent) {
             return UIImage(cgImage: cgImage)
         }
-        
+
         return nil
     }
-    
 }
+
 
 struct QRCodeScannerView: UIViewControllerRepresentable {
     @Binding var scannedDeviceName: String
@@ -525,10 +627,46 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
                 self.delegate?.qrCodeScannerViewController(self, didScanCode: uuid, deviceName: deviceName)
                 
                 self.scannedDeviceName = deviceName
+                changeCard(deviceName: deviceName)
             }
         }
         
         self.dismiss(animated: true)
     }
     
+    func changeCard(deviceName: String){
+        let db = Firestore.firestore()
+        
+        let myDeviceName:String = UIDevice.current.name
+        
+        // Add a new document with a generated ID
+        var docRef: DocumentReference = db.collection("CardExchangeHistory").document("\(myDeviceName)_\(deviceName)")
+        
+        docRef.setData(["userID1" : myDeviceName,
+                        "userID2" : deviceName,
+                        "exchangeDate" : Timestamp(date: Date())]) { error in
+            if let error = error {
+                // 오류 발생 시 처리
+                print("Error writing document: \(error)")
+            } else {
+                // 성공 시 처리
+                print("\(myDeviceName) and \(deviceName) exchange card successfully!")
+            }
+        }
+        
+        
+        
+        
+        //        ref = db.collection("users").addDocument(data: [
+        //            "first": "Ada",
+        //            "last": "Lovelace",
+        //            "born": 1815
+        //        ]) { err in
+        //            if let err = err {
+        //                print("Error adding document: \(err)")
+        //            } else {
+        //                print("Document added with ID: \(ref!.documentID)")
+        //            }
+        //        }
+    }
 }
