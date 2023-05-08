@@ -16,6 +16,7 @@
 		0ED3F6982A05079100684321 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED3F6972A05079100684321 /* ContentView.swift */; };
 		0ED3F69A2A05079200684321 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ED3F6992A05079200684321 /* Assets.xcassets */; };
 		0ED3F69D2A05079200684321 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ED3F69C2A05079200684321 /* Preview Assets.xcassets */; };
+		0EFA25A72A09381400F91BAE /* SkillSetHorizontalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFA25A62A09381400F91BAE /* SkillSetHorizontalScrollView.swift */; };
 		C36366272A0929FF00E4E9C6 /* InitailCardMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36366262A0929FF00E4E9C6 /* InitailCardMainView.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		0ED3F69C2A05079200684321 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0ED3F6A52A05122300684321 /* bletest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = bletest.entitlements; sourceTree = "<group>"; };
 		0ED3F6A62A0513BE00684321 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		0EFA25A62A09381400F91BAE /* SkillSetHorizontalScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillSetHorizontalScrollView.swift; sourceTree = "<group>"; };
 		C36366262A0929FF00E4E9C6 /* InitailCardMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitailCardMainView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,6 +94,8 @@
 		0EBE8C0E2A08E40D00F0180B /* CardDetail */ = {
 			isa = PBXGroup;
 			children = (
+				0E1BE3AC2A079B490042EECA /* CardDetailView.swift */,
+				0EFA25A62A09381400F91BAE /* SkillSetHorizontalScrollView.swift */,
 			);
 			path = CardDetail;
 			sourceTree = "<group>";
@@ -150,7 +154,6 @@
 				0ED3F6A52A05122300684321 /* bletest.entitlements */,
 				0ED3F6952A05079100684321 /* bletestApp.swift */,
 				0ED3F6972A05079100684321 /* ContentView.swift */,
-				0E1BE3AC2A079B490042EECA /* CardDetailView.swift */,
 				0ED3F6992A05079200684321 /* Assets.xcassets */,
 				0E75849F2A06C64200139985 /* GoogleService-Info.plist */,
 				0ED3F69B2A05079200684321 /* Preview Content */,
@@ -245,6 +248,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EFA25A72A09381400F91BAE /* SkillSetHorizontalScrollView.swift in Sources */,
 				C36366272A0929FF00E4E9C6 /* InitailCardMainView.swift in Sources */,
 				0E1BE3AD2A079B490042EECA /* CardDetailView.swift in Sources */,
 				0ED3F6982A05079100684321 /* ContentView.swift in Sources */,
