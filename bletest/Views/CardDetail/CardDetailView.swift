@@ -69,7 +69,8 @@ struct CardDetailView: View{
                         Spacer().frame(height: 30)
                         skillCooperationButton()
                         Spacer().frame(height: 60)
-                        
+                    }
+                    if isHardSkillSet{
                         VStack{
                             Text("현재 이런 ")
                                 .foregroundColor(.black)
@@ -84,65 +85,126 @@ struct CardDetailView: View{
                                 .foregroundColor(textPinkColor)
                                 .font(.system(size: 20.5, weight: .bold))
                         }.fixedSize(horizontal: false, vertical: true)
+                        
+                        
+                        SkillSetHorizontalScrollView()
+                            .padding(.leading, 20)
+                        
+                        Spacer().frame(height: 20)
+                        
+                        Text(introduceText)
+                            .font(.system(size: 16, weight: .regular))
+                            .multilineTextAlignment(.leading)
+                            .padding(.horizontal, 20)
+                            .lineSpacing(7)
+                            .padding(.vertical, 20)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(textBackgroundGrayColor)
+                            )
+                        
+                        Spacer().frame(height: 60)
+                        VStack{
+                            Text("앞으로 이런 ")
+                                .foregroundColor(.black)
+                                .font(.system(size: 20.5, weight: .bold))
+                            + Text("스킬셋")
+                                .foregroundColor(textGrayColor)
+                                .font(.system(size: 20.5, weight: .bold))
+                            + Text("을\n")
+                                .foregroundColor(.black)
+                                .font(.system(size: 20.5, weight: .bold))
+                            + Text("키우고 싶어요!")
+                                .foregroundColor(textPinkColor)
+                                .font(.system(size: 20.5, weight: .bold))
+                        }.fixedSize(horizontal: false, vertical: true)
+                        
+                        SkillSetHorizontalScrollView()
+                            .padding(.leading, 20)
+                        
+                        Spacer().frame(height: 20)
+                        
+                        Text(introduceText2)
+                            .font(.system(size: 16, weight: .regular))
+                            .multilineTextAlignment(.leading)
+                            .padding(.horizontal, 20)
+                            .lineSpacing(7)
+                            .padding(.vertical, 20)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(textBackgroundGrayColor)
+                            )
                     }
-                    
-                    SkillSetHorizontalScrollView()
-                        .padding(.leading, 20)
-                    
-                    Spacer().frame(height: 20)
-                    
-                    Text(introduceText)
-                        .font(.system(size: 16, weight: .regular))
-                        .multilineTextAlignment(.leading)
-                        .padding(.horizontal, 20)
-                        .lineSpacing(7)
-                        .padding(.vertical, 20)
-                        .background(
+                    else {
+                        Text("제 커뮤니케이션 타입은")
+                            .font(.system(size: 22, weight: .bold))
+                            .padding(.bottom, 30)
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 65, style: .continuous)
+                                .fill(Color.white)
+                                .frame(width: 300, height: 300)
+                                .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
+                            VStack{
+                                Image("dummyPikachu")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 90, height: 90)
+                                Text("Amiable")
+                                    .font(.system(size: 30, weight: .bold))
+                                    .foregroundColor(.black)
+                                    .padding(.top, 20)
+                                    .padding(.bottom, 10)
+                                Text("결과보다는 관계와 과정을,\n리스크 보다는 안정감을 중요시해요.")
+                                    .font(.system(size: 15, weight: .regular))
+                                    .foregroundColor(.black)
+                                    .multilineTextAlignment(.center)
+                                    .fixedSize(horizontal: false, vertical: true)
+                            }
+                        }
+                        Text("저와 어울리는 협업 키워드는")
+                            .font(.system(size: 22, weight: .bold))
+                            .padding(.top, 70)
+                            .padding(.bottom, 30)
+                        HStack{
+                            ZStack {
+                                Circle()
+                                    .stroke(Color.purple, lineWidth: 3)
+                                    .frame(width: 100, height: 100)
+                                Text("갈등중재")
+                                    .font(.system(size: 20, weight: .bold))
+                            }.padding(.horizontal, 10)
+                            ZStack {
+                                Circle()
+                                    .stroke(Color.blue, lineWidth: 3)
+                                    .frame(width: 100, height: 100)
+                                Text("갈등중재")
+                                    .font(.system(size: 20, weight: .bold))
+                            }.padding(.horizontal, 10)
+                            ZStack {
+                                Circle()
+                                    .stroke(Color.red, lineWidth: 3)
+                                    .frame(width: 100, height: 100)
+                                Text("갈등중재")
+                                    .font(.system(size: 20, weight: .bold))
+                            }.padding(.horizontal, 10)
+                        }.padding(.bottom, 50)
+                        Text(introduceText)
+                            .font(.system(size: 16, weight: .regular))
+                            .multilineTextAlignment(.leading)
+                            .padding(.horizontal, 20)
+                            .lineSpacing(7)
+                            .padding(.vertical, 20)
+                            .background(
                                 RoundedRectangle(cornerRadius: 10)
                                     .fill(textBackgroundGrayColor)
                             )
-                    
-                    Spacer().frame(height: 60)
-                    VStack{
-                        Text("앞으로 이런 ")
-                            .foregroundColor(.black)
-                            .font(.system(size: 20.5, weight: .bold))
-                        + Text("스킬셋")
-                            .foregroundColor(textGrayColor)
-                            .font(.system(size: 20.5, weight: .bold))
-                        + Text("을\n")
-                            .foregroundColor(.black)
-                            .font(.system(size: 20.5, weight: .bold))
-                        + Text("키우고 싶어요!")
-                            .foregroundColor(textPinkColor)
-                            .font(.system(size: 20.5, weight: .bold))
-                    }.fixedSize(horizontal: false, vertical: true)
-                    
-                    SkillSetHorizontalScrollView()
-                        .padding(.leading, 20)
-                    
-                    Spacer().frame(height: 20)
-                    
-                    Text(introduceText2)
-                        .font(.system(size: 16, weight: .regular))
-                        .multilineTextAlignment(.leading)
-                        .padding(.horizontal, 20)
-                        .lineSpacing(7)
-                        .padding(.vertical, 20)
-                        .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(textBackgroundGrayColor)
-                            )
-                    
+
+                    }
                 }
                 VStack{
                     profileCircle().padding(.top, 300)
                 }
             }
-            
-                
-            
-            
             VStack {
                 Spacer().frame(height: 95)
             }
