@@ -44,6 +44,83 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0EBE8C092A08D93300F0180B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0EBE8C122A08E43900F0180B /* Comment */,
+				0EBE8C112A08E43000F0180B /* CardExchange */,
+				0EBE8C102A08E42700F0180B /* CardList */,
+				0EBE8C0F2A08E41700F0180B /* CardDetailEdit */,
+				0EBE8C0E2A08E40D00F0180B /* CardDetail */,
+				0EBE8C0D2A08E3F800F0180B /* Intro */,
+				0EBE8C0C2A08E3DF00F0180B /* CardGenerate */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0EBE8C0A2A08D94100F0180B /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		0EBE8C0B2A08D95700F0180B /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		0EBE8C0C2A08E3DF00F0180B /* CardGenerate */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CardGenerate;
+			sourceTree = "<group>";
+		};
+		0EBE8C0D2A08E3F800F0180B /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Intro;
+			sourceTree = "<group>";
+		};
+		0EBE8C0E2A08E40D00F0180B /* CardDetail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CardDetail;
+			sourceTree = "<group>";
+		};
+		0EBE8C0F2A08E41700F0180B /* CardDetailEdit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CardDetailEdit;
+			sourceTree = "<group>";
+		};
+		0EBE8C102A08E42700F0180B /* CardList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CardList;
+			sourceTree = "<group>";
+		};
+		0EBE8C112A08E43000F0180B /* CardExchange */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CardExchange;
+			sourceTree = "<group>";
+		};
+		0EBE8C122A08E43900F0180B /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
 		0ED3F6892A05079100684321 = {
 			isa = PBXGroup;
 			children = (
@@ -63,6 +140,9 @@
 		0ED3F6942A05079100684321 /* bletest */ = {
 			isa = PBXGroup;
 			children = (
+				0EBE8C0B2A08D95700F0180B /* Constants */,
+				0EBE8C0A2A08D94100F0180B /* Components */,
+				0EBE8C092A08D93300F0180B /* Views */,
 				0ED3F6A62A0513BE00684321 /* Info.plist */,
 				0ED3F6A52A05122300684321 /* bletest.entitlements */,
 				0ED3F6952A05079100684321 /* bletestApp.swift */,

@@ -77,6 +77,8 @@ struct CardDetailView: View{
                                 .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
                         }
                         Spacer().frame(height: 40)
+                        // 파란 동그라미 40 크기
+                        
                     }
                 }
                 VStack{
