@@ -16,6 +16,13 @@
 		0ED3F6982A05079100684321 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED3F6972A05079100684321 /* ContentView.swift */; };
 		0ED3F69A2A05079200684321 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ED3F6992A05079200684321 /* Assets.xcassets */; };
 		0ED3F69D2A05079200684321 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ED3F69C2A05079200684321 /* Preview Assets.xcassets */; };
+		EF13A9082A0924AB00F6A910 /* MainNameCardTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF13A9072A0924AB00F6A910 /* MainNameCardTabView.swift */; };
+		EF13A90A2A09282A00F6A910 /* MyCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF13A9092A09282A00F6A910 /* MyCardView.swift */; };
+		EF13A90C2A09296D00F6A910 /* CardCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF13A90B2A09296D00F6A910 /* CardCollectionView.swift */; };
+		EF13A9102A092AEB00F6A910 /* CardTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF13A90F2A092AEB00F6A910 /* CardTemplate.swift */; };
+		EF13A9122A09320400F6A910 /* EditCardDesignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF13A9112A09320400F6A910 /* EditCardDesignView.swift */; };
+		EF13A9142A09321000F6A910 /* EditCardInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF13A9132A09321000F6A910 /* EditCardInfoView.swift */; };
+		EF13A9162A094F3600F6A910 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF13A9152A094F3600F6A910 /* MainTabView.swift */; };
 		0EFA25A72A09381400F91BAE /* SkillSetHorizontalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFA25A62A09381400F91BAE /* SkillSetHorizontalScrollView.swift */; };
 		C36366272A0929FF00E4E9C6 /* InitailCardMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36366262A0929FF00E4E9C6 /* InitailCardMainView.swift */; };
 /* End PBXBuildFile section */
@@ -30,6 +37,13 @@
 		0ED3F69C2A05079200684321 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0ED3F6A52A05122300684321 /* bletest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = bletest.entitlements; sourceTree = "<group>"; };
 		0ED3F6A62A0513BE00684321 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EF13A9072A0924AB00F6A910 /* MainNameCardTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNameCardTabView.swift; sourceTree = "<group>"; };
+		EF13A9092A09282A00F6A910 /* MyCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCardView.swift; sourceTree = "<group>"; };
+		EF13A90B2A09296D00F6A910 /* CardCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionView.swift; sourceTree = "<group>"; };
+		EF13A90F2A092AEB00F6A910 /* CardTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTemplate.swift; sourceTree = "<group>"; };
+		EF13A9112A09320400F6A910 /* EditCardDesignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardDesignView.swift; sourceTree = "<group>"; };
+		EF13A9132A09321000F6A910 /* EditCardInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardInfoView.swift; sourceTree = "<group>"; };
+		EF13A9152A094F3600F6A910 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		0EFA25A62A09381400F91BAE /* SkillSetHorizontalScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillSetHorizontalScrollView.swift; sourceTree = "<group>"; };
 		C36366262A0929FF00E4E9C6 /* InitailCardMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitailCardMainView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,6 +117,8 @@
 		0EBE8C0F2A08E41700F0180B /* CardDetailEdit */ = {
 			isa = PBXGroup;
 			children = (
+				EF13A9112A09320400F6A910 /* EditCardDesignView.swift */,
+				EF13A9132A09321000F6A910 /* EditCardInfoView.swift */,
 			);
 			path = CardDetailEdit;
 			sourceTree = "<group>";
@@ -110,6 +126,11 @@
 		0EBE8C102A08E42700F0180B /* CardList */ = {
 			isa = PBXGroup;
 			children = (
+				EF13A9072A0924AB00F6A910 /* MainNameCardTabView.swift */,
+				EF13A9092A09282A00F6A910 /* MyCardView.swift */,
+				EF13A90B2A09296D00F6A910 /* CardCollectionView.swift */,
+				EF13A90F2A092AEB00F6A910 /* CardTemplate.swift */,
+				EF13A9152A094F3600F6A910 /* MainTabView.swift */,
 			);
 			path = CardList;
 			sourceTree = "<group>";
@@ -248,11 +269,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF13A9122A09320400F6A910 /* EditCardDesignView.swift in Sources */,
+				EF13A9082A0924AB00F6A910 /* MainNameCardTabView.swift in Sources */,
 				0EFA25A72A09381400F91BAE /* SkillSetHorizontalScrollView.swift in Sources */,
 				C36366272A0929FF00E4E9C6 /* InitailCardMainView.swift in Sources */,
 				0E1BE3AD2A079B490042EECA /* CardDetailView.swift in Sources */,
 				0ED3F6982A05079100684321 /* ContentView.swift in Sources */,
+				EF13A9102A092AEB00F6A910 /* CardTemplate.swift in Sources */,
+				EF13A90A2A09282A00F6A910 /* MyCardView.swift in Sources */,
+				EF13A90C2A09296D00F6A910 /* CardCollectionView.swift in Sources */,
+				EF13A9142A09321000F6A910 /* EditCardInfoView.swift in Sources */,
 				0ED3F6962A05079100684321 /* bletestApp.swift in Sources */,
+				EF13A9162A094F3600F6A910 /* MainTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,7 +420,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -425,7 +453,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
