@@ -13,6 +13,24 @@ struct CardDetailView: View{
     let purpleColor2: Color = Color(red: 0.749, green: 0.745, blue: 1.0)
     let textGrayColor: Color = Color(red: 137/255, green: 138/255, blue: 141/255)
     let textPinkColor: Color = Color(red: 0.96, green: 0.68, blue: 0.70)
+    // F3F3F3
+    let textBackgroundGrayColor: Color = Color(red: 0.952, green: 0.952, blue: 0.952)
+    
+    
+    
+    let introduceText: String = """
+    Sketch보다는 Figma를 선호하는 취향이 확고한
+    편이에요 :) 저는 디자인 업무를 주로 해봤기 때문
+    에 디자인 툴 활용이 익숙하지만, iOS 개발자로서
+    의 커리어를 좀 더 키우고 싶어요, UIKit은 이제 배
+    우고 있는 단계이지만, SwiftUI는 나름 능숙하게
+    다룰 수 있답니다!
+    """
+    let introduceText2: String = """
+    개발공부를 시작한지 얼마 안되기도 했고, 다른 개
+    발자와 협업해 본 적이 없어서 Git CLI가 익숙하지
+    않아요! 같이 Git 공부할 사람?
+    """
     
     @State var isHardSkillSet: Bool = true
     
@@ -29,17 +47,18 @@ struct CardDetailView: View{
                     Group {
                         backHeader()
                         Spacer().frame(height: 70)
-                        // "오후" in rounded purple rectangle
-                        Text("오후")
-                            .font(.system(size: 25, weight: .bold))
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 22)
-                            .padding(.vertical, 5.5)
-                            .background(purpleColor1)
-                            .cornerRadius(40)
-                        Text("Lianne")
-                            .font(.system(size: 40, weight: .bold))
-                            .scaleEffect(x: 1.2)
+                        VStack{
+                            Text("오후")
+                                .font(.system(size: 25, weight: .bold))
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 22)
+                                .padding(.vertical, 5.5)
+                                .background(purpleColor1)
+                                .cornerRadius(40)
+                            Text("Lianne")
+                                .font(.system(size: 40, weight: .bold))
+                                .scaleEffect(x: 1.2)
+                        }
                         Spacer().frame(height: 280)
                     }
                     Group {
@@ -65,31 +84,69 @@ struct CardDetailView: View{
                                 .foregroundColor(textPinkColor)
                                 .font(.system(size: 20.5, weight: .bold))
                         }.fixedSize(horizontal: false, vertical: true)
-                        
-                        Spacer().frame(height: 30)
-                        ScrollView(.horizontal){
-                            
-                        }
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                .fill(Color.black)
-                                .frame(width: 160, height: 220)
-                                .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
-                        }
-                        Spacer().frame(height: 40)
-                        // 파란 동그라미 40 크기
-                        
                     }
+                    
+                    SkillSetHorizontalScrollView()
+                        .padding(.leading, 20)
+                    
+                    Spacer().frame(height: 20)
+                    
+                    Text(introduceText)
+                        .font(.system(size: 16, weight: .regular))
+                        .multilineTextAlignment(.leading)
+                        .padding(.horizontal, 20)
+                        .lineSpacing(7)
+                        .padding(.vertical, 20)
+                        .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(textBackgroundGrayColor)
+                            )
+                    
+                    Spacer().frame(height: 60)
+                    VStack{
+                        Text("앞으로 이런 ")
+                            .foregroundColor(.black)
+                            .font(.system(size: 20.5, weight: .bold))
+                        + Text("스킬셋")
+                            .foregroundColor(textGrayColor)
+                            .font(.system(size: 20.5, weight: .bold))
+                        + Text("을\n")
+                            .foregroundColor(.black)
+                            .font(.system(size: 20.5, weight: .bold))
+                        + Text("키우고 싶어요!")
+                            .foregroundColor(textPinkColor)
+                            .font(.system(size: 20.5, weight: .bold))
+                    }.fixedSize(horizontal: false, vertical: true)
+                    
+                    SkillSetHorizontalScrollView()
+                        .padding(.leading, 20)
+                    
+                    Spacer().frame(height: 20)
+                    
+                    Text(introduceText2)
+                        .font(.system(size: 16, weight: .regular))
+                        .multilineTextAlignment(.leading)
+                        .padding(.horizontal, 20)
+                        .lineSpacing(7)
+                        .padding(.vertical, 20)
+                        .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(textBackgroundGrayColor)
+                            )
+                    
                 }
                 VStack{
-                    Spacer().frame(height: 300)
-                    profileCircle()
-                }
-
-                VStack {
-                    Spacer().frame(height: 95)
+                    profileCircle().padding(.top, 300)
                 }
             }
+            
+                
+            
+            
+            VStack {
+                Spacer().frame(height: 95)
+            }
+            
         }.ignoresSafeArea().frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
@@ -99,6 +156,7 @@ struct CardDetailView: View{
             configuration.label
         }
     }
+    
     
     func skillCooperationButton() -> some View {
         return Button(action: {
