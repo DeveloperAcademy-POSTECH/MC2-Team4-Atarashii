@@ -16,8 +16,6 @@ struct CardDetailView: View{
     // F3F3F3
     let textBackgroundGrayColor: Color = Color(red: 0.952, green: 0.952, blue: 0.952)
     
-    
-    
     let introduceText: String = """
     Sketch보다는 Figma를 선호하는 취향이 확고한
     편이에요 :) 저는 디자인 업무를 주로 해봤기 때문
@@ -33,6 +31,7 @@ struct CardDetailView: View{
     """
     
     @State var isHardSkillSet: Bool = true
+    @State var isHardSkillSet_Button: Bool = true
     
     var body: some View{
         ScrollView{
@@ -222,7 +221,10 @@ struct CardDetailView: View{
     
     func skillCooperationButton() -> some View {
         return Button(action: {
-            withAnimation{
+            withAnimation(.easeOut(duration: 0.3)){
+                isHardSkillSet_Button.toggle()
+            }
+            withAnimation(.easeOut(duration: 0.6)){
                 isHardSkillSet.toggle()
             }
         }, label: {
@@ -234,12 +236,12 @@ struct CardDetailView: View{
                     .fill(Color.white)
                     .frame(width: 150, height: 37)
                     .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
-                    .offset(x: isHardSkillSet ? -71 : 71)
+                    .offset(x: isHardSkillSet_Button ? -71 : 71)
                 Text("스킬")
-                    .font(.system(size: 18, weight: isHardSkillSet ? .bold : .regular))
+                    .font(.system(size: 18, weight: isHardSkillSet_Button ? .bold : .regular))
                     .offset(x: -71)
                 Text("협업")
-                    .font(.system(size: 18, weight: isHardSkillSet ? .regular : .bold))
+                    .font(.system(size: 18, weight: isHardSkillSet_Button ? .regular : .bold))
                     .offset(x: 71)
             }.frame(width: 300, height: 45)
         }).buttonStyle(buttonStyleNotOpacityChange())
