@@ -13,32 +13,41 @@ struct CardCollectionView: View {
     @State private var showingOptions = false
     @State private var selection = "None"
     
+    @State var isMine: Bool = false
+    
+    // MARK: - 타 러너의 유저 정보 dummy 인스턴스
+    let learnerInfo: UserInfo = UserInfo(id: "", nicknameKOR: "헤이즐", nicknameENG: "Hazel", isMorningSession: false, selfDescription: "올라운더 디자이너로 활약 중입니다!✨", cardColor: "mainGreen")
+    
+
     // MARK: - 슬라이드/갤러리 뷰 모드 카테고리
     enum CardViewMode: String, CaseIterable {
         case slidingMode
         case galleryMode
     }
     
+    var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
     var body: some View {
         VStack {
             HStack {
                 // MARK: - 슬라이드/갤러리 뷰 필터링 아이콘
-                Image(systemName: "slider.horizontal.3")
-                    .contextMenu {
-                        Button {
-                            // MARK: - 카드 슬라이딩 뷰로 변경
-                            viewModeSelection = .slidingMode
-                        } label: {
-                            Label("슬라이딩 모드", systemImage: "slider.horizontal.below.rectangle")
-                        }
-                        Button {
-                            // MARK: - 카드 갤러리 뷰로 변경
-                            viewModeSelection = .galleryMode
-                        } label: {
-                            Label("갤러리 모드", systemImage: "slider.horizontal.below.square.filled.and.square")
-                        }
+                Menu {
+                    Button {
+                        // MARK: - 카드 슬라이딩 뷰로 변경
+                        viewModeSelection = .slidingMode
+                    } label: {
+                        Label("슬라이딩 모드", systemImage: "slider.horizontal.below.rectangle")
                     }
+                    Button {
+                        // MARK: - 카드 갤러리 뷰로 변경
+                        viewModeSelection = .galleryMode
+                    } label: {
+                        Label("갤러리 모드", systemImage: "slider.horizontal.below.square.filled.and.square")
+                    }
+                } label: {
+                    Image(systemName: "slider.horizontal.3")
+                        .foregroundColor(.black)
+                }
                 
                 Spacer()
                 
@@ -49,26 +58,28 @@ struct CardCollectionView: View {
             }
             .padding(.vertical, 20)
             
-            
+        
             ScrollView {
                 // MARK: - 수집한 명함들로 이동하는 단일 카드 뷰 리스트
                 /// TODO: 실제 데이터 값으로 대체
                 switch viewModeSelection {
                     
-                    // 슬라이딩 뷰로 카드 리스트 그리기
-                    /// TODO: - 카드 넘겨지는 애니메이션 구현
+                // 슬라이딩 뷰로 카드 리스트 그리기
+                /// TODO: 카드 넘겨지는 애니메이션 구현
                 case .slidingMode:
                     ForEach(0...10, id:\.self) { _ in
-                        CardTemplate()
+                        CardTemplate(isMine: $isMine, userInfo: learnerInfo)
                             .padding(.bottom, 34)
                     }
                     
-                    // 갤러리 뷰로 카드 리스트 그리기
-                    /// TODO: 갤러리 뷰 구현
+                // 갤러리 뷰로 카드 리스트 그리기
                 case .galleryMode:
-                    ForEach(0...1, id:\.self) { _ in
-                        CardTemplate()
-                            .padding(.bottom, 34)
+                    LazyVGrid(columns: columns) {
+                        ForEach((0...19), id: \.self) { _ in
+                            CardTemplate(isMine: $isMine, userInfo: learnerInfo)
+                                .scaleEffect(0.5)
+                                .frame(width: 300, height: 250)
+                        }
                     }
                     
                 }
@@ -76,21 +87,21 @@ struct CardCollectionView: View {
                 let _ = print(viewModeSelection)
                 
             }
+            .scrollIndicators(.hidden)
         }
     }
     
     
-    // MARK: - 수집력 랭킹 배너 컴포넌트 메서드
+    // MARK: - 수집력 랭킹 배너 컴포넌트 (Method)
     func collectionRankingBanner() -> some View {
         /// TODO: 순위 값 데이터로 대체
         Button {
             showingOptions = true
         } label: {
-            Text("당신의 수집력은 현재 6위 🏆")
-                .padding(10)
-                .font(.system(size: 12))
-                .foregroundColor(.white)
-                .background(Color.black)
+            Text("당신의 수집력은 현재 6위! 👈")
+                .foregroundColor(.black)
+                .fontWeight(.bold)
+                .font(.system(size: 13))
                 .cornerRadius(12)
         }
         // MARK: - 수집력 랭킹 상세 내용 모달
