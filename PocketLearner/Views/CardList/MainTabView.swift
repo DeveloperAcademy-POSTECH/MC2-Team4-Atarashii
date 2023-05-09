@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainTabView: View {
+    
     var body: some View {
         TabView {
             // MARK: - 명함 탭 연결
@@ -26,6 +27,9 @@ struct MainTabView: View {
                 }
         }
     }
+    
+    
+
 }
 
 struct MainTabView_Previews: PreviewProvider {
@@ -33,3 +37,8 @@ struct MainTabView_Previews: PreviewProvider {
         MainTabView()
     }
 }
+
+
+
+
+
