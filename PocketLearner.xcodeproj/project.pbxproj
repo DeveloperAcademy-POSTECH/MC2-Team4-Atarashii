@@ -77,7 +77,6 @@
 			children = (
 				0ED6DEE02A0A1D7D009F21BC /* Constants */,
 				0ED6DEDE2A0A1D65009F21BC /* Views */,
-				0ED6DEDC2A0A1C23009F21BC /* Components */,
 				0ED6DED32A0A14C5009F21BC /* PocketLearner.entitlements */,
 				0E113BE82A0A0FA400AB2EC8 /* PocketLearnerApp.swift */,
 				0ED6DED92A0A1BDF009F21BC /* ContentView.swift */,
@@ -93,21 +92,6 @@
 				0E113BEF2A0A0FA500AB2EC8 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		0ED6DEDC2A0A1C23009F21BC /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				0ED6DEDD2A0A1C23009F21BC /* API */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		0ED6DEDD2A0A1C23009F21BC /* API */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
