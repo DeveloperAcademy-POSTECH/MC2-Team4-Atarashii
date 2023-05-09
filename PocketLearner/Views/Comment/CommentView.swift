@@ -11,6 +11,8 @@ struct CommentView: View {
     // TODO : check from db. (Was I commented)
     @State var isCommented: Bool = true
     
+    @State var showingAlert: Bool = false
+    
     let commentTextBlackColor: UIColor = #colorLiteral(red: 0.3450980186, green: 0.3450980186, blue: 0.3450980186, alpha: 1)    // #585858
     let commentBoxGrayColor: UIColor = #colorLiteral(red: 0.9647058845, green: 0.9647058845, blue: 0.9647058845, alpha: 1)      // #F6F6F6
     let dividerGrayColor: UIColor = #colorLiteral(red: 0.8509803922, green: 0.8509803922, blue: 0.8509803922, alpha: 1)         // #D9D9D9
@@ -54,10 +56,20 @@ struct CommentView: View {
                     Spacer()
                     Button(action: {
                         // TODO : to 삭제 view
+                        self.showingAlert = true
                     }){
                         Text("삭제하기")
                             .font(.system(size: 18, weight: .bold))
                             .foregroundColor(.red)
+                    }.alert(isPresented: $showingAlert) {
+                        Alert(
+                            title: Text("칭찬을 삭제할까요?"),
+                            message: Text("\n정말로 내가 남긴\n칭찬 메시지를 삭제할까요?"),
+                            primaryButton: .destructive(Text("Delete")) {
+                                // delete action
+                            },
+                            secondaryButton: .cancel()
+                        )
                     }
                     Spacer()
                 }.padding(.top, 10)
