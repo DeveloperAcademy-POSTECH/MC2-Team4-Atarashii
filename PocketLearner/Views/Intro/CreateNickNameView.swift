@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct CreateNickNameView : View {
-    
-    @State var englishName = ""
-    @State var koreanName = ""
+    @State var hasText: Bool = false
     
     var body: some View {
         VStack{
@@ -26,20 +24,8 @@ struct CreateNickNameView : View {
                     .padding(.vertical,20)
             }
             VStack {
-                TextField("영문 닉네임", text: $englishName)
-                    .padding()
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.gray, lineWidth: 1)
-                    )
-                    .frame(width: 315,height: 46)
-                TextField("한글 닉네임", text: $koreanName)
-                    .padding()
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.gray, lineWidth: 1)
-                    )
-                    .frame(width: 315,height: 46)
+                RoundedTextFieldWithButton(introText: "영문 닉네임")
+                RoundedTextFieldWithButton(introText: "한글 닉네임")
                 
                     .padding(.vertical, 12)
             }
@@ -70,5 +56,32 @@ struct CreateNickNameView_Previews: PreviewProvider {
     static var previews: some View {
         CreateNickNameView()
             .previewDevice("iPhone 14")
+    }
+}
+
+
+struct RoundedTextFieldWithButton: View {
+    @State var text = ""
+    let introText: String
+    
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(.gray)
+            HStack {
+                TextField("\(introText)", text: $text)
+                    .padding(.horizontal, 10)
+                
+                Button(action: {
+                    // Perform action here
+                }) {
+                    Image(systemName: "x.circle.fill")
+                        .foregroundColor(.gray)
+                }
+                .padding(.trailing, 10)
+            }
+            .padding(.horizontal, 10)
+        }
+        .frame(width: 315,height: 46)
     }
 }
