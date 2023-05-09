@@ -16,6 +16,11 @@
 		0ED3F6982A05079100684321 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED3F6972A05079100684321 /* ContentView.swift */; };
 		0ED3F69A2A05079200684321 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ED3F6992A05079200684321 /* Assets.xcassets */; };
 		0ED3F69D2A05079200684321 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ED3F69C2A05079200684321 /* Preview Assets.xcassets */; };
+		86414E6A2A09258A005F4D50 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86414E692A09258A005F4D50 /* IntroView.swift */; };
+		86414E6C2A092688005F4D50 /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86414E6B2A092688005F4D50 /* AppleLoginView.swift */; };
+		86414E702A09298C005F4D50 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86414E6F2A09298C005F4D50 /* AuthService.swift */; };
+		86414E722A092DF9005F4D50 /* CreateNickNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86414E712A092DF9005F4D50 /* CreateNickNameView.swift */; };
+		86414E742A093052005F4D50 /* CreateTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86414E732A093052005F4D50 /* CreateTimeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +33,11 @@
 		0ED3F69C2A05079200684321 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0ED3F6A52A05122300684321 /* bletest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = bletest.entitlements; sourceTree = "<group>"; };
 		0ED3F6A62A0513BE00684321 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		86414E692A09258A005F4D50 /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
+		86414E6B2A092688005F4D50 /* AppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginView.swift; sourceTree = "<group>"; };
+		86414E6F2A09298C005F4D50 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		86414E712A092DF9005F4D50 /* CreateNickNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNickNameView.swift; sourceTree = "<group>"; };
+		86414E732A093052005F4D50 /* CreateTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTimeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,78 +57,15 @@
 		0EBE8C092A08D93300F0180B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0EBE8C122A08E43900F0180B /* Comment */,
-				0EBE8C112A08E43000F0180B /* CardExchange */,
-				0EBE8C102A08E42700F0180B /* CardList */,
-				0EBE8C0F2A08E41700F0180B /* CardDetailEdit */,
-				0EBE8C0E2A08E40D00F0180B /* CardDetail */,
-				0EBE8C0D2A08E3F800F0180B /* Intro */,
-				0EBE8C0C2A08E3DF00F0180B /* CardGenerate */,
+				86414E632A091F9F005F4D50 /* Intro */,
+				86414E622A091F9E005F4D50 /* CardGenerate */,
+				86414E612A091F7C005F4D50 /* CardExchange */,
+				86414E602A091F79005F4D50 /* CardList */,
+				86414E5F2A091F78005F4D50 /* CardDetailEdit */,
+				86414E5E2A091F73005F4D50 /* CardDetail */,
+				86414E5C2A091F63005F4D50 /* Comment */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		0EBE8C0A2A08D94100F0180B /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		0EBE8C0B2A08D95700F0180B /* Constants */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Constants;
-			sourceTree = "<group>";
-		};
-		0EBE8C0C2A08E3DF00F0180B /* CardGenerate */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CardGenerate;
-			sourceTree = "<group>";
-		};
-		0EBE8C0D2A08E3F800F0180B /* Intro */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Intro;
-			sourceTree = "<group>";
-		};
-		0EBE8C0E2A08E40D00F0180B /* CardDetail */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CardDetail;
-			sourceTree = "<group>";
-		};
-		0EBE8C0F2A08E41700F0180B /* CardDetailEdit */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CardDetailEdit;
-			sourceTree = "<group>";
-		};
-		0EBE8C102A08E42700F0180B /* CardList */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CardList;
-			sourceTree = "<group>";
-		};
-		0EBE8C112A08E43000F0180B /* CardExchange */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CardExchange;
-			sourceTree = "<group>";
-		};
-		0EBE8C122A08E43900F0180B /* Comment */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Comment;
 			sourceTree = "<group>";
 		};
 		0ED3F6892A05079100684321 = {
@@ -140,8 +87,8 @@
 		0ED3F6942A05079100684321 /* bletest */ = {
 			isa = PBXGroup;
 			children = (
-				0EBE8C0B2A08D95700F0180B /* Constants */,
-				0EBE8C0A2A08D94100F0180B /* Components */,
+				86414E642A092014005F4D50 /* Constants */,
+				86414E5B2A091F2A005F4D50 /* Components */,
 				0EBE8C092A08D93300F0180B /* Views */,
 				0ED3F6A62A0513BE00684321 /* Info.plist */,
 				0ED3F6A52A05122300684321 /* bletest.entitlements */,
@@ -161,6 +108,82 @@
 				0ED3F69C2A05079200684321 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		86414E5B2A091F2A005F4D50 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				86414E6E2A092970005F4D50 /* API */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		86414E5C2A091F63005F4D50 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
+		86414E5E2A091F73005F4D50 /* CardDetail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CardDetail;
+			sourceTree = "<group>";
+		};
+		86414E5F2A091F78005F4D50 /* CardDetailEdit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CardDetailEdit;
+			sourceTree = "<group>";
+		};
+		86414E602A091F79005F4D50 /* CardList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CardList;
+			sourceTree = "<group>";
+		};
+		86414E612A091F7C005F4D50 /* CardExchange */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CardExchange;
+			sourceTree = "<group>";
+		};
+		86414E622A091F9E005F4D50 /* CardGenerate */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CardGenerate;
+			sourceTree = "<group>";
+		};
+		86414E632A091F9F005F4D50 /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+				86414E692A09258A005F4D50 /* IntroView.swift */,
+				86414E6B2A092688005F4D50 /* AppleLoginView.swift */,
+				86414E712A092DF9005F4D50 /* CreateNickNameView.swift */,
+				86414E732A093052005F4D50 /* CreateTimeView.swift */,
+			);
+			path = Intro;
+			sourceTree = "<group>";
+		};
+		86414E642A092014005F4D50 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		86414E6E2A092970005F4D50 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				86414E6F2A09298C005F4D50 /* AuthService.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,6 +266,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E1BE3AD2A079B490042EECA /* CardDetailView.swift in Sources */,
+				86414E722A092DF9005F4D50 /* CreateNickNameView.swift in Sources */,
+				86414E6C2A092688005F4D50 /* AppleLoginView.swift in Sources */,
+				86414E742A093052005F4D50 /* CreateTimeView.swift in Sources */,
+				86414E6A2A09258A005F4D50 /* IntroView.swift in Sources */,
+				86414E702A09298C005F4D50 /* AuthService.swift in Sources */,
 				0ED3F6982A05079100684321 /* ContentView.swift in Sources */,
 				0ED3F6962A05079100684321 /* bletestApp.swift in Sources */,
 			);
@@ -374,7 +402,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"bletest/Preview Content\"";
-				DEVELOPMENT_TEAM = PAQ92DM7XD;
+				DEVELOPMENT_TEAM = M75X2R2UVV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = bletest/Info.plist;
@@ -407,7 +435,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"bletest/Preview Content\"";
-				DEVELOPMENT_TEAM = PAQ92DM7XD;
+				DEVELOPMENT_TEAM = M75X2R2UVV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = bletest/Info.plist;
