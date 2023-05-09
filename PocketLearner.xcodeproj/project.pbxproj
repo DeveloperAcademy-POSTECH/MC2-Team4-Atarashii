@@ -11,6 +11,7 @@
 		0E113BED2A0A0FA500AB2EC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E113BEC2A0A0FA500AB2EC8 /* Assets.xcassets */; };
 		0E113BF02A0A0FA500AB2EC8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E113BEF2A0A0FA500AB2EC8 /* Preview Assets.xcassets */; };
 		0E6DB2AF2A0A1EE700F6C8DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E6DB2AE2A0A1EE700F6C8DC /* GoogleService-Info.plist */; };
+		0E6DB2B42A0A1F7300F6C8DC /* Components in Resources */ = {isa = PBXBuildFile; fileRef = 0E6DB2B32A0A1F7300F6C8DC /* Components */; };
 		0ED6DEC12A0A139E009F21BC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED6DEC02A0A139E009F21BC /* FirebaseAuth */; };
 		0ED6DEC32A0A139E009F21BC /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED6DEC22A0A139E009F21BC /* FirebaseAuthCombine-Community */; };
 		0ED6DEC52A0A139E009F21BC /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED6DEC42A0A139E009F21BC /* FirebaseDatabase */; };
@@ -30,6 +31,7 @@
 		0E113BEC2A0A0FA500AB2EC8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0E113BEF2A0A0FA500AB2EC8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0E6DB2AE2A0A1EE700F6C8DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0E6DB2B32A0A1F7300F6C8DC /* Components */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Components; sourceTree = "<group>"; };
 		0ED6DED32A0A14C5009F21BC /* PocketLearner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PocketLearner.entitlements; sourceTree = "<group>"; };
 		0ED6DED92A0A1BDF009F21BC /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0ED6DEDE2A0A1D65009F21BC /* Views */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Views; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 		0E113BE72A0A0FA400AB2EC8 /* PocketLearner */ = {
 			isa = PBXGroup;
 			children = (
+				0E6DB2B32A0A1F7300F6C8DC /* Components */,
 				0ED6DEE02A0A1D7D009F21BC /* Constants */,
 				0ED6DEDE2A0A1D65009F21BC /* Views */,
 				0ED6DED32A0A14C5009F21BC /* PocketLearner.entitlements */,
@@ -167,6 +170,7 @@
 			files = (
 				0E113BF02A0A0FA500AB2EC8 /* Preview Assets.xcassets in Resources */,
 				0E113BED2A0A0FA500AB2EC8 /* Assets.xcassets in Resources */,
+				0E6DB2B42A0A1F7300F6C8DC /* Components in Resources */,
 				0E6DB2AF2A0A1EE700F6C8DC /* GoogleService-Info.plist in Resources */,
 				0ED6DEE12A0A1D7D009F21BC /* Constants in Resources */,
 				0ED6DEDF2A0A1D65009F21BC /* Views in Resources */,
