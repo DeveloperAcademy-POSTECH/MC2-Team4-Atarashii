@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CardGenerateViewHeader: View {
-    let unActivatedGray = #colorLiteral(red: 0.7506795526, green: 0.7506795526, blue: 0.7506795526, alpha: 1)
     @State var activatedCircleNumber: Int = 1
     @State var headerTitleMessage: String = "나를 소개하는\n한문장을 적어주세요!"
     @State var isHeaderDescriptionVisible: Bool = false

@@ -10,14 +10,11 @@ import SwiftUI
 
 /// 회색 둥근 테두리가 추가된, 글자 제한이 있는 TextField를 추가
 /// - Parameters:
-///   - placeholder: TextField에 들어갈 placeholder. String.
-///   - commentText: TextField의 입력값으로 사용할 variable. Binding<String>.
-///   - letterLimit: 글자 수 제한의 글자수. Int.
+///   - placeholder: TextField에 들어갈 placeholder.
+///   - commentText: TextField의 입력값으로 사용할 variable.
+///   - letterLimit: 글자 수 제한의 글자수.
 /// - Returns: VStack을 return. (TextField View)
 func letterLimitTextField(placeholder: String, commentText: Binding<String>, letterLimit: Int) -> some View {
-    let textGrayColor: UIColor = #colorLiteral(red: 0.6666666667, green: 0.6666666667, blue: 0.6666666667, alpha: 1)
-    let borderGrayColor: UIColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)
-    
     return VStack {
         TextField(placeholder, text: commentText, axis: .vertical)
             .lineLimit(Int(letterLimit/20), reservesSpace: true)
