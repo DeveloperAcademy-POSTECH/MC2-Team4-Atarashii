@@ -20,7 +20,7 @@ struct EditCardInfoView: View {
             
             VStack {
                 Text("스킬관련 🛠️")
-                    .foregroundColor(.gray)
+                    .foregroundColor(hexStringToColor(hexString: "#979797"))
                     .bold()
                     .font(.system(size: 24))
                     .frame(maxWidth: .infinity,alignment: .leading)
@@ -103,7 +103,7 @@ struct EditCardInfoView: View {
             VStack {
                 Text("협업 관련 👥")
                     .padding()
-                    .foregroundColor(.gray)
+                    .foregroundColor(hexStringToColor(hexString: "#979797"))
                     .bold()
                     .font(.system(size: 24))
                     .frame(maxWidth: .infinity,alignment: .leading)
@@ -122,9 +122,9 @@ struct EditCardInfoView: View {
                         Button("Expressive", action: placeOrder)
                     }, label: {
                         Text("Driver")
-                            .foregroundColor(.gray)
+                            .foregroundColor(hexStringToColor(hexString: "#979797"))
                         Image(systemName: "chevron.up.chevron.down")
-                            .foregroundColor(.gray)
+                            .foregroundColor(hexStringToColor(hexString: "#979797"))
                     })
                        
                     Spacer()
@@ -142,7 +142,7 @@ struct EditCardInfoView: View {
                     Spacer()
                     ZStack {
                         Text("(3개 선택)")
-                            .foregroundColor(.gray)
+                            .foregroundColor(hexStringToColor(hexString: "#979797"))
                             .padding(.trailing,157)
                         Button {
                             
@@ -150,17 +150,17 @@ struct EditCardInfoView: View {
                             VStack(alignment: .leading){
                                 Text("공감능력")
                                     .font(.system(size: 15))
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(hexStringToColor(hexString: "#979797"))
                                 Text("감성지능")
                                     .foregroundColor(.gray)
                                     .font(.system(size: 15))
                                 Text("유연한사고")
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(hexStringToColor(hexString: "#979797"))
                                     .font(.system(size: 15))
                             }
                             Image(systemName: "chevron.forward")
                                 .padding(.top,-27)
-                                .foregroundColor(.gray)
+                                .foregroundColor(hexStringToColor(hexString: "#979797"))
                         }
                         .padding(.trailing,12)
                         .padding(.leading,130)
@@ -184,7 +184,7 @@ struct EditCardInfoView: View {
                 //
             } label: {
                 Image(systemName: "x.circle.fill")
-                    .foregroundColor(.gray)
+                    .foregroundColor(hexStringToColor(hexString: "#979797"))
             }
             .padding(.trailing,40)
             .frame(minWidth: 14,minHeight: 14)
@@ -245,7 +245,7 @@ struct ProfilePictureView: View {
                 Image(systemName: "pencil.circle.fill")
                     .resizable()
                     .frame(width: 30,height: 30)
-                    .foregroundColor(Color.orange)
+                    .foregroundColor(hexStringToColor(hexString: "#FFA04B"))
             }
             .padding(.top,-50)
             .padding(.leading,130)
@@ -277,7 +277,7 @@ struct CharacterCountTextField: View {
                 .frame(maxWidth: .infinity,minHeight: height)
                 .background(
                     RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color.gray, lineWidth: 2)
+                        .stroke(hexStringToColor(hexString: "#D8D8D8"), lineWidth: 2)
                 )
                 .overlay(
                     VStack {
