@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CardGenerateTextEditorView: View {
-    let disabledNextButtonColor = #colorLiteral(red: 0.8797428608, green: 0.8797428012, blue: 0.8797428608, alpha: 1)
+    
     @State var inputText : String = ""
     @State var activatedCircleNumber: Int = 1
     @State var headerTitleMessage: String = "나를 소개하는\n한문장을 적어주세요!"
@@ -63,6 +63,6 @@ struct CardGenerateTextEditorView: View {
 
 struct CardGenerateTextEditorView_Previews: PreviewProvider {
     static var previews: some View {
-        CardGenerateTextEditorView()
+        CardGenerateTextEditorView().previewDevice("iPhone 14")
     }
 }

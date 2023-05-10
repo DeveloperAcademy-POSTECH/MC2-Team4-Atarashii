@@ -41,6 +41,10 @@
 		0ED6DEDA2A0A1BDF009F21BC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6DED92A0A1BDF009F21BC /* ContentView.swift */; };
 		8641EF2E2A0A80EC00B05FC4 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8641EF2D2A0A80EC00B05FC4 /* ImagePicker.swift */; };
 		8641EF322A0B762100B05FC4 /* hexStringToColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8641EF312A0B762100B05FC4 /* hexStringToColor.swift */; };
+		C32FEA702A0BB2C200CE0663 /* SelectRoleGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32FEA6F2A0BB2C200CE0663 /* SelectRoleGoalView.swift */; };
+		C32FEA7A2A0BE4A800CE0663 /* GoalOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32FEA792A0BE4A800CE0663 /* GoalOption.swift */; };
+		C32FEA7E2A0BE59900CE0663 /* GoalPickerMenuList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32FEA7D2A0BE59900CE0663 /* GoalPickerMenuList.swift */; };
+		C32FEA802A0C097900CE0663 /* RoleGoalInputSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32FEA7F2A0C097900CE0663 /* RoleGoalInputSheetView.swift */; };
 		C36366292A0A31B400E4E9C6 /* CardGenerateViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36366282A0A31B400E4E9C6 /* CardGenerateViewHeader.swift */; };
 		C363662B2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C363662A2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift */; };
 /* End PBXBuildFile section */
@@ -74,6 +78,10 @@
 		0ED6DED92A0A1BDF009F21BC /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8641EF2D2A0A80EC00B05FC4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		8641EF312A0B762100B05FC4 /* hexStringToColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hexStringToColor.swift; sourceTree = "<group>"; };
+		C32FEA6F2A0BB2C200CE0663 /* SelectRoleGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRoleGoalView.swift; sourceTree = "<group>"; };
+		C32FEA792A0BE4A800CE0663 /* GoalOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalOption.swift; sourceTree = "<group>"; };
+		C32FEA7D2A0BE59900CE0663 /* GoalPickerMenuList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPickerMenuList.swift; sourceTree = "<group>"; };
+		C32FEA7F2A0C097900CE0663 /* RoleGoalInputSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleGoalInputSheetView.swift; sourceTree = "<group>"; };
 		C36366282A0A31B400E4E9C6 /* CardGenerateViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGenerateViewHeader.swift; sourceTree = "<group>"; };
 		C363662A2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGenerateTextEditorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -142,11 +150,8 @@
 			children = (
 				0E6DB2BB2A0A297B00F6C8DC /* API */,
 				8641EF2D2A0A80EC00B05FC4 /* ImagePicker.swift */,
-
 				8641EF312A0B762100B05FC4 /* hexStringToColor.swift */,
-
 				0E3742722A0B618400647F0E /* Components.swift */,
-
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -212,6 +217,10 @@
 				0E6DB2CC2A0A29F000F6C8DC /* InitailCardMainView.swift */,
 				C36366282A0A31B400E4E9C6 /* CardGenerateViewHeader.swift */,
 				C363662A2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift */,
+				C32FEA6F2A0BB2C200CE0663 /* SelectRoleGoalView.swift */,
+				C32FEA792A0BE4A800CE0663 /* GoalOption.swift */,
+				C32FEA7D2A0BE59900CE0663 /* GoalPickerMenuList.swift */,
+				C32FEA7F2A0C097900CE0663 /* RoleGoalInputSheetView.swift */,
 			);
 			path = CardGenerate;
 			sourceTree = "<group>";
@@ -334,6 +343,7 @@
 			files = (
 				0E6DB2E42A0A305C00F6C8DC /* CommentView.swift in Sources */,
 				0E3742732A0B618400647F0E /* Components.swift in Sources */,
+				C32FEA7A2A0BE4A800CE0663 /* GoalOption.swift in Sources */,
 				0E6DB2DF2A0A2A1C00F6C8DC /* CreateNickNameView.swift in Sources */,
 				0E6DB2CD2A0A29F000F6C8DC /* InitailCardMainView.swift in Sources */,
 				C36366292A0A31B400E4E9C6 /* CardGenerateViewHeader.swift in Sources */,
@@ -348,13 +358,16 @@
 				0E6DB2D62A0A2A0000F6C8DC /* MainTabView.swift in Sources */,
 				0E3742752A0B69B200647F0E /* Colors.swift in Sources */,
 				0E6DB2D72A0A2A0000F6C8DC /* MyCardView.swift in Sources */,
+				C32FEA7E2A0BE59900CE0663 /* GoalPickerMenuList.swift in Sources */,
 				0E113BE92A0A0FA400AB2EC8 /* PocketLearnerApp.swift in Sources */,
 				0E6DB2D52A0A2A0000F6C8DC /* CardCollectionView.swift in Sources */,
 				0E6DB2D82A0A2A0000F6C8DC /* CardTemplate.swift in Sources */,
 				0E6DB2E22A0A2A1C00F6C8DC /* IntroView.swift in Sources */,
 				0E6DB2C32A0A29C500F6C8DC /* CardDetailView.swift in Sources */,
+				C32FEA702A0BB2C200CE0663 /* SelectRoleGoalView.swift in Sources */,
 				0E6B30332A0A4BB100521DE2 /* CommentCreateView.swift in Sources */,
 				0E6DB2C42A0A29C500F6C8DC /* SkillSetHorizontalScrollView.swift in Sources */,
+				C32FEA802A0C097900CE0663 /* RoleGoalInputSheetView.swift in Sources */,
 				0E6DB2C92A0A29D700F6C8DC /* EditCardInfoView.swift in Sources */,
 				8641EF322A0B762100B05FC4 /* hexStringToColor.swift in Sources */,
 			);
