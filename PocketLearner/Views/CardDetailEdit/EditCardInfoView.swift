@@ -284,8 +284,7 @@ struct CharacterCountTextField: View {
                         if text.isEmpty {
                             Text(placeholder)
                                 .foregroundColor(Color(UIColor.placeholderText))
-                                .padding(.bottom, 30)
-                                .padding(.trailing,50)
+                                .padding()
                         }
                     }
                 )
