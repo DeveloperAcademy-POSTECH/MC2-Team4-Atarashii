@@ -95,18 +95,17 @@ struct CardFront: View {
                     Spacer()
                     
                     /// isMine을 통해 내 명함, 타 러너의 명함을 구분
-                    /// 내 명함일 경우:
                     if isMine {
-                        // MARK: - 편집 기능이 담긴 More Action 아이콘
+                        // MARK: - (내 명함일 경우) 편집 기능이 담긴 More Action 아이콘
                         Menu {
                             Button {
-                                // MARK: - 카드 커스텀 뷰로 이동
+                                /// 카드 커스텀 뷰로 이동
                                 EditCardDesignView()
                             } label: {
                                 Label("카드 커스텀", systemImage: "paintpalette")
                             }
                             Button {
-                                // MARK: - 카드 내용 수정 뷰로 이동
+                                /// 카드 내용 수정 뷰로 이동
                                 EditCardInfoView()
                             } label: {
                                 Label("명함 내용 수정", systemImage: "pencil")
@@ -117,7 +116,7 @@ struct CardFront: View {
                                 .font(.system(size: 20))
                         }
                     } else {
-                        /// 타인의 명함일 경우:
+                        // MARK: - (타인의 명함일 경우) 즐겨찾기 아이콘
                         Button {
                             isLiked.toggle()
                             /// TODO: 해당 유저 데이터를 Update 하는 로직
@@ -161,8 +160,15 @@ struct CardFront: View {
             Spacer()
             
             HStack {
-                
-                /// TODO: 큐알 삽입
+                // MARK: - (내 명함일 경우) 카드 앞면에 큐알코드
+                /// TODO: 큐알 로직 연결
+                if isMine {
+                    Image("qrExample")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60)
+                        .blendMode(.darken)
+                }
                 
                 Spacer()
                 // MARK: - 미모지 아바타 이미지
@@ -239,6 +245,6 @@ struct CardBack: View {
 
 struct CardTemplate_Previews: PreviewProvider {
     static var previews: some View {
-        CardTemplate(isMine: .constant(false), userInfo: UserInfo(id: "", nicknameKOR: "헤이즐", nicknameENG: "Hazel", isMorningSession: false, selfDescription: "올라운더 디자이너로 활약 중입니다!✨", cardColor: "mainGreen"))
+        CardTemplate(isMine: .constant(true), userInfo: UserInfo(id: "", nicknameKOR: "헤이즐", nicknameENG: "Hazel", isMorningSession: false, selfDescription: "올라운더 디자이너로 활약 중입니다!✨", cardColor: "mainGreen"))
     }
 }
