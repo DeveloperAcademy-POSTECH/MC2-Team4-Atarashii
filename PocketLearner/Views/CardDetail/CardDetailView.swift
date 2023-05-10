@@ -9,13 +9,6 @@ import Foundation
 import SwiftUI
 
 struct CardDetailView: View{
-    let purpleColor1: Color = Color(red: 177/255, green: 140/255, blue: 254/255)
-    let purpleColor2: Color = Color(red: 0.749, green: 0.745, blue: 1.0)
-    let textGrayColor: Color = Color(red: 137/255, green: 138/255, blue: 141/255)
-    let textPinkColor: Color = Color(red: 0.96, green: 0.68, blue: 0.70)
-    // F3F3F3
-    let textBackgroundGrayColor: Color = Color(red: 0.952, green: 0.952, blue: 0.952)
-    
     let introduceText: String = """
     Sketch보다는 Figma를 선호하는 취향이 확고한
     편이에요 :) 저는 디자인 업무를 주로 해봤기 때문
@@ -75,7 +68,7 @@ struct CardDetailView: View{
                                 .foregroundColor(.black)
                                 .font(.system(size: 20.5, weight: .bold))
                             + Text("스킬셋")
-                                .foregroundColor(textGrayColor)
+                                .foregroundColor(textGrayColor2)
                                 .font(.system(size: 20.5, weight: .bold))
                             + Text("을\n")
                                 .foregroundColor(.black)
@@ -108,7 +101,7 @@ struct CardDetailView: View{
                                 .foregroundColor(.black)
                                 .font(.system(size: 20.5, weight: .bold))
                             + Text("스킬셋")
-                                .foregroundColor(textGrayColor)
+                                .foregroundColor(textGrayColor2)
                                 .font(.system(size: 20.5, weight: .bold))
                             + Text("을\n")
                                 .foregroundColor(.black)

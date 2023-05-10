@@ -12,10 +12,7 @@ struct CommentCreateView: View {
     let isEditing:Bool = true
     
     let placeholder: String = "이 러너와의 협업 경험을 통해 알게 된 장점을 칭찬해주세요 :)"
-    let borderGrayColor: UIColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)
-    let textGrayColor: UIColor = #colorLiteral(red: 0.6666666667, green: 0.6666666667, blue: 0.6666666667, alpha: 1)
-    let buttonDisabledGrayColor: UIColor = #colorLiteral(red: 0.8823529412, green: 0.8862745098, blue: 0.8862745098, alpha: 1)  // #E1E2E2
-    let buttonEditAbledPinkColor: UIColor = #colorLiteral(red: 0.9568627451, green: 0.6784313725, blue: 0.7019607843, alpha: 1) // #F4ADB3
+
     @State var commentText: String = ""
     
     var body: some View {

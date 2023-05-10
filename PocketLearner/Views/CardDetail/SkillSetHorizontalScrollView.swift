@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct SkillSetHorizontalScrollView: View {
-    let gaugeGrayColor: Color = Color(red: 250/255, green: 250/255, blue: 250/255)
-    let radiusGrayColor: Color = Color(red: 0.6, green: 0.6, blue: 0.6)
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false){
