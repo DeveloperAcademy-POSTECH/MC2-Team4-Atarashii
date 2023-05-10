@@ -5,7 +5,7 @@
 //  Created by 주환 on 2023/05/10.
 //
 
-import Foundation
+import SwiftUI
 
 func hexStringToColor(hexString: String) -> Color {
     var colorString: String = hexString.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
@@ -27,4 +27,3 @@ func hexStringToColor(hexString: String) -> Color {
     
     return Color(red: red, green: green, blue: blue)
 }
-
