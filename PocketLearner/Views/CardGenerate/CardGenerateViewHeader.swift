@@ -14,13 +14,13 @@ struct CardGenerateViewHeader: View {
     @State var headerDescriptionMessage: String = "우리 모두는 주어진 예시 외에도, 다양한 스킬을 가지고 있을 수 있어요.\n원하는 보기가 없다면 당신만의 스킬 키워드를 직접 입력해주세요!"
     
     var body: some View {
-        HStack{
+        HStack {
             VStack(alignment: .leading, spacing: 17) {
                 // Circles
                 HStack {
                     
                     HStack{ // activated Circle Hstack
-                        ForEach(0..<activatedCircleNumber) { number in
+                        ForEach(0..<activatedCircleNumber) { _ in
                             Circle()
                                 .fill(Color.black)
                                 .frame(width: 8, height: 8)
@@ -28,7 +28,7 @@ struct CardGenerateViewHeader: View {
                     }
                     
                     HStack{ // activated Circle Hstack
-                        ForEach(0..<9 - activatedCircleNumber) { number in
+                        ForEach(0..<6 - activatedCircleNumber) { _ in
                             Circle()
                                 .fill(Color(unActivatedGray))
                                 .frame(width: 8, height: 8)
@@ -45,7 +45,7 @@ struct CardGenerateViewHeader: View {
                         .font(.system(size: 11.5, weight: .light))
                 }
                 
-                Spacer()
+                
                 
             }
             .padding(.leading, 37)
