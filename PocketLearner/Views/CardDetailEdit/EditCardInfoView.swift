@@ -9,6 +9,7 @@ import SwiftUI
 import Photos
 
 struct EditCardInfoView: View {
+    @State var collaborationTypes:String = "Driver"
     
     var body: some View {
         ScrollView(.vertical) {
@@ -116,12 +117,12 @@ struct EditCardInfoView: View {
                         .frame(minWidth: 130,alignment: .leading)
                     
                     Menu(content: {
-                        Button("Driver", action: placeOrder)
-                        Button("Analytical", action: placeOrder)
-                        Button("Amiable", action: placeOrder)
-                        Button("Expressive", action: placeOrder)
+                        Button("Driver", action: handleDriverSet)
+                        Button("Analytical", action: handleAnalyticalSet)
+                        Button("Amiable", action: handleAmiableSet)
+                        Button("Expressive", action: handleExpressiveSet)
                     }, label: {
-                        Text("Driver")
+                        Text("\(collaborationTypes)")
                             .foregroundColor(hexStringToColor(hexString: "#979797"))
                         Image(systemName: "chevron.up.chevron.down")
                             .foregroundColor(hexStringToColor(hexString: "#979797"))
@@ -196,7 +197,18 @@ struct EditCardInfoView: View {
         }
         
     }
-    func placeOrder() {}
+    func handleDriverSet() {
+        self.collaborationTypes = "Driver"
+    }
+    func handleAnalyticalSet() {
+        self.collaborationTypes = "Analytical"
+    }
+    func handleAmiableSet() {
+        self.collaborationTypes = "Amiable"
+    }
+    func handleExpressiveSet() {
+        self.collaborationTypes = "Expressive"
+    }
     
 }
 
