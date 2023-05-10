@@ -10,6 +10,8 @@
 		0E113BE92A0A0FA400AB2EC8 /* PocketLearnerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E113BE82A0A0FA400AB2EC8 /* PocketLearnerApp.swift */; };
 		0E113BED2A0A0FA500AB2EC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E113BEC2A0A0FA500AB2EC8 /* Assets.xcassets */; };
 		0E113BF02A0A0FA500AB2EC8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E113BEF2A0A0FA500AB2EC8 /* Preview Assets.xcassets */; };
+		0E3742732A0B618400647F0E /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3742722A0B618400647F0E /* Components.swift */; };
+		0E3742752A0B69B200647F0E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3742742A0B69B200647F0E /* Colors.swift */; };
 		0E6B30332A0A4BB100521DE2 /* CommentCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B30322A0A4BB100521DE2 /* CommentCreateView.swift */; };
 		0E6DB2AF2A0A1EE700F6C8DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E6DB2AE2A0A1EE700F6C8DC /* GoogleService-Info.plist */; };
 		0E6DB2BD2A0A298100F6C8DC /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DB2BC2A0A298100F6C8DC /* AuthService.swift */; };
@@ -40,6 +42,7 @@
 		8641EF2E2A0A80EC00B05FC4 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8641EF2D2A0A80EC00B05FC4 /* ImagePicker.swift */; };
 		8641EF322A0B762100B05FC4 /* hexStringToColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8641EF312A0B762100B05FC4 /* hexStringToColor.swift */; };
 		C36366292A0A31B400E4E9C6 /* CardGenerateViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36366282A0A31B400E4E9C6 /* CardGenerateViewHeader.swift */; };
+		C363662B2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C363662A2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +50,8 @@
 		0E113BE82A0A0FA400AB2EC8 /* PocketLearnerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketLearnerApp.swift; sourceTree = "<group>"; };
 		0E113BEC2A0A0FA500AB2EC8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0E113BEF2A0A0FA500AB2EC8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0E3742722A0B618400647F0E /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		0E3742742A0B69B200647F0E /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0E6B30322A0A4BB100521DE2 /* CommentCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCreateView.swift; sourceTree = "<group>"; };
 		0E6DB2AE2A0A1EE700F6C8DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0E6DB2BC2A0A298100F6C8DC /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -70,6 +75,7 @@
 		8641EF2D2A0A80EC00B05FC4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		8641EF312A0B762100B05FC4 /* hexStringToColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hexStringToColor.swift; sourceTree = "<group>"; };
 		C36366282A0A31B400E4E9C6 /* CardGenerateViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGenerateViewHeader.swift; sourceTree = "<group>"; };
+		C363662A2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGenerateTextEditorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,7 +142,11 @@
 			children = (
 				0E6DB2BB2A0A297B00F6C8DC /* API */,
 				8641EF2D2A0A80EC00B05FC4 /* ImagePicker.swift */,
+
 				8641EF312A0B762100B05FC4 /* hexStringToColor.swift */,
+
+				0E3742722A0B618400647F0E /* Components.swift */,
+
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -152,6 +162,7 @@
 		0E6DB2BE2A0A298C00F6C8DC /* Constants */ = {
 			isa = PBXGroup;
 			children = (
+				0E3742742A0B69B200647F0E /* Colors.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -200,6 +211,7 @@
 			children = (
 				0E6DB2CC2A0A29F000F6C8DC /* InitailCardMainView.swift */,
 				C36366282A0A31B400E4E9C6 /* CardGenerateViewHeader.swift */,
+				C363662A2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift */,
 			);
 			path = CardGenerate;
 			sourceTree = "<group>";
@@ -321,10 +333,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E6DB2E42A0A305C00F6C8DC /* CommentView.swift in Sources */,
+				0E3742732A0B618400647F0E /* Components.swift in Sources */,
 				0E6DB2DF2A0A2A1C00F6C8DC /* CreateNickNameView.swift in Sources */,
 				0E6DB2CD2A0A29F000F6C8DC /* InitailCardMainView.swift in Sources */,
 				C36366292A0A31B400E4E9C6 /* CardGenerateViewHeader.swift in Sources */,
 				0E6DB2D42A0A2A0000F6C8DC /* MainNameCardTabView.swift in Sources */,
+				C363662B2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift in Sources */,
 				0E6DB2BD2A0A298100F6C8DC /* AuthService.swift in Sources */,
 				0ED6DEDA2A0A1BDF009F21BC /* ContentView.swift in Sources */,
 				0E6DB2E12A0A2A1C00F6C8DC /* AppleLoginView.swift in Sources */,
@@ -332,6 +346,7 @@
 				0E6DB2E02A0A2A1C00F6C8DC /* CreateTimeView.swift in Sources */,
 				0E6DB2C82A0A29D700F6C8DC /* EditCardDesignView.swift in Sources */,
 				0E6DB2D62A0A2A0000F6C8DC /* MainTabView.swift in Sources */,
+				0E3742752A0B69B200647F0E /* Colors.swift in Sources */,
 				0E6DB2D72A0A2A0000F6C8DC /* MyCardView.swift in Sources */,
 				0E113BE92A0A0FA400AB2EC8 /* PocketLearnerApp.swift in Sources */,
 				0E6DB2D52A0A2A0000F6C8DC /* CardCollectionView.swift in Sources */,
