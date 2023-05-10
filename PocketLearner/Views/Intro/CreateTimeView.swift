@@ -61,6 +61,7 @@ struct CreateTimeBtn: View {
             VStack{
                 Image(systemName: isSelected ? "clock": "clock.fill")
                     .resizable()
+//                    .rotationEffect(timeText == "오후" ? Angle(degrees: 90): Angle(degrees: 0))
                     .renderingMode(.original)
                     .frame(width: 63,height: 63)
                 Text("\(timeText) 세션")
