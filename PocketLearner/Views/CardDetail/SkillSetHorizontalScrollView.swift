@@ -12,16 +12,15 @@ struct SkillSetHorizontalScrollView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false){
             HStack{
-                skillCard()
-                skillCard()
-                skillCard()
-                skillCard()
-                skillCard()
+                ForEach(Array(["Figma", "GitHub", "SwiftUI", "Combine", "RxSwift"].enumerated()), id: \.element) { (index, skillName) in
+                    skillCard(skillName: skillName)
+                        .padding(.leading, index == 0 ? 20 : 0)
+                }
             }
         }
     }
     
-    func skillCard() -> some View {
+    func skillCard(skillName: String) -> some View {
         return ZStack{
             RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .fill(Color.white)
@@ -38,7 +37,7 @@ struct SkillSetHorizontalScrollView: View {
                     .background(Color.white)
                     .clipShape(Circle())
                     .overlay(Circle().stroke(Color.black, lineWidth: 1))
-                Text("Figma")
+                Text("\(skillName)")
                     .font(.system(size: 20, weight: .bold))
                     .foregroundColor(.black)
                     .padding(.vertical, 3)

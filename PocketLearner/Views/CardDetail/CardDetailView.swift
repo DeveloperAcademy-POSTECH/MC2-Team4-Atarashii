@@ -63,69 +63,15 @@ struct CardDetailView: View{
                         Spacer().frame(height: 60)
                     }
                     if isHardSkillSet{
-                        VStack{
-                            Text("현재 이런 ")
-                                .foregroundColor(.black)
-                                .font(.system(size: 20.5, weight: .bold))
-                            + Text("스킬셋")
-                                .foregroundColor(textGrayColor2)
-                                .font(.system(size: 20.5, weight: .bold))
-                            + Text("을\n")
-                                .foregroundColor(.black)
-                                .font(.system(size: 20.5, weight: .bold))
-                            + Text("활용할 수 있어요!")
-                                .foregroundColor(textPinkColor)
-                                .font(.system(size: 20.5, weight: .bold))
-                        }.fixedSize(horizontal: false, vertical: true)
-                        
-                        
+                        textMultipleColor_CanSkillSet(text1: "현재 이런 ", text2: "스킬셋", text3: "을", text4: "활용할 수 있어요!")
                         SkillSetHorizontalScrollView()
-                            .padding(.leading, 20)
-                        
                         Spacer().frame(height: 20)
-                        
-                        Text(introduceText)
-                            .font(.system(size: 16, weight: .regular))
-                            .multilineTextAlignment(.leading)
-                            .padding(.horizontal, 20)
-                            .lineSpacing(7)
-                            .padding(.vertical, 20)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(textBackgroundGrayColor)
-                            )
-                        
+                        grayBackgroundIntroduceTextBox(introduceText: introduceText)
                         Spacer().frame(height: 60)
-                        VStack{
-                            Text("앞으로 이런 ")
-                                .foregroundColor(.black)
-                                .font(.system(size: 20.5, weight: .bold))
-                            + Text("스킬셋")
-                                .foregroundColor(textGrayColor2)
-                                .font(.system(size: 20.5, weight: .bold))
-                            + Text("을\n")
-                                .foregroundColor(.black)
-                                .font(.system(size: 20.5, weight: .bold))
-                            + Text("키우고 싶어요!")
-                                .foregroundColor(textPinkColor)
-                                .font(.system(size: 20.5, weight: .bold))
-                        }.fixedSize(horizontal: false, vertical: true)
-                        
+                        textMultipleColor_CanSkillSet(text1: "앞으로 이런 ", text2: "스킬셋", text3: "을", text4: "키우고 싶어요!")
                         SkillSetHorizontalScrollView()
-                            .padding(.leading, 20)
-                        
                         Spacer().frame(height: 20)
-                        
-                        Text(introduceText2)
-                            .font(.system(size: 16, weight: .regular))
-                            .multilineTextAlignment(.leading)
-                            .padding(.horizontal, 20)
-                            .lineSpacing(7)
-                            .padding(.vertical, 20)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(textBackgroundGrayColor)
-                            )
+                        grayBackgroundIntroduceTextBox(introduceText: introduceText2)
                     }
                     else {
                         Text("제 커뮤니케이션 타입은")
@@ -158,39 +104,20 @@ struct CardDetailView: View{
                             .padding(.top, 70)
                             .padding(.bottom, 30)
                         HStack{
-                            ZStack {
-                                Circle()
-                                    .stroke(Color.purple, lineWidth: 3)
-                                    .frame(width: 100, height: 100)
-                                Text("갈등중재")
-                                    .font(.system(size: 20, weight: .bold))
-                            }.padding(.horizontal, 10)
-                            ZStack {
-                                Circle()
-                                    .stroke(Color.blue, lineWidth: 3)
-                                    .frame(width: 100, height: 100)
-                                Text("갈등중재")
-                                    .font(.system(size: 20, weight: .bold))
-                            }.padding(.horizontal, 10)
-                            ZStack {
-                                Circle()
-                                    .stroke(Color.red, lineWidth: 3)
-                                    .frame(width: 100, height: 100)
-                                Text("갈등중재")
-                                    .font(.system(size: 20, weight: .bold))
-                            }.padding(.horizontal, 10)
+                            let skills = [("갈등중재", Color.purple), ("갈등중재", Color.blue), ("갈등중재", Color.red)]
+                            
+                            ForEach(skills.indices) { index in
+                                let skill = skills[index]
+                                ZStack {
+                                    Circle()
+                                        .stroke(skill.1, lineWidth: 3)
+                                        .frame(width: 100, height: 100)
+                                    Text(skill.0)
+                                        .font(.system(size: 20, weight: .bold))
+                                }.padding(.horizontal, 10)
+                            }
                         }.padding(.bottom, 50)
-                        Text(introduceText)
-                            .font(.system(size: 16, weight: .regular))
-                            .multilineTextAlignment(.leading)
-                            .padding(.horizontal, 20)
-                            .lineSpacing(7)
-                            .padding(.vertical, 20)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(textBackgroundGrayColor)
-                            )
-
+                        grayBackgroundIntroduceTextBox(introduceText: introduceText)
                     }
                 }
                 VStack{
@@ -202,6 +129,38 @@ struct CardDetailView: View{
             }
             
         }.ignoresSafeArea().frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+    
+    
+    
+    func grayBackgroundIntroduceTextBox(introduceText: String) -> some View{
+        Text(introduceText)
+            .font(.system(size: 16, weight: .regular))
+            .multilineTextAlignment(.leading)
+            .padding(.horizontal, 20)
+            .lineSpacing(7)
+            .padding(.vertical, 20)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(textBackgroundGrayColor)
+            )
+    }
+    
+    func textMultipleColor_CanSkillSet(text1:String,text2:String,text3:String,text4:String) -> some View{
+        VStack{
+            Text(text1)
+                .foregroundColor(.black)
+                .font(.system(size: 20.5, weight: .bold))
+            + Text(text2)
+                .foregroundColor(textGrayColor2)
+                .font(.system(size: 20.5, weight: .bold))
+            + Text(text3)
+                .foregroundColor(.black)
+                .font(.system(size: 20.5, weight: .bold))
+            + Text(text4)
+                .foregroundColor(textPinkColor)
+                .font(.system(size: 20.5, weight: .bold))
+        }.fixedSize(horizontal: false, vertical: true)
     }
     
     /// 눌렀을 때 Opacity가 변하지 않는 ButtonStyle 재정의
