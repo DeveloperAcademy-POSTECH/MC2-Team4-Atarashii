@@ -63,6 +63,6 @@ struct CardGenerateTextEditorView: View {
 
 struct CardGenerateTextEditorView_Previews: PreviewProvider {
     static var previews: some View {
-        CardGenerateTextEditorView()
+        CardGenerateTextEditorView().previewDevice("iPhone 14")
     }
 }
