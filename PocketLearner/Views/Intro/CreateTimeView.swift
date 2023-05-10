@@ -20,7 +20,17 @@ struct CreateTimeView : View {
             
             HStack(spacing: 13) {
                 CreateTimeBtn(isSelected: $am, timeText: "오전")
+                    .onChange(of: am) { newValue in
+                        if am {
+                            pm = false
+                        }
+                    }
                 CreateTimeBtn(isSelected: $pm, timeText: "오후")
+                    .onChange(of: pm) { newValue in
+                        if pm {
+                            am = false
+                        }
+                    }
             }
             
             
