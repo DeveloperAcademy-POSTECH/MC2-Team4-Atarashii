@@ -40,6 +40,7 @@
 		0ED6DEDA2A0A1BDF009F21BC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6DED92A0A1BDF009F21BC /* ContentView.swift */; };
 		8641EF2E2A0A80EC00B05FC4 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8641EF2D2A0A80EC00B05FC4 /* ImagePicker.swift */; };
 		C36366292A0A31B400E4E9C6 /* CardGenerateViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36366282A0A31B400E4E9C6 /* CardGenerateViewHeader.swift */; };
+		C363662B2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C363662A2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		0ED6DED92A0A1BDF009F21BC /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8641EF2D2A0A80EC00B05FC4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		C36366282A0A31B400E4E9C6 /* CardGenerateViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGenerateViewHeader.swift; sourceTree = "<group>"; };
+		C363662A2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGenerateTextEditorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +202,7 @@
 			children = (
 				0E6DB2CC2A0A29F000F6C8DC /* InitailCardMainView.swift */,
 				C36366282A0A31B400E4E9C6 /* CardGenerateViewHeader.swift */,
+				C363662A2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift */,
 			);
 			path = CardGenerate;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				0E6DB2CD2A0A29F000F6C8DC /* InitailCardMainView.swift in Sources */,
 				C36366292A0A31B400E4E9C6 /* CardGenerateViewHeader.swift in Sources */,
 				0E6DB2D42A0A2A0000F6C8DC /* MainNameCardTabView.swift in Sources */,
+				C363662B2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift in Sources */,
 				0E6DB2BD2A0A298100F6C8DC /* AuthService.swift in Sources */,
 				0ED6DEDA2A0A1BDF009F21BC /* ContentView.swift in Sources */,
 				0E6DB2E12A0A2A1C00F6C8DC /* AppleLoginView.swift in Sources */,
