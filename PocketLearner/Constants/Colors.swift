@@ -32,8 +32,11 @@ let textPinkColor: Color = Color(red: 0.96, green: 0.68, blue: 0.70)
 let textBackgroundGrayColor: Color = Color(red: 0.952, green: 0.952, blue: 0.952)   // #F3F3F3
 
 // CardGenerate
+let disabledNextButtonColor = #colorLiteral(red: 0.8797428608, green: 0.8797428012, blue: 0.8797428608, alpha: 1)
 let strokeGray = #colorLiteral(red: 0.8549019608, green: 0.8549019608, blue: 0.8549019608, alpha: 1)        // #DADADA
 let softPink = #colorLiteral(red: 0.9725490196, green: 0.7411764706, blue: 0.7529411765, alpha: 1)          // #F8BDC0
 let unActivatedGray = #colorLiteral(red: 0.7490196078, green: 0.7490196078, blue: 0.7490196078, alpha: 1)   // #BFBFBF
 let pickerEmptyGray = Color(#colorLiteral(red: 0.9053899646, green: 0.9086087942, blue: 0.9086763859, alpha: 1)) // #E1E2E2
 let menuDefaultGray = Color(#colorLiteral(red: 0.9341433644, green: 0.9341433644, blue: 0.9341433644, alpha: 1)) //EAEAEA
+let textDismissGray = Color(#colorLiteral(red: 0.6251094341, green: 0.6256788373, blue: 0.6430239081, alpha: 1))
+let textFieldStrokeGray = Color(#colorLiteral(red: 0.9182699323, green: 0.9187726974, blue: 0.9341935515, alpha: 1))

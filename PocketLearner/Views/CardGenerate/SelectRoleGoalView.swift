@@ -19,6 +19,10 @@ struct CardGenerateSelectRoleGoalView: View {
     //dropdown의 placeholder
     let placeHolder: String = "내 목표 선택"
     
+    // Sheet 관련
+    @State var showingSheet = false
+    @State var sheetUserInputText = "dfdfddf"
+    
     var body: some View {
         VStack(spacing: 0){
             CardGenerateViewHeader(activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, isHeaderDescriptionVisible: isHeaderDescriptionVisible)
@@ -44,7 +48,8 @@ struct CardGenerateSelectRoleGoalView: View {
 
                             }){
                                 HStack(spacing: 15.43) {
-                                    Text(selectedOption != nil ? selectedOption?.title ?? " " : self.placeHolder)
+                                    Text(
+                                        sheetUserInputText.isEmpty ? (selectedOption != nil ? selectedOption?.title ?? " " : self.placeHolder) : sheetUserInputText)
                                             .font(.system(size:22, weight: .light))
                                             .foregroundColor(selectedOption != nil ? mainAccentColor : .gray)
 
@@ -95,26 +100,23 @@ struct CardGenerateSelectRoleGoalView: View {
                     GoalPickerMenuList { option in
                         isOptionsPresented = false
                         selectedOption = option
+                        if selectedOption!.title == "직접 입력" {
+                            showingSheet.toggle()
+                        }
                     }
                     .padding(.leading, 70)
                     .padding(.trailing, 150)
                     .offset(y: 180)
-//                    .padding(.top, 330)
                 }
                 
             }
-            Button(action: {}){
-                Text("다음")
-                    .foregroundColor(.white)
-                    .font(.system(size: 17, weight: .semibold))
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color("mainAccentColor"))
-                            .frame(width:321, height:48)
-                    
-                    )
-            }
+            cardGenerateViewsButton(title:"다음", disableCondition: self.selectedOption == nil, action: {})
             .padding(.top, 45)
+        }
+        .sheet(isPresented: $showingSheet) {
+            RoleGoalInputSheetView(textFieldText: $sheetUserInputText)
+                .presentationDetents([.height(505.78)])
+                .presentationDragIndicator(.hidden)
         }
     }
 }

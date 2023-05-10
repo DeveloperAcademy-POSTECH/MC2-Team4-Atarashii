@@ -39,3 +39,27 @@ func letterLimitTextField(placeholder: String, commentText: Binding<String>, let
             .stroke(Color(borderGrayColor), lineWidth: 2)
     )
 }
+
+/// CardGenerateViews에서 자주 사용되는 하단 버튼 탬플릿을  추가
+/// - Parameters:
+///   - title: 버튼의 title
+///   - disableCondition: 버튼을 disable 할 수 있는 조건 (bool)
+///   - action: 버튼을 눌렀을때의 액션
+/// - Returns: Button을 return.
+/// - 이후 네비게이션 구현시, 똑같은 lable을 사용하는 NavigationLink Component를 아래에 하나 더 구현해서, 뷰 전환되는 구간의 버튼은 해당 네비게이션 링크로 대체 요망
+///
+func cardGenerateViewsButton(title:String, disableCondition: Bool, action: @escaping ()->Void ) -> some View {
+    return Button(action: action){
+        Text(title)
+            .foregroundColor(.white)
+            .font(.system(size: 17, weight: .semibold))
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(disableCondition ? Color(disabledNextButtonColor) : mainAccentColor)
+                    .frame(width:321, height:48)
+
+            )
+    }
+    .disabled(disableCondition)
+}
+
