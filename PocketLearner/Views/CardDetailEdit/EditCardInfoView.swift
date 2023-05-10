@@ -207,7 +207,6 @@ struct EditCardInfoView_Previews: PreviewProvider {
 }
 
 
-
 struct ProfilePictureView: View {
     
     @State private var isShowingImagePicker = false
@@ -261,7 +260,6 @@ struct ProfilePictureView: View {
     }
     
 }
-
 
 struct CharacterCountTextField: View {
     @State private var text = ""

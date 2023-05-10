@@ -20,7 +20,6 @@ struct CreateNickNameView : View {
                 Text("`영문 닉네임` 에는 아카데미에서 사용하는 영문 닉네임을,\n `한글닉네임` 에는 닉네임의 발음을 한글로 적어주세요.")
                     .font(.system(size: 12))
                     .foregroundColor(.gray)
-                
                     .padding(.vertical,20)
             }
             VStack {
