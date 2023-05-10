@@ -8,6 +8,9 @@
 import Foundation
 import SwiftUI
 
+// MainAccentColor
+let mainAccentColor = Color("mainAccentColor")
+
 // CommentView 측 Colors.
 let textGrayColor: UIColor = #colorLiteral(red: 0.6666666667, green: 0.6666666667, blue: 0.6666666667, alpha: 1)            // #AAAAAA
 let borderGrayColor: UIColor = #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1)          // #D8D8D8
