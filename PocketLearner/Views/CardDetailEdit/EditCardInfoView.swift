@@ -35,7 +35,7 @@ struct EditCardInfoView: View {
                     skillIconView()
                     skillIconView()
                     skillIconView()
-            }
+                }
                 Text("추가 설명")
                     .padding(.bottom,-15)
                 CharacterCountTextField(placeholder: "내가 가지고 있는 스킬셋에 대해 자세하게 서술해주세요!", limit: 100, height: 160)
@@ -74,7 +74,7 @@ struct EditCardInfoView: View {
                         .bold()
                         .font(.system(size: 18))
                         .frame(minWidth: 130,alignment: .leading)
-
+                    
                     Button {
                         //
                     } label: {
@@ -84,7 +84,7 @@ struct EditCardInfoView: View {
                             .foregroundColor(.gray)
                     }
                     .padding(.trailing,150)
-
+                    
                 }
                 
                 HStack {
@@ -116,7 +116,7 @@ struct EditCardInfoView: View {
                         }
                         .padding(.leading,130)
                     }
-
+                    
                 }
                 
             }
@@ -133,14 +133,14 @@ struct EditCardInfoView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke()
                 }
-                Button  {
-                    //
-                } label: {
-                    Image(systemName: "x.circle.fill")
-                        .foregroundColor(.gray)
-                }.padding(.leading,90)
+            Button  {
+                //
+            } label: {
+                Image(systemName: "x.circle.fill")
+                    .foregroundColor(.gray)
+            }.padding(.leading,90)
         }
-
+        
     }
     
 }
@@ -223,11 +223,12 @@ struct CharacterCountTextField: View {
                         .stroke(Color.gray, lineWidth: 2)
                 )
             
-            Text("\(limit - text.count) characters remaining")
+            Text("\(text.count) / \(limit) 자")
                 .foregroundColor(text.count > limit ? .red : .gray)
                 .font(.caption)
                 .padding(.top, -25)
-                .padding(.trailing,-300)
+                .padding(.leading,270)
+            
         }
         .padding()
     }
