@@ -15,7 +15,7 @@ struct CardTemplate: View {
     @State private var isFlipped = false
     @State private var isDragging = false
     @State private var isLiked = false
-   
+       
     @Binding var isMine: Bool
     
     /// DATA: 받아 올 유저 데이터
@@ -69,10 +69,11 @@ struct CardTemplate: View {
 
 // MARK: - 명함 앞면
 struct CardFront: View {
-
     @Binding var degree: Double
     @Binding var isLiked: Bool
     @Binding var isMine: Bool
+    
+    @State var isQRCodePresented: Bool = false
     
     /// DATA: 받아 올 유저 데이터
     let userInfo: UserInfo
@@ -161,13 +162,18 @@ struct CardFront: View {
             
             HStack {
                 // MARK: - (내 명함일 경우) 카드 앞면에 큐알코드
-                /// TODO: 큐알 로직 연결
                 if isMine {
-                    Image("qrExample")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 60)
-                        .blendMode(.darken)
+                    Button(action: {
+                        isQRCodePresented = true
+                    }){
+                        Image("qrExample")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 60)
+                            .blendMode(.darken)
+                    }.sheet(isPresented: $isQRCodePresented){
+                        QRCodeGenerateView()
+                    }
                 }
                 
                 Spacer()

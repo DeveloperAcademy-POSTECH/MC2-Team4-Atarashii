@@ -27,6 +27,12 @@ struct MainNameCardTabView: View {
  
     @State var cardViewSelection: cardViewCategories = .myCard
     
+    @State var QRCodeScannerPresented: Bool = false
+    
+    @State private var isShowingScanner = false
+    @State private var isShowingAlert = false
+    @State private var scannedDeviceName = ""
+    @State private var isQRCodeExpired = false
     
     // MARK: - 카드 뷰 Segmented Control 섹션 카테고리
     enum cardViewCategories: String, CaseIterable {
@@ -68,7 +74,7 @@ struct MainNameCardTabView: View {
             
             // MARK: - 큐알 스캔을 위한 floating 버튼
             Button {
-                /// TODO: 젝무의 카메라 띄워주는 코드 붙이기
+                QRCodeScannerPresented = true
             } label: {
                 ZStack {
                     Circle()
@@ -81,12 +87,17 @@ struct MainNameCardTabView: View {
                 .shadow(radius: 20)
             }
             .position(x: 320, y: 650)
-
+            .sheet(isPresented: $QRCodeScannerPresented){
+                QRCodeScannerView(scannedDeviceName: $scannedDeviceName) { code, deviceName in
+                    isShowingScanner = false
+                    if code == UIDevice.current.identifierForVendor?.uuidString {
+                        scannedDeviceName = deviceName
+                        isShowingAlert = true
+                    }
+                }
+            }
         }
-
     }
-    
-
 }
 
 

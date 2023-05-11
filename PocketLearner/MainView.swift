@@ -16,7 +16,7 @@ struct MainView: View {
             // 닉네임 설정 후 세션 설정을 했더라도, 그냥 다시 닉네임 설정 뷰로 돌아오게 함.
             CreateNickNameView()
         } else {
-            MyCardView()
+            MainNameCardTabView()
         }
     }
 }
