@@ -24,7 +24,7 @@ struct PocketLearnerApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainNameCardTabView()
+            EditCardDesignView(userInfo: UserInfo(id: "", nicknameKOR: "리앤", nicknameENG: "Lianne", isMorningSession: true, selfDescription: "다재다능한 디발자가 꿈⭐️🐠🐶 개자이너 아니고 디발자요!", cardColor: "mainPurple"))
         }
     }
 }
