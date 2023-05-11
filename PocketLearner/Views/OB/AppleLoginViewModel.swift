@@ -11,6 +11,7 @@ import AuthenticationServices
 import Firebase
 
 class AppleLoginViewModel: ObservableObject{
+    @EnvironmentObject var user: userData
     
     // State of Signed in
     enum SignInState {
@@ -123,13 +124,15 @@ class AppleLoginViewModel: ObservableObject{
                 let id = userItems["id"] as? String ?? ""
                 let nickEnglish = userItems["nickEnglish"] as? String ?? ""
                 let nickKorean = userItems["nickKorean"] as? String ?? ""
-                let isSessionMorning = userItems["isSessionMorning"] as? Bool ?? true
+                let isSessionMorning : Bool? = userItems["isSessionMorning"] as? Bool
                 
                 UserDefaults().set(id, forKey: "id")
                 UserDefaults().set(AppldID, forKey: "AppleID")
                 UserDefaults().set(nickEnglish, forKey: "nickEnglish")
                 UserDefaults().set(nickKorean, forKey: "nickKorean")
                 UserDefaults().set(isSessionMorning, forKey: "isSessionMorning")
+                
+                print("Uset Data Fetched, saved at UserDefaults.")
                 
                 //                    let readnick = userItems["nickname"] as? String ?? ""
                 //                    let readcereal = userItems["cerealnum"] as? Int ?? 0
