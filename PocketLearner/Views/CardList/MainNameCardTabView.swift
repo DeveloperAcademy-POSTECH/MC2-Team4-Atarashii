@@ -38,31 +38,51 @@ struct MainNameCardTabView: View {
     
     
     var body: some View {
-        VStack {
-            // MARK: - 상단 Segmented Control
-            Picker("", selection: $cardViewSelection) {
-                ForEach(MainNameCardTabView.cardViewCategories.allCases, id: \.self) { category in
-                    Text(category.rawValue)
+        ZStack {
+            VStack {
+                // MARK: - 상단 Segmented Control
+                Picker("", selection: $cardViewSelection) {
+                    ForEach(MainNameCardTabView.cardViewCategories.allCases, id: \.self) { category in
+                        Text(category.rawValue)
+                    }
                 }
+                .pickerStyle(SegmentedPickerStyle())
+        
+                
+                // MARK: - 선택된 섹션 카테고리로 뷰 이동
+                switch cardViewSelection {
+                case .myCard:
+                    MyCardView()
+                case .cardCollection:
+                    CardCollectionView()
+                case .likedCards:
+                    /// TODO: 파라미터로 즐겨찾기 데이터 넘겨주도록 수정
+                    CardCollectionView()
+                default:
+                    MyCardView()
+                }
+                
             }
-            .pickerStyle(SegmentedPickerStyle())
-    
+            .padding(38)
             
-            // MARK: - 선택된 섹션 카테고리로 뷰 이동
-            switch cardViewSelection {
-            case .myCard:
-                MyCardView()
-            case .cardCollection:
-                CardCollectionView()
-            case .likedCards:
-                /// TODO: 파라미터로 즐겨찾기 데이터 넘겨주도록 수정
-                CardCollectionView()
-            default:
-                MyCardView()
+            
+            // MARK: - 큐알 스캔을 위한 floating 버튼
+            Button {
+                /// TODO: 젝무의 카메라 띄워주는 코드 붙이기
+            } label: {
+                ZStack {
+                    Circle()
+                        .fill(Color.white)
+                        .frame(width: 70)
+                    Image(systemName: "plus")
+                        .font(.system(size: 50))
+                        .foregroundColor(.black)
+                }
+                .shadow(radius: 20)
             }
-            
+            .position(x: 320, y: 650)
+
         }
-        .padding(38)
 
     }
     
@@ -75,6 +95,6 @@ struct MainNameCardTabView: View {
 
 //struct MainNameCardView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        MainNameCardTabView(isFlipped: $isFlipped)
+//        MainNameCardTabView(isFlipped: .constant(false))
 //    }
 //}

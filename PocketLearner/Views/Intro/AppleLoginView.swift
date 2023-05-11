@@ -9,7 +9,6 @@ import SwiftUI
 import FirebaseAuth
 import AuthenticationServices
 
-
 struct AppleLoginView : View {
     @State var currentNonce: String?
     var body: some View {

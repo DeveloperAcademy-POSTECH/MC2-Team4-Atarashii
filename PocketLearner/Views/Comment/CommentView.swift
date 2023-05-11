@@ -15,10 +15,6 @@ struct CommentView: View {
     
     @State var goEdit: Bool = false
     
-    let commentTextBlackColor: UIColor = #colorLiteral(red: 0.3450980186, green: 0.3450980186, blue: 0.3450980186, alpha: 1)    // #585858
-    let commentBoxGrayColor: UIColor = #colorLiteral(red: 0.9647058845, green: 0.9647058845, blue: 0.9647058845, alpha: 1)      // #F6F6F6
-    let dividerGrayColor: UIColor = #colorLiteral(red: 0.8509803922, green: 0.8509803922, blue: 0.8509803922, alpha: 1)         // #D9D9D9
-    
     
     let text: String = """
     칭찬글 블라블라 어쩌구 칭찬글 블라블라라라

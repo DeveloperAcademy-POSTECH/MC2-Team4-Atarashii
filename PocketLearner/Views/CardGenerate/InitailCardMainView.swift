@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct InitailCardMainView: View {
-    let strokeGray = #colorLiteral(red: 0.8537765145, green: 0.8537764549, blue: 0.8537764549, alpha: 1)
-    let softPink = #colorLiteral(red: 0.9706365466, green: 0.7397540212, blue: 0.753657043, alpha: 1)
     @State var fontColor = #colorLiteral(red: 0.7878244519, green: 0.7844588161, blue: 0.7843878269, alpha: 1)
     @State var title: String = "지금, 당신만의\n아카데미 버츄얼 명함을\n만들어보세요!"
     @State var isButtonVisible: Bool = true

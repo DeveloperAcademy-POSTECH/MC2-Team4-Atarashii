@@ -9,6 +9,7 @@ import SwiftUI
 import Photos
 
 struct EditCardInfoView: View {
+    @State var collaborationTypes:String = "Driver"
     
     var body: some View {
         ScrollView(.vertical) {
@@ -20,7 +21,7 @@ struct EditCardInfoView: View {
             
             VStack {
                 Text("스킬관련 🛠️")
-                    .foregroundColor(.gray)
+                    .foregroundColor(hexStringToColor(hexString: "#979797"))
                     .bold()
                     .font(.system(size: 24))
                     .frame(maxWidth: .infinity,alignment: .leading)
@@ -31,13 +32,33 @@ struct EditCardInfoView: View {
                     .font(.system(size: 18))
                     .frame(maxWidth: .infinity,alignment: .leading)
                     .padding()
-                HStack(spacing: 7) {
+                
+                HStack(spacing: 10) {
                     skillIconView()
                     skillIconView()
                     skillIconView()
-            }
+                }
+                HStack {
+                    Spacer()
+                    Button {
+                        
+                    } label: {
+                        Text("스킬셋 변경")
+                            .foregroundColor(.black)
+                            .font(.system(size: 15))
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(.gray)
+                    }
+                    .frame(minWidth: 88.5,minHeight: 18)
+                    .padding()
+
+                }
                 Text("추가 설명")
+                    .frame(maxWidth: .infinity,alignment: .leading)
+                    .bold()
+                    .font(.system(size: 13))
                     .padding(.bottom,-15)
+                    .padding(.leading)
                 CharacterCountTextField(placeholder: "내가 가지고 있는 스킬셋에 대해 자세하게 서술해주세요!", limit: 100, height: 160)
             }
             
@@ -48,14 +69,34 @@ struct EditCardInfoView: View {
                     .frame(maxWidth: .infinity,alignment: .leading)
                     .padding()
                 
-                HStack(spacing: 7) {
+                HStack(spacing: 10) {
                     skillIconView()
                     skillIconView()
                     skillIconView()
                 }
                 
+                HStack {
+                    Spacer()
+                    Button {
+                        
+                    } label: {
+                        Text("스킬셋 변경")
+                            .foregroundColor(.black)
+                            .font(.system(size: 15))
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(.gray)
+                    }
+                    .frame(minWidth: 88.5,minHeight: 18)
+                    .padding()
+
+                }
+                
                 Text("추가 설명")
+                    .frame(maxWidth: .infinity,alignment: .leading)
+                    .bold()
+                    .font(.system(size: 13))
                     .padding(.bottom,-15)
+                    .padding(.leading)
                 
                 CharacterCountTextField(placeholder: "내가 키우고 싶은 스킬셋에 대해 자세하게 서술해주세요!", limit: 100, height: 160)
             }
@@ -63,28 +104,33 @@ struct EditCardInfoView: View {
             VStack {
                 Text("협업 관련 👥")
                     .padding()
-                    .foregroundColor(.gray)
+                    .foregroundColor(hexStringToColor(hexString: "#979797"))
                     .bold()
                     .font(.system(size: 24))
                     .frame(maxWidth: .infinity,alignment: .leading)
                 
                 HStack {
                     Text("나의 협업 유형은")
-                        .padding()
+                        .padding(.leading,22)
                         .bold()
                         .font(.system(size: 18))
                         .frame(minWidth: 130,alignment: .leading)
-
-                    Button {
-                        //
-                    } label: {
-                        Text("Driver")
-                            .foregroundColor(.gray)
+                    
+                    Menu(content: {
+                        Button("Driver", action: handleDriverSet)
+                        Button("Analytical", action: handleAnalyticalSet)
+                        Button("Amiable", action: handleAmiableSet)
+                        Button("Expressive", action: handleExpressiveSet)
+                    }, label: {
+                        Text("\(collaborationTypes)")
+                            .foregroundColor(hexStringToColor(hexString: "#979797"))
                         Image(systemName: "chevron.up.chevron.down")
-                            .foregroundColor(.gray)
-                    }
-                    .padding(.trailing,150)
-
+                            .foregroundColor(hexStringToColor(hexString: "#979797"))
+                    })
+                       
+                    Spacer()
+                    
+                    
                 }
                 
                 HStack {
@@ -97,26 +143,30 @@ struct EditCardInfoView: View {
                     Spacer()
                     ZStack {
                         Text("(3개 선택)")
-                            .foregroundColor(.gray)
-                            .padding(.trailing,150)
+                            .foregroundColor(hexStringToColor(hexString: "#979797"))
+                            .padding(.trailing,157)
                         Button {
                             
                         } label: {
-                            VStack{
+                            VStack(alignment: .leading){
                                 Text("공감능력")
-                                    .foregroundColor(.gray)
+                                    .font(.system(size: 15))
+                                    .foregroundColor(hexStringToColor(hexString: "#979797"))
                                 Text("감성지능")
                                     .foregroundColor(.gray)
+                                    .font(.system(size: 15))
                                 Text("유연한사고")
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(hexStringToColor(hexString: "#979797"))
+                                    .font(.system(size: 15))
                             }
                             Image(systemName: "chevron.forward")
                                 .padding(.top,-27)
-                                .foregroundColor(.gray)
+                                .foregroundColor(hexStringToColor(hexString: "#979797"))
                         }
+                        .padding(.trailing,12)
                         .padding(.leading,130)
                     }
-
+                    
                 }
                 
             }
@@ -125,22 +175,39 @@ struct EditCardInfoView: View {
     }
     
     func skillIconView() -> some View {
-        ZStack{
+        HStack {
             Text("UX 라이팅")
+                .font(.system(size: 15))
                 .padding(.leading,20)
-                .frame(maxWidth: 120,maxHeight: 40,alignment: .leading)
-                .background {
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke()
-                }
-                Button  {
-                    //
-                } label: {
-                    Image(systemName: "x.circle.fill")
-                        .foregroundColor(.gray)
-                }.padding(.leading,90)
+                .frame(minWidth: 107,minHeight: 30,alignment: .leading)
+            
+            Button  {
+                //
+            } label: {
+                Image(systemName: "x.circle.fill")
+                    .foregroundColor(hexStringToColor(hexString: "#979797"))
+            }
+            .padding(.trailing,40)
+            .frame(minWidth: 14,minHeight: 14)
         }
-
+        .frame(width: 107,height: 30)
+        .background {
+            RoundedRectangle(cornerRadius: 35)
+                .stroke()
+        }
+        
+    }
+    func handleDriverSet() {
+        self.collaborationTypes = "Driver"
+    }
+    func handleAnalyticalSet() {
+        self.collaborationTypes = "Analytical"
+    }
+    func handleAmiableSet() {
+        self.collaborationTypes = "Amiable"
+    }
+    func handleExpressiveSet() {
+        self.collaborationTypes = "Expressive"
     }
     
 }
@@ -150,7 +217,6 @@ struct EditCardInfoView_Previews: PreviewProvider {
         EditCardInfoView()
     }
 }
-
 
 
 struct ProfilePictureView: View {
@@ -165,7 +231,7 @@ struct ProfilePictureView: View {
                 Image(uiImage: profileImage)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 100, height: 100)
+                    .frame(width: 190, height: 190)
                     .clipShape(Circle())
                     .overlay(
                         Circle()
@@ -173,12 +239,13 @@ struct ProfilePictureView: View {
                     )
                     .shadow(radius: 10)
             } else {
-                Image(systemName: "person.crop.circle")
+                Image(systemName: "person.circle.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 100, height: 100)
+                    .frame(width: 190, height: 190)
                     .clipShape(Circle())
                     .shadow(radius: 10)
+                    .foregroundColor(.white)
             }
             
             
@@ -189,10 +256,10 @@ struct ProfilePictureView: View {
                 Image(systemName: "pencil.circle.fill")
                     .resizable()
                     .frame(width: 30,height: 30)
-                    .foregroundColor(.gray)
+                    .foregroundColor(hexStringToColor(hexString: "#FFA04B"))
             }
-            .padding(.top,-35)
-            .padding(.leading,75)
+            .padding(.top,-50)
+            .padding(.leading,130)
             .sheet(isPresented: $isShowingImagePicker, onDismiss: loadImage) {
                 ImagePicker(selectedImage: self.$selectedImage)
             }
@@ -203,8 +270,8 @@ struct ProfilePictureView: View {
         guard let selectedImage = selectedImage else { return }
         self.profileImage = selectedImage
     }
+    
 }
-
 
 struct CharacterCountTextField: View {
     @State private var text = ""
@@ -214,20 +281,32 @@ struct CharacterCountTextField: View {
     
     var body: some View {
         VStack {
-            TextField("\(placeholder)", text: $text)
+            TextEditor(text: $text)
                 .disabled(text.count >= limit)
                 .padding()
                 .frame(maxWidth: .infinity,minHeight: height)
                 .background(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.gray, lineWidth: 2)
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(hexStringToColor(hexString: "#D8D8D8"), lineWidth: 2)
                 )
+                .overlay(
+                    VStack {
+                        if text.isEmpty {
+                            Text(placeholder)
+                                .foregroundColor(Color(UIColor.placeholderText))
+                                .padding()
+                        }
+                    }
+                )
+                
             
-            Text("\(limit - text.count) characters remaining")
+            Text("\(text.count) / \(limit) 자")
                 .foregroundColor(text.count > limit ? .red : .gray)
                 .font(.caption)
                 .padding(.top, -25)
-                .padding(.trailing,-300)
+                .padding(.leading,270)
+            
+            
         }
         .padding()
     }
