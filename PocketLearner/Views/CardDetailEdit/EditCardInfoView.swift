@@ -123,7 +123,9 @@ struct EditCardInfoView: View {
                 })
             }
             .sheet(isPresented: $isPresent) {
-//                RoleGoalInputSheetView(textFieldText: $myGoalText)
+                /*
+                RoleGoalInputSheetView(textFieldText: $myGoalText)
+                 */
             }
             
             

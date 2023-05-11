@@ -123,7 +123,7 @@ struct SelectRoleGoalView: View {
                 }
                 
             }
-            cardGenerateViewsButton(title:"다음", disableCondition: self.selectedOption == nil, action: {})
+            cardGenerateViewsButton(title:"다음", disableCondition: self.selectedOption == nil || selectedOption!.title == "직접 입력" && sheetUserInputText.isEmpty, action: {})
             .padding(.top, 45)
         }
         // Sheet Open
