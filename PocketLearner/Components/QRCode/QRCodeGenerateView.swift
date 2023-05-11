@@ -22,30 +22,10 @@ struct QRCodeGenerateView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Scanned device: \(scannedDeviceName)")
-                    .padding()
-                    .font(.headline)
                 Text("\(timeRemaining) seconds remaining")
                     .font(.callout)
                     .foregroundColor(.red)
-                if isQRCodeExpired {
-                    Text("만료되었습니다")
-                        .foregroundColor(.red)
-                        .font(.headline)
-                }
                 QRCodeView(timestamp: qrCodeTimestamp)
-                Button("Scan QR Code") {
-                    isShowingScanner.toggle()
-                }
-                .sheet(isPresented: $isShowingScanner) {
-                    QRCodeScannerView(scannedDeviceName: $scannedDeviceName) { code, deviceName in
-                        isShowingScanner = false
-                        if code == UIDevice.current.identifierForVendor?.uuidString {
-                            scannedDeviceName = deviceName
-                            isShowingAlert = true
-                        }
-                    }
-                }.padding(.bottom, 20)
                 Button("Regenerate QR Code") {
                     isQRCodeExpired = false
                     timeRemaining = 10
@@ -53,9 +33,6 @@ struct QRCodeGenerateView: View {
                     startTimer()
                 }
                 .disabled(!isQRCodeExpired)
-            }
-            .alert(isPresented: $isShowingAlert) {
-                Alert(title: Text("QR Code Scanned"), message: Text("Scanned device: \(scannedDeviceName)"), dismissButton: .default(Text("OK")))
             }
             .navigationBarTitle("QR Code")
             .onAppear {
@@ -81,6 +58,8 @@ struct QRCodeGenerateView: View {
 }
 
 struct QRCodeView: View {
+    @EnvironmentObject var user: userData
+    
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
     let timestamp: TimeInterval
@@ -98,8 +77,8 @@ struct QRCodeView: View {
 
     func generateQRCodeImage() -> UIImage? {
         let uuid = UIDevice.current.identifierForVendor?.uuidString ?? ""
-        let deviceName = UIDevice.current.name
-        let combinedString = "\(uuid)|\(deviceName)|\(timestamp)"
+        let myID = user.id
+        let combinedString = "\(uuid)|\(myID)|\(timestamp)"
         let data = Data(combinedString.utf8)
         filter.setValue(data, forKey: "inputMessage")
 

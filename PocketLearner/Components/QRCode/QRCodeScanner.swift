@@ -11,17 +11,16 @@ import AVFoundation
 import FirebaseFirestore
 
 struct QRCodeScannerView: UIViewControllerRepresentable {
-    @Binding var scannedDeviceName: String
+    @EnvironmentObject var user: userData
     
     var completionHandler: (String, String) -> Void
-    
     
     func makeCoordinator() -> Coordinator {
         Coordinator(completionHandler)
     }
     
     func makeUIViewController(context: Context) -> QRCodeScannerViewController {
-        let viewController = QRCodeScannerViewController(scannedDeviceName: $scannedDeviceName)
+        let viewController = QRCodeScannerViewController()
         viewController.delegate = context.coordinator
         return viewController
     }
@@ -35,23 +34,23 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
             self.completionHandler = completionHandler
         }
         
-        func qrCodeScannerViewController(_ viewController: QRCodeScannerViewController, didScanCode code: String, deviceName: String) {
-            completionHandler(code, deviceName)
+        func qrCodeScannerViewController(_ viewController: QRCodeScannerViewController, didScanCode code: String, counterpartID: String) {
+            completionHandler(code, counterpartID)
         }
     }
 }
 
 protocol QRCodeScannerViewControllerDelegate: AnyObject {
-    func qrCodeScannerViewController(_ viewController: QRCodeScannerViewController, didScanCode code: String, deviceName: String)
+    func qrCodeScannerViewController(_ viewController: QRCodeScannerViewController, didScanCode code: String, counterpartID: String)
 }
 
 class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+    @EnvironmentObject var user: userData
+    
     weak var delegate: QRCodeScannerViewControllerDelegate?
-    @Binding var scannedDeviceName: String
     
     // Add an initializer to receive the binding
-    init(scannedDeviceName: Binding<String>) {
-        self._scannedDeviceName = scannedDeviceName
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -144,21 +143,19 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
             let components = stringValue.components(separatedBy: "|")
             if components.count == 3 {
                 let uuid = components[0]
-                let deviceName = components[1]
+                let counterpartID = components[1]
                 let createTime = Double(components[2]) ?? 0
                 let currentTime = Date().timeIntervalSince1970
                 let timeDifference = currentTime - createTime
                 
                 print("Scanned QR Code: \(stringValue)")
                 AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-                self.delegate?.qrCodeScannerViewController(self, didScanCode: uuid, deviceName: deviceName)
+                self.delegate?.qrCodeScannerViewController(self, didScanCode: uuid, counterpartID: counterpartID)
                 
                 if timeDifference <= 10 {
-                    self.scannedDeviceName = deviceName
-                    changeCard(deviceName: deviceName)
+                    changeCard(counterpartID: counterpartID)
                 } else {
                     print("QR Code Expired")
-                    self.scannedDeviceName = "스캔한 QR이 만료되었습니다."
                 }
             }
         }
@@ -166,24 +163,34 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
         self.dismiss(animated: true)
     }
     
-    func changeCard(deviceName: String){
-        let db = Firestore.firestore()
+    func changeCard(counterpartID: String){
+        let myID: String = user.id
         
-        let myDeviceName:String = UIDevice.current.name
-        
-        // Add a new document with a generated ID
-        let docRef: DocumentReference = db.collection("CardExchangeHistory").document("\(myDeviceName)_\(deviceName)")
-        
-        docRef.setData(["userID1" : myDeviceName,
-                        "userID2" : deviceName,
-                        "exchangeDate" : Timestamp(date: Date())]) { error in
+        // Firestore batch를 이용 - 단일 commit으로 2개의 Document 생성.
+        let batch = db.batch()
+
+        // myID = id1, counterpartID = id2 인 document 생성
+        let docRef: DocumentReference = db.collection("CardExchangeHistory").document("\(myID)_\(counterpartID)")
+        batch.setData(["id1" : myID,
+                       "id2" : counterpartID,
+                       "exchangeDate" : Timestamp(date: Date())], forDocument: docRef)
+
+        // counterpartID = id1, myID = id2 인 document 생성
+        let docRef2: DocumentReference = db.collection("CardExchangeHistory").document("\(counterpartID)_\(myID)")
+        batch.setData(["id1" : counterpartID,
+                       "id2" : myID,
+                       "exchangeDate" : Timestamp(date: Date())], forDocument: docRef2)
+
+        // 배치 쓰기 커밋
+        batch.commit { (error) in
             if let error = error {
                 // 오류 발생 시 처리
-                print("Error writing document: \(error)")
+                print("명함 교환 실패(DB 업로드): \(error) - QRCodeScanner")
             } else {
                 // 성공 시 처리
-                print("\(myDeviceName) and \(deviceName) exchange card successfully!")
+                print("명함 교환 성공! \(myID), \(counterpartID) - QRCodeScanner")
             }
         }
+
     }
 }

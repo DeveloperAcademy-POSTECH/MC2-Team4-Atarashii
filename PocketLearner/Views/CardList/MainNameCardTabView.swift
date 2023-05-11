@@ -28,11 +28,7 @@ struct MainNameCardTabView: View {
     @State var cardViewSelection: cardViewCategories = .myCard
     
     @State var QRCodeScannerPresented: Bool = false
-    
-    @State private var isShowingScanner = false
-    @State private var isShowingAlert = false
-    @State private var scannedDeviceName = ""
-    @State private var isQRCodeExpired = false
+    @State var alertPresented: Bool = false
     
     // MARK: - 카드 뷰 Segmented Control 섹션 카테고리
     enum cardViewCategories: String, CaseIterable {
@@ -88,24 +84,15 @@ struct MainNameCardTabView: View {
             }
             .position(x: 320, y: 650)
             .sheet(isPresented: $QRCodeScannerPresented){
-                QRCodeScannerView(scannedDeviceName: $scannedDeviceName) { code, deviceName in
-                    isShowingScanner = false
+                QRCodeScannerView() { code, deviceName in
+                    QRCodeScannerPresented = false
                     if code == UIDevice.current.identifierForVendor?.uuidString {
-                        scannedDeviceName = deviceName
-                        isShowingAlert = true
+                        alertPresented = true
                     }
                 }
+            }.alert(isPresented: $alertPresented){
+                Alert(title: Text("QR코드 스캔 성공"), message: Text("스캔 성공"), dismissButton: .default(Text("확인")))
             }
         }
     }
 }
-
-
-
-
-
-//struct MainNameCardView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MainNameCardTabView(isFlipped: .constant(false))
-//    }
-//}
