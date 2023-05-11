@@ -16,11 +16,11 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
     var completionHandler: (String, String) -> Void
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(completionHandler)
+        Coordinator(completionHandler, user: user)
     }
     
     func makeUIViewController(context: Context) -> QRCodeScannerViewController {
-        let viewController = QRCodeScannerViewController()
+        let viewController = QRCodeScannerViewController(user: user)
         viewController.delegate = context.coordinator
         return viewController
     }
@@ -29,9 +29,11 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
     
     class Coordinator: NSObject, QRCodeScannerViewControllerDelegate {
         var completionHandler: (String, String) -> Void
+        var user: userData
         
-        init(_ completionHandler: @escaping (String, String) -> Void) {
+        init(_ completionHandler: @escaping (String, String) -> Void, user: userData) {
             self.completionHandler = completionHandler
+            self.user = user
         }
         
         func qrCodeScannerViewController(_ viewController: QRCodeScannerViewController, didScanCode code: String, counterpartID: String) {
@@ -45,12 +47,13 @@ protocol QRCodeScannerViewControllerDelegate: AnyObject {
 }
 
 class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
-    @EnvironmentObject var user: userData
-    
     weak var delegate: QRCodeScannerViewControllerDelegate?
     
+    var user: userData  // SwiftUI의 @EnvironmentObject 대신 일반 Swift 객체 사용 (UIKit)
+    
     // Add an initializer to receive the binding
-    init() {
+    init(user: userData) {
+        self.user = user
         super.init(nibName: nil, bundle: nil)
     }
     

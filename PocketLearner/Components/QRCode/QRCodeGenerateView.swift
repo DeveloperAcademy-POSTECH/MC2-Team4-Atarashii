@@ -20,9 +20,8 @@ struct QRCodeGenerateView: View {
     @State private var qrCodeTimestamp = Date().timeIntervalSince1970
 
     var body: some View {
-        NavigationView {
             VStack {
-                Text("\(timeRemaining) seconds remaining")
+                Text(timeRemaining == 0 ? "QR코드가 만료되었습니다" : "\(timeRemaining) 초 후 QR코드가 만료됩니다")
                     .font(.callout)
                     .foregroundColor(.red)
                 QRCodeView(timestamp: qrCodeTimestamp)
@@ -34,14 +33,13 @@ struct QRCodeGenerateView: View {
                 }
                 .disabled(!isQRCodeExpired)
             }
-            .navigationBarTitle("QR Code")
             .onAppear {
                 startTimer()
             }
             .onDisappear {
                 timer?.invalidate()
             }
-        }
+        
     }
 
     func startTimer() {

@@ -24,6 +24,7 @@ struct UserInfo: Identifiable, Codable {
 
 
 struct MainNameCardTabView: View {
+    @EnvironmentObject var user: userData
  
     @State var cardViewSelection: cardViewCategories = .myCard
     
@@ -89,7 +90,7 @@ struct MainNameCardTabView: View {
                     if code == UIDevice.current.identifierForVendor?.uuidString {
                         alertPresented = true
                     }
-                }
+                }.environmentObject(user)
             }.alert(isPresented: $alertPresented){
                 Alert(title: Text("QR코드 스캔 성공"), message: Text("스캔 성공"), dismissButton: .default(Text("확인")))
             }
