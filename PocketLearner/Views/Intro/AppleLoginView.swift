@@ -33,7 +33,7 @@ struct AppleUser: Codable {
 }
 
 struct AppleLoginView : View {
-    @EnvironmentObject var obj : observed
+    @EnvironmentObject var user: userData
     @StateObject var loginData = AppleLoginViewModel()
 
     @State var currentNonce: String?
@@ -65,7 +65,7 @@ struct AppleLoginView : View {
     }
     
     func failHandler(errString1:String, errString2:String){
-        print("error on apple login")
+        print("error on apple login: \(errString1), \(errString2)")
     }
     
     

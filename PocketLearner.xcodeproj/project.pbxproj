@@ -32,6 +32,7 @@
 		0E6DB2E42A0A305C00F6C8DC /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DB2E32A0A305C00F6C8DC /* CommentView.swift */; };
 		0EBBD8872A0CDD6F00B232F1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBD8862A0CDD6F00B232F1 /* Constants.swift */; };
 		0EBBD88A2A0CDDB900B232F1 /* AppleLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBD8892A0CDDB900B232F1 /* AppleLoginViewModel.swift */; };
+		0EBBD88C2A0CDE2200B232F1 /* UserOB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBD88B2A0CDE2200B232F1 /* UserOB.swift */; };
 		0ED6DEDA2A0A1BDF009F21BC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6DED92A0A1BDF009F21BC /* ContentView.swift */; };
 		0ED7D3EC2A0CB2AA001E4800 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED7D3EB2A0CB2AA001E4800 /* FirebaseAuth */; };
 		0ED7D3EE2A0CB2AA001E4800 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED7D3ED2A0CB2AA001E4800 /* FirebaseFirestore */; };
@@ -80,6 +81,7 @@
 		0E6DB2E32A0A305C00F6C8DC /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		0EBBD8862A0CDD6F00B232F1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0EBBD8892A0CDDB900B232F1 /* AppleLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginViewModel.swift; sourceTree = "<group>"; };
+		0EBBD88B2A0CDE2200B232F1 /* UserOB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOB.swift; sourceTree = "<group>"; };
 		0ED6DED32A0A14C5009F21BC /* PocketLearner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PocketLearner.entitlements; sourceTree = "<group>"; };
 		0ED6DED92A0A1BDF009F21BC /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8641EF2D2A0A80EC00B05FC4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				0EBBD8892A0CDDB900B232F1 /* AppleLoginViewModel.swift */,
+				0EBBD88B2A0CDE2200B232F1 /* UserOB.swift */,
 			);
 			path = OB;
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 				0E6DB2D72A0A2A0000F6C8DC /* MyCardView.swift in Sources */,
 				C32FEA7E2A0BE59900CE0663 /* GoalPickerMenuList.swift in Sources */,
 				0E113BE92A0A0FA400AB2EC8 /* PocketLearnerApp.swift in Sources */,
+				0EBBD88C2A0CDE2200B232F1 /* UserOB.swift in Sources */,
 				0E6DB2D52A0A2A0000F6C8DC /* CardCollectionView.swift in Sources */,
 				EF5D03562A0B86E100678E09 /* MemojiTextField.swift in Sources */,
 				0E6DB2D82A0A2A0000F6C8DC /* CardTemplate.swift in Sources */,
