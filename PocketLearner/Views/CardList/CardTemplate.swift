@@ -101,7 +101,7 @@ struct CardFront: View {
                         Menu {
                             Button {
                                 // MARK: - 카드 커스텀 뷰로 이동
-                                EditCardDesignView()
+                                EditCardDesignView(userInfo: userInfo)
                             } label: {
                                 Label("카드 커스텀", systemImage: "paintpalette")
                             }

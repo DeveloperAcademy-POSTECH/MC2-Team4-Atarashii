@@ -16,7 +16,7 @@ struct UserInfo: Identifiable, Codable {
     let nicknameENG: String
     let isMorningSession: Bool // 세션 시간: 오전/오후 (if문으로 처리해주려고 이렇게 짰는데 적절하진 않는듯)
     let selfDescription: String
-    let cardColor: String // 커스텀 명함의 컬러 값 (Color Asset 이름)
+    let cardColor: String // 커스텀 명함의 컬러 값 (Color Asset 이름) /// TODO: Color 타입으로 바꾸고 Color.swift에 있는 것으로 쓰기
 //    let cardBg: String // 커스텀 명함의 백그라운드 스타일
 //    let profileMemoji: String // (데이터타입 확실치 않음)
 //    let isLiked: Bool // 즐겨찾기 여부 (얘 때문에 북마크 버튼 안에서 전체 유저 값을 update 해줘야 됨)
