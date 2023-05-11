@@ -21,7 +21,7 @@ class AppleLoginViewModel: ObservableObject{
     
     // LoginView - func configure
     @Published var nonce = ""
-
+    
     func authenticate(credential: ASAuthorizationAppleIDCredential, failHandler : @escaping (String,String) -> Void ){
         // get Token
         guard let token = credential.identityToken else{
@@ -54,7 +54,7 @@ class AppleLoginViewModel: ObservableObject{
             // ...
             print("Firebase - Apple Login : Logged In Successfully")
             
-//            UtilFunction.setPostSns(sns: true)
+            //            UtilFunction.setPostSns(sns: true)
             
             // 로그인 후처리 - 회원가입 창으로 넘기기 or 로그인 시 앱 실행
             // 애플 로그인은 최초 회원가입 이후 user Email을 제공하지 않으므로, 유저 고유 key를 가지고 접근해야 함.
@@ -67,7 +67,7 @@ class AppleLoginViewModel: ObservableObject{
                 print("Sign in With Apple : Register, upload User Data on Firestore")
                 db.collection("Users").document(useremail).setData([
                     "id" : useremail,
-                    "AppleId" : userID,
+                    "AppleID" : userID,
                 ], merge: true){ err in
                     if let err = err {
                         print("Error writing document: \(err)")
@@ -84,7 +84,7 @@ class AppleLoginViewModel: ObservableObject{
     }
     
     func findUserHandler(_ userID : String, _ failHandler : @escaping (String,String) -> Void){
-        db.collection("Users").whereField("AppleId", isEqualTo: userID)
+        db.collection("Users").whereField("AppleID", isEqualTo: userID)
             .getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
@@ -106,89 +106,103 @@ class AppleLoginViewModel: ObservableObject{
     
     func appleLoginHandler(_ result : Bool ,_ useremail : String, failHandler : @escaping (String,String) -> Void){
         // 애플로그인
-            let usersRef = db.collection("Users").document(useremail)
-            usersRef.getDocument { (snap, err) in
-                
-                if let snap = snap, snap.exists {
-                    if let err = err {
-                        print(err.localizedDescription)
-                        failHandler("유저 정보 조회 실패","다시 시도해주세요")
-                        return
-                    }
-                    guard let dict = snap.data() else { return }
-                    let userItems = dict
-                    let readnick = userItems["nickname"] as? String ?? ""
-                    let readcereal = userItems["cerealnum"] as? Int ?? 0
-                    let tuto1 =  userItems["tuto1"] as? Bool ?? false
-                    let tuto2 =  userItems["tuto2"] as? Bool ?? false
-                    let tuto3 =  userItems["tuto3"] as? Bool ?? false
-                    let friendCode = userItems["friendCode"] as? String ?? ""
-                    let di =  userItems["di"] as? String ?? ""
-                    let birth =  userItems["birthdate"] as? String ?? ""
-                    var authed : Int = 0
-                    authed = 0
-                    if di != "" && birth != "" {
-                        let yearStartIndex = birth.index(birth.startIndex, offsetBy: 0)
-                        let yearEndIndex = birth.index(birth.startIndex, offsetBy: 3)
-                        
-                        let monthStartIndex = birth.index(birth.startIndex, offsetBy: 4)
-                        let monthEndIndex = birth.index(birth.startIndex, offsetBy: 5)
-                    
-                        let dayStartIndex = birth.index(birth.startIndex, offsetBy: 6)
-                        let dayEndIndex = birth.index(birth.startIndex, offsetBy: 7)
-                        
-                        let year : Int = Int(birth[yearStartIndex...yearEndIndex]) ?? 0
-                        let month : Int = Int(birth[monthStartIndex...monthEndIndex]) ?? 0
-                        let day : Int = Int(birth[dayStartIndex...dayEndIndex]) ?? 0
-                        
-                        let dateComp = DateComponents(year: year, month: month, day: day)
-                        let birthDate = Calendar.current.date(from: dateComp)
-                        let today = Date()
-                        if birthDate != nil {
-                            let betweenYear = Calendar.current.dateComponents([.year], from: birthDate!, to: today).year
-                            let yearOld : Int = Int(betweenYear ?? 0)
-                            
-                            if yearOld > 18 { //18세 이상인 경우에만
-                                authed = 1
-                            }else{
-                                authed = 2
-                            }
-                        }
-                    }
-//                    if readnick != "" { // 회원가입 Form을 작성한 경우
-//                        if readcereal != 0 {
-//                            //Status 적용
-//                            UtilFunction.statusChangeToOnline(email: useremail)
-//                            UtilFunction.setPostID(id: useremail)
-//                            UtilFunction.setPostNick(nick: readnick)
-//                            UtilFunction.setPostCereal(cereal: readcereal)
-//                            UtilFunction.setPostFriendCode(friendCode: friendCode)
-//                            UtilFunction.setPostTuto1(tuto1: tuto1)
-//                            UtilFunction.setPostTuto2(tuto2: tuto2)
-//                            UtilFunction.setPostTuto3(tuto3: tuto3)
-//                            UtilFunction.setPostStatus(status: 2)
-//                            UtilFunction.setPostLoading(loading: false)
-//                            UtilFunction.setPostNiceAuthed(niceAuthed: authed)
-//                        }else{
-//                            UtilFunction.setPostID(id: useremail)
-//                            UtilFunction.setPostStatus(status: 1)
-//                            UtilFunction.setPostLoading(loading: false)
-//                        }
-//                    }else{
-//                        self.state = .signedIn
-//                        UtilFunction.setPostID(id: useremail)
-//                        UtilFunction.setPostStatus(status: 3)
-//                        UtilFunction.setPostLoading(loading: false)
-//                    }
-                    //Push토큰 저장
-//                    let token = UtilFunction.getPostedToken()
-//                    usersRef.setData(["token" : token], merge: true)
-                    //Notification On
-//                    UIApplication.shared.registerForRemoteNotifications(); print("Push notification on")
-//                    UserDefaults.standard.set(true, forKey: "push_notification")
-                    
+        print("User Data Fetching - appleLoginHandler")
+        let usersRef = db.collection("Users").document(useremail)
+        usersRef.getDocument { (snap, err) in
+            
+            if let snap = snap, snap.exists {
+                if let err = err {
+                    print(err.localizedDescription)
+                    failHandler("유저 정보 조회 실패", "다시 시도해주세요")
+                    return
                 }
+                guard let dict = snap.data() else { return }
+                let userItems = dict
+                
+                let AppldID = userItems["AppleID"] as? String ?? ""
+                let id = userItems["id"] as? String ?? ""
+                let nickEnglish = userItems["nickEnglish"] as? String ?? ""
+                let nickKorean = userItems["nickKorean"] as? String ?? ""
+                let isSessionMorning = userItems["isSessionMorning"] as? Bool ?? true
+                
+                UserDefaults().set(id, forKey: "id")
+                UserDefaults().set(AppldID, forKey: "AppleID")
+                UserDefaults().set(nickEnglish, forKey: "nickEnglish")
+                UserDefaults().set(nickKorean, forKey: "nickKorean")
+                UserDefaults().set(isSessionMorning, forKey: "isSessionMorning")
+                
+                //                    let readnick = userItems["nickname"] as? String ?? ""
+                //                    let readcereal = userItems["cerealnum"] as? Int ?? 0
+                //                    let tuto1 =  userItems["tuto1"] as? Bool ?? false
+                //                    let tuto2 =  userItems["tuto2"] as? Bool ?? false
+                //                    let tuto3 =  userItems["tuto3"] as? Bool ?? false
+                //                    let friendCode = userItems["friendCode"] as? String ?? ""
+                //                    let di =  userItems["di"] as? String ?? ""
+                //                    let birth =  userItems["birthdate"] as? String ?? ""
+                //                    var authed : Int = 0
+                //                    authed = 0
+                //                    if di != "" && birth != "" {
+                //                        let yearStartIndex = birth.index(birth.startIndex, offsetBy: 0)
+                //                        let yearEndIndex = birth.index(birth.startIndex, offsetBy: 3)
+                //
+                //                        let monthStartIndex = birth.index(birth.startIndex, offsetBy: 4)
+                //                        let monthEndIndex = birth.index(birth.startIndex, offsetBy: 5)
+                //
+                //                        let dayStartIndex = birth.index(birth.startIndex, offsetBy: 6)
+                //                        let dayEndIndex = birth.index(birth.startIndex, offsetBy: 7)
+                //
+                //                        let year : Int = Int(birth[yearStartIndex...yearEndIndex]) ?? 0
+                //                        let month : Int = Int(birth[monthStartIndex...monthEndIndex]) ?? 0
+                //                        let day : Int = Int(birth[dayStartIndex...dayEndIndex]) ?? 0
+                //
+                //                        let dateComp = DateComponents(year: year, month: month, day: day)
+                //                        let birthDate = Calendar.current.date(from: dateComp)
+                //                        let today = Date()
+                //                        if birthDate != nil {
+                //                            let betweenYear = Calendar.current.dateComponents([.year], from: birthDate!, to: today).year
+                //                            let yearOld : Int = Int(betweenYear ?? 0)
+                //
+                //                            if yearOld > 18 { //18세 이상인 경우에만
+                //                                authed = 1
+                //                            }else{
+                //                                authed = 2
+                //                            }
+                //                        }
+                //                    }
+                //                    if readnick != "" { // 회원가입 Form을 작성한 경우
+                //                        if readcereal != 0 {
+                //                            //Status 적용
+                //                            UtilFunction.statusChangeToOnline(email: useremail)
+                //                            UtilFunction.setPostID(id: useremail)
+                //                            UtilFunction.setPostNick(nick: readnick)
+                //                            UtilFunction.setPostCereal(cereal: readcereal)
+                //                            UtilFunction.setPostFriendCode(friendCode: friendCode)
+                //                            UtilFunction.setPostTuto1(tuto1: tuto1)
+                //                            UtilFunction.setPostTuto2(tuto2: tuto2)
+                //                            UtilFunction.setPostTuto3(tuto3: tuto3)
+                //                            UtilFunction.setPostStatus(status: 2)
+                //                            UtilFunction.setPostLoading(loading: false)
+                //                            UtilFunction.setPostNiceAuthed(niceAuthed: authed)
+                //                        }else{
+                //                            UtilFunction.setPostID(id: useremail)
+                //                            UtilFunction.setPostStatus(status: 1)
+                //                            UtilFunction.setPostLoading(loading: false)
+                //                        }
+                //                    }else{
+                //                        self.state = .signedIn
+                //                        UtilFunction.setPostID(id: useremail)
+                //                        UtilFunction.setPostStatus(status: 3)
+                //                        UtilFunction.setPostLoading(loading: false)
+                //                    }
+                //Push토큰 저장
+                //                    let token = UtilFunction.getPostedToken()
+                //                    usersRef.setData(["token" : token], merge: true)
+                //Notification On
+                //                    UIApplication.shared.registerForRemoteNotifications(); print("Push notification on")
+                //                    UserDefaults.standard.set(true, forKey: "push_notification")
+                
             }
+        }
     }
     
 }

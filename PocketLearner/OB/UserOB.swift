@@ -7,6 +7,8 @@
 
 import Foundation
 
-class observed: ObservableObject {
-
+class userData: ObservableObject {
+    @Published var AppleID = UserDefaults().string(forKey: "AppleID") ?? ""
+    @Published var id = UserDefaults().string(forKey: "id") ?? ""
+    @Published var nickEnglish = UserDefaults().string(forKey: "nickEnglish") ?? ""
 }
