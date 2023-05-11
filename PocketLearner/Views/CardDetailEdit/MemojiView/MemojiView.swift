@@ -80,7 +80,7 @@ public class MemojiView: UIView {
     
     public override var tintColor: UIColor! {
         didSet {
-            imageView.backgroundColor = tintColor.withAlphaComponent(0.2)
+            imageView.backgroundColor = tintColor.withAlphaComponent(0.6)
             if #available(iOS 13.0, *) {
                 editImageView.backgroundColor = tintColor
             }
