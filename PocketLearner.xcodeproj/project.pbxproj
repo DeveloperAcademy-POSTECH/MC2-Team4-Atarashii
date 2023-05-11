@@ -33,6 +33,7 @@
 		0EBBD8872A0CDD6F00B232F1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBD8862A0CDD6F00B232F1 /* Constants.swift */; };
 		0EBBD88A2A0CDDB900B232F1 /* AppleLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBD8892A0CDDB900B232F1 /* AppleLoginViewModel.swift */; };
 		0EBBD88C2A0CDE2200B232F1 /* UserOB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBD88B2A0CDE2200B232F1 /* UserOB.swift */; };
+		0EBBD88E2A0CDE8F00B232F1 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBD88D2A0CDE8F00B232F1 /* MainView.swift */; };
 		0ED6DEDA2A0A1BDF009F21BC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6DED92A0A1BDF009F21BC /* ContentView.swift */; };
 		0ED7D3EC2A0CB2AA001E4800 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED7D3EB2A0CB2AA001E4800 /* FirebaseAuth */; };
 		0ED7D3EE2A0CB2AA001E4800 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED7D3ED2A0CB2AA001E4800 /* FirebaseFirestore */; };
@@ -82,6 +83,7 @@
 		0EBBD8862A0CDD6F00B232F1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0EBBD8892A0CDDB900B232F1 /* AppleLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginViewModel.swift; sourceTree = "<group>"; };
 		0EBBD88B2A0CDE2200B232F1 /* UserOB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOB.swift; sourceTree = "<group>"; };
+		0EBBD88D2A0CDE8F00B232F1 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		0ED6DED32A0A14C5009F21BC /* PocketLearner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PocketLearner.entitlements; sourceTree = "<group>"; };
 		0ED6DED92A0A1BDF009F21BC /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8641EF2D2A0A80EC00B05FC4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				0ED6DED92A0A1BDF009F21BC /* ContentView.swift */,
 				0E113BEC2A0A0FA500AB2EC8 /* Assets.xcassets */,
 				0E113BEE2A0A0FA500AB2EC8 /* Preview Content */,
+				0EBBD88D2A0CDE8F00B232F1 /* MainView.swift */,
 			);
 			path = PocketLearner;
 			sourceTree = "<group>";
@@ -387,6 +390,7 @@
 				C32FEA7A2A0BE4A800CE0663 /* GoalOption.swift in Sources */,
 				0E6DB2DF2A0A2A1C00F6C8DC /* CreateNickNameView.swift in Sources */,
 				0E6DB2CD2A0A29F000F6C8DC /* InitailCardMainView.swift in Sources */,
+				0EBBD88E2A0CDE8F00B232F1 /* MainView.swift in Sources */,
 				C36366292A0A31B400E4E9C6 /* CardGenerateViewHeader.swift in Sources */,
 				0E6DB2D42A0A2A0000F6C8DC /* MainNameCardTabView.swift in Sources */,
 				EF5D03532A0B86E100678E09 /* String.swift in Sources */,
