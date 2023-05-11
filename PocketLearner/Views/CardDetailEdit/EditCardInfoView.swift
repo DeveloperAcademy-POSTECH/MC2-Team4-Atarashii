@@ -10,13 +10,19 @@ import Photos
 
 struct EditCardInfoView: View {
     @State var collaborationTypes:String = "Driver"
-    
+    @State var myGoal: String = "iOS 개발자"
+    @State var isPresent: Bool = false
+    @State var myGoalText: String = ""
+    @State var discriptionText: String = ""
+    @State var mySkillText: String = ""
+    @State var myFutureSkillText: String = ""
+//    @State var discriptionText: String = ""
     var body: some View {
         ScrollView(.vertical) {
             VStack {
                 ProfilePictureView()
                 
-                CharacterCountTextField(placeholder: "안녕하세요! 겉바속촉 디발자 리앤입니다!", limit: 50, height: 100)
+                CharacterCountTextField(text: $discriptionText, placeholder: "안녕하세요! 겉바속촉 디발자 리앤입니다!", limit: 50, height: 100)
             }
             
             VStack {
@@ -59,7 +65,7 @@ struct EditCardInfoView: View {
                     .font(.system(size: 13))
                     .padding(.bottom,-15)
                     .padding(.leading)
-                CharacterCountTextField(placeholder: "내가 가지고 있는 스킬셋에 대해 자세하게 서술해주세요!", limit: 100, height: 160)
+                CharacterCountTextField(text: $mySkillText, placeholder: "내가 가지고 있는 스킬셋에 대해 자세하게 서술해주세요!", limit: 100, height: 160)
             }
             
             VStack {
@@ -98,8 +104,28 @@ struct EditCardInfoView: View {
                     .padding(.bottom,-15)
                     .padding(.leading)
                 
-                CharacterCountTextField(placeholder: "내가 키우고 싶은 스킬셋에 대해 자세하게 서술해주세요!", limit: 100, height: 160)
+                CharacterCountTextField(text: $myFutureSkillText, placeholder: "내가 키우고 싶은 스킬셋에 대해 자세하게 서술해주세요!", limit: 100, height: 160)
             }
+            HStack {
+                Text("아카데미에서의 성장목표")
+                
+                Menu(content: {
+                    Button("PM", action: handlePmSet)
+                    Button("iOS 개발자", action: handleIosSet)
+                    Button("서버 개발자", action: handleServerSet)
+                    Button("UI/UX 디자이너", action: handleUiandUxSet)
+                    Button("기타", action: handleOtherSet)
+                }, label: {
+                    Text("\(myGoal)")
+                        .foregroundColor(hexStringToColor(hexString: "#979797"))
+                    Image(systemName: "chevron.up.chevron.down")
+                        .foregroundColor(hexStringToColor(hexString: "#979797"))
+                })
+            }
+            .sheet(isPresented: $isPresent) {
+                RoleGoalInputSheetView(textFieldText: $myGoalText)
+            }
+            
             
             VStack {
                 Text("협업 관련 👥")
@@ -210,6 +236,22 @@ struct EditCardInfoView: View {
         self.collaborationTypes = "Expressive"
     }
     
+    func handlePmSet() {
+        self.myGoal = "PM"
+    }
+    func handleIosSet() {
+        self.myGoal = "iOS 개발자"
+    }
+    func handleServerSet() {
+        self.myGoal = "서버 개발자"
+    }
+    func handleUiandUxSet() {
+        self.myGoal = "UI/UX 디자이너"
+    }
+    func handleOtherSet() {
+        isPresent = true
+        self.myGoal = myGoalText
+    }
 }
 
 struct EditCardInfoView_Previews: PreviewProvider {
@@ -274,29 +316,25 @@ struct ProfilePictureView: View {
 }
 
 struct CharacterCountTextField: View {
-    @State private var text = ""
+    @Binding var text: String
     let placeholder: String
     let limit: Int
     let height: CGFloat
     
     var body: some View {
         VStack {
-            TextEditor(text: $text)
-                .disabled(text.count >= limit)
+            TextField(placeholder, text: $text)
+                .lineLimit(Int(limit/20), reservesSpace: true)
+//                .disabled(text.count >= limit)
                 .padding()
                 .frame(maxWidth: .infinity,minHeight: height)
+                .multilineTextAlignment(.leading)
+                .onReceive($text.wrappedValue.publisher.collect()) {
+                    $text.wrappedValue = String($0.prefix(limit))
+                }
                 .background(
                     RoundedRectangle(cornerRadius: 20)
                         .stroke(hexStringToColor(hexString: "#D8D8D8"), lineWidth: 2)
-                )
-                .overlay(
-                    VStack {
-                        if text.isEmpty {
-                            Text(placeholder)
-                                .foregroundColor(Color(UIColor.placeholderText))
-                                .padding()
-                        }
-                    }
                 )
                 
             
