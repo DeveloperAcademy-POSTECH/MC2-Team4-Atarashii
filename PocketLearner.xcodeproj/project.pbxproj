@@ -34,7 +34,8 @@
 		0EBBD88A2A0CDDB900B232F1 /* AppleLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBD8892A0CDDB900B232F1 /* AppleLoginViewModel.swift */; };
 		0EBBD88C2A0CDE2200B232F1 /* UserOB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBD88B2A0CDE2200B232F1 /* UserOB.swift */; };
 		0EBBD88E2A0CDE8F00B232F1 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBD88D2A0CDE8F00B232F1 /* MainView.swift */; };
-		0ED6DEDA2A0A1BDF009F21BC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6DED92A0A1BDF009F21BC /* ContentView.swift */; };
+		0EBBD8902A0D29E600B232F1 /* QRCodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBD88F2A0D29E600B232F1 /* QRCodeScanner.swift */; };
+		0ED6DEDA2A0A1BDF009F21BC /* QRCodeGenerateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6DED92A0A1BDF009F21BC /* QRCodeGenerateView.swift */; };
 		0ED7D3EC2A0CB2AA001E4800 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED7D3EB2A0CB2AA001E4800 /* FirebaseAuth */; };
 		0ED7D3EE2A0CB2AA001E4800 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED7D3ED2A0CB2AA001E4800 /* FirebaseFirestore */; };
 		0ED7D3F02A0CB2AA001E4800 /* FirebaseInAppMessaging-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED7D3EF2A0CB2AA001E4800 /* FirebaseInAppMessaging-Beta */; };
@@ -84,8 +85,9 @@
 		0EBBD8892A0CDDB900B232F1 /* AppleLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginViewModel.swift; sourceTree = "<group>"; };
 		0EBBD88B2A0CDE2200B232F1 /* UserOB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOB.swift; sourceTree = "<group>"; };
 		0EBBD88D2A0CDE8F00B232F1 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		0EBBD88F2A0D29E600B232F1 /* QRCodeScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScanner.swift; sourceTree = "<group>"; };
 		0ED6DED32A0A14C5009F21BC /* PocketLearner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PocketLearner.entitlements; sourceTree = "<group>"; };
-		0ED6DED92A0A1BDF009F21BC /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		0ED6DED92A0A1BDF009F21BC /* QRCodeGenerateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeGenerateView.swift; sourceTree = "<group>"; };
 		8641EF2D2A0A80EC00B05FC4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		8641EF312A0B762100B05FC4 /* hexStringToColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hexStringToColor.swift; sourceTree = "<group>"; };
 		C32FEA6F2A0BB2C200CE0663 /* SelectRoleGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRoleGoalView.swift; sourceTree = "<group>"; };
@@ -145,7 +147,8 @@
 				0E6DB2BA2A0A296A00F6C8DC /* Components */,
 				0ED6DED32A0A14C5009F21BC /* PocketLearner.entitlements */,
 				0E113BE82A0A0FA400AB2EC8 /* PocketLearnerApp.swift */,
-				0ED6DED92A0A1BDF009F21BC /* ContentView.swift */,
+				0ED6DED92A0A1BDF009F21BC /* QRCodeGenerateView.swift */,
+				0EBBD88F2A0D29E600B232F1 /* QRCodeScanner.swift */,
 				0E113BEC2A0A0FA500AB2EC8 /* Assets.xcassets */,
 				0E113BEE2A0A0FA500AB2EC8 /* Preview Content */,
 			);
@@ -397,7 +400,7 @@
 				EF5D03532A0B86E100678E09 /* String.swift in Sources */,
 				C363662B2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift in Sources */,
 				0E6DB2BD2A0A298100F6C8DC /* AuthService.swift in Sources */,
-				0ED6DEDA2A0A1BDF009F21BC /* ContentView.swift in Sources */,
+				0ED6DEDA2A0A1BDF009F21BC /* QRCodeGenerateView.swift in Sources */,
 				0E6DB2E12A0A2A1C00F6C8DC /* AppleLoginView.swift in Sources */,
 				8641EF2E2A0A80EC00B05FC4 /* ImagePicker.swift in Sources */,
 				EF5D03552A0B86E100678E09 /* CircularImageView.swift in Sources */,
@@ -409,6 +412,7 @@
 				0E6DB2D72A0A2A0000F6C8DC /* MyCardView.swift in Sources */,
 				C32FEA7E2A0BE59900CE0663 /* GoalPickerMenuList.swift in Sources */,
 				0E113BE92A0A0FA400AB2EC8 /* PocketLearnerApp.swift in Sources */,
+				0EBBD8902A0D29E600B232F1 /* QRCodeScanner.swift in Sources */,
 				0EBBD88C2A0CDE2200B232F1 /* UserOB.swift in Sources */,
 				0E6DB2D52A0A2A0000F6C8DC /* CardCollectionView.swift in Sources */,
 				EF5D03562A0B86E100678E09 /* MemojiTextField.swift in Sources */,
