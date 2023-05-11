@@ -48,20 +48,23 @@ struct AppleLoginView : View {
                 .padding()
 //                .background(Color.blue)
             
-            SignInWithAppleButton(onRequest: { request in
-                let nonce = AuthService.shard.randomNonceString()
-                currentNonce = nonce
-                request.requestedScopes = [.fullName, .email]
-                request.nonce = AuthService.shard.sha256(nonce)
-            }, onCompletion: AuthService.shard.handleAppleSignIn
-            )
-            .signInWithAppleButtonStyle(.black)
+//            SignInWithAppleButton(onRequest: { request in
+//                let nonce = AuthService.shard.randomNonceString()
+//                currentNonce = nonce
+//                request.requestedScopes = [.fullName, .email]
+//                request.nonce = AuthService.shard.sha256(nonce)
+//            }, onCompletion: AuthService.shard.handleAppleSignIn
+//            )
+            
+            SignInWithAppleButton(
+                onRequest: configure,
+                onCompletion: handle)
             .frame(width: 285, height: 60)
             .padding(.top,300)
         }
     }
     
-    func failHandler(){
+    func failHandler(errString1:String, errString2:String){
         print("error on apple login")
     }
     

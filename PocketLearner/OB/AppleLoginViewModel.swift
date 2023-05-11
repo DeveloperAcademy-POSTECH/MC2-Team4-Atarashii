@@ -53,7 +53,9 @@ class AppleLoginViewModel: ObservableObject{
             // User is signed in to Firebase with Apple.
             // ...
             print("Firebase - Apple Login : Logged In Successfully")
-            UtilFunction.setPostSns(sns: true)
+            
+//            UtilFunction.setPostSns(sns: true)
+            
             // 로그인 후처리 - 회원가입 창으로 넘기기 or 로그인 시 앱 실행
             // 애플 로그인은 최초 회원가입 이후 user Email을 제공하지 않으므로, 유저 고유 key를 가지고 접근해야 함.
             let userID : String = credential.user
@@ -153,37 +155,37 @@ class AppleLoginViewModel: ObservableObject{
                             }
                         }
                     }
-                    if readnick != "" { // 회원가입 Form을 작성한 경우
-                        if readcereal != 0 {
-                            //Status 적용
-                            UtilFunction.statusChangeToOnline(email: useremail)
-                            UtilFunction.setPostID(id: useremail)
-                            UtilFunction.setPostNick(nick: readnick)
-                            UtilFunction.setPostCereal(cereal: readcereal)
-                            UtilFunction.setPostFriendCode(friendCode: friendCode)
-                            UtilFunction.setPostTuto1(tuto1: tuto1)
-                            UtilFunction.setPostTuto2(tuto2: tuto2)
-                            UtilFunction.setPostTuto3(tuto3: tuto3)
-                            UtilFunction.setPostStatus(status: 2)
-                            UtilFunction.setPostLoading(loading: false)
-                            UtilFunction.setPostNiceAuthed(niceAuthed: authed)
-                        }else{
-                            UtilFunction.setPostID(id: useremail)
-                            UtilFunction.setPostStatus(status: 1)
-                            UtilFunction.setPostLoading(loading: false)
-                        }
-                    }else{
-                        self.state = .signedIn
-                        UtilFunction.setPostID(id: useremail)
-                        UtilFunction.setPostStatus(status: 3)
-                        UtilFunction.setPostLoading(loading: false)
-                    }
+//                    if readnick != "" { // 회원가입 Form을 작성한 경우
+//                        if readcereal != 0 {
+//                            //Status 적용
+//                            UtilFunction.statusChangeToOnline(email: useremail)
+//                            UtilFunction.setPostID(id: useremail)
+//                            UtilFunction.setPostNick(nick: readnick)
+//                            UtilFunction.setPostCereal(cereal: readcereal)
+//                            UtilFunction.setPostFriendCode(friendCode: friendCode)
+//                            UtilFunction.setPostTuto1(tuto1: tuto1)
+//                            UtilFunction.setPostTuto2(tuto2: tuto2)
+//                            UtilFunction.setPostTuto3(tuto3: tuto3)
+//                            UtilFunction.setPostStatus(status: 2)
+//                            UtilFunction.setPostLoading(loading: false)
+//                            UtilFunction.setPostNiceAuthed(niceAuthed: authed)
+//                        }else{
+//                            UtilFunction.setPostID(id: useremail)
+//                            UtilFunction.setPostStatus(status: 1)
+//                            UtilFunction.setPostLoading(loading: false)
+//                        }
+//                    }else{
+//                        self.state = .signedIn
+//                        UtilFunction.setPostID(id: useremail)
+//                        UtilFunction.setPostStatus(status: 3)
+//                        UtilFunction.setPostLoading(loading: false)
+//                    }
                     //Push토큰 저장
-                    let token = UtilFunction.getPostedToken()
-                    usersRef.setData(["token" : token], merge: true)
+//                    let token = UtilFunction.getPostedToken()
+//                    usersRef.setData(["token" : token], merge: true)
                     //Notification On
-                    UIApplication.shared.registerForRemoteNotifications(); print("Push notification on")
-                    UserDefaults.standard.set(true, forKey: "push_notification")
+//                    UIApplication.shared.registerForRemoteNotifications(); print("Push notification on")
+//                    UserDefaults.standard.set(true, forKey: "push_notification")
                     
                 }
             }
