@@ -10,7 +10,9 @@ import Photos
 
 struct EditCardInfoView: View {
     @State var collaborationTypes:String = "Driver"
-    
+    @State var myGoal: String = "iOS 개발자"
+    @State var isPresent: Bool = false
+    @State var myGoalText: String = ""
     var body: some View {
         ScrollView(.vertical) {
             VStack {
@@ -100,6 +102,26 @@ struct EditCardInfoView: View {
                 
                 CharacterCountTextField(placeholder: "내가 키우고 싶은 스킬셋에 대해 자세하게 서술해주세요!", limit: 100, height: 160)
             }
+            HStack {
+                Text("아카데미에서의 성장목표")
+                
+                Menu(content: {
+                    Button("PM", action: handlePmSet)
+                    Button("iOS 개발자", action: handleIosSet)
+                    Button("서버 개발자", action: handleServerSet)
+                    Button("UI/UX 디자이너", action: handleUiandUxSet)
+                    Button("기타", action: handleOtherSet)
+                }, label: {
+                    Text("\(myGoal)")
+                        .foregroundColor(hexStringToColor(hexString: "#979797"))
+                    Image(systemName: "chevron.up.chevron.down")
+                        .foregroundColor(hexStringToColor(hexString: "#979797"))
+                })
+            }
+            .sheet(isPresented: $isPresent) {
+                RoleGoalInputSheetView(textFieldText: $myGoalText)
+            }
+            
             
             VStack {
                 Text("협업 관련 👥")
@@ -210,6 +232,22 @@ struct EditCardInfoView: View {
         self.collaborationTypes = "Expressive"
     }
     
+    func handlePmSet() {
+        self.myGoal = "PM"
+    }
+    func handleIosSet() {
+        self.myGoal = "iOS 개발자"
+    }
+    func handleServerSet() {
+        self.myGoal = "서버 개발자"
+    }
+    func handleUiandUxSet() {
+        self.myGoal = "UI/UX 디자이너"
+    }
+    func handleOtherSet() {
+        isPresent = true
+        self.myGoal = myGoalText
+    }
 }
 
 struct EditCardInfoView_Previews: PreviewProvider {
