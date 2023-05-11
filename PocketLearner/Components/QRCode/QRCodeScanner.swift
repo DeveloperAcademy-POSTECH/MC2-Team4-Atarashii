@@ -11,17 +11,35 @@ import AVFoundation
 import FirebaseFirestore
 
 struct QRCodeScannerView: UIViewControllerRepresentable {
+    @Binding var QRScanResult: scanResult
     @EnvironmentObject var user: userData
     
     var completionHandler: (String, String) -> Void
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(completionHandler, user: user)
+        Coordinator(completionHandler, user: user, QRScanResult: $QRScanResult)
     }
     
     func makeUIViewController(context: Context) -> QRCodeScannerViewController {
-        let viewController = QRCodeScannerViewController(user: user)
+        let viewController = QRCodeScannerViewController(user: user, QRScanResult: $QRScanResult)
         viewController.delegate = context.coordinator
+        
+        // 화면에 메시지를 띄우는 코드
+        let messageLabel = UILabel()
+        messageLabel.text = "상대의 QR코드를 스캔하세요!"
+        messageLabel.font = UIFont.boldSystemFont(ofSize: 28)
+        messageLabel.textColor = .white
+        messageLabel.textAlignment = .center
+        messageLabel.numberOfLines = 0
+        messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        viewController.view.addSubview(messageLabel)
+        
+        NSLayoutConstraint.activate([
+            messageLabel.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
+            messageLabel.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor, constant: -180),
+            messageLabel.widthAnchor.constraint(equalTo: viewController.view.widthAnchor, multiplier: 0.8)
+        ])
+        
         return viewController
     }
     
@@ -30,10 +48,12 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
     class Coordinator: NSObject, QRCodeScannerViewControllerDelegate {
         var completionHandler: (String, String) -> Void
         var user: userData
+        @Binding var QRScanResult: scanResult
         
-        init(_ completionHandler: @escaping (String, String) -> Void, user: userData) {
+        init(_ completionHandler: @escaping (String, String) -> Void, user: userData, QRScanResult: Binding<scanResult>) {
             self.completionHandler = completionHandler
             self.user = user
+            self._QRScanResult = QRScanResult
         }
         
         func qrCodeScannerViewController(_ viewController: QRCodeScannerViewController, didScanCode code: String, counterpartID: String) {
@@ -41,6 +61,7 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
         }
     }
 }
+
 
 protocol QRCodeScannerViewControllerDelegate: AnyObject {
     func qrCodeScannerViewController(_ viewController: QRCodeScannerViewController, didScanCode code: String, counterpartID: String)
@@ -50,10 +71,12 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
     weak var delegate: QRCodeScannerViewControllerDelegate?
     
     var user: userData  // SwiftUI의 @EnvironmentObject 대신 일반 Swift 객체 사용 (UIKit)
+    @Binding var QRScanResult: scanResult
     
     // Add an initializer to receive the binding
-    init(user: userData) {
+    init(user: userData, QRScanResult: Binding<scanResult>) {
         self.user = user
+        self._QRScanResult = QRScanResult
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -118,6 +141,7 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
         alertController.addAction(UIAlertAction(title: "OK", style: .default))
         present(alertController, animated: true)
         captureSession = nil
+        QRScanResult = .fail
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -159,6 +183,7 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
                     changeCard(counterpartID: counterpartID)
                 } else {
                     print("QR Code Expired")
+                    QRScanResult = .expired
                 }
             }
         }
@@ -189,11 +214,12 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
             if let error = error {
                 // 오류 발생 시 처리
                 print("명함 교환 실패(DB 업로드): \(error) - QRCodeScanner")
+                self.QRScanResult = .dbFail
             } else {
                 // 성공 시 처리
                 print("명함 교환 성공! \(myID), \(counterpartID) - QRCodeScanner")
+                self.QRScanResult = .success
             }
         }
-
     }
 }

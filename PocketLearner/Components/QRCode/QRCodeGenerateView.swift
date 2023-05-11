@@ -11,37 +11,53 @@ import AVFoundation
 import FirebaseFirestore
 
 struct QRCodeGenerateView: View {
-    @State private var isShowingScanner = false
-    @State private var isShowingAlert = false
-    @State private var scannedDeviceName = ""
     @State private var isQRCodeExpired = false
     @State private var timer: Timer?
     @State private var timeRemaining = 10
     @State private var qrCodeTimestamp = Date().timeIntervalSince1970
-
+    @Binding var isQRCodePresented: Bool
+    @Binding var QRAnimation: Bool
+    
     var body: some View {
-            VStack {
-                Text(timeRemaining == 0 ? "QR코드가 만료되었습니다" : "\(timeRemaining) 초 후 QR코드가 만료됩니다")
-                    .font(.callout)
-                    .foregroundColor(.red)
-                QRCodeView(timestamp: qrCodeTimestamp)
-                Button("Regenerate QR Code") {
-                    isQRCodeExpired = false
-                    timeRemaining = 10
-                    qrCodeTimestamp = Date().timeIntervalSince1970
-                    startTimer()
-                }
-                .disabled(!isQRCodeExpired)
+        VStack {
+            HStack{
+                Button(action: {
+                    withAnimation(.linear(duration: 0.5)) {
+                        isQRCodePresented = false
+                    }
+//                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() +) {
+                            QRAnimation = false
+//                    }
+                    
+                }) {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 25))
+                        .foregroundColor(.black)
+                }.padding(.top, 50)
+                Spacer()
             }
-            .onAppear {
+            Text(timeRemaining == 0 ? "QR코드가 만료되었습니다" : "\(timeRemaining) 초 후 QR코드가 만료됩니다")
+                .font(.system(size: 20, weight: .bold))
+                .foregroundColor(mainAccentColor)
+                .padding(.bottom, 20).padding(.top, 10)
+            
+            QRCodeView(timestamp: qrCodeTimestamp)
+            
+            cardGenerateViewsButton(title: "QR코드 재생성", disableCondition: !isQRCodeExpired, action: {
+                isQRCodeExpired = false
+                timeRemaining = 10
+                qrCodeTimestamp = Date().timeIntervalSince1970
                 startTimer()
-            }
-            .onDisappear {
-                timer?.invalidate()
-            }
-        
+            }).padding(.top, 30).padding(.bottom, 50)
+        }.background(.white)
+        .onAppear {
+            startTimer()
+        }
+        .onDisappear {
+            timer?.invalidate()
+        }
     }
-
+    
     func startTimer() {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
@@ -61,7 +77,7 @@ struct QRCodeView: View {
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
     let timestamp: TimeInterval
-
+    
     var body: some View {
         if let image = generateQRCodeImage() {
             Image(uiImage: image)
@@ -72,19 +88,19 @@ struct QRCodeView: View {
             Text("Failed to generate QR Code")
         }
     }
-
+    
     func generateQRCodeImage() -> UIImage? {
         let uuid = UIDevice.current.identifierForVendor?.uuidString ?? ""
         let myID = user.id
         let combinedString = "\(uuid)|\(myID)|\(timestamp)"
         let data = Data(combinedString.utf8)
         filter.setValue(data, forKey: "inputMessage")
-
+        
         if let outputImage = filter.outputImage,
            let cgImage = context.createCGImage(outputImage, from: outputImage.extent) {
             return UIImage(cgImage: cgImage)
         }
-
+        
         return nil
     }
 }

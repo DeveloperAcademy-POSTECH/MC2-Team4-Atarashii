@@ -31,6 +31,11 @@ struct MainNameCardTabView: View {
     @State var QRCodeScannerPresented: Bool = false
     @State var alertPresented: Bool = false
     
+    // QR코드 스캔 결과
+    @State var QRScanResult: scanResult = .none
+    
+    @Namespace var QRanimation
+    
     // MARK: - 카드 뷰 Segmented Control 섹션 카테고리
     enum cardViewCategories: String, CaseIterable {
         case myCard = "내 명함"
@@ -85,15 +90,33 @@ struct MainNameCardTabView: View {
             }
             .position(x: 320, y: 650)
             .sheet(isPresented: $QRCodeScannerPresented){
-                QRCodeScannerView() { code, deviceName in
+                QRCodeScannerView(QRScanResult: $QRScanResult) { code, deviceName in
                     QRCodeScannerPresented = false
-                    if code == UIDevice.current.identifierForVendor?.uuidString {
-                        alertPresented = true
-                    }
+                    alertPresented = true
                 }.environmentObject(user)
             }.alert(isPresented: $alertPresented){
-                Alert(title: Text("QR코드 스캔 성공"), message: Text("스캔 성공"), dismissButton: .default(Text("확인")))
+                switch QRScanResult.self{
+                case .success:
+                    return Alert(title: Text("명함이 성공적으로 교환되었습니다!"))
+                case .none:
+                    return Alert(title: Text("알 수 없는 오류 발생. 다시 시도해주세요."))
+                case .fail:
+                    return Alert(title: Text("QR코드 스캔 실패. 다시 시도해주세요."))
+                case .dbFail:
+                    return Alert(title: Text("QR코드를 스캔하였으나, DB에 성공적으로 저장되지 않았습니다. 다시 시도해주세요."))
+                case .expired:
+                    return Alert(title: Text("QR코드 유효기간이 만료되었습니다. 다시 시도해주세요."))
+                }
             }
         }
     }
+}
+
+
+enum scanResult{
+    case none
+    case success
+    case fail
+    case dbFail
+    case expired
 }
