@@ -21,10 +21,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct PocketLearnerApp: App {
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject var user = userData()
     
     var body: some Scene {
         WindowGroup {
-            EditCardInfoView()
+            AppleLoginView()
         }
     }
 }
