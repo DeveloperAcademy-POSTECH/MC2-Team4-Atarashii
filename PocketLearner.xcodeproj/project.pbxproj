@@ -138,6 +138,8 @@
 		0E113BE72A0A0FA400AB2EC8 /* PocketLearner */ = {
 			isa = PBXGroup;
 			children = (
+				0EBBD8882A0CDDA600B232F1 /* OB */,
+				0EBBD88D2A0CDE8F00B232F1 /* MainView.swift */,
 				0E6DB2BF2A0A29B200F6C8DC /* Views */,
 				0E6DB2BE2A0A298C00F6C8DC /* Constants */,
 				0E6DB2BA2A0A296A00F6C8DC /* Components */,
@@ -146,7 +148,6 @@
 				0ED6DED92A0A1BDF009F21BC /* ContentView.swift */,
 				0E113BEC2A0A0FA500AB2EC8 /* Assets.xcassets */,
 				0E113BEE2A0A0FA500AB2EC8 /* Preview Content */,
-				0EBBD88D2A0CDE8F00B232F1 /* MainView.swift */,
 			);
 			path = PocketLearner;
 			sourceTree = "<group>";
@@ -190,7 +191,6 @@
 		0E6DB2BF2A0A29B200F6C8DC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0EBBD8882A0CDDA600B232F1 /* OB */,
 				0E6DB2DA2A0A2A1200F6C8DC /* Intro */,
 				0E6DB2D92A0A2A0400F6C8DC /* Comment */,
 				0E6DB2CE2A0A29F500F6C8DC /* CardList */,
@@ -280,7 +280,8 @@
 				0EBBD8892A0CDDB900B232F1 /* AppleLoginViewModel.swift */,
 				0EBBD88B2A0CDE2200B232F1 /* UserOB.swift */,
 			);
-			path = OB;
+			name = OB;
+			path = Views/OB;
 			sourceTree = "<group>";
 		};
 		EF5D034A2A0B86A300678E09 /* MemojiView */ = {
@@ -553,7 +554,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PocketLearner/Preview Content\"";
-				DEVELOPMENT_TEAM = K8Z5PJ967K;
+				DEVELOPMENT_TEAM = PAQ92DM7XD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -585,7 +586,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PocketLearner/Preview Content\"";
-				DEVELOPMENT_TEAM = K8Z5PJ967K;
+				DEVELOPMENT_TEAM = PAQ92DM7XD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

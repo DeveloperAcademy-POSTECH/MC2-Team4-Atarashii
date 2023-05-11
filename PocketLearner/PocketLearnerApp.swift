@@ -25,7 +25,7 @@ struct PocketLearnerApp: App {
     
     var body: some Scene {
         WindowGroup {
-            EditCardInfoView()
+            MainView().environmentObject(user)
         }
     }
 }

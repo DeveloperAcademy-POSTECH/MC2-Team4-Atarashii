@@ -35,26 +35,25 @@ struct AppleUser: Codable {
 struct AppleLoginView : View {
     @EnvironmentObject var user: userData
     @StateObject var loginData = AppleLoginViewModel()
-
+    
     @State var currentNonce: String?
     var body: some View {
         VStack {
-            
             Text("안녕하세요!\n애플 디벨로퍼 아카데미 \n버츄얼 명함 서비스\n00 입니다.")
                 .bold()
                 .lineSpacing(CGFloat(20))
                 .font(.system(size: 25.63))
                 .frame(width: 276,height: 200)
                 .padding()
-//                .background(Color.blue)
+            //                .background(Color.blue)
             
-//            SignInWithAppleButton(onRequest: { request in
-//                let nonce = AuthService.shard.randomNonceString()
-//                currentNonce = nonce
-//                request.requestedScopes = [.fullName, .email]
-//                request.nonce = AuthService.shard.sha256(nonce)
-//            }, onCompletion: AuthService.shard.handleAppleSignIn
-//            )
+            //            SignInWithAppleButton(onRequest: { request in
+            //                let nonce = AuthService.shard.randomNonceString()
+            //                currentNonce = nonce
+            //                request.requestedScopes = [.fullName, .email]
+            //                request.nonce = AuthService.shard.sha256(nonce)
+            //            }, onCompletion: AuthService.shard.handleAppleSignIn
+            //            )
             
             SignInWithAppleButton(
                 onRequest: configure,
@@ -110,6 +109,29 @@ struct AppleLoginView : View {
                 }
                 loginData.authenticate(credential: credential, failHandler: failHandler)
                 // ------ Firebase Login ------
+                
+                // if Firebase Login Successed.
+                // MARK: AppleLoginViewModel - AppleLoginHandler쪽에 구현되어 있으나, userData(EnvironmentOB)를 업데이트하기 위함.
+                user.AppleID = credential.user
+                if let email = credential.email {
+                    user.id = email
+                    print("첫 로그인(회원가입) : \(user.id) email data saved.")
+                } else {
+                    db.collection("Users").whereField("AppleID", isEqualTo: user.AppleID)
+                        .getDocuments() { (querySnapshot, err) in
+                            if let err = err {
+                                print("Error getting documents - AppleLoginView[handle] : \(err)")
+                            } else {
+                                for document in querySnapshot!.documents {
+                                    print("Document ID: \(document.documentID)")
+                                    if let idField = document.get("id") as? String {
+                                        user.id = idField
+                                        print("로그인(이미 가입된 회원) : \(user.id) - email data saved.")
+                                    }
+                                }
+                            }
+                        }
+                }
                 
             default:
                 print(auth.credential)
