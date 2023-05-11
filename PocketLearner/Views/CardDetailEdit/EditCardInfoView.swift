@@ -11,7 +11,8 @@ import Photos
 struct EditCardInfoView: View {
     @State var collaborationTypes:String = "Driver"
     @State var myGoal: String = "iOS 개발자"
-    @State var isPresent: Bool = false
+    
+    @State var isSheet: Bool = false
     @State var myGoalText: String = ""
     @State var discriptionText: String = ""
     @State var mySkillText: String = ""
@@ -122,8 +123,8 @@ struct EditCardInfoView: View {
                         .foregroundColor(hexStringToColor(hexString: "#979797"))
                 })
             }
-            .sheet(isPresented: $isPresent) {
-                RoleGoalInputSheetView(textFieldText: $myGoalText)
+            .sheet(isPresented: $isSheet) {
+                RoleGoalInputSheetView(sendInputText: $myGoalText)
             }
             
             
@@ -249,7 +250,7 @@ struct EditCardInfoView: View {
         self.myGoal = "UI/UX 디자이너"
     }
     func handleOtherSet() {
-        isPresent = true
+        self.isSheet = true
         self.myGoal = myGoalText
     }
 }
