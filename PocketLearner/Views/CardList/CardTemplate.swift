@@ -99,8 +99,8 @@ struct CardFront: View {
                         // MARK: - (내 명함일 경우) 편집 기능이 담긴 More Action 아이콘
                         Menu {
                             Button {
-                                /// 카드 커스텀 뷰로 이동
-                                EditCardDesignView()
+                                // MARK: - 카드 커스텀 뷰로 이동
+                                EditCardDesignView(userInfo: userInfo)
                             } label: {
                                 Label("카드 커스텀", systemImage: "paintpalette")
                             }
