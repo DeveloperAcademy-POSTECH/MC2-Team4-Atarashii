@@ -8,34 +8,8 @@
 import SwiftUI
 import FirebaseAuth
 import AuthenticationServices
-import Firebase
-
-// AppleUser 객체를 Codable로 설정하여
-// Encoding, Decoding이 가능 => UserDefault에 저장이 가능한 형태로.
-struct AppleUser: Codable {
-    let userId: String
-    let firstName: String
-    let lastName: String
-    let email: String
-    
-    init?(credentials: ASAuthorizationAppleIDCredential){
-        guard
-            let firstName = credentials.fullName?.givenName,
-            let lastName = credentials.fullName?.familyName,
-            let email = credentials.email
-        else{return nil}
-        
-        self.userId = credentials.user
-        self.firstName = firstName
-        self.lastName = lastName
-        self.email = email
-    }
-}
 
 struct AppleLoginView : View {
-    @EnvironmentObject var user: userData
-    @StateObject var loginData = AppleLoginViewModel()
-
     @State var currentNonce: String?
     var body: some View {
         VStack {
@@ -48,77 +22,19 @@ struct AppleLoginView : View {
                 .padding()
 //                .background(Color.blue)
             
-//            SignInWithAppleButton(onRequest: { request in
-//                let nonce = AuthService.shard.randomNonceString()
-//                currentNonce = nonce
-//                request.requestedScopes = [.fullName, .email]
-//                request.nonce = AuthService.shard.sha256(nonce)
-//            }, onCompletion: AuthService.shard.handleAppleSignIn
-//            )
-            
-            SignInWithAppleButton(
-                onRequest: configure,
-                onCompletion: handle)
+            SignInWithAppleButton(onRequest: { request in
+                let nonce = AuthService.shard.randomNonceString()
+                currentNonce = nonce
+                request.requestedScopes = [.fullName, .email]
+                request.nonce = AuthService.shard.sha256(nonce)
+            }, onCompletion: AuthService.shard.handleAppleSignIn
+            )
+            .signInWithAppleButtonStyle(.black)
             .frame(width: 285, height: 60)
             .padding(.top,300)
         }
     }
     
-    func failHandler(errString1:String, errString2:String){
-        print("error on apple login: \(errString1), \(errString2)")
-    }
-    
-    
-    
-    func configure(_ request: ASAuthorizationAppleIDRequest){
-        loginData.nonce =  randomNonceString()
-        request.requestedScopes = [.fullName, .email]
-        request.nonce = sha256(loginData.nonce)
-        //        let controller = ASAuthorizationController(authorizationRequests: [request])
-        //        controller.performRequests()
-    }
-    
-    func handle(_ authResult: Result<ASAuthorization, Error>){
-        switch authResult{
-        case .success(let auth):
-            print(auth)
-            switch auth.credential{
-            case let appleIdCredentials as ASAuthorizationAppleIDCredential:
-                if let appleUser = AppleUser(credentials: appleIdCredentials){
-                    // AppleUser 객체를 JSON 형태로 Encoding하여 UserDefaults에 저장할 수 았는 형태로.
-                    let appleUserData = try? JSONEncoder().encode(appleUser)
-                    // UserDefaults에 Register한 User의 정보 저장. 초회차 로그인(Register) 이후에는 유저 데이터에 접근할 수 없으므로
-                    // 데이터를 유실하지 않도록 신중하게 관리하여 DB에 업로드해야 함.
-                    // Data는 Encoding한 AppleUser 객체, key는 유일성을 보장할 수 있는 userId로 설정.
-                    UserDefaults.standard.setValue(appleUserData, forKey: appleUser.userId)
-                    
-                    print(">>> Saved Apple User : ", appleUser)
-                    
-                    
-                    
-                } else {    // field 정보 부족으로 AppleUser 객체 생성 실패 시
-                    print("missing some fields",
-                          appleIdCredentials.email ?? "" ,
-                          appleIdCredentials.fullName ?? "",
-                          appleIdCredentials.user )
-                }
-                
-                // ------ Firebase Login ------
-                guard let credential = auth.credential as? ASAuthorizationAppleIDCredential
-                else{print("Error with Firebase - Apple Login : GETTING CREDENTIAL")
-                    return
-                }
-                loginData.authenticate(credential: credential, failHandler: failHandler)
-                // ------ Firebase Login ------
-                
-            default:
-                print(auth.credential)
-            }
-            
-        case .failure(let err):
-            print(">>> Handle Failure : ", err)
-        }
-    }
 }
 
 
