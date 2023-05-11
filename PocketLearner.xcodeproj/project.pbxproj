@@ -151,8 +151,6 @@
 				0E6DB2BA2A0A296A00F6C8DC /* Components */,
 				0ED6DED32A0A14C5009F21BC /* PocketLearner.entitlements */,
 				0E113BE82A0A0FA400AB2EC8 /* PocketLearnerApp.swift */,
-				0ED6DED92A0A1BDF009F21BC /* QRCodeGenerateView.swift */,
-				0EBBD88F2A0D29E600B232F1 /* QRCodeScanner.swift */,
 				0E113BEC2A0A0FA500AB2EC8 /* Assets.xcassets */,
 				0E113BEE2A0A0FA500AB2EC8 /* Preview Content */,
 			);
@@ -170,6 +168,7 @@
 		0E6DB2BA2A0A296A00F6C8DC /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				0EBBD8912A0D595300B232F1 /* QRCode */,
 				0E6DB2BB2A0A297B00F6C8DC /* API */,
 				8641EF2D2A0A80EC00B05FC4 /* ImagePicker.swift */,
 				8641EF312A0B762100B05FC4 /* hexStringToColor.swift */,
@@ -291,6 +290,15 @@
 			);
 			name = OB;
 			path = Views/OB;
+			sourceTree = "<group>";
+		};
+		0EBBD8912A0D595300B232F1 /* QRCode */ = {
+			isa = PBXGroup;
+			children = (
+				0ED6DED92A0A1BDF009F21BC /* QRCodeGenerateView.swift */,
+				0EBBD88F2A0D29E600B232F1 /* QRCodeScanner.swift */,
+			);
+			path = QRCode;
 			sourceTree = "<group>";
 		};
 		EF5D034A2A0B86A300678E09 /* MemojiView */ = {
@@ -569,6 +577,7 @@
 				DEVELOPMENT_TEAM = PAQ92DM7XD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "QR 코드 스캔을 위해 카메라를 사용합니다";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -601,6 +610,7 @@
 				DEVELOPMENT_TEAM = PAQ92DM7XD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "QR 코드 스캔을 위해 카메라를 사용합니다";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

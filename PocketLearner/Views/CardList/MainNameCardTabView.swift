@@ -24,9 +24,17 @@ struct UserInfo: Identifiable, Codable {
 
 
 struct MainNameCardTabView: View {
+    @EnvironmentObject var user: userData
  
     @State var cardViewSelection: cardViewCategories = .myCard
     
+    @State var QRCodeScannerPresented: Bool = false
+    @State var alertPresented: Bool = false
+    
+    // QR코드 스캔 결과
+    @State var QRScanResult: scanResult = .none
+    
+    @Namespace var QRanimation
     
     // MARK: - 카드 뷰 Segmented Control 섹션 카테고리
     enum cardViewCategories: String, CaseIterable {
@@ -68,7 +76,7 @@ struct MainNameCardTabView: View {
             
             // MARK: - 큐알 스캔을 위한 floating 버튼
             Button {
-                /// TODO: 젝무의 카메라 띄워주는 코드 붙이기
+                QRCodeScannerPresented = true
             } label: {
                 ZStack {
                     Circle()
@@ -81,20 +89,34 @@ struct MainNameCardTabView: View {
                 .shadow(radius: 20)
             }
             .position(x: 320, y: 650)
-
+            .sheet(isPresented: $QRCodeScannerPresented){
+                QRCodeScannerView(QRScanResult: $QRScanResult) { code, deviceName in
+                    QRCodeScannerPresented = false
+                    alertPresented = true
+                }.environmentObject(user)
+            }.alert(isPresented: $alertPresented){
+                switch QRScanResult.self{
+                case .success:
+                    return Alert(title: Text("명함이 성공적으로 교환되었습니다!"))
+                case .none:
+                    return Alert(title: Text("알 수 없는 오류 발생. 다시 시도해주세요."))
+                case .fail:
+                    return Alert(title: Text("QR코드 스캔 실패. 다시 시도해주세요."))
+                case .dbFail:
+                    return Alert(title: Text("QR코드를 스캔하였으나, DB에 성공적으로 저장되지 않았습니다. 다시 시도해주세요."))
+                case .expired:
+                    return Alert(title: Text("QR코드 유효기간이 만료되었습니다. 다시 시도해주세요."))
+                }
+            }
         }
-
     }
-    
-
 }
 
 
-
-
-
-//struct MainNameCardView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MainNameCardTabView(isFlipped: .constant(false))
-//    }
-//}
+enum scanResult{
+    case none
+    case success
+    case fail
+    case dbFail
+    case expired
+}
