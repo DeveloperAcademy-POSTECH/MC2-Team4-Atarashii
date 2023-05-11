@@ -22,7 +22,7 @@ func letterLimitTextField(placeholder: String, commentText: Binding<String>, let
             .padding()
             .multilineTextAlignment(.leading)
             .onReceive(commentText.wrappedValue.publisher.collect()) {
-                commentText.wrappedValue = String($0.prefix(100))
+                commentText.wrappedValue = String($0.prefix(letterLimit))
             }
         
         HStack {
