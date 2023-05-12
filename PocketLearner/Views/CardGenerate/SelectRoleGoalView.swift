@@ -3,7 +3,7 @@
 
 import SwiftUI
 
-struct CardGenerateSelectRoleGoalView: View {
+struct SelectRoleGoalView: View {
     @State var activatedCircleNumber: Int = 3
     @State var headerTitleMessage: String = "아카데미에서 어떤 목표를 그리고 있나요?"
     @State var isHeaderDescriptionVisible: Bool = false
@@ -21,7 +21,7 @@ struct CardGenerateSelectRoleGoalView: View {
     
     // Sheet 관련
     @State var showingSheet = false
-    @State var sheetUserInputText = "dfdfddf"
+    @State var sheetUserInputText = ""
     
     var body: some View {
         VStack(spacing: 0){
@@ -49,9 +49,20 @@ struct CardGenerateSelectRoleGoalView: View {
                             }){
                                 HStack(spacing: 15.43) {
                                     Text(
-                                        sheetUserInputText.isEmpty ? (selectedOption != nil ? selectedOption?.title ?? " " : self.placeHolder) : sheetUserInputText)
+                                        //🔴 텍스트 로직 바꾸기 - 삼항연산자로 분기
+                                        
+                                        // SelectedOption이 nil일 경우 => self.placeHolder
+                                        // SelectedOptin이 nil이 아닐 경우
+                                            // => selectedOption?.title ?? " "
+                                            // SelectedOption이 직접입력이고, sheetUserInputText가 있을 경우
+                                               // => sheetUserInputText
+                                            
+                                        selectedOption != nil ? (selectedOption!.title=="직접 입력" && sheetUserInputText.isEmpty==false ? sheetUserInputText : selectedOption?.title ?? " ") : self.placeHolder
+                                            
+                                    )
                                             .font(.system(size:22, weight: .light))
                                             .foregroundColor(selectedOption != nil ? mainAccentColor : .gray)
+                                            .multilineTextAlignment(.leading)
 
                                         Image(systemName: self.isOptionsPresented ? "chevron.up.circle" : "chevron.down.circle")
                                             .font(.system(size:22, weight: .regular))
@@ -59,12 +70,15 @@ struct CardGenerateSelectRoleGoalView: View {
 
                                     }
                                     .padding(.horizontal)
-                                    .overlay{
+                                    .padding(.vertical, 7)
+                                    .background(
+                                        
                                         RoundedRectangle(cornerRadius: 12)
                                             .stroke(selectedOption != nil ? mainAccentColor : pickerEmptyGray, lineWidth: 2)
-                                            .frame(height: 40)
-
-                                    }
+                                            .frame(maxHeight: 100)
+                                    
+                                    )
+                                    .frame(maxWidth: 251, alignment: .leading)
                                     .padding(.vertical, 7)
     //                                .overlay(alignment: .top){
     //                                        VStack{
@@ -85,10 +99,9 @@ struct CardGenerateSelectRoleGoalView: View {
 
                             }
                             
-                            Text("로서")
-                                .font(.system(size: 27, weight: .regular))
+                           
                         }
-                        Text("성장하고 싶어요")
+                        Text("로서 성장하고 싶어요")
                             .font(.system(size: 27, weight: .regular))
                     }
                     .padding(.leading,32)
@@ -110,12 +123,13 @@ struct CardGenerateSelectRoleGoalView: View {
                 }
                 
             }
-            cardGenerateViewsButton(title:"다음", disableCondition: self.selectedOption == nil, action: {})
+            cardGenerateViewsButton(title:"다음", disableCondition: self.selectedOption == nil || selectedOption!.title == "직접 입력" && sheetUserInputText.isEmpty, action: {})
             .padding(.top, 45)
         }
+        // Sheet Open
         .sheet(isPresented: $showingSheet) {
-            RoleGoalInputSheetView(textFieldText: $sheetUserInputText)
-                .presentationDetents([.height(505.78)])
+            RoleGoalInputSheetView(sendInputText: $sheetUserInputText)
+                .presentationDetents([.height(217)])
                 .presentationDragIndicator(.hidden)
         }
     }
@@ -128,8 +142,8 @@ struct CardGenerateSelectRoleGoalView: View {
 
 
 
-struct CardGenerateSelectRoleGoalView_Previews: PreviewProvider {
+struct SelectRoleGoalView_Previews: PreviewProvider {
     static var previews: some View {
-        CardGenerateSelectRoleGoalView().previewDevice("iPhone 14")
+        SelectRoleGoalView().previewDevice("iPhone 14")
     }
 }

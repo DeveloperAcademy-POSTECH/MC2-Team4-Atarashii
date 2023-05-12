@@ -9,9 +9,9 @@ import SwiftUI
 
 struct CardGenerateViewHeader: View {
     @State var activatedCircleNumber: Int = 1
-    @State var headerTitleMessage: String = "나를 소개하는\n한문장을 적어주세요!"
-    @State var isHeaderDescriptionVisible: Bool = false
-    @State var headerDescriptionMessage: String = "우리 모두는 주어진 예시 외에도, 다양한 스킬을 가지고 있을 수 있어요.\n원하는 보기가 없다면 당신만의 스킬 키워드를 직접 입력해주세요!"
+    @State var headerTitleMessage: String = "나의 커뮤니케이션 타입은?"
+    @State var isHeaderDescriptionVisible: Bool = true
+    @State var headerDescriptionMessage: String = "레베카 함께 했던 팀워크 워크샵을 기억하시나요?"
     
     var body: some View {
         HStack {
@@ -42,7 +42,7 @@ struct CardGenerateViewHeader: View {
                 
                 if isHeaderDescriptionVisible == true {
                     Text(headerDescriptionMessage)
-                        .font(.system(size: 11.5, weight: .light))
+                        .font(.system(size: 13, weight: .light))
                 }
                 
                 
