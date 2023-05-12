@@ -21,20 +21,18 @@ struct QRCodeGenerateView: View {
     var body: some View {
         VStack {
             HStack{
+                Spacer()
                 Button(action: {
                     withAnimation(.linear(duration: 0.5)) {
                         isQRCodePresented = false
                     }
-//                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() +) {
-                            QRAnimation = false
-//                    }
+                        QRAnimation = false
                     
                 }) {
-                    Image(systemName: "chevron.left")
+                    Image(systemName: "xmark.circle.fill")
                         .font(.system(size: 25))
                         .foregroundColor(.black)
                 }.padding(.top, 50)
-                Spacer()
             }
             Text(timeRemaining == 0 ? "QR코드가 만료되었습니다" : "\(timeRemaining) 초 후 QR코드가 만료됩니다")
                 .font(.system(size: 20, weight: .bold))

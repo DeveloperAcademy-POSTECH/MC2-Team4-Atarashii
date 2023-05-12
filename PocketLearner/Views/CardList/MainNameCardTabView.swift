@@ -34,8 +34,8 @@ struct MainNameCardTabView: View {
     // QR코드 스캔 결과
     @State var QRScanResult: scanResult = .none
     
-    @Namespace var QRanimation
-    
+    @State var isQRCodePresented: Bool = false
+        
     // MARK: - 카드 뷰 Segmented Control 섹션 카테고리
     enum cardViewCategories: String, CaseIterable {
         case myCard = "내 명함"
@@ -49,25 +49,27 @@ struct MainNameCardTabView: View {
         ZStack {
             VStack {
                 // MARK: - 상단 Segmented Control
-                Picker("", selection: $cardViewSelection) {
-                    ForEach(MainNameCardTabView.cardViewCategories.allCases, id: \.self) { category in
-                        Text(category.rawValue)
+                if !isQRCodePresented{
+                    Picker("", selection: $cardViewSelection) {
+                        ForEach(MainNameCardTabView.cardViewCategories.allCases, id: \.self) { category in
+                            Text(category.rawValue)
+                        }
                     }
+                    .pickerStyle(SegmentedPickerStyle())
                 }
-                .pickerStyle(SegmentedPickerStyle())
         
                 
                 // MARK: - 선택된 섹션 카테고리로 뷰 이동
                 switch cardViewSelection {
                 case .myCard:
-                    MyCardView()
+                    MyCardView(isQRCodePresented: $isQRCodePresented)
                 case .cardCollection:
                     CardCollectionView()
                 case .likedCards:
                     /// TODO: 파라미터로 즐겨찾기 데이터 넘겨주도록 수정
                     CardCollectionView()
                 default:
-                    MyCardView()
+                    MyCardView(isQRCodePresented: $isQRCodePresented)
                 }
                 
             }
@@ -75,37 +77,39 @@ struct MainNameCardTabView: View {
             
             
             // MARK: - 큐알 스캔을 위한 floating 버튼
-            Button {
-                QRCodeScannerPresented = true
-            } label: {
-                ZStack {
-                    Circle()
-                        .fill(Color.white)
-                        .frame(width: 70)
-                    Image(systemName: "plus")
-                        .font(.system(size: 50))
-                        .foregroundColor(.black)
+            if !isQRCodePresented{
+                Button {
+                    QRCodeScannerPresented = true
+                } label: {
+                    ZStack {
+                        Circle()
+                            .fill(Color.white)
+                            .frame(width: 70)
+                        Image(systemName: "plus")
+                            .font(.system(size: 50))
+                            .foregroundColor(.black)
+                    }
+                    .shadow(radius: 20)
                 }
-                .shadow(radius: 20)
-            }
-            .position(x: 320, y: 650)
-            .sheet(isPresented: $QRCodeScannerPresented){
-                QRCodeScannerView(QRScanResult: $QRScanResult) { code, deviceName in
-                    QRCodeScannerPresented = false
-                    alertPresented = true
-                }.environmentObject(user)
-            }.alert(isPresented: $alertPresented){
-                switch QRScanResult.self{
-                case .success:
-                    return Alert(title: Text("명함이 성공적으로 교환되었습니다!"))
-                case .none:
-                    return Alert(title: Text("알 수 없는 오류 발생. 다시 시도해주세요."))
-                case .fail:
-                    return Alert(title: Text("QR코드 스캔 실패. 다시 시도해주세요."))
-                case .dbFail:
-                    return Alert(title: Text("QR코드를 스캔하였으나, DB에 성공적으로 저장되지 않았습니다. 다시 시도해주세요."))
-                case .expired:
-                    return Alert(title: Text("QR코드 유효기간이 만료되었습니다. 다시 시도해주세요."))
+                .position(x: 320, y: 650)
+                .sheet(isPresented: $QRCodeScannerPresented){
+                    QRCodeScannerView(QRScanResult: $QRScanResult) { code, deviceName in
+                        QRCodeScannerPresented = false
+                        alertPresented = true
+                    }.environmentObject(user)
+                }.alert(isPresented: $alertPresented){
+                    switch QRScanResult.self{
+                    case .success:
+                        return Alert(title: Text("명함이 성공적으로 교환되었습니다!"))
+                    case .none:
+                        return Alert(title: Text("알 수 없는 오류 발생. 다시 시도해주세요."))
+                    case .fail:
+                        return Alert(title: Text("QR코드 스캔 실패. 다시 시도해주세요."))
+                    case .dbFail:
+                        return Alert(title: Text("QR코드를 스캔하였으나, DB에 성공적으로 저장되지 않았습니다. 다시 시도해주세요."))
+                    case .expired:
+                        return Alert(title: Text("QR코드 유효기간이 만료되었습니다. 다시 시도해주세요."))
+                    }
                 }
             }
         }
