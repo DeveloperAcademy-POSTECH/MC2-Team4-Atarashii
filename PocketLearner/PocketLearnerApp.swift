@@ -21,10 +21,15 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct PocketLearnerApp: App {
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject var user = userData()
+    
+    @State var a: Bool = true
     
     var body: some Scene {
         WindowGroup {
-            EditCardInfoView()
+            MainView().environmentObject(user)
+//            CardTemplate(isMine: $a, userInfo: UserInfo(id: "", nicknameKOR: "헤이즐", nicknameENG: "Hazel", isMorningSession: false, selfDescription: "올라운더 디자이너로 활약 중입니다!✨", cardColor: "mainGreen"))
+//            MainNameCardTabView()
         }
     }
 }

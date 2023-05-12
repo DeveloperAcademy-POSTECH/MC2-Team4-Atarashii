@@ -14,6 +14,9 @@ struct CardCollectionView: View {
     @State private var selection = "None"
     
     @State var isMine: Bool = false
+    // dummy (for CardTemplate)
+    @State var isQRCodePresented: Bool = false
+    @State var QRAnimation: Bool = false
     
     // MARK: - 타 러너의 유저 정보 dummy 인스턴스
     let learnerInfo: UserInfo = UserInfo(id: "", nicknameKOR: "헤이즐", nicknameENG: "Hazel", isMorningSession: false, selfDescription: "올라운더 디자이너로 활약 중입니다!✨", cardColor: "mainGreen")
@@ -68,7 +71,7 @@ struct CardCollectionView: View {
                 /// TODO: 카드 넘겨지는 애니메이션 구현
                 case .slidingMode:
                     ForEach(0...10, id:\.self) { _ in
-                        CardTemplate(isMine: $isMine, userInfo: learnerInfo)
+                        CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, userInfo: learnerInfo)
                             .padding(.bottom, 34)
                     }
                     
@@ -76,7 +79,7 @@ struct CardCollectionView: View {
                 case .galleryMode:
                     LazyVGrid(columns: columns) {
                         ForEach((0...19), id: \.self) { _ in
-                            CardTemplate(isMine: $isMine, userInfo: learnerInfo)
+                            CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented,QRAnimation: $QRAnimation, userInfo: learnerInfo)
                                 .scaleEffect(0.5)
                                 .frame(width: 300, height: 250)
                         }

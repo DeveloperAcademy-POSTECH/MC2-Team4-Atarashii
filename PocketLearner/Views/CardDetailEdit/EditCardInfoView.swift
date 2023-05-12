@@ -34,8 +34,15 @@ struct EditCardInfoView: View {
                         .foregroundColor(hexStringToColor(hexString: "#979797"))
                 })
             }
+
             .sheet(isPresented: $isSheet) {
                 RoleGoalInputSheetView(sendInputText: $myGoal)
+
+            .sheet(isPresented: $isPresent) {
+                /*
+                RoleGoalInputSheetView(textFieldText: $myGoalText)
+                 */
+
             }
             
             DetailEditCollaborationView()

@@ -8,47 +8,73 @@
 import SwiftUI
 
 struct CreateNickNameView : View {
+    @EnvironmentObject var user: userData
     @State var hasText: Bool = false
     @State var englishText: String = ""
     @State var koreanText: String = ""
     
+    @State var nextPage: Bool = false
+    
     var body: some View {
-        VStack{
+        NavigationStack{
             VStack{
-                Text("아카데미에서 사용하고 계신\n닉네임을 알려주세요!")
-                    .lineSpacing(CGFloat(10))
-                    .bold()
-                    .font(.system(size: 25))
+                VStack{
+                    Text("아카데미에서 사용하고 계신\n닉네임을 알려주세요!")
+                        .lineSpacing(CGFloat(10))
+                        .bold()
+                        .font(.system(size: 25))
+                    
+                    Text("`영문 닉네임` 에는 아카데미에서 사용하는 영문 닉네임을,\n `한글닉네임` 에는 닉네임의 발음을 한글로 적어주세요.")
+                        .lineSpacing(5)
+                        .font(.system(size: 12))
+                        .foregroundColor(.gray)
+                        .padding()
+                }
+                VStack(spacing: 12) {
+                    RoundedTextFieldWithButton(text: $englishText, introText: "영문 닉네임")
+                        .frame(width: 315, height: 52)
+                    RoundedTextFieldWithButton(text: $koreanText, introText: "한글 닉네임")
+                        .frame(width: 315, height: 52)
+                }
                 
-                Text("`영문 닉네임` 에는 아카데미에서 사용하는 영문 닉네임을,\n `한글닉네임` 에는 닉네임의 발음을 한글로 적어주세요.")
-                    .lineSpacing(5)
-                    .font(.system(size: 12))
-                    .foregroundColor(.gray)
-                    .padding()
+                Button(action: {
+                    // button action here
+//                    applyNickname()
+                    nextPage = true
+                }) {
+                    Text("입력 완료")
+                        .foregroundColor(.white)
+                        .font(.headline)
+                        .padding()
+                        .frame(width: 315, height: 52)
+                        .background(!englishText.isEmpty && !koreanText.isEmpty ? hexStringToColor(hexString: "#F4ADB3"): Color.gray)
+                        .cornerRadius(10)
+                }.disabled(englishText.isEmpty || koreanText.isEmpty)
+                    .padding(.top, 100)
+                    .navigationDestination(isPresented: $nextPage){
+                        CreateTimeView(nickEnglish: englishText, nickKorean: koreanText)
+                    }
             }
-            VStack(spacing: 12) {
-                RoundedTextFieldWithButton(text: $englishText, introText: "영문 닉네임")
-                    .frame(width: 315, height: 52)
-                RoundedTextFieldWithButton(text: $koreanText, introText: "한글 닉네임")
-                    .frame(width: 315, height: 52)
-            }
-            
-            Button(action: {
-                // button action here
-            }) {
-                Text("입력 완료")
-                    .foregroundColor(.white)
-                    .font(.headline)
-                    .padding()
-                    .frame(width: 315, height: 52)
-                    .background(!englishText.isEmpty && !koreanText.isEmpty ? hexStringToColor(hexString: "#F4ADB3"): Color.gray)
-                    .cornerRadius(10)
-            }
-            .padding(.top, 100)
-
-
         }
     }
+    
+//    func applyNickname(){
+//        db.collection("users").document(user.id).setData([
+//            "nickEnglish": englishText,
+//            "nickKorean": koreanText
+//        ], merge: true) { err in
+//            if let err = err {
+//                print("Error writing document: \(err) - CreateNickNameView")
+//            } else {
+//                // db setdata 성공 시
+//                print("User nickname Successfully Saved : \(user.id) - CreateNickNameView")
+//                user.nickEnglish = englishText
+//                user.nickKorean = koreanText
+//                UserDefaults().set(englishText, forKey: "nickEnglish")
+//                UserDefaults().set(koreanText, forKey: "nickKorean")
+//            }
+//        }
+//    }
 }
 
 
