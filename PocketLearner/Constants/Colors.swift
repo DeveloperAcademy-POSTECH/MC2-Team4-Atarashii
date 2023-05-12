@@ -41,3 +41,14 @@ let pickerEmptyGray = Color(#colorLiteral(red: 0.9053899646, green: 0.9086087942
 let menuDefaultGray = Color(#colorLiteral(red: 0.9341433644, green: 0.9341433644, blue: 0.9341433644, alpha: 1)) //EAEAEA
 let textDismissGray = Color(#colorLiteral(red: 0.6251094341, green: 0.6256788373, blue: 0.6430239081, alpha: 1))
 let textFieldStrokeGray = Color(#colorLiteral(red: 0.9182699323, green: 0.9187726974, blue: 0.9341935515, alpha: 1))
+
+// CardGenerate - SelectCollaborationKeyword
+
+let collaborationKeywordColor_0 = Color(#colorLiteral(red: 0, green: 0.6354964972, blue: 0.4480856657, alpha: 1))
+let collaborationKeywordColor_1 = Color(#colorLiteral(red: 0.9960784314, green: 0.4470588235, blue: 0.4470588235, alpha: 1))
+let collaborationKeywordColor_2 = Color(#colorLiteral(red: 0.5019607843, green: 0.8549019608, blue: 0.5176470588, alpha: 1))
+let collaborationKeywordColor_3 = Color(#colorLiteral(red: 0.9568627451, green: 0.6784313725, blue: 0.7019607843, alpha: 1))
+let collaborationKeywordColor_4 = Color(#colorLiteral(red: 0, green: 0.7490196078, blue: 0.8509803922, alpha: 1))
+let collaborationKeywordColor_5 = Color(#colorLiteral(red: 0.6941176471, green: 0.5490196078, blue: 0.9960784314, alpha: 1))
+let collaborationKeywordColor_6 = Color(#colorLiteral(red: 1, green: 0.8078431373, blue: 0.3176470588, alpha: 1))
+let collaborationKeywordColor_7 = Color(#colorLiteral(red: 0.9647058824, green: 0.5921568627, blue: 0.3803921569, alpha: 1))

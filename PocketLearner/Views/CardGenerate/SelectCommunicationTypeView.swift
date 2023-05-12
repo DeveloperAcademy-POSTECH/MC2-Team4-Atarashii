@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SelectCommunicationTypeView: View {
-    
+    //Header 관련 변수
     @State var activatedCircleNumber: Int = 5
     @State var headerTitleMessage: String = "나의 커뮤니케이션 타입은?"
     @State var isHeaderDescriptionVisible: Bool = true
@@ -44,15 +44,15 @@ struct SelectCommunicationTypeView: View {
             }
         }
         
-        // 🔴 하나의 카드가 뒤집어질 경우, 다른 카드는 이니 뒤집혀 있더라도 다시 원상복구 되게 만드는 로직
+         // 🔴 하나의 카드가 뒤집어질 경우, 다른 카드는 이니 뒤집혀 있더라도 다시 원상복구 되게 만드는 로직
 //        for i in 0..<fourTypeCardsDatas.count {
 //            if i != index {
-//                fourTypeCardsDatas[i].isFlipped = false
+//
 //            }
 //        }
     }
     var body: some View {
-        VStack(spacing: 0){
+        VStack(spacing: 0) {
             CardGenerateViewHeader(activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, isHeaderDescriptionVisible: isHeaderDescriptionVisible, headerDescriptionMessage:headerDescriptionMessage)
             
             ZStack(alignment: .center){ // Cards + Coordinate View
