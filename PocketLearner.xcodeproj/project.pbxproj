@@ -56,6 +56,8 @@
 		EF5D03542A0B86E100678E09 /* MemojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5D034F2A0B86E100678E09 /* MemojiView.swift */; };
 		EF5D03552A0B86E100678E09 /* CircularImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5D03502A0B86E100678E09 /* CircularImageView.swift */; };
 		EF5D03562A0B86E100678E09 /* MemojiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5D03512A0B86E100678E09 /* MemojiTextField.swift */; };
+		EFAD50D92A0D48BE0057DD9E /* ConvertedMemojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAD50D82A0D48BE0057DD9E /* ConvertedMemojiView.swift */; };
+		EFAD50DB2A0D4AE30057DD9E /* UIEmojiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAD50DA2A0D4AE30057DD9E /* UIEmojiTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +108,8 @@
 		EF5D034F2A0B86E100678E09 /* MemojiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemojiView.swift; sourceTree = "<group>"; };
 		EF5D03502A0B86E100678E09 /* CircularImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularImageView.swift; sourceTree = "<group>"; };
 		EF5D03512A0B86E100678E09 /* MemojiTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemojiTextField.swift; sourceTree = "<group>"; };
+		EFAD50D82A0D48BE0057DD9E /* ConvertedMemojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertedMemojiView.swift; sourceTree = "<group>"; };
+		EFAD50DA2A0D4AE30057DD9E /* UIEmojiTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEmojiTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +177,7 @@
 				8641EF2D2A0A80EC00B05FC4 /* ImagePicker.swift */,
 				8641EF312A0B762100B05FC4 /* hexStringToColor.swift */,
 				0E3742722A0B618400647F0E /* Components.swift */,
+				EFAD50DA2A0D4AE30057DD9E /* UIEmojiTextField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -309,6 +314,7 @@
 				EF5D03512A0B86E100678E09 /* MemojiTextField.swift */,
 				EF5D034E2A0B86E100678E09 /* MemojiView.h */,
 				EF5D034F2A0B86E100678E09 /* MemojiView.swift */,
+				EFAD50D82A0D48BE0057DD9E /* ConvertedMemojiView.swift */,
 			);
 			path = MemojiView;
 			sourceTree = "<group>";
@@ -407,6 +413,7 @@
 				0E3742732A0B618400647F0E /* Components.swift in Sources */,
 				C32FEA7A2A0BE4A800CE0663 /* GoalOption.swift in Sources */,
 				0E6DB2DF2A0A2A1C00F6C8DC /* CreateNickNameView.swift in Sources */,
+				EFAD50D92A0D48BE0057DD9E /* ConvertedMemojiView.swift in Sources */,
 				0E6DB2CD2A0A29F000F6C8DC /* InitailCardMainView.swift in Sources */,
 				0EBBD88E2A0CDE8F00B232F1 /* MainView.swift in Sources */,
 				C36366292A0A31B400E4E9C6 /* CardGenerateViewHeader.swift in Sources */,
@@ -423,6 +430,7 @@
 				0E6DB2C82A0A29D700F6C8DC /* EditCardDesignView.swift in Sources */,
 				0E6DB2D62A0A2A0000F6C8DC /* MainTabView.swift in Sources */,
 				0E3742752A0B69B200647F0E /* Colors.swift in Sources */,
+				EFAD50DB2A0D4AE30057DD9E /* UIEmojiTextField.swift in Sources */,
 				0E6DB2D72A0A2A0000F6C8DC /* MyCardView.swift in Sources */,
 				C32FEA7E2A0BE59900CE0663 /* GoalPickerMenuList.swift in Sources */,
 				0E113BE92A0A0FA400AB2EC8 /* PocketLearnerApp.swift in Sources */,
