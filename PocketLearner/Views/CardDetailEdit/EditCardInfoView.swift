@@ -15,9 +15,7 @@ struct EditCardInfoView: View {
     @State var isPresent: Bool = false
     var body: some View {
         ScrollView(.vertical) {
-            
             DetailEditProfileView()
-            
             DetailEditSkillView()
             HStack {
                 Text("아카데미에서의 성장목표")
@@ -74,7 +72,6 @@ struct EditCardInfoView_Previews: PreviewProvider {
         EditCardInfoView()
     }
 }
-
 
 struct ProfilePictureView: View {
     

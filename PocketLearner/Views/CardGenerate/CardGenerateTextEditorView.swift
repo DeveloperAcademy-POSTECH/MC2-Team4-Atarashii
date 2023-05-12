@@ -18,24 +18,20 @@ struct CardGenerateTextEditorView: View {
     @State var letterLimit:Int = 150
     var body: some View {
         VStack(spacing: 34) {
-            
             VStack(alignment: .trailing){ // 상단버튼 + 헤더뷰
-                Button(action: {}){ // 후에 NavigationLink로 코드 수정 요망.
-                    Text("나중에 적을래요")
-                        .foregroundColor(Color("mainAccentColor"))
-                        .font(.system(size: 17, weight: .semibold))
-                        .padding(.trailing, 27)
-                }
+//                Button(action: {}){ // 후에 NavigationLink로 코드 수정 요망.
+//                    Text("나중에 적을래요")
+//                        .foregroundColor(Color("mainAccentColor"))
+//                        .font(.system(size: 17, weight: .semibold))
+//                        .padding(.trailing, 27)
+//                }
                 // 뷰의 조건에 맞는 헤더 입력.
                 CardGenerateViewHeader(activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, isHeaderDescriptionVisible: isHeaderDescriptionVisible, headerDescriptionMessage: headerTitleMessage)
             }
-            
             VStack { // 텍스트에디터 + 하단 버튼
                 letterLimitTextField(placeholder: placeHolder, commentText: $inputText, letterLimit: letterLimit)
                     .padding(.top, 14)
                     .padding(.horizontal, 37)
-                
-                
                 Button(action: {}){
                     Text("다음")
                         .foregroundColor(.white)
@@ -44,20 +40,28 @@ struct CardGenerateTextEditorView: View {
                             RoundedRectangle(cornerRadius: 10)
                                 .fill(self.inputText.count == 0 ? Color(disabledNextButtonColor) : Color("mainAccentColor"))
                                 .frame(width:321, height:48)
-                        
                         )
                 }
                 .padding(.top, 30)
                 .disabled(self.inputText.count == 0)
-                    
-                
             }
-            
            Spacer()
-                
-            
         }
-        
+        .onTapGesture {
+            UtilFunction.noKeyboard()
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    
+                }){
+                    Text("나중에 적을래요")
+                        .foregroundColor(Color("mainAccentColor"))
+                        .font(.system(size: 17, weight: .semibold))
+                        .padding(.trailing, 5)
+                }
+            }
+        }
     }
 }
 

@@ -15,7 +15,7 @@ struct MyCardView: View {
     @Binding var isQRCodePresented: Bool
     
     // MARK: - 내 유저 정보 dummy 인스턴스
-    let myInfo: UserInfo = UserInfo(id: "", nicknameKOR: "리앤", nicknameENG: "Lianne", isMorningSession: true, selfDescription: "다재다능한 디발자가 꿈⭐️🐠🐶 개자이너 아니고 디발자요!", cardColor: "mainPurple")
+    let myInfo: UserInfo = UserInfo(id: "", nickKorean: "리앤", nickEnglish: "Lianne", isSessionMorning: true, selfDescription: "다재다능한 디발자가 꿈⭐️🐠🐶 개자이너 아니고 디발자요!", cardColor: "mainPurple")
     
     var body: some View {
         ZStack{

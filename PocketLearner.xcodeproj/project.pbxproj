@@ -19,7 +19,7 @@
 		0E6DB2C42A0A29C500F6C8DC /* SkillSetHorizontalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DB2C22A0A29C500F6C8DC /* SkillSetHorizontalScrollView.swift */; };
 		0E6DB2C82A0A29D700F6C8DC /* EditCardDesignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DB2C62A0A29D700F6C8DC /* EditCardDesignView.swift */; };
 		0E6DB2C92A0A29D700F6C8DC /* EditCardInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DB2C72A0A29D700F6C8DC /* EditCardInfoView.swift */; };
-		0E6DB2CD2A0A29F000F6C8DC /* InitailCardMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DB2CC2A0A29F000F6C8DC /* InitailCardMainView.swift */; };
+		0E6DB2CD2A0A29F000F6C8DC /* InitialCardNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DB2CC2A0A29F000F6C8DC /* InitialCardNameView.swift */; };
 		0E6DB2D42A0A2A0000F6C8DC /* MainNameCardTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DB2CF2A0A2A0000F6C8DC /* MainNameCardTabView.swift */; };
 		0E6DB2D52A0A2A0000F6C8DC /* CardCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DB2D02A0A2A0000F6C8DC /* CardCollectionView.swift */; };
 		0E6DB2D62A0A2A0000F6C8DC /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DB2D12A0A2A0000F6C8DC /* MainTabView.swift */; };
@@ -30,6 +30,7 @@
 		0E6DB2E12A0A2A1C00F6C8DC /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DB2DD2A0A2A1C00F6C8DC /* AppleLoginView.swift */; };
 		0E6DB2E22A0A2A1C00F6C8DC /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DB2DE2A0A2A1C00F6C8DC /* IntroView.swift */; };
 		0E6DB2E42A0A305C00F6C8DC /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DB2E32A0A305C00F6C8DC /* CommentView.swift */; };
+		0E8D89522A0E2A34008960A6 /* UtilFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8D89512A0E2A34008960A6 /* UtilFunction.swift */; };
 		0EBBD8872A0CDD6F00B232F1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBD8862A0CDD6F00B232F1 /* Constants.swift */; };
 		0EBBD88A2A0CDDB900B232F1 /* AppleLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBD8892A0CDDB900B232F1 /* AppleLoginViewModel.swift */; };
 		0EBBD88C2A0CDE2200B232F1 /* UserOB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBD88B2A0CDE2200B232F1 /* UserOB.swift */; };
@@ -74,7 +75,7 @@
 		0E6DB2C22A0A29C500F6C8DC /* SkillSetHorizontalScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkillSetHorizontalScrollView.swift; sourceTree = "<group>"; };
 		0E6DB2C62A0A29D700F6C8DC /* EditCardDesignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCardDesignView.swift; sourceTree = "<group>"; };
 		0E6DB2C72A0A29D700F6C8DC /* EditCardInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCardInfoView.swift; sourceTree = "<group>"; };
-		0E6DB2CC2A0A29F000F6C8DC /* InitailCardMainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitailCardMainView.swift; sourceTree = "<group>"; };
+		0E6DB2CC2A0A29F000F6C8DC /* InitialCardNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialCardNameView.swift; sourceTree = "<group>"; };
 		0E6DB2CF2A0A2A0000F6C8DC /* MainNameCardTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNameCardTabView.swift; sourceTree = "<group>"; };
 		0E6DB2D02A0A2A0000F6C8DC /* CardCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCollectionView.swift; sourceTree = "<group>"; };
 		0E6DB2D12A0A2A0000F6C8DC /* MainTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
@@ -85,6 +86,7 @@
 		0E6DB2DD2A0A2A1C00F6C8DC /* AppleLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleLoginView.swift; sourceTree = "<group>"; };
 		0E6DB2DE2A0A2A1C00F6C8DC /* IntroView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
 		0E6DB2E32A0A305C00F6C8DC /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		0E8D89512A0E2A34008960A6 /* UtilFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilFunction.swift; sourceTree = "<group>"; };
 		0EBBD8862A0CDD6F00B232F1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0EBBD8892A0CDDB900B232F1 /* AppleLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginViewModel.swift; sourceTree = "<group>"; };
 		0EBBD88B2A0CDE2200B232F1 /* UserOB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOB.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				8641EF312A0B762100B05FC4 /* hexStringToColor.swift */,
 				0E3742722A0B618400647F0E /* Components.swift */,
 				EFAD50DA2A0D4AE30057DD9E /* UIEmojiTextField.swift */,
+				0E8D89512A0E2A34008960A6 /* UtilFunction.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -242,7 +245,7 @@
 		0E6DB2CB2A0A29E600F6C8DC /* CardGenerate */ = {
 			isa = PBXGroup;
 			children = (
-				0E6DB2CC2A0A29F000F6C8DC /* InitailCardMainView.swift */,
+				0E6DB2CC2A0A29F000F6C8DC /* InitialCardNameView.swift */,
 				C36366282A0A31B400E4E9C6 /* CardGenerateViewHeader.swift */,
 				C363662A2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift */,
 				C32FEA6F2A0BB2C200CE0663 /* SelectRoleGoalView.swift */,
@@ -414,7 +417,7 @@
 				C32FEA7A2A0BE4A800CE0663 /* GoalOption.swift in Sources */,
 				0E6DB2DF2A0A2A1C00F6C8DC /* CreateNickNameView.swift in Sources */,
 				EFAD50D92A0D48BE0057DD9E /* ConvertedMemojiView.swift in Sources */,
-				0E6DB2CD2A0A29F000F6C8DC /* InitailCardMainView.swift in Sources */,
+				0E6DB2CD2A0A29F000F6C8DC /* InitialCardNameView.swift in Sources */,
 				0EBBD88E2A0CDE8F00B232F1 /* MainView.swift in Sources */,
 				C36366292A0A31B400E4E9C6 /* CardGenerateViewHeader.swift in Sources */,
 				0E6DB2D42A0A2A0000F6C8DC /* MainNameCardTabView.swift in Sources */,
@@ -446,6 +449,7 @@
 				0E6DB2C32A0A29C500F6C8DC /* CardDetailView.swift in Sources */,
 				C32664642A0D3F99004777FE /* SelectCommunicationTypeView.swift in Sources */,
 				C32FEA702A0BB2C200CE0663 /* SelectRoleGoalView.swift in Sources */,
+				0E8D89522A0E2A34008960A6 /* UtilFunction.swift in Sources */,
 				0E6B30332A0A4BB100521DE2 /* CommentCreateView.swift in Sources */,
 				0E6DB2C42A0A29C500F6C8DC /* SkillSetHorizontalScrollView.swift in Sources */,
 				C32FEA802A0C097900CE0663 /* RoleGoalInputSheetView.swift in Sources */,

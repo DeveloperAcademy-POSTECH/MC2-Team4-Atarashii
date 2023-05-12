@@ -30,6 +30,7 @@ struct PocketLearnerApp: App {
             MainView().environmentObject(user)
 //            CardTemplate(isMine: $a, userInfo: UserInfo(id: "", nicknameKOR: "헤이즐", nicknameENG: "Hazel", isMorningSession: false, selfDescription: "올라운더 디자이너로 활약 중입니다!✨", cardColor: "mainGreen"))
 //            MainNameCardTabView()
+//            InitailCardMainView()
         }
     }
 }
