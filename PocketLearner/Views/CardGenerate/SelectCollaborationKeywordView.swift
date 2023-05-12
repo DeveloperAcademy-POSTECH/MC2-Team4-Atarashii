@@ -25,9 +25,19 @@ struct SelectCollaborationKeywordView: View {
         CollaborationButtonData(buttonColor: collaborationKeywordColor_7, buttonTitle: "유연한\n사고"),
     ]
     
-    @State var selectedCollaborationKeywords = [String]()
+    @State var buttonSelectedDatas: [Bool] = [false, false, false, false, false, false, false, false]
+    
+//    @State var selectedCollaborationKeywords = [String]()
  
-
+    func countTrue() -> Int {
+        var count : Int = 0
+        for item in buttonSelectedDatas {
+            if item {
+                count += 1
+            }
+        }
+        return count
+    }
    
     
     var body: some View {
@@ -39,114 +49,51 @@ struct SelectCollaborationKeywordView: View {
             VStack(spacing: 0) {
                 HStack(spacing: 15) { // 첫 가로축
                     
-                    CollaborationKeywordButton(buttonColor: buttonDatas[0].buttonColor, buttonTitle: buttonDatas[0].buttonTitle , buttonSelectAction: {
-                        if self.selectedCollaborationKeywords.count < 3 {
-                            selectedCollaborationKeywords.append(buttonDatas[0].buttonTitle)
-                        }
-                    },
-                    buttonDisselectAction: {
-                        if self.selectedCollaborationKeywords.count > 0 {
-                            selectedCollaborationKeywords.remove(at: (selectedCollaborationKeywords.firstIndex(of: buttonDatas[0].buttonTitle))!)
-                        }
+                    CollaborationKeywordButton(buttonColor: buttonDatas[0].buttonColor, buttonTitle: buttonDatas[0].buttonTitle , buttonSelectionTogleAction: {
+                        self.buttonSelectedDatas[0].toggle()
                     })
+                    .disabled(self.countTrue() >= 3 && !self.buttonSelectedDatas[0])
+
                     
-                    CollaborationKeywordButton(buttonColor: buttonDatas[1].buttonColor, buttonTitle: buttonDatas[1].buttonTitle,
-                                               buttonSelectAction: {
-                                                   if self.selectedCollaborationKeywords.count < 3 {
-                                                       selectedCollaborationKeywords.append(buttonDatas[1].buttonTitle)
-                                                   }
-                                               },
-                                               buttonDisselectAction: {
-                                                   if self.selectedCollaborationKeywords.count > 0 {
-                                                       selectedCollaborationKeywords.remove(at: (selectedCollaborationKeywords.firstIndex(of: buttonDatas[1].buttonTitle))!)
-                                                   }
-                                               })
+                    CollaborationKeywordButton(buttonColor: buttonDatas[1].buttonColor, buttonTitle: buttonDatas[1].buttonTitle , buttonSelectionTogleAction: {self.buttonSelectedDatas[1].toggle()})
+                        .disabled(self.countTrue() >= 3 && !self.buttonSelectedDatas[1])
                         .padding(.top, 36)
                     
-                    CollaborationKeywordButton(buttonColor: buttonDatas[2].buttonColor, buttonTitle: buttonDatas[2].buttonTitle , buttonSelectAction: {
-                        if self.selectedCollaborationKeywords.count < 3 {
-                            selectedCollaborationKeywords.append(buttonDatas[2].buttonTitle)
-                        }
-                    },
-                    buttonDisselectAction: {
-                        if self.selectedCollaborationKeywords.count > 0 {
-                            selectedCollaborationKeywords.remove(at: (selectedCollaborationKeywords.firstIndex(of: buttonDatas[2].buttonTitle))!)
-                        }
-                    })
-                    
+                    CollaborationKeywordButton(buttonColor: buttonDatas[2].buttonColor, buttonTitle: buttonDatas[2].buttonTitle, buttonSelectionTogleAction: {self.buttonSelectedDatas[2].toggle()})
+                        .disabled(self.countTrue() >= 3 && !self.buttonSelectedDatas[2])
                 }
                 
                 HStack(spacing: 15){ // 두번째 가로축
                     
-                    CollaborationKeywordButton(buttonColor: buttonDatas[3].buttonColor, buttonTitle: buttonDatas[3].buttonTitle, buttonSelectAction: {
-                        if self.selectedCollaborationKeywords.count < 3 {
-                            selectedCollaborationKeywords.append(buttonDatas[3].buttonTitle)
-                        }
-                    },
-                    buttonDisselectAction: {
-                        if self.selectedCollaborationKeywords.count > 0 {
-                            selectedCollaborationKeywords.remove(at: (selectedCollaborationKeywords.firstIndex(of: buttonDatas[3].buttonTitle))!)
-                        }
-                    })
+                    CollaborationKeywordButton(buttonColor: buttonDatas[3].buttonColor, buttonTitle: buttonDatas[3].buttonTitle, buttonSelectionTogleAction: {self.buttonSelectedDatas[3].toggle()})
+                        .disabled(self.countTrue() >= 3 && !self.buttonSelectedDatas[3])
                         .padding(.leading, 36)
                     
                     Spacer()
                     
-                    CollaborationKeywordButton(buttonColor: buttonDatas[4].buttonColor, buttonTitle: buttonDatas[4].buttonTitle,buttonSelectAction: {
-                        if self.selectedCollaborationKeywords.count < 3 {
-                            selectedCollaborationKeywords.append(buttonDatas[4].buttonTitle)
-                        }
-                    },
-                    buttonDisselectAction: {
-                        if self.selectedCollaborationKeywords.count > 0 {
-                            selectedCollaborationKeywords.remove(at: (selectedCollaborationKeywords.firstIndex(of: buttonDatas[4].buttonTitle))!)
-                        }
-                    })
+                    CollaborationKeywordButton(buttonColor: buttonDatas[4].buttonColor, buttonTitle: buttonDatas[4].buttonTitle, buttonSelectionTogleAction: {self.buttonSelectedDatas[4].toggle()})
+                        .disabled(self.countTrue() >= 3 && !self.buttonSelectedDatas[4])
                         .padding(.trailing, 36)
                     
                 }
                 
                 HStack(spacing: 15){ // 첫 가로축
                     
-                    CollaborationKeywordButton(buttonColor: buttonDatas[5].buttonColor, buttonTitle: buttonDatas[5].buttonTitle , buttonSelectAction: {
-                        if self.selectedCollaborationKeywords.count < 3 {
-                            selectedCollaborationKeywords.append(buttonDatas[5].buttonTitle)
-                        }
-                    },
-                    buttonDisselectAction: {
-                        if self.selectedCollaborationKeywords.count > 0 {
-                            selectedCollaborationKeywords.remove(at: (selectedCollaborationKeywords.firstIndex(of: buttonDatas[5].buttonTitle))!)
-                        }
-                    })
+                    CollaborationKeywordButton(buttonColor: buttonDatas[5].buttonColor, buttonTitle: buttonDatas[5].buttonTitle, buttonSelectionTogleAction: {self.buttonSelectedDatas[5].toggle()})
+                        .disabled(self.countTrue() >= 3 && !self.buttonSelectedDatas[5])
                     
-                    CollaborationKeywordButton(buttonColor: buttonDatas[6].buttonColor, buttonTitle: buttonDatas[6].buttonTitle, buttonSelectAction: {
-                        if self.selectedCollaborationKeywords.count < 3 {
-                            selectedCollaborationKeywords.append(buttonDatas[6].buttonTitle)
-                        }
-                    },
-                    buttonDisselectAction: {
-                        if self.selectedCollaborationKeywords.count > 0 {
-                            selectedCollaborationKeywords.remove(at: (selectedCollaborationKeywords.firstIndex(of: buttonDatas[6].buttonTitle))!)
-                        }
-                    })
+                    CollaborationKeywordButton(buttonColor: buttonDatas[6].buttonColor, buttonTitle: buttonDatas[6].buttonTitle, buttonSelectionTogleAction: {self.buttonSelectedDatas[6].toggle()})
+                        .disabled(self.countTrue() >= 3 && !self.buttonSelectedDatas[6])
                         .padding(.bottom, 36)
                     
-                    CollaborationKeywordButton(buttonColor: buttonDatas[7].buttonColor, buttonTitle: buttonDatas[7].buttonTitle, buttonSelectAction: {
-                        if self.selectedCollaborationKeywords.count < 3 {
-                            selectedCollaborationKeywords.append(buttonDatas[7].buttonTitle)
-                        }
-                    },
-                    buttonDisselectAction: {
-                        if self.selectedCollaborationKeywords.count > 0 {
-                            selectedCollaborationKeywords.remove(at: (selectedCollaborationKeywords.firstIndex(of: buttonDatas[7].buttonTitle))!)
-                        }
-                    })
+                    CollaborationKeywordButton(buttonColor: buttonDatas[7].buttonColor, buttonTitle: buttonDatas[7].buttonTitle, buttonSelectionTogleAction: {self.buttonSelectedDatas[7].toggle()})
+                        .disabled(self.countTrue() >= 3 && !self.buttonSelectedDatas[7])
                     
                 }
                 
                 Spacer()
                 
-                cardGenerateViewsButton(title: "다음", disableCondition: false, action: {} )
+                cardGenerateViewsButton(title: "다음", disableCondition: self.countTrue() != 3, action: {} )
                     
 
                 
@@ -171,31 +118,20 @@ struct CollaborationKeywordButton : View {
     @State var buttonColor: Color
     @State var buttonTitle: String
     @State var isSelected: Bool = false
-    @State var buttonSelectAction : () -> Void = {}
-    @State var buttonDisselectAction : () -> Void = {}
+    @State var buttonSelectionTogleAction : () -> Void = {}
+
     
     var body: some View {
         Button( action:
            
-        {
-            // 1. Selected의 경우, 정보를 전달, 및 motion 구현 DisSelect일 경우, 정보를 삭제.
-            if self.isSelected == false {
-                buttonSelectAction
-            }
-            
-            else { // DisSelected
-                buttonDisselectAction
-            }
-            
-            withAnimation(.linear(duration: 0.02)){
-                // 2. isSelected를 토글
+        {  withAnimation(.linear(duration: 0.02)){
+                // isSelected를 토글
                 self.isSelected.toggle()
+                buttonSelectionTogleAction()
             }
 
         }
-            // 2. Selected 되는 모션 (커지고 색깔 fill 되는)
-            // 3. 버튼 타이틀을 selectedCollaborationKeyword 값으로  할당.
-            // self.selectedCollaborationKeyword = buttonTitle
+
         ){
             ZStack {
                 Circle() // DisSlected
