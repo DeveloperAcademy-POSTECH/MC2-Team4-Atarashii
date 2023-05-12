@@ -181,9 +181,10 @@ struct CardFront: View {
                                 .blendMode(.darken)
                         }
                         .background(QRAnimation ? .white : .clear)
-                        .scaleEffect(QRAnimation ? 5 : 1) // 1: full size, 0.1: 10% of full size
+                        .scaleEffect(QRAnimation ? 5 : 1)
+                        // offset 하드코딩.... 인데 아이폰14 기준이라 괜찮을지도.... 방법이 없음....
                         .offset(x: QRAnimation ? 105 : 0,
-                                y: QRAnimation ? -170 : 0) // adjust these to set the starting position
+                                y: QRAnimation ? -170 : 0)
                         .animation(.easeOut(duration: 0.8))
                     }
                     

@@ -12,6 +12,7 @@ struct EditCardInfoView: View {
     @State var isSheet: Bool = false
     @State var myGoal: String = ""
 
+    @State var isPresent: Bool = false
     var body: some View {
         ScrollView(.vertical) {
             
@@ -34,23 +35,21 @@ struct EditCardInfoView: View {
                         .foregroundColor(hexStringToColor(hexString: "#979797"))
                 })
             }
-
+            
             .sheet(isPresented: $isSheet) {
                 RoleGoalInputSheetView(sendInputText: $myGoal)
-
-            .sheet(isPresented: $isPresent) {
-                /*
-                RoleGoalInputSheetView(textFieldText: $myGoalText)
-                 */
-
+                
+                    .sheet(isPresented: $isPresent) {
+                        /*
+                         RoleGoalInputSheetView(textFieldText: $myGoalText)
+                         */
+                        
+                    }
+                DetailEditCollaborationView()
             }
-            
-            DetailEditCollaborationView()
-            
-            
-            
         }
     }
+    
     
     func handlePmSet() {
         self.myGoal = "PM"
@@ -179,7 +178,7 @@ struct DetailEditProfileView: View {
 }
 
 struct DetailEditSkillView: View {
-    
+
     @State var mySkillText: String = ""
     @State var myFutureSkillText: String = ""
     var body: some View {
