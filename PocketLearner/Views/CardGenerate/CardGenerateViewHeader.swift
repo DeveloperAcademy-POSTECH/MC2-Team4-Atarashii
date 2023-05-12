@@ -18,7 +18,6 @@ struct CardGenerateViewHeader: View {
             VStack(alignment: .leading, spacing: 17) {
                 // Circles
                 HStack {
-                    
                     HStack{ // activated Circle Hstack
                         ForEach(0..<activatedCircleNumber) { _ in
                             Circle()
@@ -26,7 +25,6 @@ struct CardGenerateViewHeader: View {
                                 .frame(width: 8, height: 8)
                         }
                     }
-                    
                     HStack{ // activated Circle Hstack
                         ForEach(0..<6 - activatedCircleNumber) { _ in
                             Circle()
@@ -35,7 +33,6 @@ struct CardGenerateViewHeader: View {
                         }
                     }
                 }
-                
                 Text(headerTitleMessage)
                     .font(.system(size: 25, weight: .bold))
                     .padding(.top, 36-17)
@@ -44,18 +41,12 @@ struct CardGenerateViewHeader: View {
                     Text(headerDescriptionMessage)
                         .font(.system(size: 13, weight: .light))
                 }
-                
-                
-                
             }
             .padding(.leading, 37)
-            .padding(.top, 18 + 52)
-           
+            .padding(.top, 30)
             Spacer()
         }
     }
-
-    
 }
 
 struct CardGenerateViewHeader_Previews: PreviewProvider {

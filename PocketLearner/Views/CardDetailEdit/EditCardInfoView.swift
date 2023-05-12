@@ -175,7 +175,6 @@ struct DetailEditProfileView: View {
 }
 
 struct DetailEditSkillView: View {
-
     @State var mySkillText: String = ""
     @State var myFutureSkillText: String = ""
     var body: some View {

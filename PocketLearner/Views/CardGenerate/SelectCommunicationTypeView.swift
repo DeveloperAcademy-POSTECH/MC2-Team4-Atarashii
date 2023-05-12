@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct SelectCommunicationTypeView: View {
-    
     @State var activatedCircleNumber: Int = 5
     @State var headerTitleMessage: String = "나의 커뮤니케이션 타입은?"
     @State var isHeaderDescriptionVisible: Bool = true
     @State var headerDescriptionMessage: String = "레베카 함께 했던 팀워크 워크샵을 기억하시나요?"
+    
+    @State var goNext :Bool = false
+    
     // 카드 Rotation 관련 변수
     @State var isFlipped = false
     let durationAndDelay : CGFloat = 0.1
@@ -110,8 +112,11 @@ struct SelectCommunicationTypeView: View {
             }
             .padding(.top, 16)
             
-            cardGenerateViewsButton(title:"다음", disableCondition: false, action: {} )
-                .padding(.top, 30)
+            cardGenerateViewsButton(title:"다음", disableCondition: false, action: {
+                goNext = true
+            } ).padding(.top, 20).navigationDestination(isPresented: $goNext){
+                // TODO: 협업 성향 및 가치관으로
+            }
             Spacer()
 
         }
