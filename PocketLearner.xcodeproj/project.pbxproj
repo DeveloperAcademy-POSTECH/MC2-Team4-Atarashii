@@ -43,6 +43,7 @@
 		0ED7D3F22A0CB2AA001E4800 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED7D3F12A0CB2AA001E4800 /* FirebaseMessaging */; };
 		0ED7D3F42A0CB2AA001E4800 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED7D3F32A0CB2AA001E4800 /* FirebaseStorage */; };
 		0EF982502A0FCA96000AB165 /* CardGenerateOB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF9824F2A0FCA96000AB165 /* CardGenerateOB.swift */; };
+		0EF982522A0FDBFF000AB165 /* FinishGenerateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF982512A0FDBFF000AB165 /* FinishGenerateView.swift */; };
 		8641EF2E2A0A80EC00B05FC4 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8641EF2D2A0A80EC00B05FC4 /* ImagePicker.swift */; };
 		8641EF322A0B762100B05FC4 /* hexStringToColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8641EF312A0B762100B05FC4 /* hexStringToColor.swift */; };
 		C32664642A0D3F99004777FE /* SelectCommunicationTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32664632A0D3F99004777FE /* SelectCommunicationTypeView.swift */; };
@@ -96,6 +97,7 @@
 		0ED6DED32A0A14C5009F21BC /* PocketLearner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PocketLearner.entitlements; sourceTree = "<group>"; };
 		0ED6DED92A0A1BDF009F21BC /* QRCodeGenerateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeGenerateView.swift; sourceTree = "<group>"; };
 		0EF9824F2A0FCA96000AB165 /* CardGenerateOB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGenerateOB.swift; sourceTree = "<group>"; };
+		0EF982512A0FDBFF000AB165 /* FinishGenerateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishGenerateView.swift; sourceTree = "<group>"; };
 		8641EF2D2A0A80EC00B05FC4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		8641EF312A0B762100B05FC4 /* hexStringToColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hexStringToColor.swift; sourceTree = "<group>"; };
 		C32664632A0D3F99004777FE /* SelectCommunicationTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCommunicationTypeView.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				C32664632A0D3F99004777FE /* SelectCommunicationTypeView.swift */,
 				C32664652A0D6092004777FE /* CommunicationStyleCard.swift */,
 				C3E8B3832A0DF55E00AA76CC /* SelectCollaborationKeywordView.swift */,
+				0EF982512A0FDBFF000AB165 /* FinishGenerateView.swift */,
 			);
 			path = CardGenerate;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				EF5D03552A0B86E100678E09 /* CircularImageView.swift in Sources */,
 				0E6DB2E02A0A2A1C00F6C8DC /* CreateTimeView.swift in Sources */,
 				EF5D03522A0B86E100678E09 /* Character.swift in Sources */,
+				0EF982522A0FDBFF000AB165 /* FinishGenerateView.swift in Sources */,
 				0E6DB2C82A0A29D700F6C8DC /* EditCardDesignView.swift in Sources */,
 				0E6DB2D62A0A2A0000F6C8DC /* MainTabView.swift in Sources */,
 				0E3742752A0B69B200647F0E /* Colors.swift in Sources */,

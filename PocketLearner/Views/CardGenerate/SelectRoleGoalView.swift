@@ -9,6 +9,7 @@ struct SelectRoleGoalView: View {
     @State var isHeaderDescriptionVisible: Bool = false
 //    @State var pickerChosenText = "iOS 개발자"
 //    @State var pickerAccentColor = pickerEmptyGray
+    @ObservedObject var card: CardGenerateData
     
     // Picker 관련
     
@@ -125,9 +126,11 @@ struct SelectRoleGoalView: View {
                 
             }
             cardGenerateViewsButton(title:"다음", disableCondition: self.selectedOption == nil || selectedOption!.title == "직접 입력" && sheetUserInputText.isEmpty, action: {
+                // Card Generate data update
+                card.growthTarget = selectedOption?.title ?? sheetUserInputText
                 goNext = true
             }).padding(.top, 20).navigationDestination(isPresented: $goNext){
-                SelectCommunicationTypeView()
+                MyWishSkillsetTextEditorView(card: card)
             }
         }
         // Sheet Open
@@ -145,9 +148,9 @@ struct SelectRoleGoalView: View {
 
 
 
-
-struct SelectRoleGoalView_Previews: PreviewProvider {
-    static var previews: some View {
-        SelectRoleGoalView().previewDevice("iPhone 14")
-    }
-}
+//
+//struct SelectRoleGoalView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SelectRoleGoalView().previewDevice("iPhone 14")
+//    }
+//}

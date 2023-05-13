@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct IntroductionTextEditorView: View {
-    @State var inputText: String = ""
     let activatedCircleNumber: Int = 1
     let headerTitleMessage: String = "나를 소개하는\n한문장을 적어주세요!"
     let placeHolder: String = "나를 가장 잘 표현할 수 있는 문장을\n50자 이내로 작성해주세요."
@@ -18,7 +17,7 @@ struct IntroductionTextEditorView: View {
     @StateObject var card: CardGenerateData = CardGenerateData()
     
     var body: some View {
-        CardGenerateTextEditorView(inputText: $inputText, activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, placeHolder: placeHolder, letterLimit: letterLimit, goNext: $goNext, card: card)
+        CardGenerateTextEditorView(activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, placeHolder: placeHolder, letterLimit: letterLimit, goNext: $goNext, card: card)
             .navigationDestination(isPresented: $goNext){
                 MyCurrentSkillsetTextEditorView(card: card)
             }
@@ -26,7 +25,6 @@ struct IntroductionTextEditorView: View {
 }
 
 struct MyCurrentSkillsetTextEditorView: View {
-    @State var inputText: String = ""
     let activatedCircleNumber: Int = 2
     let headerTitleMessage: String = "나의 스킬셋에 대해\n자세히 서술해주세요."
     let placeHolder: String = "내가 현재 가지고 있는 스킬셋에 대해 자세하게 서술해주세요!"
@@ -36,15 +34,14 @@ struct MyCurrentSkillsetTextEditorView: View {
     @ObservedObject var card: CardGenerateData
     
     var body: some View {
-        CardGenerateTextEditorView(inputText: $inputText, activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, placeHolder: placeHolder, letterLimit: letterLimit, goNext: $goNext, card: card)
+        CardGenerateTextEditorView(activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, placeHolder: placeHolder, letterLimit: letterLimit, goNext: $goNext, card: card)
             .navigationDestination(isPresented: $goNext){
-                SelectRoleGoalView()
+                SelectRoleGoalView(card: card)
             }
     }
 }
 
 struct MyWishSkillsetTextEditorView: View {
-    @State var inputText: String = ""
     let activatedCircleNumber: Int = 4
     let headerTitleMessage: String = "키우고 싶은 스킬셋에 대해\n자세히 서술해주세요."
     let placeHolder: String = "키우고 싶은 스킬에 대해 자세하게 서술해주세요!"
@@ -54,15 +51,33 @@ struct MyWishSkillsetTextEditorView: View {
     @ObservedObject var card: CardGenerateData
     
     var body: some View {
-        CardGenerateTextEditorView(inputText: $inputText, activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, placeHolder: placeHolder, letterLimit: letterLimit, goNext: $goNext, card: card)
+        CardGenerateTextEditorView(activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, placeHolder: placeHolder, letterLimit: letterLimit, goNext: $goNext, card: card)
             .navigationDestination(isPresented: $goNext){
-                SelectCommunicationTypeView()
+                SelectCommunicationTypeView(card: card)
             }
     }
 }
 
+struct MyCollaborativeTendencyTextEditorView: View {
+    let activatedCircleNumber: Int = 6
+    let headerTitleMessage: String = "나의 협업 성향 및 가치관에 대해\n자세히 서술해주세요."
+    let placeHolder: String = "나의 협업 성향 및 가치관에 대해 자세히 서술해주세요!"
+    let letterLimit: Int = 150
+    @State var goNext: Bool = false
+    
+    @ObservedObject var card: CardGenerateData
+    
+    var body: some View {
+        CardGenerateTextEditorView(activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, placeHolder: placeHolder, letterLimit: letterLimit, goNext: $goNext, card: card)
+            .navigationDestination(isPresented: $goNext){
+                FinishGenerateView(card: card)
+            }
+    }
+}
+
+
 struct CardGenerateTextEditorView: View {
-    @Binding var inputText : String
+    @State var inputText : String = ""
     let activatedCircleNumber: Int
     let headerTitleMessage: String
     let placeHolder: String
@@ -76,13 +91,7 @@ struct CardGenerateTextEditorView: View {
     
     var body: some View {
         VStack(spacing: 34) {
-            VStack(alignment: .trailing){ // 상단버튼 + 헤더뷰
-                //                Button(action: {}){ // 후에 NavigationLink로 코드 수정 요망.
-                //                    Text("나중에 적을래요")
-                //                        .foregroundColor(Color("mainAccentColor"))
-                //                        .font(.system(size: 17, weight: .semibold))
-                //                        .padding(.trailing, 27)
-                //                }
+            VStack(alignment: .trailing){
                 // 뷰의 조건에 맞는 헤더 입력.
                 CardGenerateViewHeader(activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, isHeaderDescriptionVisible: isHeaderDescriptionVisible, headerDescriptionMessage: headerTitleMessage)
             }
@@ -92,6 +101,18 @@ struct CardGenerateTextEditorView: View {
                     .padding(.horizontal, 37)
                 
                 cardGenerateViewsButton(title:"다음", disableCondition: self.inputText.count == 0, action: {
+                    switch activatedCircleNumber {
+                    case 1:
+                        card.introduce = inputText
+                    case 2:
+                        card.introduceSkill = inputText
+                    case 4:
+                        card.wishSkillIntroduce = inputText
+                    case 6:
+                        card.cooperationIntroduce = inputText
+                    default:
+                        print("error on CardGenerateTextEditorView")
+                    }
                     goNext = true
                 }).padding(.top, 20)
             }
@@ -104,6 +125,18 @@ struct CardGenerateTextEditorView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
+                    switch activatedCircleNumber {
+                    case 1:
+                        card.introduce = inputText
+                    case 2:
+                        card.introduceSkill = inputText
+                    case 4:
+                        card.wishSkillIntroduce = inputText
+                    case 6:
+                        card.cooperationIntroduce = inputText
+                    default:
+                        print("error on CardGenerateTextEditorView")
+                    }
                     goNext = true
                 }){
                     Text("나중에 적을래요")
