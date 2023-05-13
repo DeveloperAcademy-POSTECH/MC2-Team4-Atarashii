@@ -7,16 +7,72 @@
 
 import SwiftUI
 
+struct IntroductionTextEditorView: View {
+    @State var inputText: String = ""
+    let activatedCircleNumber: Int = 1
+    let headerTitleMessage: String = "나를 소개하는\n한문장을 적어주세요!"
+    let placeHolder: String = "나를 가장 잘 표현할 수 있는 문장을\n50자 이내로 작성해주세요."
+    let letterLimit: Int = 50
+    @State var goNext: Bool = false
+    
+    @StateObject var card: CardGenerateData = CardGenerateData()
+    
+    var body: some View {
+        CardGenerateTextEditorView(inputText: $inputText, activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, placeHolder: placeHolder, letterLimit: letterLimit, goNext: $goNext, card: card)
+            .navigationDestination(isPresented: $goNext){
+                MyCurrentSkillsetTextEditorView(card: card)
+            }
+    }
+}
+
+struct MyCurrentSkillsetTextEditorView: View {
+    @State var inputText: String = ""
+    let activatedCircleNumber: Int = 2
+    let headerTitleMessage: String = "나의 스킬셋에 대해\n자세히 서술해주세요."
+    let placeHolder: String = "내가 현재 가지고 있는 스킬셋에 대해 자세하게 서술해주세요!"
+    let letterLimit: Int = 150
+    @State var goNext: Bool = false
+    
+    @ObservedObject var card: CardGenerateData
+    
+    var body: some View {
+        CardGenerateTextEditorView(inputText: $inputText, activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, placeHolder: placeHolder, letterLimit: letterLimit, goNext: $goNext, card: card)
+            .navigationDestination(isPresented: $goNext){
+                SelectRoleGoalView()
+            }
+    }
+}
+
+struct MyWishSkillsetTextEditorView: View {
+    @State var inputText: String = ""
+    let activatedCircleNumber: Int = 4
+    let headerTitleMessage: String = "키우고 싶은 스킬셋에 대해\n자세히 서술해주세요."
+    let placeHolder: String = "키우고 싶은 스킬에 대해 자세하게 서술해주세요!"
+    let letterLimit: Int = 150
+    @State var goNext: Bool = false
+    
+    @ObservedObject var card: CardGenerateData
+    
+    var body: some View {
+        CardGenerateTextEditorView(inputText: $inputText, activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, placeHolder: placeHolder, letterLimit: letterLimit, goNext: $goNext, card: card)
+            .navigationDestination(isPresented: $goNext){
+                SelectCommunicationTypeView()
+            }
+    }
+}
+
 struct CardGenerateTextEditorView: View {
-    @State var inputText : String = ""
-    @State var activatedCircleNumber: Int = 1
-    @State var headerTitleMessage: String = "나를 소개하는\n한문장을 적어주세요!"
+    @Binding var inputText : String
+    let activatedCircleNumber: Int
+    let headerTitleMessage: String
+    let placeHolder: String
+    let letterLimit: Int
     @State var isHeaderDescriptionVisible: Bool = false
     @State var headerDescriptionMessage: String = "우리 모두는 주어진 예시 외에도, 다양한 스킬을 가지고 있을 수 있어요.\n원하는 보기가 없다면 당신만의 스킬 키워드를 직접 입력해주세요!"
-    @State var placeHolder: String = "나를 가장 잘 표현할 수 있는 문장을\n50자 이내로 작성해주세요."
-    @State var letterLimit:Int = 150
     
-    @State var goNext: Bool = false
+    @Binding var goNext: Bool
+    
+    @ObservedObject var card: CardGenerateData = CardGenerateData()
     
     var body: some View {
         VStack(spacing: 34) {
@@ -38,33 +94,25 @@ struct CardGenerateTextEditorView: View {
                 cardGenerateViewsButton(title:"다음", disableCondition: self.inputText.count == 0, action: {
                     goNext = true
                 }).padding(.top, 20)
-                    .navigationDestination(isPresented: $goNext){
-                        SelectRoleGoalView()
-                    }
             }
-                
-                Spacer()
-            }
-            .onTapGesture {
-                UtilFunction.noKeyboard()
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        goNext = true
-                    }){
-                        Text("나중에 적을래요")
-                            .foregroundColor(Color("mainAccentColor"))
-                            .font(.system(size: 17, weight: .semibold))
-                            .padding(.trailing, 5)
-                    }
+            
+            Spacer()
+        }
+        .onTapGesture {
+            UtilFunction.noKeyboard()
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    goNext = true
+                }){
+                    Text("나중에 적을래요")
+                        .foregroundColor(Color("mainAccentColor"))
+                        .font(.system(size: 17, weight: .semibold))
+                        .padding(.trailing, 5)
                 }
             }
         }
     }
-    
-    struct CardGenerateTextEditorView_Previews: PreviewProvider {
-        static var previews: some View {
-            CardGenerateTextEditorView().previewDevice("iPhone 14")
-        }
-    }
+}
+
