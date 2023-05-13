@@ -7,24 +7,13 @@
 
 import SwiftUI
 
-
-// MARK: - 카드 뷰 Segmented Control 섹션 카테고리
-/// MainNameCardTabView, InitailCardMainView에서 사용
-enum cardViewCategories: String, CaseIterable {
-    case myCard = "내 명함"
-    case cardCollection = "수집한 명함"
-    /// TODO: "즐겨찾기" 이름 변경 예정
-    case likedCards = "즐겨찾기"
-}
-
-
-// MARK: - 유저의 정보를 담을 dummy 모델
+// MARK: - 유저의 정보를 담을 모델
 /// TODO: 나중에 모델 파일로 분리 예정
 struct UserInfo: Identifiable, Codable {
     let id: String
     let nickKorean: String
     let nickEnglish: String
-    let isSessionMorning: Bool // 세션 시간: 오전/오후 (if문으로 처리해주려고 이렇게 짰는데 적절하진 않는듯)
+    let isSessionMorning: Bool // 세션 시간: 오전/오후
     
     let introduce: String
     let skills: [String]
@@ -41,6 +30,15 @@ struct UserInfo: Identifiable, Codable {
     let memoji: String
 }
 
+// MARK: - 카드 뷰 Segmented Control 섹션 카테고리
+/// MainNameCardTabView, InitailCardMainView에서 사용
+enum cardViewCategories: String, CaseIterable {
+    case myCard = "내 명함"
+    case cardCollection = "수집한 명함"
+    /// TODO: "즐겨찾기" 이름 변경 예정
+    case likedCards = "즐겨찾기"
+}
+
 
 struct MainNameCardTabView: View {
     @EnvironmentObject var user: userData
@@ -54,6 +52,9 @@ struct MainNameCardTabView: View {
     // QR코드 스캔 결과
     @State var QRScanResult: scanResult = .none
     @State var isQRCodePresented: Bool = false
+    
+    @State var learnerIDs: [String] = []
+    @State var learnerInfos: [UserInfo] = []
     
     var body: some View {
         NavigationStack{
@@ -86,13 +87,13 @@ struct MainNameCardTabView: View {
                         
                     case .cardCollection:
                         // MARK: - 교환한 명함이 존재하지 않을 때는 초기화면 띄우기
-                        //                    if !user.cardCollectCount == 0 {
-                        //                        CardCollectionView()
-                        //                        .frame(height: 636)
-                        //                    } else {
-                        InitialCardNameView(cardViewSelection: $cardViewSelection)
-                            .frame(height: 636)
-                        //                    }
+                        if user.cardCollectCount != 0 {
+                            CardCollectionView(learnerInfos: $learnerInfos)
+                                .frame(height: 636)
+                        } else {
+                            InitialCardNameView(cardViewSelection: $cardViewSelection)
+                                .frame(height: 636)
+                        }
                     case .likedCards:
                         // MARK: - 즐겨찾기 한 명함이 존재하지 않을 때는 초기화면 띄우기
                         /// TODO: 파라미터로 즐겨찾기 데이터 넘겨주도록 수정
@@ -149,6 +150,77 @@ struct MainNameCardTabView: View {
                     }
                 }
             }
+        }.task {
+            loadExchangeUsers()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                loadCollectedCards()
+            }
+        }
+    }
+    
+    func loadExchangeUsers() {
+        // MARK: 모든 교환 상대 id Fetching
+        let exchangeHistoryRef = db.collection("CardExchangeHistory")
+        
+        exchangeHistoryRef.whereField("id1", isEqualTo: user.id).getDocuments { snapshot, error in
+            if let error = error {
+                print("Error getting documents: \(error)")
+                return
+            }
+            
+            for document in snapshot!.documents {
+                if let id2 = document.data()["id2"] as? String {
+                    learnerIDs.append(id2)
+                }
+            }
+            
+            print("id2 Array: \(learnerIDs)")
+        }
+    }
+    
+    func loadCollectedCards() {
+        // TODO: 이거 싹 불러오는 식으로 되어있음. 나중에 Paging 필요.
+        let cardDetail = db.collection("CardDetails")
+        
+        cardDetail.getDocuments { snapshot, error in
+            if let error = error {
+                print("Error getting documents: \(error)")
+                return
+            }
+            
+            for document in snapshot!.documents {
+                let documentData = document.data()
+                
+                let id = documentData["id"] as? String ?? ""
+                
+                if !learnerIDs.contains(id){
+                    continue
+                }
+                let nickKorean = documentData["nickKorean"] as? String ?? ""
+                let nickEnglish = documentData["nickEnglish"] as? String ?? ""
+                let isSessionMorning = documentData["isSessionMorning"] as? Bool ?? true
+                let introduce = documentData["introduce"] as? String ?? ""
+                let skills = documentData["skills"] as? [String] ?? []
+                let skillLevel = documentData["skillLevel"] as? [Int] ?? []
+                let introduceSkill = documentData["introduceSkill"] as? String ?? ""
+                let growthTarget = documentData["growthTarget"] as? String ?? ""
+                let wishSkills = documentData["wishSkills"] as? [String] ?? []
+                let wishSkillIntroduce = documentData["wishSkillIntroduce"] as? String ?? ""
+                let communicationType = documentData["communicationType"] as? Int ?? 0
+                let cooperationKeywords = documentData["cooperationKeywords"] as? [Bool] ?? []
+                let cooperationIntroduce = documentData["cooperationIntroduce"] as? String ?? ""
+                let cardColor = documentData["cardColor"] as? Int ?? 0
+                let cardPattern = documentData["cardPattern"] as? Int ?? 0
+                let memoji = documentData["memoji"] as? String ?? ""
+                
+                let learnerInfo = UserInfo(id: id, nickKorean: nickKorean, nickEnglish: nickEnglish, isSessionMorning: isSessionMorning, introduce: introduce, skills: skills, skillLevel: skillLevel, introduceSkill: introduceSkill, growthTarget: growthTarget, wishSkills: wishSkills, wishSkillIntroduce: wishSkillIntroduce , communicationType: communicationType , cooperationKeywords: cooperationKeywords , cooperationIntroduce: cooperationIntroduce, cardColor: cardColor, cardPattern: cardPattern , memoji: memoji )
+                
+                learnerInfos.append(learnerInfo)
+                
+            }
+            
+            // 이제 userInfos 배열에 UserInfo 구조체들이 들어 있습니다.
+            print("LearnerInfo: \(learnerInfos)")
         }
     }
 }

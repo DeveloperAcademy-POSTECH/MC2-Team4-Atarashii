@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+
+
+
 struct CardCollectionView: View {
     @EnvironmentObject var user: userData
     @EnvironmentObject var card: CardDetailData
@@ -21,8 +24,7 @@ struct CardCollectionView: View {
     @State var QRAnimation: Bool = false
     
     // MARK: - 타 러너의 유저 정보 dummy 인스턴스
-    @State var learnerInfo: UserInfo? = nil
-    
+    @Binding var learnerInfos: [UserInfo]
 
     // MARK: - 슬라이드/갤러리 뷰 모드 카테고리
     enum CardViewMode: String, CaseIterable {
@@ -94,9 +96,6 @@ struct CardCollectionView: View {
             }
             .scrollIndicators(.hidden)
         }
-            .task {
-                learnerInfo = UserInfo(id: card.id, nickKorean: card.nickKorean, nickEnglish: card.nickEnglish, isSessionMorning: card.isSessionMorning, introduce: card.introduce, skills: card.skills, skillLevel: card.skillLevel, introduceSkill: card.introduce, growthTarget: card.growthTarget, wishSkills: card.wishSkills, wishSkillIntroduce: card.wishSkillIntroduce, communicationType: card.communicationType, cooperationKeywords: card.cooperationKeywords, cooperationIntroduce: card.cooperationIntroduce, cardColor: card.cardColor, cardPattern: card.cardPattern, memoji: card.memoji)
-            }
         
     }
     
@@ -154,11 +153,3 @@ struct CardCollectionView: View {
     
 }
 
-
-
-
-struct CardCollectionView_Previews: PreviewProvider {
-    static var previews: some View {
-        CardCollectionView()
-    }
-}

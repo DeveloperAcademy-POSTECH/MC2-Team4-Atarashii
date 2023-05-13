@@ -141,6 +141,10 @@ struct AppleLoginView : View {
                                         user.isSessionMorning = isSessionMorning
                                         print("로그인(이미 가입된 회원) : \(user.isSessionMorning)")
                                     }
+                                    if let cardCollectCount = document.get("cardCollectCount") as? Int {
+                                        user.cardCollectCount = cardCollectCount
+                                        print("로그인(이미 가입된 회원) : \(user.cardCollectCount)")
+                                    }
                                 }
                             }
                         }

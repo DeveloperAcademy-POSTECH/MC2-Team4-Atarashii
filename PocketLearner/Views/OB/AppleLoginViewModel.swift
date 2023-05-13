@@ -125,12 +125,14 @@ class AppleLoginViewModel: ObservableObject{
                 let nickEnglish = userItems["nickEnglish"] as? String ?? ""
                 let nickKorean = userItems["nickKorean"] as? String ?? ""
                 let isSessionMorning : Bool? = userItems["isSessionMorning"] as? Bool
+                let cardCollectCount : Int = userItems["cardCollectCount"] as? Int ?? 0
                 
                 UserDefaults().set(id, forKey: "id")
                 UserDefaults().set(AppldID, forKey: "AppleID")
                 UserDefaults().set(nickEnglish, forKey: "nickEnglish")
                 UserDefaults().set(nickKorean, forKey: "nickKorean")
                 UserDefaults().set(isSessionMorning, forKey: "isSessionMorning")
+                UserDefaults().set(cardCollectCount, forKey: "cardCollectCount")
                 
                 print("Uset Data Fetched, saved at UserDefaults.")
                 

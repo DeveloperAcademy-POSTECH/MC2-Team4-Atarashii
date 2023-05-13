@@ -6,6 +6,8 @@
 //
 import SwiftUI
 
+
+
 struct MainView: View {
     @EnvironmentObject var user : userData
     @EnvironmentObject var card : CardDetailData
@@ -21,6 +23,7 @@ struct MainView: View {
                 CreateNickNameView()
             } else {
                 MainTabView().environmentObject(user).environmentObject(card).task {
+                    loadUserData()
                     loadCardDetailData()
                 }
             }
@@ -39,6 +42,29 @@ struct MainView: View {
                 withAnimation (.easeIn(duration: 1.5)){
                     isSplash = false
                 }
+            }
+        }
+    }
+    
+    func loadUserData(){
+        print("Load User Data... \(user.id)")
+        let userDocRef = db.collection("Users").document(user.id)
+        
+        userDocRef.getDocument() { (document, error) in
+            if let document = document {
+                let data = document.data()
+                //---
+                user.id = data?["id"] as? String ?? ""
+                user.nickEnglish = data?["nickEnglish"] as? String ?? ""
+                user.nickKorean = data?["nickKorean"] as? String ?? ""
+                user.isSessionMorning = data?["isSessionMorning"] as? Bool ?? false
+                user.cardCollectCount = data?["cardCollectCount"] as? Int ?? 0
+                
+                if let err = error{
+                    print("Error getting Card Detail Data - MainView: \(err)")
+                }
+            } else {
+                print("Card Detail Data doesn't Exist - MainView")
             }
         }
     }

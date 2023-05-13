@@ -13,6 +13,5 @@ class userData: ObservableObject {
     @Published var nickEnglish = UserDefaults().string(forKey: "nickEnglish") ?? ""
     @Published var nickKorean = UserDefaults().string(forKey: "nickKorean") ?? ""
     @Published var isSessionMorning = UserDefaults().bool(forKey: "isSessionMorning")
-    
-    @Published var phaseFlag :Bool = true
+    @Published var cardCollectCount: Int = UserDefaults().integer(forKey: "cardCollectCount")
 }
