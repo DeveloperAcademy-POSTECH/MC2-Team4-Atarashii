@@ -27,7 +27,6 @@ struct QRCodeGenerateView: View {
                         isQRCodePresented = false
                     }
                         QRAnimation = false
-                    
                 }) {
                     Image(systemName: "xmark.circle.fill")
                         .font(.system(size: 25))

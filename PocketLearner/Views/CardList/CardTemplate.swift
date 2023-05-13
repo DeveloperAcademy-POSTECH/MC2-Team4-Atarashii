@@ -88,8 +88,8 @@ struct CardFront: View {
                         
                         // MARK: - 오전/오후 세션 태그
                         HStack {
-                            Image(systemName: "\(userInfo.isMorningSession ? "sun.and.horizon" : "sun.max")")
-                            Text("\(userInfo.isMorningSession ? "오전" : "오후")")
+                            Image(systemName: "\(userInfo.isSessionMorning ? "sun.and.horizon" : "sun.max")")
+                            Text("\(userInfo.isSessionMorning ? "오전" : "오후")")
                         }
                         .padding(.vertical, 6)
                         .padding(.horizontal, 10)
@@ -143,13 +143,13 @@ struct CardFront: View {
                     
                     
                     // MARK: - 국문 닉네임
-                    Text("\(userInfo.nicknameKOR)")
+                    Text("\(userInfo.nickKorean)")
                         .font(.system(size: 34))
                         .fontWeight(.bold)
                         .padding(.top, 80)
                     
                     // MARK: - 영문 닉네임
-                    Text("\(userInfo.nicknameENG)")
+                    Text("\(userInfo.nickEnglish)")
                         .font(.system(size: 30))
                         .fontWeight(.bold)
                         .padding(.bottom, 12)
@@ -225,7 +225,7 @@ struct CardBack: View {
             
             HStack {
                 // MARK: - "(닉네임), 칭찬해요!" 문구
-                Text("\(userInfo.nicknameKOR), \n칭찬해요!")
+                Text("\(userInfo.nickKorean), \n칭찬해요!")
                     .font(.system(size: 34))
                     .fontWeight(.bold)
                     .padding(.top, 80)
@@ -243,7 +243,7 @@ struct CardBack: View {
                 /// TODO: 칭찬 리뷰 뷰로 연결
             } label: {
                 HStack {
-                    Text("\(userInfo.nicknameKOR)이(가) 받은 칭찬 보러가기")
+                    Text("\(userInfo.nickKorean)이(가) 받은 칭찬 보러가기")
                     Image(systemName: "chevron.right")
                 }
                 .font(.system(size: 14))

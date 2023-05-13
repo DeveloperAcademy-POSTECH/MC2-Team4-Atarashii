@@ -15,6 +15,8 @@ struct SelectRoleGoalView: View {
     //show and hide 드롭다운메뉴
     @State private var isOptionsPresented: Bool = false
     @State var selectedOption : GoalOption? = nil  // 나중에 옵션 번호로 변경
+    
+    @State var goNext: Bool = false
     // bind user selection
     //dropdown의 placeholder
     let placeHolder: String = "내 목표 선택"
@@ -24,10 +26,9 @@ struct SelectRoleGoalView: View {
     @State var sheetUserInputText = ""
     
     var body: some View {
-        VStack(spacing: 0){
+        VStack{
             CardGenerateViewHeader(activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, isHeaderDescriptionVisible: isHeaderDescriptionVisible)
-            
-            ZStack {
+            ZStack (alignment: .top){
                 ZStack(alignment: .leading) { // 카드 내부 뷰
                     RoundedRectangle(cornerRadius: 32)
                         .stroke(Color(strokeGray), lineWidth: 1)
@@ -106,7 +107,7 @@ struct SelectRoleGoalView: View {
                     }
                     .padding(.leading,32)
                 }
-                .padding(.top, 45)
+                .padding(.top, 20)
                 
                 // 피커 trial2
                 if self.isOptionsPresented {
@@ -123,8 +124,11 @@ struct SelectRoleGoalView: View {
                 }
                 
             }
-            cardGenerateViewsButton(title:"다음", disableCondition: self.selectedOption == nil || selectedOption!.title == "직접 입력" && sheetUserInputText.isEmpty, action: {})
-            .padding(.top, 45)
+            cardGenerateViewsButton(title:"다음", disableCondition: self.selectedOption == nil || selectedOption!.title == "직접 입력" && sheetUserInputText.isEmpty, action: {
+                goNext = true
+            }).padding(.top, 20).navigationDestination(isPresented: $goNext){
+                SelectCommunicationTypeView()
+            }
         }
         // Sheet Open
         .sheet(isPresented: $showingSheet) {

@@ -169,8 +169,8 @@ struct CustomCardTemplate: View {
                     HStack {
                         // MARK: - 오전/오후 세션 태그
                         HStack {
-                            Image(systemName: "\(userInfo.isMorningSession ? "sun.and.horizon" : "sun.max")")
-                            Text("\(userInfo.isMorningSession ? "오전" : "오후")")
+                            Image(systemName: "\(userInfo.isSessionMorning ? "sun.and.horizon" : "sun.max")")
+                            Text("\(userInfo.isSessionMorning ? "오전" : "오후")")
                         }
                         .padding(.vertical, 6)
                         .padding(.horizontal, 10)
@@ -181,13 +181,13 @@ struct CustomCardTemplate: View {
                     }
                     
                     // MARK: - 국문 닉네임
-                    Text("\(userInfo.nicknameKOR)")
+                    Text("\(userInfo.nickKorean)")
                         .font(.system(size: 34))
                         .fontWeight(.bold)
                         .padding(.top, 80)
                     
                     // MARK: - 영문 닉네임
-                    Text("\(userInfo.nicknameENG)")
+                    Text("\(userInfo.nickEnglish)")
                         .font(.system(size: 30))
                         .fontWeight(.bold)
                         .padding(.bottom, 12)
@@ -304,7 +304,7 @@ struct CustomCardTemplate: View {
 struct EditCardDesignView_Previews: PreviewProvider {
     @Binding var isMine: Bool
     static var previews: some View {
-        EditCardDesignView(userInfo: UserInfo(id: "", nicknameKOR: "리앤", nicknameENG: "Lianne", isMorningSession: true, selfDescription: "다재다능한 디발자가 꿈⭐️🐠🐶 개자이너 아니고 디발자요!", cardColor: "mainPurple"))
+        EditCardDesignView(userInfo: UserInfo(id: "", nickKorean: "리앤", nickEnglish: "Lianne", isSessionMorning: true, selfDescription: "다재다능한 디발자가 꿈⭐️🐠🐶 개자이너 아니고 디발자요!", cardColor: "mainPurple"))
     }
 }
 

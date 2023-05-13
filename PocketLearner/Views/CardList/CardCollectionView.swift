@@ -19,7 +19,7 @@ struct CardCollectionView: View {
     @State var QRAnimation: Bool = false
     
     // MARK: - 타 러너의 유저 정보 dummy 인스턴스
-    let learnerInfo: UserInfo = UserInfo(id: "", nicknameKOR: "헤이즐", nicknameENG: "Hazel", isMorningSession: false, selfDescription: "올라운더 디자이너로 활약 중입니다!✨", cardColor: "mainGreen")
+    let learnerInfo: UserInfo = UserInfo(id: "", nickKorean: "헤이즐", nickEnglish: "Hazel", isSessionMorning: false, selfDescription: "올라운더 디자이너로 활약 중입니다!✨", cardColor: "mainGreen")
     
 
     // MARK: - 슬라이드/갤러리 뷰 모드 카테고리

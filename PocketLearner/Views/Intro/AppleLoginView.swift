@@ -128,6 +128,18 @@ struct AppleLoginView : View {
                                         user.id = idField
                                         print("로그인(이미 가입된 회원) : \(user.id) - email data saved.")
                                     }
+                                    if let nickEnglish = document.get("nickEnglish") as? String {
+                                        user.nickEnglish = nickEnglish
+                                        print("로그인(이미 가입된 회원) : \(user.nickEnglish)")
+                                    }
+                                    if let nickKorean = document.get("nickKorean") as? String {
+                                        user.nickKorean = nickKorean
+                                        print("로그인(이미 가입된 회원) : \(user.nickKorean)")
+                                    }
+                                    if let isSessionMorning = document.get("isSessionMorning") as? Bool {
+                                        user.isSessionMorning = isSessionMorning
+                                        print("로그인(이미 가입된 회원) : \(user.isSessionMorning)")
+                                    }
                                 }
                             }
                         }

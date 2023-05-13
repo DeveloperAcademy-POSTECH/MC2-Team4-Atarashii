@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InitailCardMainView: View {
+struct InitailCardNameView: View {
     
     @State var fontColor = #colorLiteral(red: 0.7878244519, green: 0.7844588161, blue: 0.7843878269, alpha: 1)
     @State var isButtonVisible: Bool = true

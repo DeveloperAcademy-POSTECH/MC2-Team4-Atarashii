@@ -51,17 +51,15 @@ func letterLimitTextField(placeholder: String, commentText: Binding<String>, let
 ///
 func cardGenerateViewsButton(title:String, disableCondition: Bool, action: @escaping ()->Void ) -> some View {
     return Button(action: action){
-        Text(title)
-            .foregroundColor(.white)
-            .font(.system(size: 17, weight: .semibold))
-            .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(disableCondition ? Color(disabledNextButtonColor) : mainAccentColor)
-                    .frame(width:321, height:48)
-
-            )
-    }
-    .disabled(disableCondition)
+        RoundedRectangle(cornerRadius: 10)
+           .fill(disableCondition ? Color(disabledNextButtonColor) : Color("mainAccentColor"))
+           .frame(width: 321, height: 48)
+           .overlay(
+               Text(title)
+                   .foregroundColor(.white)
+                   .font(.system(size: 17, weight: .semibold))
+           )
+    }.disabled(disableCondition)
 }
 
 
