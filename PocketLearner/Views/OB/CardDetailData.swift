@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CardGenerateData: ObservableObject {
+class CardDetailData: ObservableObject {
     @Published var introduce: String = ""
     @Published var skills: [String] = []
     @Published var skillLevel: [Int] = []
@@ -21,4 +21,9 @@ class CardGenerateData: ObservableObject {
     @Published var cardColor: Int = 0
     @Published var cardPattern: Int = 0
     @Published var memoji: String = ""
+    
+    @Published var id: String = ""
+    @Published var nickEnglish: String = ""
+    @Published var nickKorean: String = ""
+    @Published var isSessionMorning: Bool = true
 }

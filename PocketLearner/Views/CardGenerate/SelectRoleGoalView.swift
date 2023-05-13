@@ -9,7 +9,7 @@ struct SelectRoleGoalView: View {
     @State var isHeaderDescriptionVisible: Bool = false
 //    @State var pickerChosenText = "iOS 개발자"
 //    @State var pickerAccentColor = pickerEmptyGray
-    @ObservedObject var card: CardGenerateData
+    @ObservedObject var card: CardDetailData
     
     // Picker 관련
     

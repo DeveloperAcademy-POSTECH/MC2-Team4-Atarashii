@@ -34,6 +34,7 @@ struct AppleUser: Codable {
 
 struct AppleLoginView : View {
     @EnvironmentObject var user: userData
+    @EnvironmentObject var card: CardDetailData
     @StateObject var loginData = AppleLoginViewModel()
     
     @State var currentNonce: String?
@@ -143,6 +144,8 @@ struct AppleLoginView : View {
                                 }
                             }
                         }
+                    
+                    let cardDetailDocRef = db.collection("CardDetails").document(user.id)
                 }
                 
             default:

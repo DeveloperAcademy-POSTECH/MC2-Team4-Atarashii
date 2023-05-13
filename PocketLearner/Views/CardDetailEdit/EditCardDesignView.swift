@@ -193,7 +193,7 @@ struct CustomCardTemplate: View {
                         .padding(.bottom, 12)
                     
                     // MARK: - 자기 소개
-                    Text("\(userInfo.selfDescription)")
+                    Text("\(userInfo.introduce)")
                         .fixedSize(horizontal: false, vertical: true)
                         .font(.system(size: 20))
                 }
@@ -300,13 +300,13 @@ struct CustomCardTemplate: View {
 }
 
 
-
-struct EditCardDesignView_Previews: PreviewProvider {
-    @Binding var isMine: Bool
-    static var previews: some View {
-        EditCardDesignView(userInfo: UserInfo(id: "", nickKorean: "리앤", nickEnglish: "Lianne", isSessionMorning: true, selfDescription: "다재다능한 디발자가 꿈⭐️🐠🐶 개자이너 아니고 디발자요!", cardColor: "mainPurple"))
-    }
-}
+//
+//struct EditCardDesignView_Previews: PreviewProvider {
+//    @Binding var isMine: Bool
+//    static var previews: some View {
+//        EditCardDesignView(userInfo: UserInfo(id: "", nickKorean: "리앤", nickEnglish: "Lianne", isSessionMorning: true, selfDescription: "다재다능한 디발자가 꿈⭐️🐠🐶 개자이너 아니고 디발자요!", cardColor: "mainPurple"))
+//    }
+//}
 
 
 

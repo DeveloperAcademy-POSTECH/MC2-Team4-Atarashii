@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FinishGenerateView: View {
     @EnvironmentObject var user: userData
-    @ObservedObject var card: CardGenerateData
+    @ObservedObject var card: CardDetailData
     @State var isErrorAppeared: Bool = false
 
     var body: some View {

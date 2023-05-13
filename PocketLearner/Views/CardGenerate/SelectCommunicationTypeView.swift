@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SelectCommunicationTypeView: View {
-    @ObservedObject var card: CardGenerateData
+    @ObservedObject var card: CardDetailData
 
     //Header 관련 변수
     @State var activatedCircleNumber: Int = 5

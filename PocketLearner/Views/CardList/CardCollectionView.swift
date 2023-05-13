@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CardCollectionView: View {
+    @EnvironmentObject var user: userData
+    @EnvironmentObject var card: CardDetailData
     
     @State var viewModeSelection: CardViewMode = .slidingMode
     @State private var showingOptions = false
@@ -19,7 +21,7 @@ struct CardCollectionView: View {
     @State var QRAnimation: Bool = false
     
     // MARK: - 타 러너의 유저 정보 dummy 인스턴스
-    let learnerInfo: UserInfo = UserInfo(id: "", nickKorean: "헤이즐", nickEnglish: "Hazel", isSessionMorning: false, selfDescription: "올라운더 디자이너로 활약 중입니다!✨", cardColor: "mainGreen")
+    @State var learnerInfo: UserInfo? = nil
     
 
     // MARK: - 슬라이드/갤러리 뷰 모드 카테고리
@@ -69,7 +71,7 @@ struct CardCollectionView: View {
                 /// TODO: 카드 넘겨지는 애니메이션 구현
                 case .slidingMode:
                     ForEach(0...10, id:\.self) { _ in
-                        CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, userInfo: learnerInfo)
+                        CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, userInfo: learnerInfo!)
                             .padding(.bottom, 34)
                     }
                     
@@ -77,7 +79,7 @@ struct CardCollectionView: View {
                 case .galleryMode:
                     LazyVGrid(columns: columns) {
                         ForEach((0...19), id: \.self) { _ in
-                            CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented,QRAnimation: $QRAnimation, userInfo: learnerInfo)
+                            CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented,QRAnimation: $QRAnimation, userInfo: learnerInfo!)
                                 .scaleEffect(0.5)
                                 .frame(width: 300, height: 250)
                         }
@@ -90,6 +92,10 @@ struct CardCollectionView: View {
             }
             .scrollIndicators(.hidden)
         }
+            .task {
+                learnerInfo = UserInfo(id: card.id, nickKorean: card.nickKorean, nickEnglish: card.nickEnglish, isSessionMorning: card.isSessionMorning, introduce: card.introduce, skills: card.skills, skillLevel: card.skillLevel, introduceSkill: card.introduce, growthTarget: card.growthTarget, wishSkills: card.wishSkills, wishSkillIntroduce: card.wishSkillIntroduce, communicationType: card.communicationType, cooperationKeywords: card.cooperationKeywords, cooperationIntroduce: card.cooperationIntroduce, cardColor: card.cardColor, cardPattern: card.cardPattern, memoji: card.memoji)
+            }
+        
     }
     
     

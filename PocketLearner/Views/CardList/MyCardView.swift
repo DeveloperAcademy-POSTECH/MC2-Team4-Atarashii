@@ -9,6 +9,8 @@ import SwiftUI
 
 
 struct MyCardView: View {
+    @EnvironmentObject var user: userData
+    @EnvironmentObject var card: CardDetailData
     
     @State var isMine: Bool = true
     @State var QRAnimation: Bool = false
@@ -16,8 +18,8 @@ struct MyCardView: View {
     
     @State private var blinkingAnimation = false
     
-    // MARK: - 내 유저 정보 dummy 인스턴스
-    let myInfo: UserInfo = UserInfo(id: "", nickKorean: "리앤", nickEnglish: "Lianne", isSessionMorning: true, selfDescription: "다재다능한 디발자가 꿈⭐️🐠🐶 개자이너 아니고 디발자요!", cardColor: "mainPurple")
+    // myInfo 초기화.. with dummy data
+    @State var myInfo: UserInfo = UserInfo(id: "", nickKorean: "", nickEnglish: "", isSessionMorning: true, introduce: "", skills: [], skillLevel: [], introduceSkill: "", growthTarget: "", wishSkills: [], wishSkillIntroduce: "", communicationType: 0, cooperationKeywords: [], cooperationIntroduce: "", cardColor: 0, cardPattern: 0, memoji: "")
     
     var body: some View {
         ZStack {
@@ -53,6 +55,8 @@ struct MyCardView: View {
                 // MARK: - QR코드 뷰
                 QRCodeGenerateView(isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation)
             }
+        }.task {
+            myInfo = UserInfo(id: card.id, nickKorean: card.nickKorean, nickEnglish: card.nickEnglish, isSessionMorning: card.isSessionMorning, introduce: card.introduce, skills: card.skills, skillLevel: card.skillLevel, introduceSkill: card.introduce, growthTarget: card.growthTarget, wishSkills: card.wishSkills, wishSkillIntroduce: card.wishSkillIntroduce, communicationType: card.communicationType, cooperationKeywords: card.cooperationKeywords, cooperationIntroduce: card.cooperationIntroduce, cardColor: card.cardColor, cardPattern: card.cardPattern, memoji: card.memoji)
         }
     }
 }

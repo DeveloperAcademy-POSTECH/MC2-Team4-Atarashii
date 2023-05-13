@@ -25,19 +25,29 @@ struct UserInfo: Identifiable, Codable {
     let nickKorean: String
     let nickEnglish: String
     let isSessionMorning: Bool // 세션 시간: 오전/오후 (if문으로 처리해주려고 이렇게 짰는데 적절하진 않는듯)
-    let selfDescription: String
-    let cardColor: String // 커스텀 명함의 컬러 값 (Color Asset 이름) /// TODO: Color 타입으로 바꾸고 Color.swift에 있는 것으로 쓰기
-    //    let cardBg: String // 커스텀 명함의 백그라운드 스타일
-    //    let profileMemoji: String // (데이터타입 확실치 않음)
-    //    let isLiked: Bool // 즐겨찾기 여부 (얘 때문에 북마크 버튼 안에서 전체 유저 값을 update 해줘야 됨)
+    
+    let introduce: String
+    let skills: [String]
+    let skillLevel: [Int]
+    let introduceSkill: String
+    let growthTarget: String
+    let wishSkills: [String]
+    let wishSkillIntroduce: String
+    let communicationType: Int
+    let cooperationKeywords: [Bool]
+    let cooperationIntroduce: String
+    let cardColor: Int
+    let cardPattern: Int
+    let memoji: String
 }
 
 
 struct MainNameCardTabView: View {
     @EnvironmentObject var user: userData
+    @EnvironmentObject var card: CardDetailData
     
     @State var cardViewSelection: cardViewCategories = .myCard
-   
+    
     @State var QRCodeScannerPresented: Bool = false
     @State var alertPresented: Bool = false
     
@@ -58,7 +68,7 @@ struct MainNameCardTabView: View {
                     }
                     .pickerStyle(SegmentedPickerStyle())
                 }
-        
+                
                 
                 // MARK: - 선택된 섹션 카테고리로 뷰 이동
                 switch cardViewSelection {
@@ -66,33 +76,33 @@ struct MainNameCardTabView: View {
                     // MARK: - 유저 필수 정보 값이 존재하지 않을 때는 초기화면 띄우기
                     /// 명함이 존재 vs. 존재하지 않는 시나리오를 구분하기 위해, 유저의 필수 입력값 중 하나를 체크하는 형식을 채택하려 함
                     /// TODO: 아직 유저 모델이 완성된 것이 아니기 때문에 추후에 유저의 id가 아닌 유저 모델의 특정 값으로 대체할 것.
-//                    if !user.id.isEmpty {
-//                        MyCardView(isQRCodePresented: $isQRCodePresented)
-//                        .frame(height: 636)
-//                    } else {
-                    InitailCardNameView(cardViewSelection: $cardViewSelection)
-                        .frame(height: 636)
-//                    }
+                    if !card.id.isEmpty {
+                        MyCardView(isQRCodePresented: $isQRCodePresented)
+                            .frame(height: 636)
+                    } else {
+                        InitailCardNameView(cardViewSelection: $cardViewSelection)
+                            .frame(height: 636)
+                    }
                     
                 case .cardCollection:
                     // MARK: - 교환한 명함이 존재하지 않을 때는 초기화면 띄우기
-//                    if !user.cardCollectCount == 0 {
-//                        CardCollectionView()
-//                        .frame(height: 636)
-//                    } else {
+                    //                    if !user.cardCollectCount == 0 {
+                    //                        CardCollectionView()
+                    //                        .frame(height: 636)
+                    //                    } else {
                     InitailCardNameView(cardViewSelection: $cardViewSelection)
                         .frame(height: 636)
-//                    }
+                    //                    }
                 case .likedCards:
                     // MARK: - 즐겨찾기 한 명함이 존재하지 않을 때는 초기화면 띄우기
                     /// TODO: 파라미터로 즐겨찾기 데이터 넘겨주도록 수정
-//                    if !user.id.isLiked == 0 {
-//                        CardCollectionView()
-//                        .frame(height: 636)
-//                    } else {
+                    //                    if !user.id.isLiked == 0 {
+                    //                        CardCollectionView()
+                    //                        .frame(height: 636)
+                    //                    } else {
                     InitailCardNameView(cardViewSelection: $cardViewSelection)
                         .frame(height: 636)
-//                    }
+                    //                    }
                 default:
                     MyCardView(isQRCodePresented: $isQRCodePresented)
                 }

@@ -42,7 +42,7 @@
 		0ED7D3F02A0CB2AA001E4800 /* FirebaseInAppMessaging-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED7D3EF2A0CB2AA001E4800 /* FirebaseInAppMessaging-Beta */; };
 		0ED7D3F22A0CB2AA001E4800 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED7D3F12A0CB2AA001E4800 /* FirebaseMessaging */; };
 		0ED7D3F42A0CB2AA001E4800 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED7D3F32A0CB2AA001E4800 /* FirebaseStorage */; };
-		0EF982502A0FCA96000AB165 /* CardGenerateOB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF9824F2A0FCA96000AB165 /* CardGenerateOB.swift */; };
+		0EF982502A0FCA96000AB165 /* CardDetailData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF9824F2A0FCA96000AB165 /* CardDetailData.swift */; };
 		0EF982522A0FDBFF000AB165 /* FinishGenerateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF982512A0FDBFF000AB165 /* FinishGenerateView.swift */; };
 		8641EF2E2A0A80EC00B05FC4 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8641EF2D2A0A80EC00B05FC4 /* ImagePicker.swift */; };
 		8641EF322A0B762100B05FC4 /* hexStringToColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8641EF312A0B762100B05FC4 /* hexStringToColor.swift */; };
@@ -96,7 +96,7 @@
 		0EBBD88F2A0D29E600B232F1 /* QRCodeScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScanner.swift; sourceTree = "<group>"; };
 		0ED6DED32A0A14C5009F21BC /* PocketLearner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PocketLearner.entitlements; sourceTree = "<group>"; };
 		0ED6DED92A0A1BDF009F21BC /* QRCodeGenerateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeGenerateView.swift; sourceTree = "<group>"; };
-		0EF9824F2A0FCA96000AB165 /* CardGenerateOB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGenerateOB.swift; sourceTree = "<group>"; };
+		0EF9824F2A0FCA96000AB165 /* CardDetailData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailData.swift; sourceTree = "<group>"; };
 		0EF982512A0FDBFF000AB165 /* FinishGenerateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishGenerateView.swift; sourceTree = "<group>"; };
 		8641EF2D2A0A80EC00B05FC4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		8641EF312A0B762100B05FC4 /* hexStringToColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hexStringToColor.swift; sourceTree = "<group>"; };
@@ -292,7 +292,7 @@
 			children = (
 				0EBBD8892A0CDDB900B232F1 /* AppleLoginViewModel.swift */,
 				0EBBD88B2A0CDE2200B232F1 /* UserOB.swift */,
-				0EF9824F2A0FCA96000AB165 /* CardGenerateOB.swift */,
+				0EF9824F2A0FCA96000AB165 /* CardDetailData.swift */,
 			);
 			name = OB;
 			path = Views/OB;
@@ -455,7 +455,7 @@
 				0E6DB2C92A0A29D700F6C8DC /* EditCardInfoView.swift in Sources */,
 				EF5D03542A0B86E100678E09 /* MemojiView.swift in Sources */,
 				8641EF322A0B762100B05FC4 /* hexStringToColor.swift in Sources */,
-				0EF982502A0FCA96000AB165 /* CardGenerateOB.swift in Sources */,
+				0EF982502A0FCA96000AB165 /* CardDetailData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

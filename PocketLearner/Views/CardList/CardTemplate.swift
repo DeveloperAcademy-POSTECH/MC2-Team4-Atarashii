@@ -9,6 +9,8 @@ import SwiftUI
 
 
 struct CardTemplate: View {
+    @EnvironmentObject var user: userData
+    @EnvironmentObject var card: CardDetailData
     
     @State private var backDegree = -90.0
     @State private var frontDegree = 0.0
@@ -155,7 +157,7 @@ struct CardFront: View {
                         .padding(.bottom, 12)
                     
                     // MARK: - 자기 소개
-                    Text("\(userInfo.selfDescription)")
+                    Text("\(userInfo.introduce)")
                         .fixedSize(horizontal: false, vertical: true)
                         .font(.system(size: 20))
                 }

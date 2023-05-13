@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SelectCollaborationKeywordView: View {
-    @ObservedObject var card: CardGenerateData
+    @ObservedObject var card: CardDetailData
     @State var activatedCircleNumber: Int = 6
     @State var headerTitleMessage: String = "나와 어울리는\n협업 키워드는?"
     @State var isHeaderDescriptionVisible: Bool = true

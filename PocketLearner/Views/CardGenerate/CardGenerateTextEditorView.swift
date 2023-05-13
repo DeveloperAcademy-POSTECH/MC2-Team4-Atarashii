@@ -14,7 +14,7 @@ struct IntroductionTextEditorView: View {
     let letterLimit: Int = 50
     @State var goNext: Bool = false
     
-    @StateObject var card: CardGenerateData = CardGenerateData()
+    @StateObject var card: CardDetailData = CardDetailData()
     
     var body: some View {
         CardGenerateTextEditorView(activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, placeHolder: placeHolder, letterLimit: letterLimit, goNext: $goNext, card: card)
@@ -31,7 +31,7 @@ struct MyCurrentSkillsetTextEditorView: View {
     let letterLimit: Int = 150
     @State var goNext: Bool = false
     
-    @ObservedObject var card: CardGenerateData
+    @ObservedObject var card: CardDetailData
     
     var body: some View {
         CardGenerateTextEditorView(activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, placeHolder: placeHolder, letterLimit: letterLimit, goNext: $goNext, card: card)
@@ -48,7 +48,7 @@ struct MyWishSkillsetTextEditorView: View {
     let letterLimit: Int = 150
     @State var goNext: Bool = false
     
-    @ObservedObject var card: CardGenerateData
+    @ObservedObject var card: CardDetailData
     
     var body: some View {
         CardGenerateTextEditorView(activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, placeHolder: placeHolder, letterLimit: letterLimit, goNext: $goNext, card: card)
@@ -65,7 +65,7 @@ struct MyCollaborativeTendencyTextEditorView: View {
     let letterLimit: Int = 150
     @State var goNext: Bool = false
     
-    @ObservedObject var card: CardGenerateData
+    @ObservedObject var card: CardDetailData
     
     var body: some View {
         CardGenerateTextEditorView(activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, placeHolder: placeHolder, letterLimit: letterLimit, goNext: $goNext, card: card)
@@ -87,7 +87,7 @@ struct CardGenerateTextEditorView: View {
     
     @Binding var goNext: Bool
     
-    @ObservedObject var card: CardGenerateData = CardGenerateData()
+    @ObservedObject var card: CardDetailData = CardDetailData()
     
     var body: some View {
         VStack(spacing: 34) {
