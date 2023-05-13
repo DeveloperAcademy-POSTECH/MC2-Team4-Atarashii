@@ -10,15 +10,35 @@ struct MainView: View {
     @EnvironmentObject var user : userData
     @EnvironmentObject var card : CardDetailData
     
+    @State var isSplash: Bool = true
+    
     var body: some View {
-        if user.AppleID == "" {
-            AppleLoginView()
-        } else if user.nickEnglish == "" {
-            // 닉네임 설정 후 세션 설정을 했더라도, 그냥 다시 닉네임 설정 뷰로 돌아오게 함.
-            CreateNickNameView()
-        } else {
-            MainTabView().environmentObject(user).environmentObject(card).task {
-                loadCardDetailData()
+        ZStack{
+            if user.AppleID == "" {
+                AppleLoginView()
+            } else if user.nickEnglish == "" {
+                // 닉네임 설정 후 세션 설정을 했더라도, 그냥 다시 닉네임 설정 뷰로 돌아오게 함.
+                CreateNickNameView()
+            } else {
+                MainTabView().environmentObject(user).environmentObject(card).task {
+                    loadCardDetailData()
+                }
+            }
+            
+            if isSplash {
+                Image("splash")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                    .edgesIgnoringSafeArea(.all)
+                    .transition(.opacity)
+                    .zIndex(1)
+            }
+        }.onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                withAnimation (.easeIn(duration: 1.5)){
+                    isSplash = false
+                }
             }
         }
     }
