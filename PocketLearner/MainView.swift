@@ -47,7 +47,7 @@ struct MainView: View {
         print("Load Card Detail Data... \(user.id)")
         let cardDetailDocRef = db.collection("CardDetails").document(user.id)
         
-        cardDetailDocRef.getDocument(source: .cache) { (document, error) in
+        cardDetailDocRef.getDocument() { (document, error) in
             if let document = document {
                 let data = document.data()
                 card.introduce = data?["introduce"] as? String ?? ""
