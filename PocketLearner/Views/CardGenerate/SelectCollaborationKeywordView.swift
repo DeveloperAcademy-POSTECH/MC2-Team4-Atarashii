@@ -108,7 +108,6 @@ struct CollaborationButtonData {
 }
 
 // 버튼 뷰를 리턴하는 Struct
-
 struct CollaborationKeywordButton : View {
     @State var buttonColor: Color
     @State var buttonTitle: String

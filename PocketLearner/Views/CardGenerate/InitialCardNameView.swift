@@ -1,5 +1,5 @@
 //
-//  InitailCardMainView.swift
+//  InitialCardMainView.swift
 //  bletest
 //
 //  Created by 황지우2 on 2023/05/08.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InitailCardNameView: View {
+struct InitialCardNameView: View {
     @State var fontColor = #colorLiteral(red: 0.7878244519, green: 0.7844588161, blue: 0.7843878269, alpha: 1)
     @State var isButtonVisible: Bool = true
     @Binding var cardViewSelection: cardViewCategories

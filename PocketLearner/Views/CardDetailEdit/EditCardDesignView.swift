@@ -22,29 +22,24 @@ enum cardPatternIconList: String, CaseIterable {
 
 // MARK: - 명함 패턴 값
 enum cardPatternList: String, CaseIterable {
-    case sunny = "dummyPattern1"
-    case floral = "dummyPattern2"
-    case bubble = "dummypikachu"
-    case beach = "dummyPattern3"
-    case heart = "dummyPattern4"
-    case space = "dummyPattern5"
+    case sunny = "sunny"
+    case floral = "floral"
+    case bubble = "bubble"
+    case beach = "beach"
+    case heart = "heart"
+    case space = "space"
 }
 
 
 struct EditCardDesignView: View {
+    @EnvironmentObject var card: CardDetailData
     
     @State private var customSelection: cardCustomCategories = .cardColor
-    @State private var colorSelection: Color = purpleColor1
+    @State private var colorSelection: Int = 0
     @State private var patternSelection: cardPatternIconList = .sunny
     
     /// DATA:
     let userInfo: UserInfo
-    
-    // MARK: - 임시 명함 컬러 값
-    /// default 브랜드 컬러 값
-    let cardColorList: [Color] = [
-        purpleColor1, textPinkColor, purpleColor1, textPinkColor, purpleColor2, textPinkColor, purpleColor1, purpleColor2
-    ]
     
     // MARK: - LazyGrid용 변수
     var colorColumns: [GridItem] = Array(repeating: .init(.flexible()), count: 4)
@@ -62,7 +57,7 @@ struct EditCardDesignView: View {
             
             // MARK: - 카드 뷰
             /// 여기서는 CardTemplate와 프로필을 조금 다르게 보여줘야 해서 뷰를 재사용하지 않고 커스텀 뷰에서만 쓰이는 틀을 새롭게 구현하는 것으로 결정.
-            CustomCardTemplate(userInfo: userInfo, colorSelection: $colorSelection, patternSelection: $patternSelection)
+            CustomCardTemplate(userInfo: userInfo, colorSelection: $colorSelection ,patternSelection: $patternSelection)
                 .scaleEffect(0.8)
                 .frame(width: 300, height: 250)
             
@@ -95,9 +90,7 @@ struct EditCardDesignView: View {
                                 ForEach(0..<cardColorList.count, id: \.self) { index in
                                     Button {
                                         /// 선택된 컬러 값 할당
-                                        colorSelection = cardColorList[index]
-                                        /// TODO: 선택된 컬러 값 파베에 Update
-                                        
+                                        colorSelection = index
                                     } label: {
                                         Circle()
                                             .foregroundColor(cardColorList[index])
@@ -106,16 +99,13 @@ struct EditCardDesignView: View {
                                     }
                                 }
                             }
-                            // MARK: - 명함 컬러 섹션
+                            // MARK: - 명함 패턴 섹션
                         case .cardPattern:
                             LazyVGrid(columns: patternColumns) {
                                 ForEach(cardPatternIconList.allCases, id: \.self) { item in
                                     Button {
                                         /// 선택된 패턴 값 할당
                                         patternSelection = item
-                                        /// TODO: 선택된 패턴 값 파베에 Update
-                                        print("hehe")
-                                        
                                     } label: {
                                         ZStack {
                                             Circle()
@@ -143,6 +133,32 @@ struct EditCardDesignView: View {
             .frame(height: 300)
             
         }
+        .onAppear{
+            colorSelection = userInfo.cardColor
+            patternSelection = cardPatternIconList.allCases[userInfo.cardColor]
+        }
+        .onDisappear{
+            // TODO: 카드 디자인 변경 시 업데이트
+            let patternListValue = cardPatternList(rawValue: String(describing: patternSelection))
+            let patternSelection_toInt = cardPatternList.allCases.firstIndex(of: patternListValue!)
+            if userInfo.cardColor != colorSelection || userInfo.cardPattern != patternSelection_toInt {
+                let cardDetailDocRef = db.collection("CardDetails").document(userInfo.id)
+                
+                cardDetailDocRef.setData([
+                    "cardColor": colorSelection,
+                    "cardPattern": patternSelection_toInt
+                ], merge: true) { err in
+                    if let err = err {
+                        print("카드 디자인 업데이트 실패: \(err) - EditCardDesignView")
+                    } else {
+                        print("카드 디자인 업데이트 성공 - EditCardDesignView")
+                    }
+                }
+                
+                card.cardColor = colorSelection
+                card.cardPattern = patternSelection_toInt ?? 0
+            }
+        }
     }
 }
 
@@ -158,8 +174,7 @@ struct CustomCardTemplate: View {
     @State private var emojiInput: String = ""
     
     //    @State var uiImage = UIImage(named: "myImage")
-     
-    @Binding var colorSelection: Color
+    @Binding var colorSelection: Int
     @Binding var patternSelection: cardPatternIconList
     
     var body: some View {
@@ -203,7 +218,7 @@ struct CustomCardTemplate: View {
             }
             .frame(height: 490)
             /// TODO: 컬러 extension 추가 후 적용
-            .background(colorSelection)
+            .background(cardColorList[userInfo.cardColor])
             .cornerRadius(32)
             
             
@@ -299,21 +314,3 @@ struct CustomCardTemplate: View {
     }
 }
 
-
-//
-//struct EditCardDesignView_Previews: PreviewProvider {
-//    @Binding var isMine: Bool
-//    static var previews: some View {
-//        EditCardDesignView(userInfo: UserInfo(id: "", nickKorean: "리앤", nickEnglish: "Lianne", isSessionMorning: true, selfDescription: "다재다능한 디발자가 꿈⭐️🐠🐶 개자이너 아니고 디발자요!", cardColor: "mainPurple"))
-//    }
-//}
-
-
-
-
-// MARK: - keyboard dissmis 메서드
-extension View {
-    func hideKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-    }
-}

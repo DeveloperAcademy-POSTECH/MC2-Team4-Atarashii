@@ -52,3 +52,20 @@ let collaborationKeywordColor_4 = Color(#colorLiteral(red: 0, green: 0.749019607
 let collaborationKeywordColor_5 = Color(#colorLiteral(red: 0.6941176471, green: 0.5490196078, blue: 0.9960784314, alpha: 1))
 let collaborationKeywordColor_6 = Color(#colorLiteral(red: 1, green: 0.8078431373, blue: 0.3176470588, alpha: 1))
 let collaborationKeywordColor_7 = Color(#colorLiteral(red: 0.9647058824, green: 0.5921568627, blue: 0.3803921569, alpha: 1))
+
+
+// MARK: - 명함 컬러 값
+
+let cardBackgroundColor_0 = Color(#colorLiteral(red: 0.9568627451, green: 0.6784313725, blue: 0.7019607843, alpha: 1))
+let cardBackgroundColor_1 = Color(#colorLiteral(red: 1, green: 0.9490196078, blue: 0.4901960784, alpha: 1))
+let cardBackgroundColor_2 = Color(#colorLiteral(red: 0.3882352941, green: 0.9254901961, blue: 1, alpha: 1))
+let cardBackgroundColor_3 = Color(#colorLiteral(red: 0.7490196078, green: 0.7450980392, blue: 1, alpha: 1))
+let cardBackgroundColor_4 = Color(#colorLiteral(red: 0.9843137255, green: 0.4549019608, blue: 0.4549019608, alpha: 1))
+let cardBackgroundColor_5 = Color(#colorLiteral(red: 0.9647058824, green: 0.5921568627, blue: 0.3803921569, alpha: 1))
+let cardBackgroundColor_6 = Color(#colorLiteral(red: 0.5019607843, green: 0.8549019608, blue: 0.5176470588, alpha: 1))
+let cardBackgroundColor_7 = Color(#colorLiteral(red: 0.3254901961, green: 0.5529411765, blue: 1, alpha: 1))
+
+let cardColorList: [Color] = [
+    cardBackgroundColor_0, cardBackgroundColor_1, cardBackgroundColor_2, cardBackgroundColor_3,
+    cardBackgroundColor_4, cardBackgroundColor_5, cardBackgroundColor_6, cardBackgroundColor_7
+]

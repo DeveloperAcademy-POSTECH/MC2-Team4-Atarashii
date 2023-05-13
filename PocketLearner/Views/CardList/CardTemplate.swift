@@ -17,10 +17,13 @@ struct CardTemplate: View {
     @State private var isFlipped = false
     @State private var isDragging = false
     @State private var isLiked = false
-       
+    
     @Binding var isMine: Bool
     @Binding var isQRCodePresented: Bool
     @Binding var QRAnimation: Bool
+    
+    @State var goCardCustomView: Bool = false
+    @State var goCardDetailEditView: Bool = false
     
     /// DATA: 받아 올 유저 데이터
     let userInfo: UserInfo
@@ -66,7 +69,7 @@ struct CardTemplate: View {
             }
         }
     }
-
+    
 }
 
 
@@ -84,126 +87,122 @@ struct CardFront: View {
     let userInfo: UserInfo
     
     var body: some View {
-            VStack(alignment: .leading, spacing: 10) {
-                VStack(alignment: .leading) {
-                    HStack {
-                        
-                        // MARK: - 오전/오후 세션 태그
-                        HStack {
-                            Image(systemName: "\(userInfo.isSessionMorning ? "sun.and.horizon" : "sun.max")")
-                            Text("\(userInfo.isSessionMorning ? "오전" : "오후")")
-                        }
-                        .padding(.vertical, 6)
-                        .padding(.horizontal, 10)
-                        .background(Color.white)
-                        .cornerRadius(22)
-                        
-                        Spacer()
-                        
-                        /// isMine을 통해 내 명함, 타 러너의 명함을 구분
-                        if isMine {
-                            // MARK: - (내 명함일 경우) 편집 기능이 담긴 More Action 아이콘
-                            Menu {
-                                Button {
-                                    // MARK: - 카드 커스텀 뷰로 이동
-                                    EditCardDesignView(userInfo: userInfo)
-                                } label: {
-                                    Label("카드 커스텀", systemImage: "paintpalette")
-                                }
-                                Button {
-                                    /// 카드 내용 수정 뷰로 이동
-                                    EditCardInfoView()
-                                } label: {
-                                    Label("명함 내용 수정", systemImage: "pencil")
-                                }
-                            } label: {
-                                Image(systemName: "ellipsis")
-                                    .foregroundColor(.black)
-                                    .font(.system(size: 20))
-                            }
-                        } else {
-                            // MARK: - (타인의 명함일 경우) 즐겨찾기 아이콘
-                            Button {
-                                isLiked.toggle()
-                                /// TODO: 해당 유저 데이터를 Update 하는 로직
-                            } label: {
-                                if isLiked {
-                                    Image(systemName: "bookmark.fill")
-                                        .font(.system(size: 30))
-                                        .foregroundColor(.black)
-                                    
-                                } else {
-                                    Image(systemName: "bookmark")
-                                        .font(.system(size: 30))
-                                        .foregroundColor(.black)
-                                }
-                            }
-                            
-                        }
-                        
-                    }
-                    
-                    
-                    // MARK: - 국문 닉네임
-                    Text("\(userInfo.nickKorean)")
-                        .font(.system(size: 34))
-                        .fontWeight(.bold)
-                        .padding(.top, 80)
-                    
-                    // MARK: - 영문 닉네임
-                    Text("\(userInfo.nickEnglish)")
-                        .font(.system(size: 30))
-                        .fontWeight(.bold)
-                        .padding(.bottom, 12)
-                    
-                    // MARK: - 자기 소개
-                    Text("\(userInfo.introduce)")
-                        .fixedSize(horizontal: false, vertical: true)
-                        .font(.system(size: 20))
-                }
-                .padding(22)
-                
-                Spacer()
-                
+        VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading) {
                 HStack {
-                    // MARK: - (내 명함일 경우) 카드 앞면에 큐알코드
-                    if isMine {
-                        Button(action: {
-                            QRAnimation.toggle()
-                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.6) {
-                                withAnimation(.linear(duration: 0.5)) {
-                                    isQRCodePresented = true
-                                }
-                            }
-                        }){
-                            Image("qrExample")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 60)
-                                .blendMode(.darken)
-                        }
-                        .background(QRAnimation ? .white : .clear)
-                        .scaleEffect(QRAnimation ? 5 : 1)
-                        // offset 하드코딩.... 인데 아이폰14 기준이라 괜찮을지도.... 방법이 없음....
-                        .offset(x: QRAnimation ? 105 : 0,
-                                y: QRAnimation ? -170 : 0)
-                        .animation(.easeOut(duration: 0.8))
+                    // MARK: - 오전/오후 세션 태그
+                    HStack {
+                        Image(systemName: "\(userInfo.isSessionMorning ? "sun.and.horizon" : "sun.max")")
+                        Text("\(userInfo.isSessionMorning ? "오전" : "오후")")
                     }
+                    .padding(.vertical, 6)
+                    .padding(.horizontal, 10)
+                    .background(Color.white)
+                    .cornerRadius(22)
                     
                     Spacer()
-                    // MARK: - 미모지 아바타 이미지
-                    /// TODO: API 연결
-                    Circle()
-                        .frame(width: 100)
+                    /// isMine을 통해 내 명함, 타 러너의 명함을 구분
+                    if isMine {
+                        // MARK: - (내 명함일 경우) 편집 기능이 담긴 More Action 아이콘
+                        Menu {
+                            // MARK: - 카드 커스텀 뷰로 이동
+                            NavigationLink(destination: {
+                                EditCardDesignView(userInfo: userInfo)
+                            }){
+                                Label("카드 커스텀", systemImage: "paintpalette")
+                            }
+                            // MARK: - 명함 내용 수정
+                            NavigationLink(destination: {
+                                EditCardInfoView()
+                            }){
+                                Label("명함 내용 수정", systemImage: "pencil")
+                            }
+                        } label: {
+                            Image(systemName: "ellipsis")
+                                .foregroundColor(.black)
+                                .font(.system(size: 20))
+                                .padding(10)
+                        }
+                    } else {
+                        // MARK: - (타인의 명함일 경우) 즐겨찾기 아이콘
+                        Button {
+                            isLiked.toggle()
+                            /// TODO: 해당 유저 데이터를 Update 하는 로직
+                        } label: {
+                            if isLiked {
+                                Image(systemName: "bookmark.fill")
+                                    .font(.system(size: 30))
+                                    .foregroundColor(.black)
+                                
+                            } else {
+                                Image(systemName: "bookmark")
+                                    .font(.system(size: 30))
+                                    .foregroundColor(.black)
+                            }
+                        }
+                    }
                 }
-                .padding(22)
+
+                // MARK: - 국문 닉네임
+                Text("\(userInfo.nickKorean)")
+                    .font(.system(size: 34))
+                    .fontWeight(.bold)
+                    .padding(.top, 80)
                 
+                // MARK: - 영문 닉네임
+                Text("\(userInfo.nickEnglish)")
+                    .font(.system(size: 30))
+                    .fontWeight(.bold)
+                    .padding(.bottom, 12)
+                
+                // MARK: - 자기 소개
+                Text("\(userInfo.introduce)")
+                    .fixedSize(horizontal: false, vertical: true)
+                    .font(.system(size: 20))
             }
-            .frame(height: 490)
-            /// TODO: 컬러 extension 추가 후 적용
-            .background(Color("\(userInfo.cardColor)"))
-            .cornerRadius(32)
-            .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
+            .padding(22)
+            
+            Spacer()
+            
+            HStack {
+                // MARK: - (내 명함일 경우) 카드 앞면에 큐알코드
+                if isMine {
+                    Button(action: {
+                        QRAnimation.toggle()
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.6) {
+                            withAnimation(.linear(duration: 0.5)) {
+                                isQRCodePresented = true
+                            }
+                        }
+                    }){
+                        Image("qrExample")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 60)
+                            .blendMode(.darken)
+                    }
+                    .background(QRAnimation ? .white : .clear)
+                    .scaleEffect(QRAnimation ? 5 : 1)
+                    // offset 하드코딩.... 인데 아이폰14 기준이라 괜찮을지도.... 방법이 없음....
+                    .offset(x: QRAnimation ? 105 : 0,
+                            y: QRAnimation ? -170 : 0)
+                    .animation(.easeOut(duration: 0.8))
+                }
+                
+                Spacer()
+                // MARK: - 미모지 아바타 이미지
+                /// TODO: API 연결
+                Circle()
+                    .frame(width: 100)
+            }
+            .padding(22)
+            
+        }
+        .frame(height: 490)
+        /// TODO: 컬러 extension 추가 후 적용
+        .background(cardColorList[userInfo.cardColor])
+        .cornerRadius(32)
+        .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
         
     }
 }
@@ -212,7 +211,6 @@ struct CardFront: View {
 
 // MARK: - 명함 뒷면
 struct CardBack: View {
-    
     @Binding var degree: Double
     @Binding var isMine: Bool
     
@@ -257,15 +255,9 @@ struct CardBack: View {
         }
         .frame(height: 490)
         /// TODO: 컬러 extension 추가 후 적용
-        .background(Color("\(userInfo.cardColor)").opacity(0.6))
+        .background(cardColorList[userInfo.cardColor].opacity(0.6))
         .cornerRadius(32)
         .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
         
     }
 }
-
-//struct CardTemplate_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CardTemplate(isMine: .constant(true), userInfo: UserInfo(id: "", nicknameKOR: "헤이즐", nicknameENG: "Hazel", isMorningSession: false, selfDescription: "올라운더 디자이너로 활약 중입니다!✨", cardColor: "mainGreen"))
-//    }
-//}

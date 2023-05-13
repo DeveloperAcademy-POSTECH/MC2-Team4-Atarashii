@@ -26,12 +26,12 @@ struct PocketLearnerApp: App {
     
     @State var a: Bool = true
     
+    @State var myInfo: UserInfo = UserInfo(id: "", nickKorean: "", nickEnglish: "", isSessionMorning: true, introduce: "", skills: [], skillLevel: [], introduceSkill: "", growthTarget: "", wishSkills: [], wishSkillIntroduce: "", communicationType: 0, cooperationKeywords: [], cooperationIntroduce: "", cardColor: 0, cardPattern: 0, memoji: "")
+    
     var body: some Scene {
         WindowGroup {
             MainView().environmentObject(user).environmentObject(card)
-//            CardTemplate(isMine: $a, userInfo: UserInfo(id: "", nicknameKOR: "헤이즐", nicknameENG: "Hazel", isMorningSession: false, selfDescription: "올라운더 디자이너로 활약 중입니다!✨", cardColor: "mainGreen"))
-//            MainNameCardTabView()
-//            InitailCardMainView()
+//            EditCardDesignView(userInfo: myInfo)
 
         }
     }
