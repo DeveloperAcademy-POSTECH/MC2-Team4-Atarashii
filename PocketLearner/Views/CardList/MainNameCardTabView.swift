@@ -8,6 +8,16 @@
 import SwiftUI
 
 
+// MARK: - 카드 뷰 Segmented Control 섹션 카테고리
+/// MainNameCardTabView, InitailCardMainView에서 사용
+enum cardViewCategories: String, CaseIterable {
+    case myCard = "내 명함"
+    case cardCollection = "수집한 명함"
+    /// TODO: "즐겨찾기" 이름 변경 예정
+    case likedCards = "즐겨찾기"
+}
+
+
 // MARK: - 유저의 정보를 담을 dummy 모델
 /// TODO: 나중에 모델 파일로 분리 예정
 struct UserInfo: Identifiable, Codable {
@@ -27,22 +37,13 @@ struct MainNameCardTabView: View {
     @EnvironmentObject var user: userData
  
     @State var cardViewSelection: cardViewCategories = .myCard
-    
+   
     @State var QRCodeScannerPresented: Bool = false
     @State var alertPresented: Bool = false
     
     // QR코드 스캔 결과
     @State var QRScanResult: scanResult = .none
-    
     @State var isQRCodePresented: Bool = false
-        
-    // MARK: - 카드 뷰 Segmented Control 섹션 카테고리
-    enum cardViewCategories: String, CaseIterable {
-        case myCard = "내 명함"
-        case cardCollection = "수집한 명함"
-        /// TODO: "즐겨찾기" 이름 변경 예정
-        case likedCards = "즐겨찾기"
-    }
     
     
     var body: some View {
@@ -51,7 +52,7 @@ struct MainNameCardTabView: View {
                 // MARK: - 상단 Segmented Control
                 if !isQRCodePresented{
                     Picker("", selection: $cardViewSelection) {
-                        ForEach(MainNameCardTabView.cardViewCategories.allCases, id: \.self) { category in
+                        ForEach(cardViewCategories.allCases, id: \.self) { category in
                             Text(category.rawValue)
                         }
                     }
@@ -62,12 +63,36 @@ struct MainNameCardTabView: View {
                 // MARK: - 선택된 섹션 카테고리로 뷰 이동
                 switch cardViewSelection {
                 case .myCard:
-                    MyCardView(isQRCodePresented: $isQRCodePresented)
+                    // MARK: - 유저 필수 정보 값이 존재하지 않을 때는 초기화면 띄우기
+                    /// 명함이 존재 vs. 존재하지 않는 시나리오를 구분하기 위해, 유저의 필수 입력값 중 하나를 체크하는 형식을 채택하려 함
+                    /// TODO: 아직 유저 모델이 완성된 것이 아니기 때문에 추후에 유저의 id가 아닌 유저 모델의 특정 값으로 대체할 것.
+//                    if !user.id.isEmpty {
+//                        MyCardView(isQRCodePresented: $isQRCodePresented)
+//                        .frame(height: 636)
+//                    } else {
+                    InitailCardMainView(cardViewSelection: $cardViewSelection)
+                        .frame(height: 636)
+//                    }
+                    
                 case .cardCollection:
-                    CardCollectionView()
+                    // MARK: - 교환한 명함이 존재하지 않을 때는 초기화면 띄우기
+//                    if !user.cardCollectCount == 0 {
+//                        CardCollectionView()
+//                        .frame(height: 636)
+//                    } else {
+                    InitailCardMainView(cardViewSelection: $cardViewSelection)
+                        .frame(height: 636)
+//                    }
                 case .likedCards:
+                    // MARK: - 즐겨찾기 한 명함이 존재하지 않을 때는 초기화면 띄우기
                     /// TODO: 파라미터로 즐겨찾기 데이터 넘겨주도록 수정
-                    CardCollectionView()
+//                    if !user.id.isLiked == 0 {
+//                        CardCollectionView()
+//                        .frame(height: 636)
+//                    } else {
+                    InitailCardMainView(cardViewSelection: $cardViewSelection)
+                        .frame(height: 636)
+//                    }
                 default:
                     MyCardView(isQRCodePresented: $isQRCodePresented)
                 }
@@ -89,9 +114,9 @@ struct MainNameCardTabView: View {
                             .font(.system(size: 50))
                             .foregroundColor(.black)
                     }
-                    .shadow(radius: 20)
+                    .shadow(color: Color.black.opacity(0.15), radius: 20)
                 }
-                .position(x: 320, y: 650)
+                .position(x: 320, y: 630)
                 .sheet(isPresented: $QRCodeScannerPresented){
                     QRCodeScannerView(QRScanResult: $QRScanResult) { code, deviceName in
                         QRCodeScannerPresented = false
