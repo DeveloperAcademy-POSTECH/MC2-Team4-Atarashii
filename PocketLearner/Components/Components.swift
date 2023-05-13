@@ -18,7 +18,7 @@ import UIKit
 func letterLimitTextField(placeholder: String, commentText: Binding<String>, letterLimit: Int) -> some View {
     return VStack {
         TextField(placeholder, text: commentText, axis: .vertical)
-            .lineLimit(Int(letterLimit/20), reservesSpace: true)
+            .lineLimit((Int(letterLimit/20) >= 5) ? Int(letterLimit/20) : 5, reservesSpace: true)
             .font(.system(size: 14, weight: .regular))
             .padding()
             .multilineTextAlignment(.leading)

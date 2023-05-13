@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct SelectCollaborationKeywordView: View {
+    @ObservedObject var card: CardGenerateData
     @State var activatedCircleNumber: Int = 6
     @State var headerTitleMessage: String = "나와 어울리는\n협업 키워드는?"
     @State var isHeaderDescriptionVisible: Bool = true
     @State var headerDescriptionMessage: String = "협업 키워드를 3개 선택해주세요."
-    
+    @State var goNext: Bool = false
+
     // 키워드 원형 버튼 관련 변수
     let buttonDatas: [CollaborationButtonData] = [
         CollaborationButtonData(buttonColor: collaborationKeywordColor_0, buttonTitle: "갈등중재"),
@@ -42,13 +44,9 @@ struct SelectCollaborationKeywordView: View {
     
     var body: some View {
         VStack{
-            
             CardGenerateViewHeader(activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, isHeaderDescriptionVisible: isHeaderDescriptionVisible, headerDescriptionMessage:headerDescriptionMessage)
-            
-            
             VStack(spacing: 0) {
                 HStack(spacing: 15) { // 첫 가로축
-                    
                     CollaborationKeywordButton(buttonColor: buttonDatas[0].buttonColor, buttonTitle: buttonDatas[0].buttonTitle , buttonSelectionTogleAction: {
                         self.buttonSelectedDatas[0].toggle()
                     })
@@ -62,7 +60,6 @@ struct SelectCollaborationKeywordView: View {
                     CollaborationKeywordButton(buttonColor: buttonDatas[2].buttonColor, buttonTitle: buttonDatas[2].buttonTitle, buttonSelectionTogleAction: {self.buttonSelectedDatas[2].toggle()})
                         .disabled(self.countTrue() >= 3 && !self.buttonSelectedDatas[2])
                 }
-                
                 HStack(spacing: 15){ // 두번째 가로축
                     
                     CollaborationKeywordButton(buttonColor: buttonDatas[3].buttonColor, buttonTitle: buttonDatas[3].buttonTitle, buttonSelectionTogleAction: {self.buttonSelectedDatas[3].toggle()})
@@ -76,7 +73,6 @@ struct SelectCollaborationKeywordView: View {
                         .padding(.trailing, 36)
                     
                 }
-                
                 HStack(spacing: 15){ // 첫 가로축
                     
                     CollaborationKeywordButton(buttonColor: buttonDatas[5].buttonColor, buttonTitle: buttonDatas[5].buttonTitle, buttonSelectionTogleAction: {self.buttonSelectedDatas[5].toggle()})
@@ -90,14 +86,13 @@ struct SelectCollaborationKeywordView: View {
                         .disabled(self.countTrue() >= 3 && !self.buttonSelectedDatas[7])
                     
                 }
-                
                 Spacer()
-                
-                cardGenerateViewsButton(title: "다음", disableCondition: self.countTrue() != 3, action: {} )
-                    
-
-                
-                
+                cardGenerateViewsButton(title: "다음", disableCondition: self.countTrue() != 3, action: {
+                    card.cooperationKeywords = buttonSelectedDatas
+                    goNext = true
+                }).navigationDestination(isPresented: $goNext){
+                    MyCollaborativeTendencyTextEditorView(card: card)
+                }
             }
             .padding(.top, 60)
             .padding(.bottom, 20)
@@ -151,8 +146,8 @@ struct CollaborationKeywordButton : View {
 }
 
 
-struct SelectCollaborationKeywordView_Previews: PreviewProvider {
-    static var previews: some View {
-        SelectCollaborationKeywordView()
-    }
-}
+//struct SelectCollaborationKeywordView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SelectCollaborationKeywordView()
+//    }
+//}

@@ -21,7 +21,7 @@ struct InitailCardNameView: View {
                     .frame(width: 315, height: 490, alignment: .center)
                 VStack(alignment: .leading, spacing: 46) {
                     
-                    // MARK: -  뷰 카테고리에 대응해서 각기 다른 초기화면 메세지 띄우기
+                    // MARK: - 뷰 카테고리에 대응해서 각기 다른 초기화면 메세지 띄우기
                     switch cardViewSelection {
                     case .myCard:
                         Text("지금, 당신만의\n아카데미 버츄얼 명함을\n만들어보세요!")
@@ -30,7 +30,7 @@ struct InitailCardNameView: View {
                         
                         if self.isButtonVisible == true {
                             NavigationLink {
-                                CardGenerateTextEditorView()
+                                IntroductionTextEditorView()
                             } label: {
                                 HStack(spacing: 4.64) {
                                     Image(systemName: "plus.circle")
