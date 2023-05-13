@@ -216,7 +216,6 @@ struct MainNameCardTabView: View {
                 let learnerInfo = UserInfo(id: id, nickKorean: nickKorean, nickEnglish: nickEnglish, isSessionMorning: isSessionMorning, introduce: introduce, skills: skills, skillLevel: skillLevel, introduceSkill: introduceSkill, growthTarget: growthTarget, wishSkills: wishSkills, wishSkillIntroduce: wishSkillIntroduce , communicationType: communicationType , cooperationKeywords: cooperationKeywords , cooperationIntroduce: cooperationIntroduce, cardColor: cardColor, cardPattern: cardPattern , memoji: memoji )
                 
                 learnerInfos.append(learnerInfo)
-                
             }
             
             // 이제 userInfos 배열에 UserInfo 구조체들이 들어 있습니다.

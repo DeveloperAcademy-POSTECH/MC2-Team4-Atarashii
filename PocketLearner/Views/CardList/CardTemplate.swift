@@ -27,6 +27,8 @@ struct CardTemplate: View {
     
     let durationAndDelay: CGFloat = 0.17
     
+    let learnerInfo: UserInfo
+    
     var drag: some Gesture {
         DragGesture()
             .onChanged { _ in
@@ -40,8 +42,8 @@ struct CardTemplate: View {
     
     var body: some View {
         ZStack {
-            CardBack(degree: $backDegree, isMine: $isMine)
-            CardFront(degree: $frontDegree, isLiked: $isLiked, isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation)
+            CardBack(degree: $backDegree, isMine: $isMine, learnerInfo: learnerInfo)
+            CardFront(degree: $frontDegree, isLiked: $isLiked, isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, learnerInfo: learnerInfo)
         }
         .gesture(drag)
     }
@@ -66,7 +68,6 @@ struct CardTemplate: View {
             }
         }
     }
-    
 }
 
 
@@ -83,6 +84,8 @@ struct CardFront: View {
     @Binding var isQRCodePresented: Bool
     @Binding var QRAnimation: Bool
     
+    let learnerInfo: UserInfo
+
     var body: some View {
         ZStack{
             VStack(alignment: .leading, spacing: 10) {
@@ -90,8 +93,8 @@ struct CardFront: View {
                     HStack {
                         // MARK: - 오전/오후 세션 태그
                         HStack {
-                            Image(systemName: "\(user.isSessionMorning ? "sun.and.horizon" : "sun.max")")
-                            Text("\(user.isSessionMorning ? "오전" : "오후")")
+                            Image(systemName: "\((isMine ? user.isSessionMorning : learnerInfo.isSessionMorning) ? "sun.and.horizon" : "sun.max")")
+                            Text("\((isMine ? user.isSessionMorning : learnerInfo.isSessionMorning) ? "오전" : "오후")")
                         }
                         .padding(.vertical, 6)
                         .padding(.horizontal, 10)
@@ -125,7 +128,7 @@ struct CardFront: View {
                             // MARK: - (타인의 명함일 경우) 즐겨찾기 아이콘
                             Button {
                                 isLiked.toggle()
-                                /// TODO: 해당 유저 데이터를 Update 하는 로직
+                                // TODO: 해당 유저 데이터를 Update 하는 로직
                             } label: {
                                 if isLiked {
                                     Image(systemName: "bookmark.fill")
@@ -142,19 +145,19 @@ struct CardFront: View {
                     }
                     
                     // MARK: - 국문 닉네임
-                    Text("\(user.nickKorean)")
+                    Text("\(isMine ? user.nickKorean : learnerInfo.nickKorean)")
                         .font(.system(size: 34))
                         .fontWeight(.bold)
                         .padding(.top, 80)
                     
                     // MARK: - 영문 닉네임
-                    Text("\(user.nickEnglish)")
+                    Text("\(isMine ? user.nickEnglish : learnerInfo.nickEnglish)")
                         .font(.system(size: 30))
                         .fontWeight(.bold)
                         .padding(.bottom, 12)
                     
                     // MARK: - 자기 소개
-                    Text("\(card.introduce)")
+                    Text("\(isMine ? card.introduce : learnerInfo.introduce)")
                         .fixedSize(horizontal: false, vertical: true)
                         .font(.system(size: 20))
                 }
@@ -198,14 +201,14 @@ struct CardFront: View {
             }
             .frame(height: 490)
             /// TODO: 컬러 extension 추가 후 적용
-            .background(cardColorList[card.cardColor])
+            .background(cardColorList[isMine ? card.cardColor : learnerInfo.cardColor])
             .cornerRadius(32)
             .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
         }
         
         // MARK: 명함 패턴
         VStack {
-            Image("\(cardPatternList[card.cardPattern])")
+            Image("\(cardPatternList[isMine ? card.cardPattern : learnerInfo.cardPattern])")
                 .cornerRadius(32)
                 .blendMode(.overlay)
                 .opacity(0.6)
@@ -225,6 +228,8 @@ struct CardBack: View {
     @Binding var degree: Double
     @Binding var isMine: Bool
     
+    let learnerInfo: UserInfo
+    
     var body: some View {
         VStack(alignment: .center, spacing: 10) {
             HStack {
@@ -233,7 +238,7 @@ struct CardBack: View {
             
             HStack {
                 // MARK: - "(닉네임), 칭찬해요!" 문구
-                Text("\(user.nickKorean), \n칭찬해요!")
+                Text("\(isMine ? user.nickKorean : learnerInfo.nickKorean), \n칭찬해요!")
                     .font(.system(size: 34))
                     .fontWeight(.bold)
                     .padding(.top, 80)
@@ -251,7 +256,7 @@ struct CardBack: View {
                 /// TODO: 칭찬 리뷰 뷰로 연결
             } label: {
                 HStack {
-                    Text("\(user.nickKorean)이(가) 받은 칭찬 보러가기")
+                    Text("\(isMine ? user.nickKorean : learnerInfo.nickKorean)이(가) 받은 칭찬 보러가기")
                     Image(systemName: "chevron.right")
                 }
                 .font(.system(size: 14))
@@ -263,9 +268,12 @@ struct CardBack: View {
         }
         .frame(height: 490)
         /// TODO: 컬러 extension 추가 후 적용
-        .background(cardColorList[card.cardColor].opacity(0.6))
+        .background(cardColorList[isMine ? card.cardColor : learnerInfo.cardColor].opacity(0.6))
         .cornerRadius(32)
         .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
         
     }
 }
+
+
+///=========

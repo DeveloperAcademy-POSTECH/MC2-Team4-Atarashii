@@ -18,8 +18,8 @@ struct MyCardView: View {
     
     @State private var blinkingAnimation = false
     
-//    // myInfo 초기화.. with dummy data
-//    @State var myInfo: UserInfo = UserInfo(id: "", nickKorean: "", nickEnglish: "", isSessionMorning: true, introduce: "", skills: [], skillLevel: [], introduceSkill: "", growthTarget: "", wishSkills: [], wishSkillIntroduce: "", communicationType: 0, cooperationKeywords: [], cooperationIntroduce: "", cardColor: 0, cardPattern: 0, memoji: "")
+    // myInfo 초기화.. with dummy data
+    @State var myInfo: UserInfo = UserInfo(id: "", nickKorean: "", nickEnglish: "", isSessionMorning: true, introduce: "", skills: [], skillLevel: [], introduceSkill: "", growthTarget: "", wishSkills: [], wishSkillIntroduce: "", communicationType: 0, cooperationKeywords: [], cooperationIntroduce: "", cardColor: 0, cardPattern: 0, memoji: "")
     
     var body: some View {
         ZStack {
@@ -28,7 +28,7 @@ struct MyCardView: View {
                     .frame(height: 40)
                 
                 // MARK: - 내 명함으로 이동하는 단일 카드 뷰
-                CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation)
+                CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, learnerInfo: myInfo)
                     .padding(.bottom, 34)
                 
                 // MARK: - 스와이프 안내 문구
