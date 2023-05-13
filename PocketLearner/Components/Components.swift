@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 
 /// 회색 둥근 테두리가 추가된, 글자 제한이 있는 TextField를 추가
@@ -61,3 +62,68 @@ func cardGenerateViewsButton(title:String, disableCondition: Bool, action: @esca
     }.disabled(disableCondition)
 }
 
+
+
+/// emoji 키보드만 다루는 TextField 템플릿 추가
+/// UIKit
+class UIEmojiTextField: UITextField {
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    func setEmoji() {
+        _ = self.textInputMode
+    }
+    
+    override var textInputContextIdentifier: String? {
+           return ""
+    }
+    
+    override var textInputMode: UITextInputMode? {
+        for mode in UITextInputMode.activeInputModes {
+            if mode.primaryLanguage == "emoji" {
+                self.keyboardType = .default // do not remove this
+                return mode
+            }
+        }
+        return nil
+    }
+}
+
+/// UIEmojiTextField를 SwiftUI 뷰로 변환 후 반환 (emojiTextField)
+struct EmojiTextField: UIViewRepresentable {
+    @Binding var text: String
+    var placeholder: String = ""
+    
+    func makeUIView(context: Context) -> UIEmojiTextField {
+        let emojiTextField = UIEmojiTextField()
+        emojiTextField.placeholder = placeholder
+        emojiTextField.text = text
+
+        emojiTextField.delegate = context.coordinator
+        emojiTextField.tintColor = UIColor.clear
+        return emojiTextField
+    }
+    
+    func updateUIView(_ uiView: UIEmojiTextField, context: Context) {
+        uiView.text = text
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(parent: self)
+    }
+    
+    class Coordinator: NSObject, UITextFieldDelegate {
+        var parent: EmojiTextField
+        
+        init(parent: EmojiTextField) {
+            self.parent = parent
+        }
+        
+        func textFieldDidChangeSelection(_ textField: UITextField) {
+            DispatchQueue.main.async { [weak self] in
+                self?.parent.text = textField.text ?? ""
+            }
+        }
+    }
+}

@@ -56,10 +56,8 @@ struct CardCollectionView: View {
                 
                 // MARK: - 수집력 랭킹 배너
                 collectionRankingBanner()
-                
-                Spacer()
             }
-            .padding(.vertical, 20)
+            .padding(.vertical, 10)
             
         
             ScrollView {
@@ -104,9 +102,9 @@ struct CardCollectionView: View {
             Text("당신의 수집력은 현재 6위! 👈")
                 .foregroundColor(.black)
                 .fontWeight(.bold)
-                .font(.system(size: 13))
-                .cornerRadius(12)
+                .font(.system(size: 12))
         }
+        
         // MARK: - 수집력 랭킹 상세 내용 모달
         .sheet(isPresented: $showingOptions) {
             VStack {
