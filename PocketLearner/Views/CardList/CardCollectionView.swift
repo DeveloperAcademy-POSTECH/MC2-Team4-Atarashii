@@ -71,17 +71,19 @@ struct CardCollectionView: View {
                 /// TODO: 카드 넘겨지는 애니메이션 구현
                 case .slidingMode:
                     ForEach(0...10, id:\.self) { _ in
-                        CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, userInfo: learnerInfo!)
-                            .padding(.bottom, 34)
+//                        CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, userInfo: learnerInfo!)
+//                            .padding(.bottom, 34)
+                        Text("123")
                     }
                     
                 // 갤러리 뷰로 카드 리스트 그리기
                 case .galleryMode:
                     LazyVGrid(columns: columns) {
                         ForEach((0...19), id: \.self) { _ in
-                            CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented,QRAnimation: $QRAnimation, userInfo: learnerInfo!)
-                                .scaleEffect(0.5)
-                                .frame(width: 300, height: 250)
+//                            CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented,QRAnimation: $QRAnimation, userInfo: learnerInfo!)
+//                                .scaleEffect(0.5)
+//                                .frame(width: 300, height: 250)
+                            Text("123")
                         }
                     }
                     
