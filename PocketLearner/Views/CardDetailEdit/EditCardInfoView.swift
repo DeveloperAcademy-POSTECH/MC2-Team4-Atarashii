@@ -8,19 +8,32 @@
 
 
 import SwiftUI
-import Photos
+import PhotosUI
+import Firebase
+import FirebaseFirestore
+import FirebaseStorage
+
 //MARK: Main
 struct EditCardInfoView: View {
     @Environment(\.dismiss) private var dismiss
     
     @EnvironmentObject var card: CardDetailData
-    @EnvironmentObject var user : userData
+    @EnvironmentObject var user: userData
+    
+    
+    // MARK: - 이미지 받아오기(PhotoURL)
+    @State private var selectedItem: PhotosPickerItem? = nil
+    @State private var image: String = ""
+    @State private var profileImage: UIImage?
+    @State var selectedImage: UIImage?
+    
+    @Binding var retrievedImage: UIImage
     
     var body: some View {
         NavigationView {
             ScrollView(.vertical) {
-                
-                DetailEditProfileView()
+                DetailEditProfileView(selectedImage: $selectedImage, retrievedImage: $retrievedImage)
+                    .environmentObject(user)
                 
                 DetailEditSkillView()
                     .padding(.top,20)
@@ -29,17 +42,24 @@ struct EditCardInfoView: View {
                 
                 DetailEditCollaborationView()
             }
+            .onAppear {
+                retrievePhotos()
+            }
         }
         .toolbar {
             Button {
-                handleUpdateCardDetailData()
+                handleUpdateCardDetailData(profileImage: profileImage)
             } label: {
                 Text("저장")
             }
 
         }
     }
-    func handleUpdateCardDetailData() {
+    
+
+    
+    func handleUpdateCardDetailData(profileImage: UIImage?) {
+
         let washingtonRef = db.collection("CardDetails").document(user.id)
 
         washingtonRef.updateData([
@@ -60,31 +80,129 @@ struct EditCardInfoView: View {
             } else {
                 print("Document successfully updated")
             }
+            
+            uploadPhoto(selectedImage: selectedImage)
+
             dismiss()
         }
     }
     
-}
-
-//MARK: PreView
-struct EditCardInfoView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditCardInfoView()
+    // MARK: - Storage: uploadPhoto() (Method)
+    /// Storage에 이미지 url 업로드 하기
+    func uploadPhoto(selectedImage: UIImage?) {
+        
+        // Make sure that the selected image property isn't nil
+        guard selectedImage != nil else {
+            return
+        }
+        
+        // Create storage reference
+        let storageRef = Storage.storage().reference()
+        
+        // Turn our image into data
+        let imageData = selectedImage!.jpegData(compressionQuality: 0.8)
+        
+        // Check that we were able to convert it to data
+        guard imageData != nil else {
+            return
+        }
+        
+        // Specify the file path and name
+        let path = "images/\(UUID().uuidString).jpg"
+        let fileRef = storageRef.child(path)
+        
+        // Upload that data
+        let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+            
+            // Check for errors
+            if error == nil && metadata != nil {
+                
+                // Save a reference to the file in Firestore DB
+                let db = db.collection("CardDetails").document(user.id)
+                db.updateData(["memoji":path]) { error in
+                    
+                    // if there were no errors, display the new image
+//                    if error == nil {
+//                        DispatchQueue.main.async {
+//                            self.retrievePhotos()
+//                        }
+//                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: - Storage: retrievePhotos() (Method)
+    /// Storage에서 이미지 가져오기
+    func retrievePhotos() {
+        
+        // Get the data from the database
+        let docRef = Firestore.firestore().collection("CardDetails").document(user.id)
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let imagePath = document.get("memoji")
+                print(imagePath ?? "")
+                
+                // Get a reference to storage
+                let storageRef = Storage.storage().reference()
+                
+                // Specify the path
+                let fileRef = storageRef.child(imagePath as! String)
+                
+                // Retrieve the data
+                fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+                    
+                    // Check for errors
+                    if error == nil && data != nil {
+                       
+                        // Create a UIImage and put it into display
+                        if let image = UIImage(data: data!) {
+                          
+                            DispatchQueue.main.async {
+                                retrievedImage = image
+                                profileImage = retrievedImage
+                            }
+                        }
+                    }
+                }
+                
+            } else {
+                print("Document does not exist")
+            }
+        }
     }
 }
+
+
+
+
+//MARK: PreView
+//struct EditCardInfoView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        EditCardInfoView(retrievedImage: $retrievedImage)
+//    }
+//}
+
+
+
 //MARK: ProfilePictureView
 struct ProfilePictureView: View {
     
+    @EnvironmentObject var card: CardDetailData
+    @EnvironmentObject var user : userData
+    
     @State private var isShowingImagePicker = false
-    @State private var selectedImage: UIImage?
     @State private var profileImage: UIImage?
+    
+    @Binding var selectedImage: UIImage?
+    @Binding var retrievedImage: UIImage
     
     var body: some View {
         VStack {
             if let profileImage = profileImage {
                 Image(uiImage: profileImage)
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .aspectRatio(contentMode: .fill)
                     .frame(width: 154, height: 154)
                     .clipShape(Circle())
                     .overlay(
@@ -93,13 +211,27 @@ struct ProfilePictureView: View {
                     )
                     .shadow(radius: 0.3)
             } else {
-                Image(systemName: "person.circle.fill")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 154, height: 154)
-                    .clipShape(Circle())
-                    .shadow(radius: 10)
-                    .foregroundColor(.white)
+                /// card.memoji != " ": 프로필 이미지가 아예 없을 시나리오 대응
+                if card.memoji != "" {
+                    Image(uiImage: retrievedImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 154, height: 154)
+                        .clipShape(Circle())
+                        .overlay(
+                            Circle()
+                                .stroke(Color.white, lineWidth: 2)
+                        )
+                        .shadow(radius: 0.3)
+                } else {
+                    Image(systemName: "person.circle.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 154, height: 154)
+                        .clipShape(Circle())
+                        .shadow(radius: 10)
+                        .foregroundColor(.white)
+                }
             }
             
             
@@ -117,13 +249,16 @@ struct ProfilePictureView: View {
             .sheet(isPresented: $isShowingImagePicker, onDismiss: loadImage) {
                 ImagePicker(selectedImage: self.$selectedImage)
             }
+ 
         }
     }
     
+
     private func loadImage() {
         guard let selectedImage = selectedImage else { return }
         self.profileImage = selectedImage
     }
+    
     
 }
 
@@ -132,9 +267,12 @@ struct DetailEditProfileView: View {
     @State var discriptionText: String = ""
     @EnvironmentObject var card: CardDetailData
     
+    @Binding var selectedImage: UIImage?
+    @Binding var retrievedImage: UIImage
+    
     var body: some View {
         VStack {
-            ProfilePictureView()
+            ProfilePictureView(selectedImage: $selectedImage, retrievedImage: $retrievedImage)
                 .padding()
             
             letterLimitTextField(placeholder: "안녕하세요! 겉바속촉 디발자 리앤입니다!", commentText: $discriptionText, letterLimit: 50)
@@ -288,7 +426,8 @@ struct DetailEditSkillView: View {
 
         .frame(width: 107,height: 30)
         .background {
-            RoundedRectangle(cornerRadius: 35)                .foregroundColor(.white)
+            RoundedRectangle(cornerRadius: 35)
+                .foregroundColor(.white)
                 .shadow(radius: 2)
         }
         
@@ -448,7 +587,7 @@ struct DetailEditCollaborationView: View {
                     }
                     .sheet(isPresented: $isCollaborationSheet) {
                         //MARK: 협업 선택 창 넣기
-//                        SelectCollaborationKeywordView(card: <#CardDetailData#>)
+//                        SelectCollaborationKeywordView(card: CardDetailData)
                         IntroView()
                     }
                 
@@ -479,3 +618,49 @@ struct DetailEditCollaborationView: View {
     }
 
 }
+
+
+
+
+// MARK: - Storage: retrievePhotos() (Method)
+/// Storage에서 이미지 가져오기
+func retrievePhotos(retrievedImage: UIImage?) {
+    @EnvironmentObject var card: CardDetailData
+    @EnvironmentObject var user: userData
+    @State var retrievedImage = UIImage()
+    
+    // Get the data from the database
+    let docRef = Firestore.firestore().collection("CardDetails").document(user.id)
+    docRef.getDocument { (document, error) in
+        if let document = document, document.exists {
+            let imagePath = document.get("memoji")
+            print(imagePath ?? "")
+            
+            // Get a reference to storage
+            let storageRef = Storage.storage().reference()
+            
+            // Specify the path
+            let fileRef = storageRef.child(imagePath as! String)
+            
+            // Retrieve the data
+            fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+                
+                // Check for errors
+                if error == nil && data != nil {
+                   
+                    // Create a UIImage and put it into display
+                    if let image = UIImage(data: data!) {
+                      
+                        DispatchQueue.main.async {
+                            retrievedImage = image
+                        }
+                    }
+                }
+            }
+            
+        } else {
+            print("Document does not exist")
+        }
+    }
+}
+
