@@ -56,6 +56,7 @@ struct MainNameCardTabView: View {
     @State var learnerIDs: [String] = []
     @State var learnerInfos: [UserInfo] = []
     
+    
     var body: some View {
         NavigationStack{
             ZStack {
