@@ -21,7 +21,8 @@ struct MainTabView: View {
                 
                 // MARK: - 팀 탭 연결
                 /// TODO: 팀 탭 생성 및 연결
-                MainNameCardTabView()
+//                MainNameCardTabView()
+                VStack{}
                     .tabItem {
                         Image(systemName: "person.3.sequence")
                         Text("Second")
@@ -29,17 +30,7 @@ struct MainTabView: View {
             }
         }
     }
-    
-    
-    
 }
-
-struct MainTabView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainTabView()
-    }
-}
-
 
 
 
