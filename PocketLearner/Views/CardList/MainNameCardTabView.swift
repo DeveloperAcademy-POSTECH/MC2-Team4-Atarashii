@@ -64,11 +64,14 @@ struct MainNameCardTabView: View {
     @State var learnerIDs: [String] = []
     @State var learnerInfos: [UserInfo] = []
     
+
+
     @State var bookmarkIDs: [String] = []
     
     // 랭킹 데이터 관련
     @State var rankingData: [RankData] = []
     @State var myRank: Int = 0
+
     
     var body: some View {
         NavigationStack{
