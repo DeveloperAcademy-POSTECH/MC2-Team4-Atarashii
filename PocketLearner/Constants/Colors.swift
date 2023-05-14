@@ -36,6 +36,7 @@ let textPinkColor: Color = Color(red: 0.96, green: 0.68, blue: 0.70)
 let textBackgroundGrayColor: Color = Color(red: 0.952, green: 0.952, blue: 0.952)   // #F3F3F3
 
 // CardGenerate
+let softOrange = Color(#colorLiteral(red: 1, green: 0.8352941176, blue: 0.7529411765, alpha: 1)) 
 let disabledNextButtonColor = #colorLiteral(red: 0.8797428608, green: 0.8797428012, blue: 0.8797428608, alpha: 1)
 let strokeGray = #colorLiteral(red: 0.8549019608, green: 0.8549019608, blue: 0.8549019608, alpha: 1)        // #DADADA
 let softPink = #colorLiteral(red: 0.9725490196, green: 0.7411764706, blue: 0.7529411765, alpha: 1)          // #F8BDC0

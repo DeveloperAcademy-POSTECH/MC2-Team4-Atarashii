@@ -1,28 +1,28 @@
 //
-//  RoleGoalInputSheetView.swift
+//  SkillTitleInputSheetView.swift
 //  PocketLearner
 //
-//  Created by 황지우2 on 2023/05/11.
+//  Created by 황지우2 on 2023/05/14.
 //
 
 import SwiftUI
 
-struct RoleGoalInputSheetView: View {
-    
+struct SkillTitleInputSheetView: View {
     @Environment(\.dismiss) var dismiss
     
     @State var textFieldText: String = "" // 실제로 텍스트 필드에 입력되는데이터.
-    @Binding var sendInputText: String // 입력이 완료되어 부모뷰로 send 할 데이터
-    let letterLimit = 15
+    @State var sendInputText: String = "" // 입력이 완료되어 부모뷰로 send 할 데이터
+    @Binding var appendArray: [String]
     
+    let letterLimit = 15
     var body: some View {
         VStack(spacing: 16){
-            Text("성장 목표를 직접 입력해 주세요!")
+            Text("스킬셋 키워드를 직접 입력해주세요!")
                 .font(.system(size: 18, weight: .semibold))
                 // 🔴 텍스트 Limit 설정
             
             HStack {
-                TextField("T자형 인재", text: $textFieldText)
+                TextField("스킬 키워드", text: $textFieldText)
                     .lineLimit(Int(letterLimit/20), reservesSpace: true)
                 Button(action: {
                     // textFieldText를 지운다.
@@ -41,6 +41,7 @@ struct RoleGoalInputSheetView: View {
             cardGenerateViewsButton(title: "이 키워드 입력", disableCondition: self.textFieldText.isEmpty, action: {
                 // 키워드를 부모 뷰로 전송.
                 sendInputText = textFieldText
+                appendArray.append(sendInputText)
                 // 이 뷰를 dismiss 되게 만들어야
                 dismiss()
             })
@@ -51,5 +52,10 @@ struct RoleGoalInputSheetView: View {
         
         .padding(.top, 27)
     }
-        
 }
+
+//struct SkillTitleInputSheetView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        //SkillTitleInputSheetView()
+//    }
+//}

@@ -53,6 +53,13 @@
 		C36366292A0A31B400E4E9C6 /* CardGenerateViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36366282A0A31B400E4E9C6 /* CardGenerateViewHeader.swift */; };
 		C363662B2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C363662A2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift */; };
 		C3E8B3842A0DF55E00AA76CC /* SelectCollaborationKeywordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8B3832A0DF55E00AA76CC /* SelectCollaborationKeywordView.swift */; };
+		C3E8B3862A10C61900AA76CC /* SelectMySkillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8B3852A10C61900AA76CC /* SelectMySkillView.swift */; };
+		C3E8B3892A110AB300AA76CC /* Flow in Frameworks */ = {isa = PBXBuildFile; productRef = C3E8B3882A110AB300AA76CC /* Flow */; };
+		C3E8B38B2A11111300AA76CC /* SkillTitleInputSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8B38A2A11111300AA76CC /* SkillTitleInputSheetView.swift */; };
+		C3E8B38D2A111AC700AA76CC /* SkillProficiencySheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8B38C2A111AC700AA76CC /* SkillProficiencySheetView.swift */; };
+		C3E8B3902A113C8600AA76CC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C3E8B38F2A113C8600AA76CC /* FirebaseAuth */; };
+		C3E8B3922A113C8600AA76CC /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C3E8B3912A113C8600AA76CC /* FirebaseFirestore */; };
+		C3E8B3942A113C8600AA76CC /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C3E8B3932A113C8600AA76CC /* FirebaseStorage */; };
 		EF5D03522A0B86E100678E09 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5D034C2A0B86E100678E09 /* Character.swift */; };
 		EF5D03532A0B86E100678E09 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5D034D2A0B86E100678E09 /* String.swift */; };
 		EF5D03542A0B86E100678E09 /* MemojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5D034F2A0B86E100678E09 /* MemojiView.swift */; };
@@ -107,6 +114,9 @@
 		C36366282A0A31B400E4E9C6 /* CardGenerateViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGenerateViewHeader.swift; sourceTree = "<group>"; };
 		C363662A2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGenerateTextEditorView.swift; sourceTree = "<group>"; };
 		C3E8B3832A0DF55E00AA76CC /* SelectCollaborationKeywordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCollaborationKeywordView.swift; sourceTree = "<group>"; };
+		C3E8B3852A10C61900AA76CC /* SelectMySkillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMySkillView.swift; sourceTree = "<group>"; };
+		C3E8B38A2A11111300AA76CC /* SkillTitleInputSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillTitleInputSheetView.swift; sourceTree = "<group>"; };
+		C3E8B38C2A111AC700AA76CC /* SkillProficiencySheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillProficiencySheetView.swift; sourceTree = "<group>"; };
 		EF04E6402A0F4AAD00E7288F /* MemojiView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MemojiView.h; sourceTree = "<group>"; };
 		EF5D034C2A0B86E100678E09 /* Character.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		EF5D034D2A0B86E100678E09 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -121,9 +131,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E52FFE22A112A22004E39F2 /* FirebaseAuth in Frameworks */,
-				0E52FFE42A112A22004E39F2 /* FirebaseFirestore in Frameworks */,
-				0E52FFE62A112A22004E39F2 /* FirebaseStorage in Frameworks */,
+				C3E8B3892A110AB300AA76CC /* Flow in Frameworks */,
+				C3E8B3942A113C8600AA76CC /* FirebaseStorage in Frameworks */,
+				C3E8B3902A113C8600AA76CC /* FirebaseAuth in Frameworks */,
+				C3E8B3922A113C8600AA76CC /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +249,9 @@
 				C32664652A0D6092004777FE /* CommunicationStyleCard.swift */,
 				C3E8B3832A0DF55E00AA76CC /* SelectCollaborationKeywordView.swift */,
 				0EF982512A0FDBFF000AB165 /* FinishGenerateView.swift */,
+				C3E8B3852A10C61900AA76CC /* SelectMySkillView.swift */,
+				C3E8B38A2A11111300AA76CC /* SkillTitleInputSheetView.swift */,
+				C3E8B38C2A111AC700AA76CC /* SkillProficiencySheetView.swift */,
 			);
 			path = CardGenerate;
 			sourceTree = "<group>";
@@ -334,9 +348,10 @@
 			);
 			name = PocketLearner;
 			packageProductDependencies = (
-				0E52FFE12A112A22004E39F2 /* FirebaseAuth */,
-				0E52FFE32A112A22004E39F2 /* FirebaseFirestore */,
-				0E52FFE52A112A22004E39F2 /* FirebaseStorage */,
+				C3E8B3882A110AB300AA76CC /* Flow */,
+				C3E8B38F2A113C8600AA76CC /* FirebaseAuth */,
+				C3E8B3912A113C8600AA76CC /* FirebaseFirestore */,
+				C3E8B3932A113C8600AA76CC /* FirebaseStorage */,
 			);
 			productName = PocketLearner;
 			productReference = 0E113BE52A0A0FA400AB2EC8 /* PocketLearner.app */;
@@ -367,7 +382,8 @@
 			);
 			mainGroup = 0E113BDC2A0A0FA400AB2EC8;
 			packageReferences = (
-				0E52FFE02A112A22004E39F2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				C3E8B3872A110AB300AA76CC /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */,
+				C3E8B38E2A113C8600AA76CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 0E113BE62A0A0FA400AB2EC8 /* Products */;
 			projectDirPath = "";
@@ -421,14 +437,17 @@
 				0E52FFE82A11378E004E39F2 /* welcomeAlertView.swift in Sources */,
 				C32FEA7E2A0BE59900CE0663 /* GoalPickerMenuList.swift in Sources */,
 				0E113BE92A0A0FA400AB2EC8 /* PocketLearnerApp.swift in Sources */,
+				C3E8B38D2A111AC700AA76CC /* SkillProficiencySheetView.swift in Sources */,
 				0EBBD8902A0D29E600B232F1 /* QRCodeScanner.swift in Sources */,
 				0EBBD88C2A0CDE2200B232F1 /* UserOB.swift in Sources */,
 				C32664662A0D6092004777FE /* CommunicationStyleCard.swift in Sources */,
 				0E6DB2D52A0A2A0000F6C8DC /* CardCollectionView.swift in Sources */,
+				C3E8B38B2A11111300AA76CC /* SkillTitleInputSheetView.swift in Sources */,
 				EF5D03562A0B86E100678E09 /* MemojiTextField.swift in Sources */,
 				0E6DB2D82A0A2A0000F6C8DC /* CardTemplate.swift in Sources */,
 				0EBBD8872A0CDD6F00B232F1 /* Constants.swift in Sources */,
 				0E6DB2E22A0A2A1C00F6C8DC /* IntroView.swift in Sources */,
+				C3E8B3862A10C61900AA76CC /* SelectMySkillView.swift in Sources */,
 				0EBBD88A2A0CDDB900B232F1 /* AppleLoginViewModel.swift in Sources */,
 				0E6DB2C32A0A29C500F6C8DC /* CardDetailView.swift in Sources */,
 				C32664642A0D3F99004777FE /* SelectCommunicationTypeView.swift in Sources */,
@@ -652,30 +671,44 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		0E52FFE02A112A22004E39F2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		C3E8B3872A110AB300AA76CC /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */ = {
+
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			repositoryURL = "https://github.com/tevelee/SwiftUI-Flow.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.0.0;
+				minimumVersion = 1.0.0;
+			};
+		};
+		C3E8B38E2A113C8600AA76CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		0E52FFE12A112A22004E39F2 /* FirebaseAuth */ = {
+		C3E8B3882A110AB300AA76CC /* Flow */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0E52FFE02A112A22004E39F2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = C3E8B3872A110AB300AA76CC /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */;
+			productName = Flow;
+		};
+		C3E8B38F2A113C8600AA76CC /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C3E8B38E2A113C8600AA76CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		0E52FFE32A112A22004E39F2 /* FirebaseFirestore */ = {
+		C3E8B3912A113C8600AA76CC /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0E52FFE02A112A22004E39F2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = C3E8B38E2A113C8600AA76CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
-		0E52FFE52A112A22004E39F2 /* FirebaseStorage */ = {
+		C3E8B3932A113C8600AA76CC /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0E52FFE02A112A22004E39F2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = C3E8B38E2A113C8600AA76CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */

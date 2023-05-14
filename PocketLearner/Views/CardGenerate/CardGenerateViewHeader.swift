@@ -21,14 +21,14 @@ struct CardGenerateViewHeader: View {
                     HStack{ // activated Circle Hstack
                         ForEach(0..<activatedCircleNumber) { _ in
                             Circle()
-                                .fill(Color.black)
+                                .fill(mainAccentColor)
                                 .frame(width: 8, height: 8)
                         }
                     }
                     HStack{ // activated Circle Hstack
                         ForEach(0..<6 - activatedCircleNumber) { _ in
                             Circle()
-                                .fill(Color(unActivatedGray))
+                                .fill(softOrange)
                                 .frame(width: 8, height: 8)
                         }
                     }
