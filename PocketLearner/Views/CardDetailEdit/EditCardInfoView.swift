@@ -42,7 +42,6 @@ struct EditCardInfoView: View {
     func handleUpdateCardDetailData() {
         let washingtonRef = db.collection("CardDetails").document(user.id)
 
-        // Set the "capital" field of the city 'DC'
         washingtonRef.updateData([
             "introduce": card.introduce,
             "skills": card.skills,

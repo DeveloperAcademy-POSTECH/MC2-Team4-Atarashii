@@ -25,7 +25,10 @@ struct CommentCreateView: View {
     var body: some View {
         VStack{
             HStack{
-                Text("To. \(learnerInfo.nickKorean)")
+                Text("To. ")
+                    .font(.system(size: 34, weight: .bold))
+                    .foregroundColor(mainAccentColor)
+                + Text("\(learnerInfo.nickKorean)")
                     .font(.system(size: 34, weight: .bold))
                 Spacer()
             }
@@ -44,8 +47,9 @@ struct CommentCreateView: View {
                     .foregroundColor(.white)
                     .padding(.vertical, 19)
                     .padding(.horizontal, 105)
+                    .frame(width: 314)
                     .background(
-                        RoundedRectangle(cornerRadius: 100)
+                        RoundedRectangle(cornerRadius: 13)
                             .fill( (commentText == myComment.commentText) ? Color(buttonDisabledGrayColor) : mainAccentColor )
                     )
             }.padding(.top, 20).disabled(commentText == myComment.commentText)
