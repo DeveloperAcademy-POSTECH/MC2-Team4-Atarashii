@@ -7,8 +7,11 @@
 
 import SwiftUI
 
-
-
+struct RankData {
+    let nickEnglish: String
+    let nickKorean: String
+    let cardCollectCount: Int
+}
 
 struct CardCollectionView: View {
     @EnvironmentObject var user: userData
@@ -23,8 +26,11 @@ struct CardCollectionView: View {
     @State var isQRCodePresented: Bool = false
     @State var QRAnimation: Bool = false
     
-    // MARK: - 타 러너의 유저 정보 dummy 인스턴스
+    // MARK: - 타 러너의 유저 정보
     @Binding var learnerInfos: [UserInfo]
+    
+    @State var rankingData: [RankData] = []
+    @State var myRank: Int = 0
 
     // MARK: - 슬라이드/갤러리 뷰 모드 카테고리
     enum CardViewMode: String, CaseIterable {
@@ -91,10 +97,39 @@ struct CardCollectionView: View {
                 
             }
             .scrollIndicators(.hidden)
+        }.task {
+            loadUserRanking()
         }
-        
     }
     
+    func loadUserRanking() {
+        let userColRef = db.collection("Users")
+        
+        userColRef.whereField("cardCollectCount", isGreaterThan: 0).order(by: "cardCollectCount").order(by: "nickKorean")
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("순위 정보 로딩 실패: \(err)")
+                } else {
+                    var index = 0
+                    for document in querySnapshot!.documents {
+                        index += 1
+                        let data = document.data()
+                        
+                        let id = data ["id"] as? String ?? ""
+                        let nickEnglish = data["nickEnglish"] as? String ?? ""
+                        let nickKorean = data["nickKorean"] as? String ?? ""
+                        let cardCollectCount = data["cardCollectCount"] as? Int ?? 0
+                        
+                        rankingData.append(RankData(nickEnglish: nickEnglish, nickKorean: nickKorean, cardCollectCount: cardCollectCount))
+                        
+                        if id == user.id {
+                            myRank = index
+                        }
+                    }
+                    print(rankingData)
+                }
+            }
+    }
     
     // MARK: - 수집력 랭킹 배너 컴포넌트 (Method)
     func collectionRankingBanner() -> some View {
@@ -102,10 +137,17 @@ struct CardCollectionView: View {
         Button {
             showingOptions = true
         } label: {
-            Text("당신의 수집력은 현재 6위! 👈")
-                .foregroundColor(.black)
-                .fontWeight(.bold)
-                .font(.system(size: 12))
+            if(myRank != 0){
+                Text("당신의 수집력은 현재 \(myRank)위! 👈")
+                    .foregroundColor(.black)
+                    .fontWeight(.bold)
+                    .font(.system(size: 12))
+            } else{
+                Text("명함 수집 랭킹을 확인하세요! 명함 수집을 시작하면, 랭킹에 등록됩니다! 👈")
+                    .foregroundColor(.black)
+                    .fontWeight(.bold)
+                    .font(.system(size: 12))
+            }
         }
         
         // MARK: - 수집력 랭킹 상세 내용 모달
@@ -131,9 +173,11 @@ struct CardCollectionView: View {
                             /// TODO: 텍스트 align leading으로 맞추기
                             HStack {
                                 Text("**\(index+1)위** 👑")
-                                Text("**스위머** (Swimmer)")
-                                // 더미 데이터로 랜덤 값이 들어있음
-                                Text("**\(Int.random(in: 0..<60))**개")
+                                if (rankingData.count >= index+1) {
+                                    Text("**\(rankingData[index].nickKorean)** (\(rankingData[index].nickEnglish))")
+                                    // 더미 데이터로 랜덤 값이 들어있음
+                                    Text("**\(rankingData[index].cardCollectCount)**개")
+                                }
                             }
                             .font(.system(size: 13))
                         }
