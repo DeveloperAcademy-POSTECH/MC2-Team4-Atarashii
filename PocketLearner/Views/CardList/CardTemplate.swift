@@ -253,14 +253,15 @@ struct CardBack: View {
             
             // MARK: - 칭찬 리뷰로 이동
             NavigationLink {
-                /// TODO: 칭찬 리뷰 뷰로 연결
+                CommentView(isMine: isMine, learnerInfo: learnerInfo).navigationTitle("칭찬 리뷰")
             } label: {
                 HStack {
                     Text("\(isMine ? user.nickKorean : learnerInfo.nickKorean)이(가) 받은 칭찬 보러가기")
                     Image(systemName: "chevron.right")
                 }
                 .font(.system(size: 14))
-                .fontWeight(.bold)            }
+                .fontWeight(.bold)
+            }
             
             Spacer()
                 .frame(height: 60)

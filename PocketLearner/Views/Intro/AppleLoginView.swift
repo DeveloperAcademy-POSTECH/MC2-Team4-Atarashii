@@ -118,6 +118,7 @@ struct AppleLoginView : View {
                     user.id = email
                     print("첫 로그인(회원가입) : \(user.id) email data saved.")
                 } else {
+                    print("로그인 - appleID ; \(user.AppleID)")
                     db.collection("Users").whereField("AppleID", isEqualTo: user.AppleID)
                         .getDocuments() { (querySnapshot, err) in
                             if let err = err {
@@ -148,8 +149,6 @@ struct AppleLoginView : View {
                                 }
                             }
                         }
-                    
-                    let cardDetailDocRef = db.collection("CardDetails").document(user.id)
                 }
                 
             default:
