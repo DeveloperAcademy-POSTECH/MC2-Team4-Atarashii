@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SelectCommunicationTypeView: View {
-    @ObservedObject var card: CardDetailData
+   @ObservedObject var card: CardDetailData
 
     //Header 관련 변수
     @State var activatedCircleNumber: Int = 5
@@ -53,12 +53,7 @@ struct SelectCommunicationTypeView: View {
             }
         }
         
-         // 🔴 하나의 카드가 뒤집어질 경우, 다른 카드는 이니 뒤집혀 있더라도 다시 원상복구 되게 만드는 로직
-//        for i in 0..<fourTypeCardsDatas.count {
-//            if i != index {
-//
-//            }
-//        }
+
     }
     var body: some View {
         VStack(spacing: 0) {
@@ -150,7 +145,8 @@ struct SelectCommunicationTypeView: View {
                 // card generate data update
                 card.communicationType = selectedTypeIndex ?? 0 // if selectedTypeIndex == nil, button disabled.
                 goNext = true
-            } ).padding(.top, 20).navigationDestination(isPresented: $goNext){
+            } ).padding(.top, 20)
+                .navigationDestination(isPresented: $goNext){
                 SelectCollaborationKeywordView(card: card)
             }
             Spacer()
