@@ -135,38 +135,56 @@ struct SelectMySkillView: View {
     
     // 버튼 뷰를 리턴하는 함수
     func returnSkillButton (buttonTitle: String, buttonColor: Color = .white) -> some View {
+        
+        var buttonColor: Color = mainAccentColor
+        var proficiency:Int = 0
+        let index = selectedSkillTitles.firstIndex(of: buttonTitle) ?? -1
+        if index != -1{
+            proficiency = selectedSkillProficiency[index]
+            
+            if proficiency <= 30 {
+                buttonColor = Color(buttonEditAbledPinkColor)
+            } else if proficiency <= 70 {
+                buttonColor = cardBackgroundColor_5
+            } else {
+                buttonColor = cardBackgroundColor_4
+            }
+        }
+        
         return Button(action: {
         // 버튼의 Title을 selectedSkillTitles에 append 한다.
             selectedSkillTitles.append(buttonTitle)
+            selectedSkillProficiency.append(0)
         // Sheet 뷰 오픈
             if isMySkill{
                 showingSkillProficiencySheet.toggle()
             }
             
         }) {
-            Text(buttonTitle)
-                .font(.system(size: 15, weight: .regular))
-                .foregroundColor(.black)
-                .padding(.vertical, 5)
-                .padding(.horizontal, 12)
-                .background(
-                    isMySkill ?
-                    RoundedRectangle(cornerRadius: 35)
-                        .fill(
-                            // 이 버튼 타이틀의 인덱스에 맞는 퍼센트의 범위에 따라 .
-                               selectedSkillTitles.contains(buttonTitle) ? (
-                               // 숙련도 정보가 append된 상태인지 아닌지 검사
-                                   selectedSkillTitles.count == selectedSkillProficiency.count ? (
-                                        mainAccentColor
-                                   ) : .white
-                               ) : .white
-                        ).shadow(color: .black.opacity(0.25), radius: 4, x: 0, y:  0.5)
-                    
-                    : RoundedRectangle(cornerRadius: 35)
-                        .fill(
-                               selectedSkillTitles.contains(buttonTitle) ? (mainAccentColor) : .white
-                        ).shadow(color: .black.opacity(0.25), radius: 4, x: 0, y:  0.5)
-                )
+                    Text(buttonTitle)
+                        .font(.system(size: 15, weight: .regular))
+                        .foregroundColor(.black)
+                        .padding(.vertical, 5)
+                        .padding(.horizontal, 12)
+                        .background(
+                            isMySkill ?
+                            RoundedRectangle(cornerRadius: 35)
+                                .fill(
+                                    // 이 버튼 타이틀의 인덱스에 맞는 퍼센트의 범위에 따라 .
+                                    selectedSkillTitles.contains(buttonTitle) ? (
+                                        // 숙련도 정보가 append된 상태인지 아닌지 검사
+                                        // 특정 인덱스의 숙련도 값에 따라 색 지정
+                                        selectedSkillTitles.count == selectedSkillProficiency.count ? buttonColor : .white
+                                    ) : .white
+                                ).shadow(color: .black.opacity(0.25), radius: 4, x: 0, y:  0.5)
+
+                            
+                            : RoundedRectangle(cornerRadius: 35)
+                                .fill(
+                                    selectedSkillTitles.contains(buttonTitle) ? (mainAccentColor) : .white
+                                ).shadow(color: .black.opacity(0.25), radius: 4, x: 0, y:  0.5)
+                        )
+
         }
         .disabled(selectedSkillTitles.contains(buttonTitle))
     }
