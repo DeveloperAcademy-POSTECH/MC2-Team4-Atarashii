@@ -41,7 +41,7 @@ struct SkillProficiencySheetView: View {
                     .font(.system(size: 12.1, weight: .light))
                 Text("\(Int(sliderValue))%")
                     .foregroundColor(
-                        sliderValue <= 30 ? Color(buttonEditAbledPinkColor) : (sliderValue >= 90 ? cardBackgroundColor_4 : cardBackgroundColor_5)
+                        sliderValue <= 30 ? Color(buttonEditAbledPinkColor) : (sliderValue >= 80 ? cardBackgroundColor_4 : cardBackgroundColor_5)
                     )
                     .font(.system(size: 15.4, weight: .black))
             }
@@ -55,22 +55,23 @@ struct SkillProficiencySheetView: View {
             .padding(.top, 13)
             
             Text(
-                sliderValue <= 30 ? "한 두번 경험은 해보았지만, 활용이 익숙하지는 않아요!" : (sliderValue >= 90 ? "능숙하게 다룰 수 있고, 팀원들에게 지식 공유를 할 수 있어요." : "경험을 쌓아가며 익숙해지고 있는 단계에 있어요 ! ")
+                sliderValue <= 30 ? "한 두번 경험은 해보았지만, 활용이 익숙하지는 않아요!" : (sliderValue >= 80 ? "능숙하게 다룰 수 있고, 팀원들에게 지식 공유를 할 수 있어요." : "경험을 쌓아가며 익숙해지고 있는 단계에 있어요 ! ")
             )
                 .foregroundColor(
-                    sliderValue <= 30 ? Color(buttonEditAbledPinkColor) : (sliderValue >= 90 ? cardBackgroundColor_4 : cardBackgroundColor_5)
+                    sliderValue <= 30 ? Color(buttonEditAbledPinkColor) : (sliderValue >= 80 ? cardBackgroundColor_4 : cardBackgroundColor_5)
                 )
                 .font(.system(size: 13, weight: .medium))
             
             Slider(value: $sliderValue, in: 0...100, step: 10)
                 .padding(.horizontal, 41)
                 .accentColor(
-                    sliderValue <= 30 ? Color(buttonEditAbledPinkColor) : (sliderValue >= 90 ? cardBackgroundColor_4 : cardBackgroundColor_5)
+                    sliderValue <= 30 ? Color(buttonEditAbledPinkColor) : (sliderValue >= 80 ? cardBackgroundColor_4 : cardBackgroundColor_5)
                 )
             
             cardGenerateViewsButton(title: "이 키워드 입력", disableCondition: sliderValue == 0.0, action: {
                 // 이 숙련도를 부모뷰의 array에 append
                 appendProficiencyArray.append(Int(sliderValue))
+                appendProficiencyArray.remove(at: appendProficiencyArray.count-2)
                 // 이 뷰를 dismiss 되게 만들어야
                 dismiss()
             })
