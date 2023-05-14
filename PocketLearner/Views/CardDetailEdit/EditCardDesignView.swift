@@ -16,12 +16,12 @@ let cardPatternIconList: [String] = ["sun.max.fill","camera.macro","bubbles.and.
 
 // MARK: - 명함 패턴 값
 let cardPatternList: [String] = [
-    "sunny",
-    "floral",
-    "dummyPattern1",
-    "beach",
-    "dummyPattern2",
-    "space"
+    "plainPattern",
+    "bubblePattern",
+    "puppyPattern",
+    "sprayPattern",
+    "checkPattern",
+    "glassPattern"
 ]
 
 
