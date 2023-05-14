@@ -14,7 +14,6 @@
 		0E3742752A0B69B200647F0E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3742742A0B69B200647F0E /* Colors.swift */; };
 		0E6B30332A0A4BB100521DE2 /* CommentCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B30322A0A4BB100521DE2 /* CommentCreateView.swift */; };
 		0E6DB2AF2A0A1EE700F6C8DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E6DB2AE2A0A1EE700F6C8DC /* GoogleService-Info.plist */; };
-		0E6DB2BD2A0A298100F6C8DC /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DB2BC2A0A298100F6C8DC /* AuthService.swift */; };
 		0E6DB2C32A0A29C500F6C8DC /* CardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DB2C12A0A29C500F6C8DC /* CardDetailView.swift */; };
 		0E6DB2C42A0A29C500F6C8DC /* SkillSetHorizontalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DB2C22A0A29C500F6C8DC /* SkillSetHorizontalScrollView.swift */; };
 		0E6DB2C82A0A29D700F6C8DC /* EditCardDesignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DB2C62A0A29D700F6C8DC /* EditCardDesignView.swift */; };
@@ -72,7 +71,6 @@
 		0E3742742A0B69B200647F0E /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0E6B30322A0A4BB100521DE2 /* CommentCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCreateView.swift; sourceTree = "<group>"; };
 		0E6DB2AE2A0A1EE700F6C8DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		0E6DB2BC2A0A298100F6C8DC /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		0E6DB2C12A0A29C500F6C8DC /* CardDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDetailView.swift; sourceTree = "<group>"; };
 		0E6DB2C22A0A29C500F6C8DC /* SkillSetHorizontalScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkillSetHorizontalScrollView.swift; sourceTree = "<group>"; };
 		0E6DB2C62A0A29D700F6C8DC /* EditCardDesignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCardDesignView.swift; sourceTree = "<group>"; };
@@ -179,21 +177,12 @@
 			isa = PBXGroup;
 			children = (
 				0EBBD8912A0D595300B232F1 /* QRCode */,
-				0E6DB2BB2A0A297B00F6C8DC /* API */,
 				8641EF2D2A0A80EC00B05FC4 /* ImagePicker.swift */,
 				8641EF312A0B762100B05FC4 /* hexStringToColor.swift */,
 				0E3742722A0B618400647F0E /* Components.swift */,
 				0E8D89512A0E2A34008960A6 /* UtilFunction.swift */,
 			);
 			path = Components;
-			sourceTree = "<group>";
-		};
-		0E6DB2BB2A0A297B00F6C8DC /* API */ = {
-			isa = PBXGroup;
-			children = (
-				0E6DB2BC2A0A298100F6C8DC /* AuthService.swift */,
-			);
-			path = API;
 			sourceTree = "<group>";
 		};
 		0E6DB2BE2A0A298C00F6C8DC /* Constants */ = {
@@ -421,7 +410,6 @@
 				0E6DB2D42A0A2A0000F6C8DC /* MainNameCardTabView.swift in Sources */,
 				EF5D03532A0B86E100678E09 /* String.swift in Sources */,
 				C363662B2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift in Sources */,
-				0E6DB2BD2A0A298100F6C8DC /* AuthService.swift in Sources */,
 				0ED6DEDA2A0A1BDF009F21BC /* QRCodeGenerateView.swift in Sources */,
 				0E6DB2E12A0A2A1C00F6C8DC /* AppleLoginView.swift in Sources */,
 				8641EF2E2A0A80EC00B05FC4 /* ImagePicker.swift in Sources */,
