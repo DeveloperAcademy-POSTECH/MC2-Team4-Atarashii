@@ -10,6 +10,10 @@ import SwiftUI
 
 // MainAccentColor
 let mainAccentColor = Color("mainAccentColor")
+let mainOrengeColor: Color = hexStringToColor(hexString: "FF722D")
+let mainSubColor = Color(#colorLiteral(red: 1, green: 0.6235294118, blue: 0.4470588235, alpha: 1))
+let mainMildColor = Color(#colorLiteral(red: 1, green: 0.9155880213, blue: 0.8762151599, alpha: 1))
+let mainGrayColor = Color(#colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1))
 
 // CommentView 측 Colors.
 let textGrayColor: UIColor = #colorLiteral(red: 0.6666666667, green: 0.6666666667, blue: 0.6666666667, alpha: 1)            // #AAAAAA

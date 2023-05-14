@@ -8,8 +8,6 @@
 import SwiftUI
 
 
-
-
 struct CardCollectionView: View {
     @EnvironmentObject var user: userData
     @EnvironmentObject var card: CardDetailData
@@ -23,8 +21,16 @@ struct CardCollectionView: View {
     @State var isQRCodePresented: Bool = false
     @State var QRAnimation: Bool = false
     
-    // MARK: - 타 러너의 유저 정보 dummy 인스턴스
+    // MARK: - 타 러너의 유저 정보
     @Binding var learnerInfos: [UserInfo]
+    
+    // 즐겨찾기 관련
+    @Binding var bookmarkIDs: [String]
+    let isBookmarkSection: Bool
+    
+    // 랭킹 데이터 관련
+    @Binding var rankingData: [RankData]
+    @Binding var myRank: Int
 
     // MARK: - 슬라이드/갤러리 뷰 모드 카테고리
     enum CardViewMode: String, CaseIterable {
@@ -73,16 +79,20 @@ struct CardCollectionView: View {
                 /// TODO: 카드 넘겨지는 애니메이션 구현
                 case .slidingMode:
                     ForEach(learnerInfos.indices, id:\.self) { index in
-                        CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, learnerInfo: learnerInfos[index])
-                            .padding(.bottom, 34)
+                        if !isBookmarkSection || bookmarkIDs.contains(learnerInfos[index].id){
+                            CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, learnerInfo: learnerInfos[index], bookmarkIDs: $bookmarkIDs)
+                                .padding(.bottom, 34)
+                        }
                     }
                     
                 // 갤러리 뷰로 카드 리스트 그리기
                 case .galleryMode:
                     LazyVGrid(columns: columns) {
                         ForEach(learnerInfos.indices, id: \.self) { index in
-                            CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, learnerInfo: learnerInfos[index])
-                                .scaleEffect(0.5)
+                            if !isBookmarkSection || bookmarkIDs.contains(learnerInfos[index].id){
+                                CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, learnerInfo: learnerInfos[index], bookmarkIDs: $bookmarkIDs)
+                                    .scaleEffect(0.5)
+                            }
                         }
                     }
                 }
@@ -92,20 +102,25 @@ struct CardCollectionView: View {
             }
             .scrollIndicators(.hidden)
         }
-        
     }
     
     
     // MARK: - 수집력 랭킹 배너 컴포넌트 (Method)
     func collectionRankingBanner() -> some View {
-        /// TODO: 순위 값 데이터로 대체
         Button {
             showingOptions = true
         } label: {
-            Text("당신의 수집력은 현재 6위! 👈")
-                .foregroundColor(.black)
-                .fontWeight(.bold)
-                .font(.system(size: 12))
+            if(myRank != 0){
+                Text("당신의 수집력은 현재 \(myRank)위! 👈")
+                    .foregroundColor(.black)
+                    .fontWeight(.bold)
+                    .font(.system(size: 12))
+            } else{
+                Text("명함 수집 랭킹을 확인하세요! 명함 수집을 시작하면, 랭킹에 등록됩니다! 👈")
+                    .foregroundColor(.black)
+                    .fontWeight(.bold)
+                    .font(.system(size: 12))
+            }
         }
         
         // MARK: - 수집력 랭킹 상세 내용 모달
@@ -131,9 +146,10 @@ struct CardCollectionView: View {
                             /// TODO: 텍스트 align leading으로 맞추기
                             HStack {
                                 Text("**\(index+1)위** 👑")
-                                Text("**스위머** (Swimmer)")
-                                // 더미 데이터로 랜덤 값이 들어있음
-                                Text("**\(Int.random(in: 0..<60))**개")
+                                if (rankingData.count >= index+1) {
+                                    Text("**\(rankingData[index].nickKorean)** (\(rankingData[index].nickEnglish))")
+                                    Text("**\(rankingData[index].cardCollectCount)**개")
+                                }
                             }
                             .font(.system(size: 13))
                         }

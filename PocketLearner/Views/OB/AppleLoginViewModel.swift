@@ -85,6 +85,7 @@ class AppleLoginViewModel: ObservableObject{
     }
     
     func findUserHandler(_ userID : String, _ failHandler : @escaping (String,String) -> Void){
+        print("user 검색. \(userID)")
         db.collection("Users").whereField("AppleID", isEqualTo: userID)
             .getDocuments() { (querySnapshot, err) in
                 if let err = err {
@@ -107,7 +108,7 @@ class AppleLoginViewModel: ObservableObject{
     
     func appleLoginHandler(_ result : Bool ,_ useremail : String, failHandler : @escaping (String,String) -> Void){
         // 애플로그인
-        print("User Data Fetching - appleLoginHandler")
+        print("User Data Fetching - appleLoginHandler : \(useremail)")
         let usersRef = db.collection("Users").document(useremail)
         usersRef.getDocument { (snap, err) in
             
