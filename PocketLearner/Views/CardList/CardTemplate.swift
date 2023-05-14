@@ -25,19 +25,26 @@ struct CardTemplate: View {
     @State var goCardCustomView: Bool = false
     @State var goCardDetailEditView: Bool = false
     
-    let durationAndDelay: CGFloat = 0.17
+    let durationAndDelay: CGFloat = 0.1
     
     let learnerInfo: UserInfo
     @Binding var bookmarkIDs: [String]
     
+    
+    
+    @State private var offset = CGSize.zero
+    
+    
+    
     var drag: some Gesture {
-        DragGesture()
-            .onChanged { _ in
-                self.isDragging = true
+        DragGesture(minimumDistance: 20)
+            .onChanged { gesture in
+                offset.width = gesture.translation.width
+                offset.height = gesture.translation.height
                 filpCardAnimation()
             }
             .onEnded { _ in
-                self.isDragging = false
+                offset = .zero
             }
     }
     
@@ -74,6 +81,8 @@ struct CardTemplate: View {
             }
         }
     }
+    
+    
 }
 
 
