@@ -22,7 +22,9 @@ struct MainTabView: View {
                 // MARK: - 팀 탭 연결
                 /// TODO: 팀 탭 생성 및 연결
 //                MainNameCardTabView()
-                VStack{}
+                VStack{
+                    Text("공사중")
+                }
                     .tabItem {
                         Image(systemName: "person.3.sequence")
                         Text("Second")
