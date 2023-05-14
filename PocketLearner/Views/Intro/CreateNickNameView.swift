@@ -18,17 +18,23 @@ struct CreateNickNameView : View {
     var body: some View {
         NavigationStack{
             VStack{
-                VStack{
-                    Text("아카데미에서 사용하고 계신\n닉네임을 알려주세요!")
-                        .lineSpacing(CGFloat(10))
-                        .bold()
-                        .font(.system(size: 25))
-                    
-                    Text("`영문 닉네임` 에는 아카데미에서 사용하는 영문 닉네임을,\n `한글닉네임` 에는 닉네임의 발음을 한글로 적어주세요.")
-                        .lineSpacing(5)
-                        .font(.system(size: 12))
-                        .foregroundColor(.gray)
-                        .padding()
+                HStack{
+                    VStack(alignment: .leading){
+                        Text("아카데미에서 사용하고 계신\n닉네임을 알려주세요!")
+                            .lineSpacing(CGFloat(10))
+                            .bold()
+                            .font(.system(size: 25))
+                            .multilineTextAlignment(.leading)
+                        
+                        Text("`영문 닉네임` 에는 아카데미에서 사용하는 영문 닉네임을,\n`한글 닉네임` 에는 닉네임의 발음을 한글로 적어주세요.")
+                            .lineSpacing(5)
+                            .font(.system(size: 12))
+                            .foregroundColor(mainSubColor)
+                            .multilineTextAlignment(.leading)
+                            .padding(.vertical, 10).padding(.bottom, 15)
+                        
+                    }.padding(.leading, 40)
+                    Spacer()
                 }
                 VStack(spacing: 12) {
                     RoundedTextFieldWithButton(text: $englishText, introText: "영문 닉네임")
@@ -47,7 +53,7 @@ struct CreateNickNameView : View {
                         .font(.headline)
                         .padding()
                         .frame(width: 315, height: 52)
-                        .background(!englishText.isEmpty && !koreanText.isEmpty ? hexStringToColor(hexString: "#F4ADB3"): Color.gray)
+                        .background(!englishText.isEmpty && !koreanText.isEmpty ? mainAccentColor : Color(buttonDisabledGrayColor))
                         .cornerRadius(10)
                 }.disabled(englishText.isEmpty || koreanText.isEmpty)
                     .padding(.top, 100)

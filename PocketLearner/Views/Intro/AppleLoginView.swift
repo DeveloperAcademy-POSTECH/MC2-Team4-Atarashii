@@ -39,28 +39,18 @@ struct AppleLoginView : View {
     
     @State var currentNonce: String?
     var body: some View {
-        VStack {
-            Text("안녕하세요!\n애플 디벨로퍼 아카데미 \n버츄얼 명함 서비스\n00 입니다.")
-                .bold()
-                .lineSpacing(CGFloat(20))
-                .font(.system(size: 25.63))
-                .frame(width: 276,height: 200)
-                .padding()
-            //                .background(Color.blue)
-            
-            //            SignInWithAppleButton(onRequest: { request in
-            //                let nonce = AuthService.shard.randomNonceString()
-            //                currentNonce = nonce
-            //                request.requestedScopes = [.fullName, .email]
-            //                request.nonce = AuthService.shard.sha256(nonce)
-            //            }, onCompletion: AuthService.shard.handleAppleSignIn
-            //            )
+        ZStack {
+            Image("login")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                .edgesIgnoringSafeArea(.all)
             
             SignInWithAppleButton(
                 onRequest: configure,
                 onCompletion: handle)
             .frame(width: 285, height: 60)
-            .padding(.top,300)
+            .padding(.top, 600)
         }
     }
     
