@@ -5,18 +5,23 @@
 //  Created by Ye Eun Choi on 2023/05/08.
 //
 
+
+
 import SwiftUI
 import Photos
-
+//MARK: Main
 struct EditCardInfoView: View {
     @State var isSheet: Bool = false
-    @State var myGoal: String = ""
-
-    @State var isPresent: Bool = false
+    @State var myGoal: String = "iOS 개발자"
+    
     var body: some View {
         ScrollView(.vertical) {
+            
             DetailEditProfileView()
+            
             DetailEditSkillView()
+                .padding(.top,20)
+            
             // myGoal -
             HStack {
                 Text("아카데미에서의 성장목표")
@@ -42,7 +47,6 @@ struct EditCardInfoView: View {
         }
     }
     
-    
     func handlePmSet() {
         self.myGoal = "PM"
     }
@@ -61,12 +65,13 @@ struct EditCardInfoView: View {
     
 }
 
+//MARK: PreView
 struct EditCardInfoView_Previews: PreviewProvider {
     static var previews: some View {
         EditCardInfoView()
     }
 }
-
+//MARK: ProfilePictureView
 struct ProfilePictureView: View {
     
     @State private var isShowingImagePicker = false
@@ -104,7 +109,7 @@ struct ProfilePictureView: View {
                 Image(systemName: "pencil.circle.fill")
                     .resizable()
                     .frame(width: 29,height: 29)
-                    .foregroundColor(.mainOrengeColor)
+                    .foregroundColor(hexStringToColor(hexString: "FF722D"))
             }
             .padding(.top,-50)
             .padding(.leading,130)
@@ -121,53 +126,24 @@ struct ProfilePictureView: View {
     
 }
 
-struct CharacterCountTextField: View {
-    @Binding var text: String
-    let placeholder: String
-    let limit: Int
-    let height: CGFloat
-    
-    var body: some View {
-        VStack {
-            TextField(placeholder, text: $text)
-                .lineLimit(Int(limit/20), reservesSpace: true)
-//                .disabled(text.count >= limit)
-                .padding()
-                .frame(maxWidth: .infinity,minHeight: height)
-                .multilineTextAlignment(.leading)
-                .onReceive($text.wrappedValue.publisher.collect()) {
-                    $text.wrappedValue = String($0.prefix(limit))
-                }
-                .background(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(hexStringToColor(hexString: "#D8D8D8"), lineWidth: 2)
-                )
-                
-            
-            Text("\(text.count) / \(limit) 자")
-                .foregroundColor(text.count > limit ? .red : .gray)
-                .font(.caption)
-                .padding(.top, -25)
-                .padding(.leading,270)
-            
-            
-        }
-        .padding()
-    }
-}
-
+//MARK: MainprofileView
 struct DetailEditProfileView: View {
     @State var discriptionText: String = ""
     
     var body: some View {
         VStack {
             ProfilePictureView()
+                .padding()
             
-            CharacterCountTextField(text: $discriptionText, placeholder: "안녕하세요! 겉바속촉 디발자 리앤입니다!", limit: 50, height: 100)
+            letterLimitTextField(placeholder: "안녕하세요! 겉바속촉 디발자 리앤입니다!", commentText: $discriptionText, letterLimit: 50)
+                .frame(maxWidth: .infinity)
+                .frame(height: 100)
+                .padding()
         }
     }
 }
 
+//MARK: SkillView
 struct DetailEditSkillView: View {
     @State var mySkillText: String = ""
     @State var myFutureSkillText: String = ""
@@ -194,7 +170,8 @@ struct DetailEditSkillView: View {
             HStack {
                 Spacer()
                 Button {
-                    
+                    // MARK: 현재 스킬셋 화면 연결하기
+                    handleMySkillBtnTapped()
                 } label: {
                     Text("스킬셋 변경")
                         .foregroundColor(.black)
@@ -212,7 +189,9 @@ struct DetailEditSkillView: View {
                 .font(.system(size: 13))
                 .padding(.bottom,-15)
                 .padding(.leading)
-            CharacterCountTextField(text: $mySkillText, placeholder: "내가 가지고 있는 스킬셋에 대해 자세하게 서술해주세요!", limit: 100, height: 160)
+            letterLimitTextField(placeholder: "내가 가지고 있는 스킬셋에 대해 자세하게 서술해주세요!", commentText: $mySkillText, letterLimit: 100)
+                .frame(maxWidth: .infinity,minHeight: 160)
+                .padding()
         }
         
         VStack {
@@ -231,7 +210,8 @@ struct DetailEditSkillView: View {
             HStack {
                 Spacer()
                 Button {
-                    
+                    // MARK: 목표 스킬셋 화면 연결하기
+                    handleFutureSkillBtnTapped()
                 } label: {
                     Text("스킬셋 변경")
                         .foregroundColor(.black)
@@ -251,8 +231,21 @@ struct DetailEditSkillView: View {
                 .padding(.bottom,-15)
                 .padding(.leading)
             
-            CharacterCountTextField(text: $myFutureSkillText, placeholder: "내가 키우고 싶은 스킬셋에 대해 자세하게 서술해주세요!", limit: 100, height: 160)
+            letterLimitTextField(placeholder: "내가 키우고 싶은 스킬셋에 대해 자세하게 서술해주세요!", commentText: $myFutureSkillText, letterLimit: 100)
+                .padding()
+                .frame(maxWidth: .infinity, minHeight: 160)
+                
         }
+        
+        
+    }
+    
+    func handleMySkillBtnTapped() {
+        
+    }
+    
+    func handleFutureSkillBtnTapped() {
+        
     }
     
     func skillIconView() -> some View {
@@ -271,19 +264,22 @@ struct DetailEditSkillView: View {
             .padding(.trailing,40)
             .frame(minWidth: 14,minHeight: 14)
         }
+
         .frame(width: 107,height: 30)
         .background {
-            RoundedRectangle(cornerRadius: 35)
-                .stroke()
+            RoundedRectangle(cornerRadius: 35)                .foregroundColor(.white)
+                .shadow(radius: 2)
         }
         
     }
 }
 
-//Collaboration
+//MARK: CollaborationView
+
 struct DetailEditCollaborationView: View {
     @State var discriptionText: String = ""
     @State var collaborationTypes:String = "Driver"
+    @State var isCollaborationSheet: Bool = false
     
     var body: some View {
         VStack {
@@ -296,7 +292,7 @@ struct DetailEditCollaborationView: View {
             
             HStack {
                 Text("나의 협업 유형은")
-                    .padding(.leading,22)
+                    .padding()
                     .bold()
                     .font(.system(size: 18))
                     .frame(minWidth: 130,alignment: .leading)
@@ -320,20 +316,21 @@ struct DetailEditCollaborationView: View {
             
             HStack {
                 Text("나의 협업 키워드")
-                    .padding()
+                    .padding(.trailing)
                     .bold()
                     .font(.system(size: 18))
-                    .frame(minWidth: 130,alignment: .leading)
-                    .padding(.leading,7)
-                Spacer()
-                ZStack {
+                    .frame(minWidth: 150,alignment: .leading)
+                    .padding()
+
                     Text("(3개 선택)")
                         .foregroundColor(hexStringToColor(hexString: "#979797"))
-                        .padding(.trailing,157)
+                        .padding()
+                        .padding(.leading,-50)
+                Spacer()
                     Button {
-                        
+                        handleCollaborationBtnTapped()
                     } label: {
-                        VStack(alignment: .leading){
+                        VStack(){
                             Text("공감능력")
                                 .font(.system(size: 15))
                                 .foregroundColor(hexStringToColor(hexString: "#979797"))
@@ -348,13 +345,19 @@ struct DetailEditCollaborationView: View {
                             .padding(.top,-27)
                             .foregroundColor(hexStringToColor(hexString: "#979797"))
                     }
-                    .padding(.trailing,12)
-                    .padding(.leading,130)
-                }
+                    .sheet(isPresented: $isCollaborationSheet) {
+                        //MARK: 협업 선택 창 넣기
+//                        SelectCollaborationKeywordView(card: <#CardDetailData#>)
+                        IntroView()
+                    }
                 
             }
             
         }
+    }
+    
+    func handleCollaborationBtnTapped() {
+        isCollaborationSheet = true
     }
     
     func handleDriverSet() {
