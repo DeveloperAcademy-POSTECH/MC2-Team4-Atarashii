@@ -17,6 +17,7 @@ struct EditCardInfoView: View {
         ScrollView(.vertical) {
             DetailEditProfileView()
             DetailEditSkillView()
+            // myGoal -
             HStack {
                 Text("아카데미에서의 성장목표")
                 
@@ -33,18 +34,11 @@ struct EditCardInfoView: View {
                         .foregroundColor(hexStringToColor(hexString: "#979797"))
                 })
             }
-            
             .sheet(isPresented: $isSheet) {
                 RoleGoalInputSheetView(sendInputText: $myGoal)
-                
-                    .sheet(isPresented: $isPresent) {
-                        /*
-                         RoleGoalInputSheetView(textFieldText: $myGoalText)
-                         */
-                        
-                    }
-                DetailEditCollaborationView()
             }
+            
+            DetailEditCollaborationView()
         }
     }
     
@@ -85,18 +79,18 @@ struct ProfilePictureView: View {
                 Image(uiImage: profileImage)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 190, height: 190)
+                    .frame(width: 154, height: 154)
                     .clipShape(Circle())
                     .overlay(
                         Circle()
                             .stroke(Color.white, lineWidth: 2)
                     )
-                    .shadow(radius: 10)
+                    .shadow(radius: 0.3)
             } else {
                 Image(systemName: "person.circle.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 190, height: 190)
+                    .frame(width: 154, height: 154)
                     .clipShape(Circle())
                     .shadow(radius: 10)
                     .foregroundColor(.white)
@@ -109,8 +103,8 @@ struct ProfilePictureView: View {
             }) {
                 Image(systemName: "pencil.circle.fill")
                     .resizable()
-                    .frame(width: 30,height: 30)
-                    .foregroundColor(hexStringToColor(hexString: "#FFA04B"))
+                    .frame(width: 29,height: 29)
+                    .foregroundColor(.mainOrengeColor)
             }
             .padding(.top,-50)
             .padding(.leading,130)
