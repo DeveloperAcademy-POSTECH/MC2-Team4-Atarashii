@@ -60,7 +60,7 @@ struct CommentView: View {
                 HStack{
                     Text("내가 남긴 칭찬")
                         .font(.system(size: 18, weight: .bold))
-                        .foregroundColor(Color(commentTextBlackColor))
+                        .foregroundColor(mainAccentColor)
                     Spacer()
                 }
                 CommentBox(commentData: myComment)
@@ -72,29 +72,28 @@ struct CommentView: View {
                     }) {
                         Text("수정하기")
                             .font(.system(size: 18, weight: .bold))
-                            .foregroundColor(Color(commentTextBlackColor))
+                            .foregroundColor(mainGrayColor)
                     }
                     .navigationDestination(isPresented: $goEdit){
                         CommentCreateView(learnerInfo: learnerInfo, isEdit: true, myComment: myComment)
                     }
                     
-                    Spacer()
                     Divider().frame(width: 1, height: 30)
                         .foregroundColor(Color(dividerGrayColor))
-                    Spacer()
+                        .padding(.horizontal, 15)
                     Button(action: {
                         showingAlert = true
                     }){
                         Text("삭제하기")
                             .font(.system(size: 18, weight: .bold))
-                            .foregroundColor(.red)
+                            .foregroundColor(Color(buttonEditAbledPinkColor))
                     }
-                    Spacer()
-                }.padding(.top, 10)
-                Divider()
-                    .frame(height: 1)
-                    .foregroundColor(Color(dividerGrayColor))
-                    .padding(.vertical, 10)
+                    .padding(.trailing, 15)
+                }.padding(.top, 10).padding(.bottom, 20)
+//                Divider()
+//                    .frame(height: 1)
+//                    .foregroundColor(Color(dividerGrayColor))
+//                    .padding(.vertical, 10)
             }
             ScrollView(showsIndicators: false){
                 ForEach(commentList.indices, id: \.self) { index in
@@ -207,7 +206,7 @@ struct CommentBox: View {
                     .font(.system(size: 14, weight: .regular))
                     .lineSpacing(6)
                     .multilineTextAlignment(.leading)
-                    .foregroundColor(isMine ? .white : Color(commentTextBlackColor))
+                    .foregroundColor(isMine ? .black : Color(commentTextBlackColor))
                 Spacer()
             }
             if !isMine{
@@ -216,7 +215,7 @@ struct CommentBox: View {
                     Spacer()
                     Text("From. \(commentData.commenterNickEnglish)")
                         .font(.system(size: 14, weight: .bold))
-                        .foregroundColor(Color(commentTextBlackColor))
+                        .foregroundColor(mainAccentColor)
                 }
             }
         }
@@ -224,7 +223,7 @@ struct CommentBox: View {
         .frame(width: 314)
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(isMine ? .black : Color(commentBoxGrayColor))
+                .fill(isMine ? mainMildColor : Color(commentBoxGrayColor))
         ).task {
             isMine = (commentData.commenterID == user.id)
         }

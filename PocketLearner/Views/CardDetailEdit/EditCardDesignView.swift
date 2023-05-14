@@ -16,12 +16,12 @@ let cardPatternIconList: [String] = ["sun.max.fill","camera.macro","bubbles.and.
 
 // MARK: - 명함 패턴 값
 let cardPatternList: [String] = [
-    "sunny",
-    "floral",
-    "dummyPattern1",
-    "beach",
-    "dummyPattern2",
-    "space"
+    "plainPattern",
+    "bubblePattern",
+    "puppyPattern",
+    "sprayPattern",
+    "checkPattern",
+    "glassPattern"
 ]
 
 
@@ -32,6 +32,7 @@ struct EditCardDesignView: View {
     @State private var customSelection: cardCustomCategories = .cardColor
     @State private var colorSelection: Int = 0
     @State private var patternSelection: Int = 0
+    @State var SegmentButtonPosition = CGPoint(x: 85, y: 24)
     
     // MARK: - LazyGrid용 변수
     var colorColumns: [GridItem] = Array(repeating: .init(.flexible()), count: 4)
@@ -65,12 +66,7 @@ struct EditCardDesignView: View {
                 
                 VStack {
                     // MARK: - 커스텀 창 Segmented Control
-                    Picker("", selection: $customSelection) {
-                        ForEach(cardCustomCategories.allCases, id: \.self) { category in
-                            Text(category.rawValue)
-                        }
-                    }
-                    .pickerStyle(SegmentedPickerStyle())
+                    CustomPanelControlButton()
                     .padding(50)
                     
                     
@@ -94,17 +90,20 @@ struct EditCardDesignView: View {
                             // MARK: - 명함 패턴 섹션
                         case .cardPattern:
                             LazyVGrid(columns: patternColumns) {
-                                ForEach(cardPatternIconList.indices, id: \.self) { index in
+                                ForEach(cardPatternList.indices, id: \.self) { index in
                                     Button {
                                         /// 선택된 패턴 값 할당
                                         patternSelection = index
                                     } label: {
                                         ZStack {
                                             Circle()
-                                                .fill(.gray.opacity(0.1))
-                                                .frame(width: 54)
-                                            Image(systemName: "\(cardPatternIconList[index])")
-                                                .frame(width: 54)
+                                                .fill(Color.accentColor)
+                                                .frame(width: 54, height: 54)
+                                            Image(cardPatternList[index])
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 54, height: 54)
+                                                .blendMode(.overlay)
                                         }
                                         .padding(.bottom, 15)
                                     }
@@ -150,6 +149,74 @@ struct EditCardDesignView: View {
             }
         }
     }
+    
+    
+    
+    // MARK: - 커스텀 SegmentedControl (Method)
+    func CustomPanelControlButton() -> some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 200, style: .continuous)
+                .fill(Color.accentColor)
+                .frame(width: 300, height: 45)
+            
+            HStack(spacing: 40) {
+                Text("명함 색상")
+                    .font(.system(size: 13))
+                    .opacity(0)
+                Divider()
+                    .frame(height: 15)
+                Text("명함 패턴")
+                    .font(.system(size: 13))
+                    .opacity(0)
+                
+            }
+            
+            RoundedRectangle(cornerRadius: 200, style: .continuous)
+                .fill(Color.white)
+                .frame(width: 162, height: 37)
+                .position(SegmentButtonPosition)
+                .animation(.easeInOut(duration: 0.3))
+
+            
+            HStack(spacing: 40) {
+                // category: .cardColor
+                Button {
+                    customSelection = .cardColor
+                    SegmentButtonPosition = CGPoint(x: 85, y: 24)
+                } label: {
+                    Text("명함 색상")
+                        .font(.system(size: 13, weight: customSelection == .cardColor ? .bold : .regular))
+                }
+                .buttonStyle(buttonStyleNotOpacityChange())
+                
+                Divider()
+                    .opacity(0)
+                
+                // category: .cardPattern
+                Button {
+                    customSelection = .cardPattern
+                    SegmentButtonPosition = CGPoint(x: 213.5, y: 24)
+                } label: {
+                    Text("명함 패턴")
+                        .font(.system(size: 13, weight: customSelection == .cardPattern ? .bold : .regular))
+                }
+                .buttonStyle(buttonStyleNotOpacityChange())
+                
+            }
+            
+            
+        }
+
+    }
+
+    /// 눌렀을 때 Opacity가 변하지 않는 ButtonStyle 재정의
+    struct buttonStyleNotOpacityChange: ButtonStyle {
+        func makeBody(configuration: Configuration) -> some View {
+            configuration.label
+        }
+    }
+    
+    
 }
 
 
@@ -219,7 +286,7 @@ struct CustomCardTemplate: View {
                 Image("\(cardPatternList[patternSelection])")
                     .cornerRadius(32)
                     .blendMode(.overlay)
-                    .opacity(0.6)
+                    .opacity(0.75)
             }
             .frame(height: 490)
             .cornerRadius(32)

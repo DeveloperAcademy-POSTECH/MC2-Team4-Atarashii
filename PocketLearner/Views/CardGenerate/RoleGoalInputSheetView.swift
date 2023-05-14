@@ -13,7 +13,7 @@ struct RoleGoalInputSheetView: View {
     
     @State var textFieldText: String = "" // 실제로 텍스트 필드에 입력되는데이터.
     @Binding var sendInputText: String // 입력이 완료되어 부모뷰로 send 할 데이터
-    let letterLimit = 5
+    let letterLimit = 15
     
     var body: some View {
         VStack(spacing: 16){

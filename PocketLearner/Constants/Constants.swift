@@ -7,5 +7,7 @@
 
 import SwiftUI
 import Firebase
+import FirebaseStorage
 
 let db = Firestore.firestore()
+let storage = Storage.storage()

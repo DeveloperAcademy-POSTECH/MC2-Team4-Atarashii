@@ -11,6 +11,9 @@ import SwiftUI
 // MainAccentColor
 let mainAccentColor = Color("mainAccentColor")
 let mainOrengeColor: Color = hexStringToColor(hexString: "FF722D")
+let mainSubColor = Color(#colorLiteral(red: 1, green: 0.6235294118, blue: 0.4470588235, alpha: 1))
+let mainMildColor = Color(#colorLiteral(red: 1, green: 0.9155880213, blue: 0.8762151599, alpha: 1))
+let mainGrayColor = Color(#colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1))
 
 // CommentView 측 Colors.
 let textGrayColor: UIColor = #colorLiteral(red: 0.6666666667, green: 0.6666666667, blue: 0.6666666667, alpha: 1)            // #AAAAAA
@@ -33,6 +36,7 @@ let textPinkColor: Color = Color(red: 0.96, green: 0.68, blue: 0.70)
 let textBackgroundGrayColor: Color = Color(red: 0.952, green: 0.952, blue: 0.952)   // #F3F3F3
 
 // CardGenerate
+let softOrange = Color(#colorLiteral(red: 1, green: 0.8352941176, blue: 0.7529411765, alpha: 1)) 
 let disabledNextButtonColor = #colorLiteral(red: 0.8797428608, green: 0.8797428012, blue: 0.8797428608, alpha: 1)
 let strokeGray = #colorLiteral(red: 0.8549019608, green: 0.8549019608, blue: 0.8549019608, alpha: 1)        // #DADADA
 let softPink = #colorLiteral(red: 0.9725490196, green: 0.7411764706, blue: 0.7529411765, alpha: 1)          // #F8BDC0

@@ -25,27 +25,40 @@ struct CardTemplate: View {
     @State var goCardCustomView: Bool = false
     @State var goCardDetailEditView: Bool = false
     
-    let durationAndDelay: CGFloat = 0.17
+    let durationAndDelay: CGFloat = 0.1
     
     let learnerInfo: UserInfo
+    @Binding var bookmarkIDs: [String]
+    
+    
+    
+    @State private var offset = CGSize.zero
+    
+    
     
     var drag: some Gesture {
-        DragGesture()
-            .onChanged { _ in
-                self.isDragging = true
+        DragGesture(minimumDistance: 20)
+            .onChanged { gesture in
+                offset.width = gesture.translation.width
+                offset.height = gesture.translation.height
                 filpCardAnimation()
             }
             .onEnded { _ in
-                self.isDragging = false
+                offset = .zero
             }
     }
     
     var body: some View {
         ZStack {
             CardBack(degree: $backDegree, isMine: $isMine, learnerInfo: learnerInfo)
-            CardFront(degree: $frontDegree, isLiked: $isLiked, isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, learnerInfo: learnerInfo)
+            CardFront(degree: $frontDegree, isLiked: $isLiked, isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, learnerInfo: learnerInfo, bookmarkIDs: $bookmarkIDs)
         }
         .gesture(drag)
+        .task {
+            if bookmarkIDs.contains(learnerInfo.id){
+                isLiked = true
+            }
+        }
     }
     
     
@@ -68,6 +81,8 @@ struct CardTemplate: View {
             }
         }
     }
+    
+    
 }
 
 
@@ -87,6 +102,9 @@ struct CardFront: View {
     @State var isShowDetailView: Bool = false
     
     let learnerInfo: UserInfo
+    
+    @Binding var bookmarkIDs: [String]
+
 
     var body: some View {
         ZStack {
@@ -99,6 +117,7 @@ struct CardFront: View {
                                 Image(systemName: "\((isMine ? user.isSessionMorning : learnerInfo.isSessionMorning) ? "sun.and.horizon" : "sun.max")")
                                 Text("\((isMine ? user.isSessionMorning : learnerInfo.isSessionMorning) ? "오전" : "오후")")
                             }
+
                             .padding(.vertical, 6)
                             .padding(.horizontal, 10)
                             .background(Color.white)
@@ -123,6 +142,29 @@ struct CardFront: View {
                                     }
                                 } label: {
                                     Image(systemName: "ellipsis")
+
+                        } else {
+                            // MARK: - (타인의 명함일 경우) 즐겨찾기 아이콘
+                            Button {
+                                if isLiked {
+                                    //북마크 삭제
+                                    deleteBookmark()
+                                } else {
+                                    //북마크 생성
+                                    createBookmark()
+                                }
+                                isLiked.toggle()
+                                bookmarkIDs.append(learnerInfo.id)
+                            } label: {
+                                if isLiked {
+                                    Image(systemName: "bookmark.fill")
+                                        .font(.system(size: 30))
+                                        .foregroundColor(.black)
+                                    
+                                } else {
+                                    Image(systemName: "bookmark")
+                                        .font(.system(size: 30))
+
                                         .foregroundColor(.black)
                                         .font(.system(size: 20))
                                         .padding(10)
@@ -225,6 +267,38 @@ struct CardFront: View {
         }
         .fullScreenCover(isPresented: $isShowDetailView) {
             CardDetailView(isMine: $isMine, userInfo: learnerInfo)
+        }
+    }
+    
+    func deleteBookmark() {
+        let bookmarkDocRef = db.collection("Bookmark").document("\(user.id)_\(learnerInfo.id)")
+        
+        bookmarkDocRef.delete(){ err in
+            if let err = err {
+                print("즐겨찾기 삭제 실패!: \(err)")
+            } else {
+                print("즐겨찾기 삭제 성공!")
+            }
+        }
+        
+        if let index = bookmarkIDs.firstIndex(of: learnerInfo.id){
+            bookmarkIDs.remove(at: index)
+        }
+    }
+    
+    func createBookmark() {
+        let bookmarkDocRef = db.collection("Bookmark").document("\(user.id)_\(learnerInfo.id)")
+        
+        bookmarkDocRef.setData([
+            "userID": user.id,
+            "counterpartID": learnerInfo.id,
+            "bookmarkDate": Date()
+        ]){ err in
+            if let err = err {
+                print("즐겨찾기 등록 실패!: \(err)")
+            } else {
+                print("즐겨찾기 등록 성공!")
+            }
         }
     }
 }

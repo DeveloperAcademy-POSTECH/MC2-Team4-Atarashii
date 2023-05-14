@@ -39,15 +39,23 @@ enum cardViewCategories: String, CaseIterable {
     case likedCards = "즐겨찾기"
 }
 
+struct RankData {
+    let nickEnglish: String
+    let nickKorean: String
+    let cardCollectCount: Int
+}
+
 
 struct MainNameCardTabView: View {
     @EnvironmentObject var user: userData
     @EnvironmentObject var card: CardDetailData
     
     @State var cardViewSelection: cardViewCategories = .myCard
+    @State var SegmentButtonPosition = CGPoint(x: 63.4, y: 22.2)
     
     @State var QRCodeScannerPresented: Bool = false
     @State var alertPresented: Bool = false
+    
     
     // QR코드 스캔 결과
     @State var QRScanResult: scanResult = .none
@@ -56,6 +64,14 @@ struct MainNameCardTabView: View {
     @State var learnerIDs: [String] = []
     @State var learnerInfos: [UserInfo] = []
     
+
+
+    @State var bookmarkIDs: [String] = []
+    
+    // 랭킹 데이터 관련
+    @State var rankingData: [RankData] = []
+    @State var myRank: Int = 0
+
     
     var body: some View {
         NavigationStack{
@@ -63,13 +79,11 @@ struct MainNameCardTabView: View {
                 VStack {
                     // MARK: - 상단 Segmented Control
                     if !isQRCodePresented{
-                        Picker("", selection: $cardViewSelection) {
-                            ForEach(cardViewCategories.allCases, id: \.self) { category in
-                                Text(category.rawValue)
-                            }
-                        }
-                        .pickerStyle(SegmentedPickerStyle())
+                        
+                        CustomSegmentedControlButton()
+                            .padding(.top, 30)
                     }
+                    
                     
                     
                     // MARK: - 선택된 섹션 카테고리로 뷰 이동
@@ -85,11 +99,11 @@ struct MainNameCardTabView: View {
                             InitialCardNameView(cardViewSelection: $cardViewSelection)
                                 .frame(height: 636)
                         }
-                        
+
                     case .cardCollection:
                         // MARK: - 교환한 명함이 존재하지 않을 때는 초기화면 띄우기
                         if user.cardCollectCount != 0 {
-                            CardCollectionView(learnerInfos: $learnerInfos)
+                            CardCollectionView(learnerInfos: $learnerInfos, bookmarkIDs: $bookmarkIDs, isBookmarkSection: false, rankingData: $rankingData, myRank: $myRank)
                                 .frame(height: 636)
                         } else {
                             InitialCardNameView(cardViewSelection: $cardViewSelection)
@@ -97,14 +111,13 @@ struct MainNameCardTabView: View {
                         }
                     case .likedCards:
                         // MARK: - 즐겨찾기 한 명함이 존재하지 않을 때는 초기화면 띄우기
-                        /// TODO: 파라미터로 즐겨찾기 데이터 넘겨주도록 수정
-                        //                    if !user.id.isLiked == 0 {
-                        //                        CardCollectionView()
-                        //                        .frame(height: 636)
-                        //                    } else {
-                        InitialCardNameView(cardViewSelection: $cardViewSelection)
+                        if bookmarkIDs.count != 0 {
+                            CardCollectionView(learnerInfos: $learnerInfos, bookmarkIDs: $bookmarkIDs, isBookmarkSection: true, rankingData: $rankingData, myRank: $myRank)
                             .frame(height: 636)
-                        //                    }
+                        } else {
+                            InitialCardNameView(cardViewSelection: $cardViewSelection)
+                                .frame(height: 636)
+                        }
                     default:
                         MyCardView(isQRCodePresented: $isQRCodePresented)
                     }
@@ -119,17 +132,19 @@ struct MainNameCardTabView: View {
                     Button {
                         QRCodeScannerPresented = true
                     } label: {
-                        ZStack {
+                        ZStack{
                             Circle()
                                 .fill(Color.white)
                                 .frame(width: 70)
-                            Image(systemName: "plus")
-                                .font(.system(size: 50))
-                                .foregroundColor(.black)
+                            Text("+")
+                                .font(.system(size: 65))
+                                .foregroundColor(.accentColor)
+                                .fontWeight(.medium)
+                                .padding(.top, -9)
                         }
                         .shadow(color: Color.black.opacity(0.15), radius: 20)
                     }
-                    .position(x: 320, y: 630)
+                    .position(x: 320, y: 680)
                     .sheet(isPresented: $QRCodeScannerPresented){
                         QRCodeScannerView(QRScanResult: $QRScanResult) { code, deviceName in
                             QRCodeScannerPresented = false
@@ -155,13 +170,47 @@ struct MainNameCardTabView: View {
             }
         }.task {
             loadExchangeUsers()
+            loadUserRanking()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 loadCollectedCards()
+                loadBookmarkUsers()
             }
         }
     }
     
+
+    func loadUserRanking() {
+        let userColRef = db.collection("Users")
+        
+        userColRef.whereField("cardCollectCount", isGreaterThan: 0).order(by: "cardCollectCount", descending: true)
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("순위 정보 로딩 실패: \(err)")
+                } else {
+                    var index = 0
+                    for document in querySnapshot!.documents {
+                        index += 1
+                        let data = document.data()
+                        
+                        let id = data ["id"] as? String ?? ""
+                        let nickEnglish = data["nickEnglish"] as? String ?? ""
+                        let nickKorean = data["nickKorean"] as? String ?? ""
+                        let cardCollectCount = data["cardCollectCount"] as? Int ?? 0
+                        
+                        rankingData.append(RankData(nickEnglish: nickEnglish, nickKorean: nickKorean, cardCollectCount: cardCollectCount))
+                        
+                        if id == user.id {
+                            myRank = index
+                        }
+                    }
+                    print(rankingData)
+                }
+            }
+    }
+  
+    
     func loadExchangeUsers() {
+        learnerIDs.removeAll()
         // MARK: 모든 교환 상대 id Fetching
         let exchangeHistoryRef = db.collection("CardExchangeHistory")
         
@@ -181,7 +230,29 @@ struct MainNameCardTabView: View {
         }
     }
     
+    func loadBookmarkUsers() {
+        bookmarkIDs.removeAll()
+        // MARK: 모든 즐겨찾기 상대 id Fetching
+        let bookmarkRef = db.collection("Bookmark")
+        
+        bookmarkRef.whereField("userID", isEqualTo: user.id).getDocuments { snapshot, error in
+            if let error = error {
+                print("북마크 정보 가져오기 실패: \(error)")
+                return
+            }
+            
+            for document in snapshot!.documents {
+                if let counterpartID = document.data()["counterpartID"] as? String {
+                    bookmarkIDs.append(counterpartID)
+                }
+            }
+            
+            print("id2 Array: \(bookmarkIDs)")
+        }
+    }
+    
     func loadCollectedCards() {
+        learnerInfos.removeAll()
         // TODO: 이거 싹 불러오는 식으로 되어있음. 나중에 Paging 필요.
         let cardDetail = db.collection("CardDetails")
         
@@ -225,6 +296,89 @@ struct MainNameCardTabView: View {
             print("LearnerInfo: \(learnerInfos)")
         }
     }
+    
+    
+    
+    // MARK: - 커스텀 SegmentedControl (Method)
+    func CustomSegmentedControlButton() -> some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 200, style: .continuous)
+                .fill(Color.accentColor)
+                .frame(width: 300, height: 45)
+            
+            HStack(spacing: 21) {
+                Text("내 명함")
+                    .font(.system(size: 13))
+                    .opacity(0)
+                Divider()
+                    .frame(height: 15)
+                Text("수집한 명함")
+                    .font(.system(size: 13))
+                    .opacity(0)
+                Divider()
+                    .frame(height: 15)
+                Text("즐겨찾기")
+                    .font(.system(size: 13))
+                    .opacity(0)
+                
+            }
+            
+            RoundedRectangle(cornerRadius: 200, style: .continuous)
+                .fill(Color.white)
+                .frame(width: 105, height: 37)
+                .position(SegmentButtonPosition)
+                .animation(.easeInOut(duration: 0.3))
+
+            
+            HStack(spacing: 21) {
+                // category: .myCard
+                Button {
+                    cardViewSelection = .myCard
+                    SegmentButtonPosition = CGPoint(x: 63.4, y: 22.2)
+                } label: {
+                    Text("내 명함")
+                        .font(.system(size: 13, weight: cardViewSelection == .myCard ? .bold : .regular))
+                }
+                .buttonStyle(buttonStyleNotOpacityChange())
+                
+                Divider()
+                    .opacity(0)
+                
+                // category: .cardCollection
+                Button {
+                    cardViewSelection = .cardCollection
+                    SegmentButtonPosition = CGPoint(x: 153, y: 22.2)
+                } label: {
+                    Text("수집한 명함")
+                        .font(.system(size: 13, weight: cardViewSelection == .cardCollection ? .bold : .regular))
+                }
+                .buttonStyle(buttonStyleNotOpacityChange())
+                
+                Divider()
+                    .opacity(0)
+                
+                // category: .likedCards
+                Button {
+                    cardViewSelection = .likedCards
+                    SegmentButtonPosition = CGPoint(x: 250, y: 22.2)
+                } label: {
+                    Text("즐겨찾기")
+                        .font(.system(size: 13, weight: cardViewSelection == .likedCards ? .bold : .regular))
+                }
+                .buttonStyle(buttonStyleNotOpacityChange())
+            }
+            
+            
+        }
+
+    }
+
+    /// 눌렀을 때 Opacity가 변하지 않는 ButtonStyle 재정의
+    struct buttonStyleNotOpacityChange: ButtonStyle {
+        func makeBody(configuration: Configuration) -> some View {
+            configuration.label
+        }
+    }
 }
 
 
@@ -236,3 +390,9 @@ enum scanResult{
     case expired
     case already
 }
+
+
+
+
+
+
