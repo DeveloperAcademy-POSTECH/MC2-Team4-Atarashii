@@ -12,9 +12,6 @@
 		0E113BF02A0A0FA500AB2EC8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E113BEF2A0A0FA500AB2EC8 /* Preview Assets.xcassets */; };
 		0E3742732A0B618400647F0E /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3742722A0B618400647F0E /* Components.swift */; };
 		0E3742752A0B69B200647F0E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3742742A0B69B200647F0E /* Colors.swift */; };
-		0E52FFE22A112A22004E39F2 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0E52FFE12A112A22004E39F2 /* FirebaseAuth */; };
-		0E52FFE42A112A22004E39F2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0E52FFE32A112A22004E39F2 /* FirebaseFirestore */; };
-		0E52FFE62A112A22004E39F2 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 0E52FFE52A112A22004E39F2 /* FirebaseStorage */; };
 		0E52FFE82A11378E004E39F2 /* welcomeAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E52FFE72A11378E004E39F2 /* welcomeAlertView.swift */; };
 		0E6B30332A0A4BB100521DE2 /* CommentCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B30322A0A4BB100521DE2 /* CommentCreateView.swift */; };
 		0E6DB2AF2A0A1EE700F6C8DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E6DB2AE2A0A1EE700F6C8DC /* GoogleService-Info.plist */; };
@@ -44,6 +41,7 @@
 		0EF982522A0FDBFF000AB165 /* FinishGenerateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF982512A0FDBFF000AB165 /* FinishGenerateView.swift */; };
 		8641EF2E2A0A80EC00B05FC4 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8641EF2D2A0A80EC00B05FC4 /* ImagePicker.swift */; };
 		8641EF322A0B762100B05FC4 /* hexStringToColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8641EF312A0B762100B05FC4 /* hexStringToColor.swift */; };
+		869C37892A11905300C1034B /* EditCollaboraionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869C37882A11905300C1034B /* EditCollaboraionView.swift */; };
 		C32664642A0D3F99004777FE /* SelectCommunicationTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32664632A0D3F99004777FE /* SelectCommunicationTypeView.swift */; };
 		C32664662A0D6092004777FE /* CommunicationStyleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32664652A0D6092004777FE /* CommunicationStyleCard.swift */; };
 		C32FEA702A0BB2C200CE0663 /* SelectRoleGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32FEA6F2A0BB2C200CE0663 /* SelectRoleGoalView.swift */; };
@@ -105,6 +103,7 @@
 		0EF982512A0FDBFF000AB165 /* FinishGenerateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishGenerateView.swift; sourceTree = "<group>"; };
 		8641EF2D2A0A80EC00B05FC4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		8641EF312A0B762100B05FC4 /* hexStringToColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hexStringToColor.swift; sourceTree = "<group>"; };
+		869C37882A11905300C1034B /* EditCollaboraionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCollaboraionView.swift; sourceTree = "<group>"; };
 		C32664632A0D3F99004777FE /* SelectCommunicationTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCommunicationTypeView.swift; sourceTree = "<group>"; };
 		C32664652A0D6092004777FE /* CommunicationStyleCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationStyleCard.swift; sourceTree = "<group>"; };
 		C32FEA6F2A0BB2C200CE0663 /* SelectRoleGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRoleGoalView.swift; sourceTree = "<group>"; };
@@ -231,6 +230,7 @@
 				EF5D034A2A0B86A300678E09 /* MemojiView */,
 				0E6DB2C62A0A29D700F6C8DC /* EditCardDesignView.swift */,
 				0E6DB2C72A0A29D700F6C8DC /* EditCardInfoView.swift */,
+				869C37882A11905300C1034B /* EditCollaboraionView.swift */,
 			);
 			path = CardDetailEdit;
 			sourceTree = "<group>";
@@ -427,6 +427,7 @@
 				0E6DB2E12A0A2A1C00F6C8DC /* AppleLoginView.swift in Sources */,
 				8641EF2E2A0A80EC00B05FC4 /* ImagePicker.swift in Sources */,
 				EF5D03552A0B86E100678E09 /* CircularImageView.swift in Sources */,
+				869C37892A11905300C1034B /* EditCollaboraionView.swift in Sources */,
 				0E6DB2E02A0A2A1C00F6C8DC /* CreateTimeView.swift in Sources */,
 				EF5D03522A0B86E100678E09 /* Character.swift in Sources */,
 				0EF982522A0FDBFF000AB165 /* FinishGenerateView.swift in Sources */,
@@ -672,7 +673,6 @@
 
 /* Begin XCRemoteSwiftPackageReference section */
 		C3E8B3872A110AB300AA76CC /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */ = {
-
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tevelee/SwiftUI-Flow.git";
 			requirement = {
