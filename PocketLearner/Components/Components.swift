@@ -52,7 +52,7 @@ func letterLimitTextField(placeholder: String, commentText: Binding<String>, let
 func cardGenerateViewsButton(title:String, disableCondition: Bool, action: @escaping ()->Void ) -> some View {
     return Button(action: action){
         RoundedRectangle(cornerRadius: 10)
-           .fill(disableCondition ? Color(disabledNextButtonColor) : Color("mainAccentColor"))
+           .fill(disableCondition ? Color(disabledNextButtonColor) : mainAccentColor )
            .frame(width: 321, height: 48)
            .overlay(
                Text(title)
