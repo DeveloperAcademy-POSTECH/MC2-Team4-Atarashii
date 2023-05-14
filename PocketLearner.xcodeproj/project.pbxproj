@@ -57,6 +57,7 @@
 		C3E8B3862A10C61900AA76CC /* SelectMySkillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8B3852A10C61900AA76CC /* SelectMySkillView.swift */; };
 		C3E8B3892A110AB300AA76CC /* Flow in Frameworks */ = {isa = PBXBuildFile; productRef = C3E8B3882A110AB300AA76CC /* Flow */; };
 		C3E8B38B2A11111300AA76CC /* SkillTitleInputSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8B38A2A11111300AA76CC /* SkillTitleInputSheetView.swift */; };
+		C3E8B38D2A111AC700AA76CC /* SkillProficiencySheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8B38C2A111AC700AA76CC /* SkillProficiencySheetView.swift */; };
 		EF5D03522A0B86E100678E09 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5D034C2A0B86E100678E09 /* Character.swift */; };
 		EF5D03532A0B86E100678E09 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5D034D2A0B86E100678E09 /* String.swift */; };
 		EF5D03542A0B86E100678E09 /* MemojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5D034F2A0B86E100678E09 /* MemojiView.swift */; };
@@ -112,6 +113,7 @@
 		C3E8B3832A0DF55E00AA76CC /* SelectCollaborationKeywordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCollaborationKeywordView.swift; sourceTree = "<group>"; };
 		C3E8B3852A10C61900AA76CC /* SelectMySkillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMySkillView.swift; sourceTree = "<group>"; };
 		C3E8B38A2A11111300AA76CC /* SkillTitleInputSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillTitleInputSheetView.swift; sourceTree = "<group>"; };
+		C3E8B38C2A111AC700AA76CC /* SkillProficiencySheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillProficiencySheetView.swift; sourceTree = "<group>"; };
 		EF04E6402A0F4AAD00E7288F /* MemojiView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MemojiView.h; sourceTree = "<group>"; };
 		EF5D034C2A0B86E100678E09 /* Character.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		EF5D034D2A0B86E100678E09 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				0EF982512A0FDBFF000AB165 /* FinishGenerateView.swift */,
 				C3E8B3852A10C61900AA76CC /* SelectMySkillView.swift */,
 				C3E8B38A2A11111300AA76CC /* SkillTitleInputSheetView.swift */,
+				C3E8B38C2A111AC700AA76CC /* SkillProficiencySheetView.swift */,
 			);
 			path = CardGenerate;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 				0E6DB2D72A0A2A0000F6C8DC /* MyCardView.swift in Sources */,
 				C32FEA7E2A0BE59900CE0663 /* GoalPickerMenuList.swift in Sources */,
 				0E113BE92A0A0FA400AB2EC8 /* PocketLearnerApp.swift in Sources */,
+				C3E8B38D2A111AC700AA76CC /* SkillProficiencySheetView.swift in Sources */,
 				0EBBD8902A0D29E600B232F1 /* QRCodeScanner.swift in Sources */,
 				0EBBD88C2A0CDE2200B232F1 /* UserOB.swift in Sources */,
 				C32664662A0D6092004777FE /* CommunicationStyleCard.swift in Sources */,

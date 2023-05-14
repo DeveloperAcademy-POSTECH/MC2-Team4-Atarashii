@@ -32,13 +32,18 @@ struct SelectMySkillView: View {
     
     @State var defaultSkillsetTitles = ["UX 라이팅", "UX 분석", "KPI 설계", "프로덕트 매니징", "대시보드 / 데이터 분석", "SwiftUI", "UIKit", "Swift", "Firebase", "Combine", "RxSwift", "와이어프레이밍", "디자인 띵킹", "low-fi / hi-fi 프로토타이핑", "페르소나 제작", "유저 저니맵 제작", "Figma", "Sketch", "Adobe CC"]
     
+
     // 버튼 뷰를 리턴하는 함수
     
     func returnSkillButton (buttonTitle: String, buttonColor: Color = .white) -> some View {
         
+
+        
         return Button(action: {
-        // Sheet 뷰 오픈
         // 버튼의 Title을 selectedSkillTitles에 append 한다.
+            selectedSkillTitles.append(buttonTitle)
+        // Sheet 뷰 오픈
+            showingSkillProficiencySheet.toggle()
             
         }) {
             Text(buttonTitle)
@@ -48,11 +53,35 @@ struct SelectMySkillView: View {
                 .padding(.horizontal, 12)
                 .background(
                     RoundedRectangle(cornerRadius: 35)
-                        .fill(buttonColor)
+                        .fill(
+                            // 이 버튼 타이틀의 인덱스에 맞는 퍼센트의 범위에 따라 .
+                               selectedSkillTitles.contains(buttonTitle) ? (
+                               // 숙련도 정보가 append된 상태인지 아닌지 검사
+                                   selectedSkillTitles.count == selectedSkillProficiency.count ? (
+                                        mainAccentColor
+                                   ) : .white
+                               ) : .white
+                        )
+                            
+                        
                         .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y:  0.5)
                 )
         }
+        .disabled(selectedSkillTitles.contains(buttonTitle))
         
+    }
+    
+    func returnColor(proficiency: Int) -> Color {
+        switch proficiency {
+        case 10..<30 :
+            return Color(buttonEditAbledPinkColor)
+        case 40...80 :
+            return cardBackgroundColor_5
+        case 90...100 :
+            return cardBackgroundColor_4
+        default :
+            return .white
+        }
     }
     
     // LazyGrid Column
@@ -90,7 +119,7 @@ struct SelectMySkillView: View {
             // FlowLayout
             HFlow(alignment: .top, spacing: 9) {
                 ForEach(defaultSkillsetTitles, id: \.self){ item in
-                    returnSkillButton (buttonTitle: item)
+                    returnSkillButton(buttonTitle: item)
                 }
             }
             .padding(.top, 24)
@@ -98,7 +127,7 @@ struct SelectMySkillView: View {
             
             Spacer()
             
-            cardGenerateViewsButton(title: "다음", disableCondition: true, action: {} )
+            cardGenerateViewsButton(title: "다음", disableCondition: false, action: {} )
                 .padding(.horizontal, 38)
 
         }
@@ -106,6 +135,12 @@ struct SelectMySkillView: View {
         .sheet(isPresented: $showingSkillTitleInputSheet) {
             SkillTitleInputSheetView(appendArray: $defaultSkillsetTitles)
                 .presentationDetents([.height(217)])
+                .presentationDragIndicator(.hidden)
+                
+        }
+        .sheet(isPresented: $showingSkillProficiencySheet) {
+            SkillProficiencySheetView(appendTitleArray: $selectedSkillTitles, appendProficiencyArray: $selectedSkillProficiency)
+                .presentationDetents([.height(321)])
                 .presentationDragIndicator(.hidden)
                 
         }
