@@ -30,7 +30,8 @@ struct PocketLearnerApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainView().environmentObject(user).environmentObject(card)
+            SelectMySkillView()
+       //     MainView().environmentObject(user).environmentObject(card)
 //            EditCardDesignView(userInfo: myInfo)
 
         }
