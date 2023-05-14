@@ -179,7 +179,7 @@ struct MainNameCardTabView: View {
     func loadUserRanking() {
         let userColRef = db.collection("Users")
         
-        userColRef.whereField("cardCollectCount", isGreaterThan: 0).order(by: "cardCollectCount").order(by: "nickKorean")
+        userColRef.whereField("cardCollectCount", isGreaterThan: 0).order(by: "cardCollectCount", descending: true)
             .getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     print("순위 정보 로딩 실패: \(err)")
