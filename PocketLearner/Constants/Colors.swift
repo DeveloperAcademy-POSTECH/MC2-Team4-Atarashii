@@ -53,6 +53,8 @@ let collaborationKeywordColor_5 = Color(#colorLiteral(red: 0.6941176471, green: 
 let collaborationKeywordColor_6 = Color(#colorLiteral(red: 1, green: 0.8078431373, blue: 0.3176470588, alpha: 1))
 let collaborationKeywordColor_7 = Color(#colorLiteral(red: 0.9647058824, green: 0.5921568627, blue: 0.3803921569, alpha: 1))
 
+//CardGenerate - FinishGenerate
+let errorGray = Color(#colorLiteral(red: 0.5568627451, green: 0.5568627451, blue: 0.5764705882, alpha: 1))
 
 // MARK: - 명함 컬러 값
 
