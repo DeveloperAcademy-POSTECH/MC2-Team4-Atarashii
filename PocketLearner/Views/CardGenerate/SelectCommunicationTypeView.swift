@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SelectCommunicationTypeView: View {
-//    @ObservedObject var card: CardDetailData
+   @ObservedObject var card: CardDetailData
 
     //Header 관련 변수
     @State var activatedCircleNumber: Int = 5
@@ -143,12 +143,12 @@ struct SelectCommunicationTypeView: View {
             
             cardGenerateViewsButton(title:"다음", disableCondition: selectedTypeIndex == nil, action: {
                 // card generate data update
-//                card.communicationType = selectedTypeIndex ?? 0 // if selectedTypeIndex == nil, button disabled.
-//                goNext = true
+                card.communicationType = selectedTypeIndex ?? 0 // if selectedTypeIndex == nil, button disabled.
+                goNext = true
             } ).padding(.top, 20)
-//                .navigationDestination(isPresented: $goNext){
-//                SelectCollaborationKeywordView(card: card)
-//            }
+                .navigationDestination(isPresented: $goNext){
+                SelectCollaborationKeywordView(card: card)
+            }
             Spacer()
 
         }
@@ -165,8 +165,8 @@ struct FourTypeCardData {
     var isFlipped: Bool = false
 }
 
-struct SelectCommunicationTypeView_Previews: PreviewProvider {
-    static var previews: some View {
-        SelectCommunicationTypeView()
-    }
-}
+//struct SelectCommunicationTypeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SelectCommunicationTypeView()
+//    }
+//}

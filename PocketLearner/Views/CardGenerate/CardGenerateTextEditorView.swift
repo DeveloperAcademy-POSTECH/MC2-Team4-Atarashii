@@ -53,7 +53,7 @@ struct MyWishSkillsetTextEditorView: View {
     var body: some View {
         CardGenerateTextEditorView(activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, placeHolder: placeHolder, letterLimit: letterLimit, goNext: $goNext, card: card)
             .navigationDestination(isPresented: $goNext){
-                //SelectCommunicationTypeView(card: card)
+                SelectCommunicationTypeView(card: card)
             }
     }
 }
