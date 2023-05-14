@@ -11,56 +11,58 @@ import SwiftUI
 import Photos
 //MARK: Main
 struct EditCardInfoView: View {
-    @State var isSheet: Bool = false
-    @State var myGoal: String = "iOS 개발자"
+    @Environment(\.dismiss) private var dismiss
+    
+    @EnvironmentObject var card: CardDetailData
+    @EnvironmentObject var user : userData
     
     var body: some View {
-        ScrollView(.vertical) {
-            
-            DetailEditProfileView()
-            
-            DetailEditSkillView()
-                .padding(.top,20)
-            
-            // myGoal -
-            HStack {
-                Text("아카데미에서의 성장목표")
+        NavigationView {
+            ScrollView(.vertical) {
                 
-                Menu(content: {
-                    Button("PM", action: handlePmSet)
-                    Button("iOS 개발자", action: handleIosSet)
-                    Button("서버 개발자", action: handleServerSet)
-                    Button("UI/UX 디자이너", action: handleUiandUxSet)
-                    Button("기타", action: handleOtherSet)
-                }, label: {
-                    Text("\(myGoal)")
-                        .foregroundColor(hexStringToColor(hexString: "#979797"))
-                    Image(systemName: "chevron.up.chevron.down")
-                        .foregroundColor(hexStringToColor(hexString: "#979797"))
-                })
+                DetailEditProfileView()
+                
+                DetailEditSkillView()
+                    .padding(.top,20)
+                
+                DetailEditMyGoal()
+                
+                DetailEditCollaborationView()
             }
-            .sheet(isPresented: $isSheet) {
-                RoleGoalInputSheetView(sendInputText: $myGoal)
+        }
+        .toolbar {
+            Button {
+                handleUpdateCardDetailData()
+            } label: {
+                Text("저장")
             }
-            
-            DetailEditCollaborationView()
+
         }
     }
-    
-    func handlePmSet() {
-        self.myGoal = "PM"
-    }
-    func handleIosSet() {
-        self.myGoal = "iOS 개발자"
-    }
-    func handleServerSet() {
-        self.myGoal = "서버 개발자"
-    }
-    func handleUiandUxSet() {
-        self.myGoal = "UI/UX 디자이너"
-    }
-    func handleOtherSet() {
-        self.isSheet = true
+    func handleUpdateCardDetailData() {
+        let washingtonRef = db.collection("CardDetails").document(user.id)
+
+        // Set the "capital" field of the city 'DC'
+        washingtonRef.updateData([
+            "introduce": card.introduce,
+            "skills": card.skills,
+            "skillLevel": card.skillLevel,
+            "introduceSkill": card.introduceSkill,
+            "growthTarget": card.growthTarget,
+            "wishSkills": card.wishSkills,
+            "wishSkillIntroduce": card.wishSkillIntroduce,
+            "communicationType": card.communicationType,
+            "cooperationKeywords": card.cooperationKeywords,
+            "cooperationIntroduce": card.cooperationIntroduce,
+            "memoji": card.memoji
+        ]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("Document successfully updated")
+            }
+            dismiss()
+        }
     }
     
 }
@@ -129,6 +131,7 @@ struct ProfilePictureView: View {
 //MARK: MainprofileView
 struct DetailEditProfileView: View {
     @State var discriptionText: String = ""
+    @EnvironmentObject var card: CardDetailData
     
     var body: some View {
         VStack {
@@ -139,6 +142,12 @@ struct DetailEditProfileView: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: 100)
                 .padding()
+                .onAppear() {
+                    discriptionText = card.introduce
+                }
+                .onChange(of: discriptionText, perform: { newValue in
+                    card.introduce = discriptionText
+                })
         }
     }
 }
@@ -147,6 +156,7 @@ struct DetailEditProfileView: View {
 struct DetailEditSkillView: View {
     @State var mySkillText: String = ""
     @State var myFutureSkillText: String = ""
+    @EnvironmentObject var card: CardDetailData
     var body: some View {
         VStack {
             Text("스킬관련 🛠️")
@@ -167,6 +177,7 @@ struct DetailEditSkillView: View {
                 skillIconView()
                 skillIconView()
             }
+            
             HStack {
                 Spacer()
                 Button {
@@ -192,6 +203,12 @@ struct DetailEditSkillView: View {
             letterLimitTextField(placeholder: "내가 가지고 있는 스킬셋에 대해 자세하게 서술해주세요!", commentText: $mySkillText, letterLimit: 100)
                 .frame(maxWidth: .infinity,minHeight: 160)
                 .padding()
+                .onAppear() {
+                    mySkillText = card.introduceSkill
+                }
+                .onChange(of: mySkillText, perform: { newValue in
+                    card.introduceSkill = mySkillText
+                })
         }
         
         VStack {
@@ -234,7 +251,12 @@ struct DetailEditSkillView: View {
             letterLimitTextField(placeholder: "내가 키우고 싶은 스킬셋에 대해 자세하게 서술해주세요!", commentText: $myFutureSkillText, letterLimit: 100)
                 .padding()
                 .frame(maxWidth: .infinity, minHeight: 160)
-                
+                .onAppear() {
+                    myFutureSkillText = card.wishSkillIntroduce
+                }
+                .onChange(of: myFutureSkillText, perform: { newValue in
+                    card.wishSkillIntroduce = myFutureSkillText
+                })
         }
         
         
@@ -274,12 +296,77 @@ struct DetailEditSkillView: View {
     }
 }
 
+//MARK: myGoal
+struct DetailEditMyGoal: View {
+    @EnvironmentObject var card: CardDetailData
+    
+    @State var isSheet: Bool = false
+    @State var myGoal: String = ""
+    var body: some View {
+        // myGoal -
+        HStack {
+            Text("아카데미에서의 성장목표")
+            
+            Menu(content: {
+                Button("PM", action: handlePmSet)
+                Button("iOS 개발자", action: handleIosSet)
+                Button("서버 개발자", action: handleServerSet)
+                Button("UI/UX 디자이너", action: handleUiandUxSet)
+                Button("기타", action: handleOtherSet)
+            }, label: {
+                Text("\(myGoal)")
+                    .frame(minWidth: 100)
+                    .foregroundColor(hexStringToColor(hexString: "#979797"))
+                Image(systemName: "chevron.up.chevron.down")
+                    .foregroundColor(hexStringToColor(hexString: "#979797"))
+            })
+            
+
+        }
+        .sheet(isPresented: $isSheet) {
+            RoleGoalInputSheetView(sendInputText: $myGoal)
+        }
+        .onAppear() {
+            myGoal = card.growthTarget
+        }
+        
+    }
+    
+    func handlePmSet() {
+        self.myGoal = "PM"
+        card.growthTarget = "PM"
+    }
+    func handleIosSet() {
+        self.myGoal = "iOS 개발자"
+        card.growthTarget = "iOS 개발자"
+    }
+    func handleServerSet() {
+        self.myGoal = "서버 개발자"
+        card.growthTarget = "서버 개발자"
+    }
+    func handleUiandUxSet() {
+        self.myGoal = "UI/UX 디자이너"
+        card.growthTarget = "UI/UX 디자이너"
+    }
+    func handleOtherSet() {
+        self.isSheet = true
+    }
+}
+
 //MARK: CollaborationView
 
 struct DetailEditCollaborationView: View {
     @State var discriptionText: String = ""
-    @State var collaborationTypes:String = "Driver"
+    @State var collaborationTypes: String = "Driver"
     @State var isCollaborationSheet: Bool = false
+    @EnvironmentObject var card: CardDetailData
+    
+    enum CollaborationTypes: Int {
+        case Analytical = 0
+        case Driver
+        case Amiable
+        case Expressive
+    }
     
     var body: some View {
         VStack {
@@ -304,10 +391,25 @@ struct DetailEditCollaborationView: View {
                     Button("Expressive", action: handleExpressiveSet)
                 }, label: {
                     Text("\(collaborationTypes)")
+                        .frame(minWidth: 85)
                         .foregroundColor(hexStringToColor(hexString: "#979797"))
                     Image(systemName: "chevron.up.chevron.down")
                         .foregroundColor(hexStringToColor(hexString: "#979797"))
                 })
+                .onAppear() {
+                    switch card.communicationType {
+                    case 0:
+                        collaborationTypes = "Analytical"
+                    case 1:
+                        collaborationTypes = "Driver"
+                    case 2:
+                        collaborationTypes = "Amiable"
+                    case 3:
+                        collaborationTypes = "Expressive"
+                    default:
+                        collaborationTypes = "Analytical"
+                    }
+                }
                    
                 Spacer()
                 
@@ -362,15 +464,19 @@ struct DetailEditCollaborationView: View {
     
     func handleDriverSet() {
         self.collaborationTypes = "Driver"
+        card.communicationType = CollaborationTypes.Driver.rawValue
     }
     func handleAnalyticalSet() {
         self.collaborationTypes = "Analytical"
+        card.communicationType = CollaborationTypes.Analytical.rawValue
     }
     func handleAmiableSet() {
         self.collaborationTypes = "Amiable"
+        card.communicationType = CollaborationTypes.Amiable.rawValue
     }
     func handleExpressiveSet() {
         self.collaborationTypes = "Expressive"
+        card.communicationType = CollaborationTypes.Expressive.rawValue
     }
 
 }
