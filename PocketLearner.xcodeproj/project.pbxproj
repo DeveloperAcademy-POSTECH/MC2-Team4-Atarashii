@@ -54,6 +54,7 @@
 		C36366292A0A31B400E4E9C6 /* CardGenerateViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36366282A0A31B400E4E9C6 /* CardGenerateViewHeader.swift */; };
 		C363662B2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C363662A2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift */; };
 		C3E8B3842A0DF55E00AA76CC /* SelectCollaborationKeywordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8B3832A0DF55E00AA76CC /* SelectCollaborationKeywordView.swift */; };
+		C3E8B3862A10C61900AA76CC /* SelectMySkillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8B3852A10C61900AA76CC /* SelectMySkillView.swift */; };
 		EF5D03522A0B86E100678E09 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5D034C2A0B86E100678E09 /* Character.swift */; };
 		EF5D03532A0B86E100678E09 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5D034D2A0B86E100678E09 /* String.swift */; };
 		EF5D03542A0B86E100678E09 /* MemojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5D034F2A0B86E100678E09 /* MemojiView.swift */; };
@@ -107,6 +108,7 @@
 		C36366282A0A31B400E4E9C6 /* CardGenerateViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGenerateViewHeader.swift; sourceTree = "<group>"; };
 		C363662A2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGenerateTextEditorView.swift; sourceTree = "<group>"; };
 		C3E8B3832A0DF55E00AA76CC /* SelectCollaborationKeywordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCollaborationKeywordView.swift; sourceTree = "<group>"; };
+		C3E8B3852A10C61900AA76CC /* SelectMySkillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMySkillView.swift; sourceTree = "<group>"; };
 		EF04E6402A0F4AAD00E7288F /* MemojiView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MemojiView.h; sourceTree = "<group>"; };
 		EF5D034C2A0B86E100678E09 /* Character.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		EF5D034D2A0B86E100678E09 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				C32664652A0D6092004777FE /* CommunicationStyleCard.swift */,
 				C3E8B3832A0DF55E00AA76CC /* SelectCollaborationKeywordView.swift */,
 				0EF982512A0FDBFF000AB165 /* FinishGenerateView.swift */,
+				C3E8B3852A10C61900AA76CC /* SelectMySkillView.swift */,
 			);
 			path = CardGenerate;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				0E6DB2D82A0A2A0000F6C8DC /* CardTemplate.swift in Sources */,
 				0EBBD8872A0CDD6F00B232F1 /* Constants.swift in Sources */,
 				0E6DB2E22A0A2A1C00F6C8DC /* IntroView.swift in Sources */,
+				C3E8B3862A10C61900AA76CC /* SelectMySkillView.swift in Sources */,
 				0EBBD88A2A0CDDB900B232F1 /* AppleLoginViewModel.swift in Sources */,
 				0E6DB2C32A0A29C500F6C8DC /* CardDetailView.swift in Sources */,
 				C32664642A0D3F99004777FE /* SelectCommunicationTypeView.swift in Sources */,
