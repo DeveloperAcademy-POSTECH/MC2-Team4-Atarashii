@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct CommentCreateView: View {
-    //        @Binding var isEditing: Bool
     let isEditing:Bool = true
     
     let placeholder: String = "이 러너와의 협업 경험을 통해 알게 된 장점을 칭찬해주세요 :)"
 
     @State var commentText: String = ""
     
+    let learnerInfo: UserInfo
+    
     var body: some View {
         VStack{
             HStack{
-                Text("To. Hazel")
+                Text("To. \(learnerInfo.nickKorean)")
                     .font(.system(size: 34, weight: .bold))
                 Spacer()
             }
@@ -39,7 +40,7 @@ struct CommentCreateView: View {
                     .padding(.horizontal, 105)
                     .background(
                         RoundedRectangle(cornerRadius: 100)
-                            .fill( (commentText.count == 0) ? Color(buttonDisabledGrayColor) : (isEditing ? Color(buttonEditAbledPinkColor) : .black) )
+                            .fill( (commentText.count == 0) ? Color(buttonDisabledGrayColor) : (isEditing ? mainAccentColor : .black) )
                     )
             }.padding(.top, 20).disabled((commentText.count == 0))
             
@@ -48,8 +49,3 @@ struct CommentCreateView: View {
     
 }
 
-struct CommentCreateView_Previews: PreviewProvider {
-    static var previews: some View {
-        CommentCreateView().previewDevice("iPhone 14")
-    }
-}

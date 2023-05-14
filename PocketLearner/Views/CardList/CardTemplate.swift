@@ -253,7 +253,7 @@ struct CardBack: View {
             
             // MARK: - 칭찬 리뷰로 이동
             NavigationLink {
-                CommentView(isMine: isMine, learnerInfo: learnerInfo)
+                CommentView(isMine: isMine, learnerInfo: learnerInfo).navigationTitle("칭찬 리뷰")
             } label: {
                 HStack {
                     Text("\(isMine ? user.nickKorean : learnerInfo.nickKorean)이(가) 받은 칭찬 보러가기")
