@@ -104,8 +104,8 @@ struct CardFront: View {
     let learnerInfo: UserInfo
     
     @Binding var bookmarkIDs: [String]
-
-
+    
+    
     var body: some View {
         ZStack {
             ZStack{
@@ -117,7 +117,7 @@ struct CardFront: View {
                                 Image(systemName: "\((isMine ? user.isSessionMorning : learnerInfo.isSessionMorning) ? "sun.and.horizon" : "sun.max")")
                                 Text("\((isMine ? user.isSessionMorning : learnerInfo.isSessionMorning) ? "오전" : "오후")")
                             }
-
+                            
                             .padding(.vertical, 6)
                             .padding(.horizontal, 10)
                             .background(Color.white)
@@ -142,38 +142,19 @@ struct CardFront: View {
                                     }
                                 } label: {
                                     Image(systemName: "ellipsis")
-
-                        } else {
-                            // MARK: - (타인의 명함일 경우) 즐겨찾기 아이콘
-                            Button {
-                                if isLiked {
-                                    //북마크 삭제
-                                    deleteBookmark()
-                                } else {
-                                    //북마크 생성
-                                    createBookmark()
-                                }
-                                isLiked.toggle()
-                                bookmarkIDs.append(learnerInfo.id)
-                            } label: {
-                                if isLiked {
-                                    Image(systemName: "bookmark.fill")
-                                        .font(.system(size: 30))
-                                        .foregroundColor(.black)
-                                    
-                                } else {
-                                    Image(systemName: "bookmark")
-                                        .font(.system(size: 30))
-
-                                        .foregroundColor(.black)
-                                        .font(.system(size: 20))
-                                        .padding(10)
                                 }
                             } else {
                                 // MARK: - (타인의 명함일 경우) 즐겨찾기 아이콘
                                 Button {
+                                    if isLiked {
+                                        //북마크 삭제
+                                        deleteBookmark()
+                                    } else {
+                                        //북마크 생성
+                                        createBookmark()
+                                    }
                                     isLiked.toggle()
-                                    // TODO: 해당 유저 데이터를 Update 하는 로직
+                                    bookmarkIDs.append(learnerInfo.id)
                                 } label: {
                                     if isLiked {
                                         Image(systemName: "bookmark.fill")
@@ -183,7 +164,10 @@ struct CardFront: View {
                                     } else {
                                         Image(systemName: "bookmark")
                                             .font(.system(size: 30))
+                                        
                                             .foregroundColor(.black)
+                                            .font(.system(size: 20))
+                                            .padding(10)
                                     }
                                 }
                             }
@@ -205,9 +189,7 @@ struct CardFront: View {
                         Text("\(isMine ? card.introduce : learnerInfo.introduce)")
                             .fixedSize(horizontal: false, vertical: true)
                             .font(.system(size: 20))
-                    }
-                    .padding(22)
-                    
+                    }.padding(22)
                     Spacer()
                     
                     HStack {
@@ -269,7 +251,6 @@ struct CardFront: View {
             CardDetailView(isMine: $isMine, userInfo: learnerInfo)
         }
     }
-    
     func deleteBookmark() {
         let bookmarkDocRef = db.collection("Bookmark").document("\(user.id)_\(learnerInfo.id)")
         
@@ -302,6 +283,7 @@ struct CardFront: View {
         }
     }
 }
+
 
 
 
@@ -362,3 +344,4 @@ struct CardBack: View {
 
 
 ///=========
+
