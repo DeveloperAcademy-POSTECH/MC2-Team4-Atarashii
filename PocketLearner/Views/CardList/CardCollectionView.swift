@@ -29,6 +29,8 @@ struct CardCollectionView: View {
     // MARK: - 타 러너의 유저 정보
     @Binding var learnerInfos: [UserInfo]
     
+    @Binding var bookmarkIDs: [String]
+    
     @State var rankingData: [RankData] = []
     @State var myRank: Int = 0
 
@@ -79,7 +81,7 @@ struct CardCollectionView: View {
                 /// TODO: 카드 넘겨지는 애니메이션 구현
                 case .slidingMode:
                     ForEach(learnerInfos.indices, id:\.self) { index in
-                        CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, learnerInfo: learnerInfos[index])
+                        CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, learnerInfo: learnerInfos[index], bookmarkIDs: $bookmarkIDs)
                             .padding(.bottom, 34)
                     }
                     
@@ -87,7 +89,7 @@ struct CardCollectionView: View {
                 case .galleryMode:
                     LazyVGrid(columns: columns) {
                         ForEach(learnerInfos.indices, id: \.self) { index in
-                            CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, learnerInfo: learnerInfos[index])
+                            CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, learnerInfo: learnerInfos[index], bookmarkIDs: $bookmarkIDs)
                                 .scaleEffect(0.5)
                         }
                     }
@@ -133,7 +135,6 @@ struct CardCollectionView: View {
     
     // MARK: - 수집력 랭킹 배너 컴포넌트 (Method)
     func collectionRankingBanner() -> some View {
-        /// TODO: 순위 값 데이터로 대체
         Button {
             showingOptions = true
         } label: {
@@ -175,7 +176,6 @@ struct CardCollectionView: View {
                                 Text("**\(index+1)위** 👑")
                                 if (rankingData.count >= index+1) {
                                     Text("**\(rankingData[index].nickKorean)** (\(rankingData[index].nickEnglish))")
-                                    // 더미 데이터로 랜덤 값이 들어있음
                                     Text("**\(rankingData[index].cardCollectCount)**개")
                                 }
                             }

@@ -28,6 +28,7 @@ struct CardTemplate: View {
     let durationAndDelay: CGFloat = 0.17
     
     let learnerInfo: UserInfo
+    @Binding var bookmarkIDs: [String]
     
     var drag: some Gesture {
         DragGesture()
@@ -43,9 +44,14 @@ struct CardTemplate: View {
     var body: some View {
         ZStack {
             CardBack(degree: $backDegree, isMine: $isMine, learnerInfo: learnerInfo)
-            CardFront(degree: $frontDegree, isLiked: $isLiked, isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, learnerInfo: learnerInfo)
+            CardFront(degree: $frontDegree, isLiked: $isLiked, isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, learnerInfo: learnerInfo, bookmarkIDs: $bookmarkIDs)
         }
         .gesture(drag)
+        .task {
+            if bookmarkIDs.contains(learnerInfo.id){
+                isLiked = true
+            }
+        }
     }
     
     
@@ -85,6 +91,9 @@ struct CardFront: View {
     @Binding var QRAnimation: Bool
     
     let learnerInfo: UserInfo
+    
+    @Binding var bookmarkIDs: [String]
+
 
     var body: some View {
         ZStack{
@@ -127,8 +136,15 @@ struct CardFront: View {
                         } else {
                             // MARK: - (타인의 명함일 경우) 즐겨찾기 아이콘
                             Button {
+                                if isLiked {
+                                    //북마크 삭제
+                                    deleteBookmark()
+                                } else {
+                                    //북마크 생성
+                                    createBookmark()
+                                }
                                 isLiked.toggle()
-                                // TODO: 해당 유저 데이터를 Update 하는 로직
+                                bookmarkIDs.append(learnerInfo.id)
                             } label: {
                                 if isLiked {
                                     Image(systemName: "bookmark.fill")
@@ -216,6 +232,34 @@ struct CardFront: View {
         .frame(height: 490)
         .cornerRadius(32)
         .allowsHitTesting(false)
+    }
+    
+    func deleteBookmark() {
+        let bookmarkDocRef = db.collection("Bookmark").document("\(user.id)_\(learnerInfo.id)")
+        
+        bookmarkDocRef.delete(){ err in
+            if let err = err {
+                print("즐겨찾기 삭제 실패!: \(err)")
+            } else {
+                print("즐겨찾기 삭제 성공!")
+            }
+        }
+    }
+    
+    func createBookmark() {
+        let bookmarkDocRef = db.collection("Bookmark").document("\(user.id)_\(learnerInfo.id)")
+        
+        bookmarkDocRef.setData([
+            "userID": user.id,
+            "counterpartID": learnerInfo.id,
+            "bookmarkDate": Date()
+        ]){ err in
+            if let err = err {
+                print("즐겨찾기 등록 실패!: \(err)")
+            } else {
+                print("즐겨찾기 등록 성공!")
+            }
+        }
     }
 }
 

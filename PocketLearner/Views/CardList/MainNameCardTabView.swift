@@ -56,6 +56,8 @@ struct MainNameCardTabView: View {
     @State var learnerIDs: [String] = []
     @State var learnerInfos: [UserInfo] = []
     
+    @State var bookmarkIDs: [String] = []
+    
     var body: some View {
         NavigationStack{
             ZStack {
@@ -88,7 +90,7 @@ struct MainNameCardTabView: View {
                     case .cardCollection:
                         // MARK: - 교환한 명함이 존재하지 않을 때는 초기화면 띄우기
                         if user.cardCollectCount != 0 {
-                            CardCollectionView(learnerInfos: $learnerInfos)
+                            CardCollectionView(learnerInfos: $learnerInfos, bookmarkIDs: $bookmarkIDs)
                                 .frame(height: 636)
                         } else {
                             InitialCardNameView(cardViewSelection: $cardViewSelection)
@@ -156,6 +158,7 @@ struct MainNameCardTabView: View {
             loadExchangeUsers()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 loadCollectedCards()
+                loadBookmarkUsers()
             }
         }
     }
@@ -177,6 +180,26 @@ struct MainNameCardTabView: View {
             }
             
             print("id2 Array: \(learnerIDs)")
+        }
+    }
+    
+    func loadBookmarkUsers() {
+        // MARK: 모든 즐겨찾기 상대 id Fetching
+        let bookmarkRef = db.collection("Bookmark")
+        
+        bookmarkRef.whereField("userID", isEqualTo: user.id).getDocuments { snapshot, error in
+            if let error = error {
+                print("북마크 정보 가져오기 실패: \(error)")
+                return
+            }
+            
+            for document in snapshot!.documents {
+                if let counterpartID = document.data()["counterpartID"] as? String {
+                    bookmarkIDs.append(counterpartID)
+                }
+            }
+            
+            print("id2 Array: \(bookmarkIDs)")
         }
     }
     
