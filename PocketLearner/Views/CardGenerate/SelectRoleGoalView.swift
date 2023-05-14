@@ -130,7 +130,8 @@ struct SelectRoleGoalView: View {
                 card.growthTarget = selectedOption?.title ?? sheetUserInputText
                 goNext = true
             }).padding(.top, 20).navigationDestination(isPresented: $goNext){
-                MyWishSkillsetTextEditorView(card: card)
+//                MyWishSkillsetTextEditorView(card: card)
+                SelectMySkillView(card: card, isMySkill: false)
             }
         }
         // Sheet Open
@@ -141,16 +142,3 @@ struct SelectRoleGoalView: View {
         }
     }
 }
-
-
-
-
-
-
-
-//
-//struct SelectRoleGoalView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SelectRoleGoalView().previewDevice("iPhone 14")
-//    }
-//}

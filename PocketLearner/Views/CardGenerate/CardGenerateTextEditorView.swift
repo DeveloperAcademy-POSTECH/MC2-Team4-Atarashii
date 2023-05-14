@@ -19,7 +19,8 @@ struct IntroductionTextEditorView: View {
     var body: some View {
         CardGenerateTextEditorView(activatedCircleNumber: activatedCircleNumber, headerTitleMessage: headerTitleMessage, placeHolder: placeHolder, letterLimit: letterLimit, goNext: $goNext, card: card)
             .navigationDestination(isPresented: $goNext){
-                MyCurrentSkillsetTextEditorView(card: card)
+//                MyCurrentSkillsetTextEditorView(card: card)
+                SelectMySkillView(card: card, isMySkill: true)
             }
     }
 }
