@@ -18,11 +18,12 @@ struct CommentData {
 }
 
 struct CommentView: View {
+    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var user: userData
     
     // TODO : check from db. (Was I commented)
     @State var isCommented: Bool = false
-    @State var showingAlert: Bool = false
+
     @State var goEdit: Bool = false
     @State var goCreate: Bool = false
     
@@ -39,6 +40,10 @@ struct CommentView: View {
     
     @State var commentList: [CommentData] = []
     @State var myComment: CommentData = CommentData(cardUserID: "", commenterID: "", lastUpdateDate: Date(), createDate: Date(), commentText: "", commenterNickKorean: "", commenterNickEnglish: "")
+        
+    @State var showingAlert: Bool = false
+    @State private var isDeleteFinish: Bool = false
+    @State private var alertMessage: String = ""
     
     var body: some View {
         VStack{
@@ -70,7 +75,7 @@ struct CommentView: View {
                             .foregroundColor(Color(commentTextBlackColor))
                     }
                     .navigationDestination(isPresented: $goEdit){
-                        CommentCreateView(learnerInfo: learnerInfo)
+                        CommentCreateView(learnerInfo: learnerInfo, isEdit: true, myComment: myComment)
                     }
                     
                     Spacer()
@@ -78,21 +83,11 @@ struct CommentView: View {
                         .foregroundColor(Color(dividerGrayColor))
                     Spacer()
                     Button(action: {
-                        // TODO : to 삭제 view
-                        self.showingAlert = true
+                        showingAlert = true
                     }){
                         Text("삭제하기")
                             .font(.system(size: 18, weight: .bold))
                             .foregroundColor(.red)
-                    }.alert(isPresented: $showingAlert) {
-                        Alert(
-                            title: Text("칭찬을 삭제할까요?"),
-                            message: Text("\n정말로 내가 남긴\n칭찬 메시지를 삭제할까요?"),
-                            primaryButton: .destructive(Text("Delete")) {
-                                // delete action
-                            },
-                            secondaryButton: .cancel()
-                        )
                     }
                     Spacer()
                 }.padding(.top, 10)
@@ -125,13 +120,44 @@ struct CommentView: View {
                         )
                         .padding(.top, 10)
                 }.navigationDestination(isPresented: $goCreate){
-                    CommentCreateView(learnerInfo: learnerInfo)
+                    CommentCreateView(learnerInfo: learnerInfo, isEdit: false, myComment: myComment)
                 }
             }
         }.padding(.horizontal, 39)
         .task {
-            // TODO: Data fetch from DB
             loadComments()
+        }.alert(isPresented: $showingAlert) {
+            if !isDeleteFinish {
+                return Alert(
+                    title: Text("칭찬을 삭제할까요?"),
+                    message: Text("\n정말로 내가 남긴\n칭찬 메시지를 삭제할까요?"),
+                    primaryButton: .destructive(Text("Delete")) {
+                        deleteComment()
+                    },
+                    secondaryButton: .cancel()
+                )
+            } else {
+                return Alert(title: Text(alertMessage), dismissButton: .default(Text("확인")){
+                    presentationMode.wrappedValue.dismiss()
+                    isDeleteFinish = false
+                })
+            }
+        }
+    }
+    
+    func deleteComment(){
+        let commentDocRef = db.collection("Comments").document("\(learnerInfo.id)_\(user.id)")
+        
+        commentDocRef.delete(){ err in
+            if let err = err {
+                print("리뷰 삭제 실패 : \(err)")
+                alertMessage = "리뷰 삭제에 실패했습니다.\n인터넷 연결을 확인하고 다시 시도해 주세요."
+            } else {
+                print("리뷰 삭제 성공")
+                alertMessage = "리뷰를 삭제했습니다!"
+            }
+            isDeleteFinish = true
+            showingAlert = true
         }
     }
     
