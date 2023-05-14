@@ -7,15 +7,25 @@
 
 import SwiftUI
 
+struct CommentData {
+    let cardUserID: String
+    let commenterID: String
+    let lastUpdateDate: Date
+    let createDate: Date
+    let commentText: String
+}
+
 struct CommentView: View {
+    @EnvironmentObject var user: userData
+    
     // TODO : check from db. (Was I commented)
     @State var isCommented: Bool = true
-    
     @State var showingAlert: Bool = false
-    
     @State var goEdit: Bool = false
     
-    
+    let isMine: Bool
+    let learnerInfo: UserInfo
+        
     let text: String = """
     칭찬글 블라블라 어쩌구 칭찬글 블라블라라라
     라라라 어쩌구 칭찬글 블라블라 어쩌구
@@ -24,10 +34,12 @@ struct CommentView: View {
     """
     let text2: String = "123"
     
+    @State var commentList: [CommentData] = []
+    
     var body: some View {
         NavigationStack{
             VStack{
-                Text("헤이즐, 칭찬해요!")
+                Text("\(isMine ? user.nickKorean : learnerInfo.nickKorean), 칭찬해요!")
                     .font(.system(size: 25, weight: .medium))
                     .foregroundColor(.black)
                     .padding(.bottom, 30)
@@ -99,6 +111,35 @@ struct CommentView: View {
                     )
                     .padding(.top, 10)
             }.padding(.horizontal, 39)
+        }.task {
+            // TODO: Data fetch from DB
+            loadComments()
+        }
+    }
+    
+    func loadComments(){
+        let commentColRef = db.collection("Comments")
+        
+        commentColRef.whereField("cardUserID", isEqualTo: isMine ? user.id : learnerInfo.id).getDocuments { snapshot, error in
+            if let error = error {
+                print("comment fetching error: \(error) - commentView")
+                return
+            }
+            
+            for document in snapshot!.documents {
+                let data = document.data()
+                
+                let cardUserID = data["cardUserID"] as? String ?? ""
+                let commenterID = data["commenterID"] as? String ?? ""
+                let lastUpdateDate = data["lastUpdateDate"] as? Date ?? Date()
+                let createDate = data["createDate"] as? Date ?? Date()
+                let commentText = data["commentText"] as? String ?? ""
+                
+                let comment = CommentData(cardUserID: cardUserID, commenterID: commenterID, lastUpdateDate: lastUpdateDate, createDate: createDate, commentText: commentText)
+                
+                commentList.append(comment)
+            }
+            print("commentList: \(commentList)")
         }
     }
     
@@ -131,8 +172,8 @@ struct CommentView: View {
     }
 }
 
-struct CommentView_Previews: PreviewProvider {
-    static var previews: some View {
-        CommentView().previewDevice("iPhone 14")
-    }
-}
+//struct CommentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CommentView().previewDevice("iPhone 14")
+//    }
+//}
