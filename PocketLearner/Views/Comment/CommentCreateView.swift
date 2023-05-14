@@ -63,10 +63,10 @@ struct CommentCreateView: View {
     func editComment() {
         let commentDocRef = db.collection("Comments").document("\(learnerInfo.id)_\(user.id)")
         
-        commentDocRef.setData([
+        commentDocRef.updateData([
             "lastUpdateDate": Date(),
             "commentText": commentText,
-        ], merge: true) { err in
+        ]) { err in
             if let err = err {
                 print("리뷰 수정 오류: \(err)")
                 alertMessage = "리뷰 수정 오류.\n인터넷 연결을 확인하고 다시 시도해 주세요."

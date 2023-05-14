@@ -48,7 +48,8 @@ struct CreateTimeView : View {
             db.collection("Users").document(user.id).setData([
                 "nickEnglish": nickEnglish,
                 "nickKorean": nickKorean,
-                "isSessionMorning": isMorningFlag!
+                "isSessionMorning": isMorningFlag!,
+                "cardCollectCount": 0
             ], merge: true) { err in
                 if let err = err {
                     print("Error writing document: \(err) - CreateTimeView")

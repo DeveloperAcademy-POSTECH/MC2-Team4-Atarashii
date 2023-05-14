@@ -146,6 +146,8 @@ struct MainNameCardTabView: View {
                             return Alert(title: Text("QR코드를 스캔하였으나, DB에 성공적으로 저장되지 않았습니다. 다시 시도해주세요."))
                         case .expired:
                             return Alert(title: Text("QR코드 유효기간이 만료되었습니다. 다시 시도해주세요."))
+                        case .already:
+                            return Alert(title: Text("이미 명함을 교환한 상대입니다."))
                         }
                     }
                 }
@@ -231,4 +233,5 @@ enum scanResult{
     case fail
     case dbFail
     case expired
+    case already
 }

@@ -194,31 +194,49 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
     func changeCard(counterpartID: String){
         let myID: String = user.id
         
-        // Firestore batch를 이용 - 단일 commit으로 2개의 Document 생성.
-        let batch = db.batch()
-
-        // myID = id1, counterpartID = id2 인 document 생성
-        let docRef: DocumentReference = db.collection("CardExchangeHistory").document("\(myID)_\(counterpartID)")
-        batch.setData(["id1" : myID,
-                       "id2" : counterpartID,
-                       "exchangeDate" : Timestamp(date: Date())], forDocument: docRef)
-
-        // counterpartID = id1, myID = id2 인 document 생성
-        let docRef2: DocumentReference = db.collection("CardExchangeHistory").document("\(counterpartID)_\(myID)")
-        batch.setData(["id1" : counterpartID,
-                       "id2" : myID,
-                       "exchangeDate" : Timestamp(date: Date())], forDocument: docRef2)
-
-        // 배치 쓰기 커밋
-        batch.commit { (error) in
-            if let error = error {
-                // 오류 발생 시 처리
-                print("명함 교환 실패(DB 업로드): \(error) - QRCodeScanner")
-                self.QRScanResult = .dbFail
+        let exchangeDocRef = db.collection("CardExchangeHistory").document("\(myID)_\(counterpartID)")
+        
+        exchangeDocRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                print("명함 교환 실패(이미 교환한 상대): \(error) - QRCodeScanner")
+                self.QRScanResult = .already
+                return
             } else {
-                // 성공 시 처리
-                print("명함 교환 성공! \(myID), \(counterpartID) - QRCodeScanner")
-                self.QRScanResult = .success
+                // MARK: Document 없을 때만 교환
+                
+                // Firestore batch를 이용 - 단일 commit으로 2개의 Document 생성 및 업데이트
+                let batch = db.batch()
+
+                // myID = id1, counterpartID = id2 인 document 생성
+                let docRef: DocumentReference = db.collection("CardExchangeHistory").document("\(myID)_\(counterpartID)")
+                batch.setData(["id1" : myID,
+                               "id2" : counterpartID,
+                               "exchangeDate" : Timestamp(date: Date())], forDocument: docRef)
+
+                // counterpartID = id1, myID = id2 인 document 생성
+                let docRef2: DocumentReference = db.collection("CardExchangeHistory").document("\(counterpartID)_\(myID)")
+                batch.setData(["id1" : counterpartID,
+                               "id2" : myID,
+                               "exchangeDate" : Timestamp(date: Date())], forDocument: docRef2)
+                
+                // 두 사람의 cardCollectCount 증가
+                let myUserDocRef = db.collection("Users").document("\(myID)")
+                batch.updateData(["cardCollectCount": FieldValue.increment(Int64(1))], forDocument: myUserDocRef)
+                let counterpartUserDocRef: DocumentReference = db.collection("Users").document("\(counterpartID)")
+                batch.updateData(["cardCollectCount": FieldValue.increment(Int64(1))], forDocument: counterpartUserDocRef)
+
+                // 배치 쓰기 커밋
+                batch.commit { (error) in
+                    if let error = error {
+                        // 오류 발생 시 처리
+                        print("명함 교환 실패(DB 업로드): \(error) - QRCodeScanner")
+                        self.QRScanResult = .dbFail
+                    } else {
+                        // 성공 시 처리
+                        print("명함 교환 성공! \(myID), \(counterpartID) - QRCodeScanner")
+                        self.QRScanResult = .success
+                    }
+                }
             }
         }
     }
