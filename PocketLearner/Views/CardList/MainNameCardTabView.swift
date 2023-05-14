@@ -39,6 +39,12 @@ enum cardViewCategories: String, CaseIterable {
     case likedCards = "즐겨찾기"
 }
 
+struct RankData {
+    let nickEnglish: String
+    let nickKorean: String
+    let cardCollectCount: Int
+}
+
 
 struct MainNameCardTabView: View {
     @EnvironmentObject var user: userData
@@ -57,6 +63,10 @@ struct MainNameCardTabView: View {
     @State var learnerInfos: [UserInfo] = []
     
     @State var bookmarkIDs: [String] = []
+    
+    // 랭킹 데이터 관련
+    @State var rankingData: [RankData] = []
+    @State var myRank: Int = 0
     
     var body: some View {
         NavigationStack{
@@ -90,7 +100,7 @@ struct MainNameCardTabView: View {
                     case .cardCollection:
                         // MARK: - 교환한 명함이 존재하지 않을 때는 초기화면 띄우기
                         if user.cardCollectCount != 0 {
-                            CardCollectionView(learnerInfos: $learnerInfos, bookmarkIDs: $bookmarkIDs)
+                            CardCollectionView(learnerInfos: $learnerInfos, bookmarkIDs: $bookmarkIDs, isBookmarkSection: false, rankingData: $rankingData, myRank: $myRank)
                                 .frame(height: 636)
                         } else {
                             InitialCardNameView(cardViewSelection: $cardViewSelection)
@@ -98,14 +108,13 @@ struct MainNameCardTabView: View {
                         }
                     case .likedCards:
                         // MARK: - 즐겨찾기 한 명함이 존재하지 않을 때는 초기화면 띄우기
-                        /// TODO: 파라미터로 즐겨찾기 데이터 넘겨주도록 수정
-                        //                    if !user.id.isLiked == 0 {
-                        //                        CardCollectionView()
-                        //                        .frame(height: 636)
-                        //                    } else {
-                        InitialCardNameView(cardViewSelection: $cardViewSelection)
+                        if bookmarkIDs.count != 0 {
+                            CardCollectionView(learnerInfos: $learnerInfos, bookmarkIDs: $bookmarkIDs, isBookmarkSection: true, rankingData: $rankingData, myRank: $myRank)
                             .frame(height: 636)
-                        //                    }
+                        } else {
+                            InitialCardNameView(cardViewSelection: $cardViewSelection)
+                                .frame(height: 636)
+                        }
                     default:
                         MyCardView(isQRCodePresented: $isQRCodePresented)
                     }
@@ -156,6 +165,7 @@ struct MainNameCardTabView: View {
             }
         }.task {
             loadExchangeUsers()
+            loadUserRanking()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 loadCollectedCards()
                 loadBookmarkUsers()
@@ -163,7 +173,37 @@ struct MainNameCardTabView: View {
         }
     }
     
+    func loadUserRanking() {
+        let userColRef = db.collection("Users")
+        
+        userColRef.whereField("cardCollectCount", isGreaterThan: 0).order(by: "cardCollectCount").order(by: "nickKorean")
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("순위 정보 로딩 실패: \(err)")
+                } else {
+                    var index = 0
+                    for document in querySnapshot!.documents {
+                        index += 1
+                        let data = document.data()
+                        
+                        let id = data ["id"] as? String ?? ""
+                        let nickEnglish = data["nickEnglish"] as? String ?? ""
+                        let nickKorean = data["nickKorean"] as? String ?? ""
+                        let cardCollectCount = data["cardCollectCount"] as? Int ?? 0
+                        
+                        rankingData.append(RankData(nickEnglish: nickEnglish, nickKorean: nickKorean, cardCollectCount: cardCollectCount))
+                        
+                        if id == user.id {
+                            myRank = index
+                        }
+                    }
+                    print(rankingData)
+                }
+            }
+    }
+    
     func loadExchangeUsers() {
+        learnerIDs.removeAll()
         // MARK: 모든 교환 상대 id Fetching
         let exchangeHistoryRef = db.collection("CardExchangeHistory")
         
@@ -184,6 +224,7 @@ struct MainNameCardTabView: View {
     }
     
     func loadBookmarkUsers() {
+        bookmarkIDs.removeAll()
         // MARK: 모든 즐겨찾기 상대 id Fetching
         let bookmarkRef = db.collection("Bookmark")
         
@@ -204,6 +245,7 @@ struct MainNameCardTabView: View {
     }
     
     func loadCollectedCards() {
+        learnerInfos.removeAll()
         // TODO: 이거 싹 불러오는 식으로 되어있음. 나중에 Paging 필요.
         let cardDetail = db.collection("CardDetails")
         

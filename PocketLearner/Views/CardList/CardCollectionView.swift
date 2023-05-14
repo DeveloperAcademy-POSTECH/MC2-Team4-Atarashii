@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-struct RankData {
-    let nickEnglish: String
-    let nickKorean: String
-    let cardCollectCount: Int
-}
 
 struct CardCollectionView: View {
     @EnvironmentObject var user: userData
@@ -29,10 +24,13 @@ struct CardCollectionView: View {
     // MARK: - 타 러너의 유저 정보
     @Binding var learnerInfos: [UserInfo]
     
+    // 즐겨찾기 관련
     @Binding var bookmarkIDs: [String]
+    let isBookmarkSection: Bool
     
-    @State var rankingData: [RankData] = []
-    @State var myRank: Int = 0
+    // 랭킹 데이터 관련
+    @Binding var rankingData: [RankData]
+    @Binding var myRank: Int
 
     // MARK: - 슬라이드/갤러리 뷰 모드 카테고리
     enum CardViewMode: String, CaseIterable {
@@ -81,16 +79,20 @@ struct CardCollectionView: View {
                 /// TODO: 카드 넘겨지는 애니메이션 구현
                 case .slidingMode:
                     ForEach(learnerInfos.indices, id:\.self) { index in
-                        CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, learnerInfo: learnerInfos[index], bookmarkIDs: $bookmarkIDs)
-                            .padding(.bottom, 34)
+                        if !isBookmarkSection || bookmarkIDs.contains(learnerInfos[index].id){
+                            CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, learnerInfo: learnerInfos[index], bookmarkIDs: $bookmarkIDs)
+                                .padding(.bottom, 34)
+                        }
                     }
                     
                 // 갤러리 뷰로 카드 리스트 그리기
                 case .galleryMode:
                     LazyVGrid(columns: columns) {
                         ForEach(learnerInfos.indices, id: \.self) { index in
-                            CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, learnerInfo: learnerInfos[index], bookmarkIDs: $bookmarkIDs)
-                                .scaleEffect(0.5)
+                            if !isBookmarkSection || bookmarkIDs.contains(learnerInfos[index].id){
+                                CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, learnerInfo: learnerInfos[index], bookmarkIDs: $bookmarkIDs)
+                                    .scaleEffect(0.5)
+                            }
                         }
                     }
                 }
@@ -99,39 +101,9 @@ struct CardCollectionView: View {
                 
             }
             .scrollIndicators(.hidden)
-        }.task {
-            loadUserRanking()
         }
     }
     
-    func loadUserRanking() {
-        let userColRef = db.collection("Users")
-        
-        userColRef.whereField("cardCollectCount", isGreaterThan: 0).order(by: "cardCollectCount").order(by: "nickKorean")
-            .getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("순위 정보 로딩 실패: \(err)")
-                } else {
-                    var index = 0
-                    for document in querySnapshot!.documents {
-                        index += 1
-                        let data = document.data()
-                        
-                        let id = data ["id"] as? String ?? ""
-                        let nickEnglish = data["nickEnglish"] as? String ?? ""
-                        let nickKorean = data["nickKorean"] as? String ?? ""
-                        let cardCollectCount = data["cardCollectCount"] as? Int ?? 0
-                        
-                        rankingData.append(RankData(nickEnglish: nickEnglish, nickKorean: nickKorean, cardCollectCount: cardCollectCount))
-                        
-                        if id == user.id {
-                            myRank = index
-                        }
-                    }
-                    print(rankingData)
-                }
-            }
-    }
     
     // MARK: - 수집력 랭킹 배너 컴포넌트 (Method)
     func collectionRankingBanner() -> some View {

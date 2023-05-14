@@ -244,6 +244,10 @@ struct CardFront: View {
                 print("즐겨찾기 삭제 성공!")
             }
         }
+        
+        if let index = bookmarkIDs.firstIndex(of: learnerInfo.id){
+            bookmarkIDs.remove(at: index)
+        }
     }
     
     func createBookmark() {
