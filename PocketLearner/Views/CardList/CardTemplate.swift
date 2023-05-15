@@ -240,7 +240,7 @@ struct CardFront: View {
             /// TODO: 컬러 extension 추가 후 적용
             .background(cardColorList[isMine ? card.cardColor : learnerInfo.cardColor])
             .cornerRadius(32)
-            .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
+//            .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
             
             
             // MARK: 명함 패턴
@@ -284,6 +284,7 @@ struct CardFront: View {
             print("IMAGE CHANGED")
             getPhotos()
         }
+        .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
     }
     
     func deleteBookmark() {
