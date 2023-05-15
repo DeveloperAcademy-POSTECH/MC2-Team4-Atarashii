@@ -11,7 +11,7 @@ struct TeamCommingSoonView: View {
     let deepOrange = Color(#colorLiteral(red: 1, green: 0.3725490196, blue: 0.1411764706, alpha: 1))
     var body: some View {
         ZStack(alignment: .top) {
-            Image("kangaroo_body")
+            Image("commingSoonKangaroo")
                     .offset(y: -120)
                 ZStack(alignment: .leading){ // 카드 뷰
                     RoundedRectangle(cornerRadius: 32)
