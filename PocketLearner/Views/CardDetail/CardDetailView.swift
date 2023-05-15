@@ -71,7 +71,6 @@ struct CardDetailView: View{
                     
                 VStack {
                     Group {
-                        backHeader()
                         Spacer().frame(height: 70)
                         VStack{
                             Text("\(isMine ? user.nickEnglish:userInfo.nickEnglish)")
@@ -307,19 +306,6 @@ struct CardDetailView: View{
         }).buttonStyle(buttonStyleNotOpacityChange())
     }
     
-    /// header with "only" back button
-    func backHeader() -> some View {
-        return HStack{
-            Button(action: {
-                dismiss()
-            }, label: {
-                Image(systemName: "chevron.left")
-                    .font(.system(size: 20, weight: .semibold))
-                    .foregroundColor(.black)
-            }).padding(.leading, 20)
-            Spacer()
-        }.padding(.top, 50)
-    }
     
     /// profile Image(Memoji) with Circle
     /// 190 x 190 pixel.
