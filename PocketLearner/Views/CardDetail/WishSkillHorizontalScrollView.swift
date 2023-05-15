@@ -11,6 +11,9 @@ struct WishSkillSetHorizontalScrollView: View {
     let skills: [String]
 //    @Binding var skillsCount: [Int]
     
+    let defaultSkillLogoTitles: [String] = ["Adobe CC", "Figma", "Firebase", "RxSwift", "Sketch", "Swift", "SwiftUI", "UIKit"]
+    let randomSkillImageTitles: [String] = ["randomLogo_0", "randomLogo_1", "randomLogo_2", "randomLogo_3"]
+    
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false){
             HStack{
@@ -30,16 +33,29 @@ struct WishSkillSetHorizontalScrollView: View {
                 .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
             VStack{
                 Spacer().frame(height: 20)
-                Image("communicationTypeCardKangaroo")
-                    .resizable()
-                    .frame(width: 60, height: 60)
-                    .offset(y: 3)
-                    .padding(30)
-                    .background(Color.white)
-                    .clipShape(Circle())
-                    .overlay(Circle()
-                        .stroke(Color.white))
-                    .shadow(radius: 2)
+                if defaultSkillLogoTitles.contains(skillName){
+                    Image("\(skillName)")
+                        .resizable()
+                        .frame(width: 60, height: 60)
+                        .offset(y: 3)
+                        .padding(30)
+                        .background(Color.white)
+                        .clipShape(Circle())
+                        .overlay(Circle()
+                            .stroke(Color.white))
+                        .shadow(radius: 2)
+                } else {
+                    Image("\(randomSkillImageTitles.randomElement()!)")
+                        .resizable()
+                        .frame(width: 60, height: 60)
+                        .offset(y: 3)
+                        .padding(30)
+                        .background(Color.white)
+                        .clipShape(Circle())
+                        .overlay(Circle()
+                            .stroke(Color.white))
+                        .shadow(radius: 2)
+                }
                 Text("\(skillName)")
                     .font(.system(size: 14.5, weight: .bold))
                     .foregroundColor(.black)

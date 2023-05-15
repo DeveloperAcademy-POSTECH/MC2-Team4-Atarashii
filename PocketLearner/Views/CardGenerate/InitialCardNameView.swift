@@ -43,7 +43,7 @@ struct InitialCardNameView: View {
                             }
                             .background(
                                 RoundedRectangle(cornerRadius: 18.16)
-                                    .fill(Color(softPink))
+                                    .fill(mainAccentColor)
                                     .frame(width: 168.41, height: 39)
                                 
                             )
