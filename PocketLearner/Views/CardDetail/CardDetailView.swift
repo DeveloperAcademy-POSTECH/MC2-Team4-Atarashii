@@ -60,9 +60,15 @@ struct CardDetailView: View{
             // (when user scroll to top, still can see the purple rectangle)
             ZStack (alignment: .top){
                 RoundedRectangle(cornerRadius: 30, style: .continuous)
-                    .fill(purpleColor2)
+                    .fill(isMine ? cardColorList[card.cardColor]: cardColorList[userInfo.cardColor])
                     .frame(height: 800)
                     .offset(y: -386)
+                Image(isMine ? cardPatternList[card.cardPattern]: cardPatternList[userInfo.cardPattern])
+                    .resizable()
+                    .frame(height: 800)
+                    .offset(y: -386)
+                    
+                    
                 VStack {
                     Group {
                         backHeader()
@@ -89,7 +95,7 @@ struct CardDetailView: View{
                     }
                     if isHardSkillSet{
                         HStack(spacing: 30) {
-                            Image("communicationTypeCardKangaroo")
+                            Image("mySkillKang")
                                 .frame(width: 77,height: 95)
                             textMultipleColor_CanSkillSet(text1: "현재 이런 ", text2: "스킬셋", text3: "을", text4: "활용할 수 있어요!")
                         }
@@ -98,16 +104,16 @@ struct CardDetailView: View{
                             .padding(.top,-20)
                         grayBackgroundIntroduceTextBox(introduceText: introduceText)
                         HStack(spacing: 30) {
-                            Image("communicationTypeCardKangaroo")
+                            Image("WishSkillKang")
                                 .frame(width: 77,height: 95)
                             textMultipleColor_CanSkillSet(text1: "앞으로 이런 ", text2: "스킬셋", text3: "을", text4: "키우고 싶어요!")
                         }
                         .padding()
-                        SkillSetHorizontalScrollView()
+                        WishSkillSetHorizontalScrollView()
                             .padding(.top,-20)
                         grayBackgroundIntroduceTextBox(introduceText: introduceText2)
                         HStack(spacing: 30) {
-                            Image("communicationTypeCardKangaroo")
+                            Image("MyGoalKang")
                                 .frame(width: 77,height: 95)
                             textMultipleColor_CanSkillSet(text1: "아카 ", text2: "데미", text3: "에서의", text4: "성장 목표!")
                         }
@@ -164,7 +170,7 @@ struct CardDetailView: View{
                     }
                 }
                 VStack{
-                    profileCircle()
+                    profileCircle(isMorning: isMine ? user.isSessionMorning: userInfo.isSessionMorning)
                         .padding(.top, 300)
                 }
             }
@@ -317,7 +323,7 @@ struct CardDetailView: View{
     
     /// profile Image(Memoji) with Circle
     /// 190 x 190 pixel.
-    func profileCircle() -> some View{
+    func profileCircle(isMorning: Bool) -> some View{
         ZStack {
             Image("dummypikachu")
                 .resizable()
@@ -331,7 +337,7 @@ struct CardDetailView: View{
                     Circle().stroke(mainOrengeColor, lineWidth: 3.84)
                 )
             
-            Text(userInfo.isSessionMorning ? "🌞 오전":"🌝 오후")
+            Text(isMorning ? "🌞 오전":"🌝 오후")
                 .frame(maxWidth: 69,maxHeight: 28)
                 .background(
                     RoundedRectangle(cornerRadius: 22)

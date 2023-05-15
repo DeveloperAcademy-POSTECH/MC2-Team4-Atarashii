@@ -282,7 +282,7 @@ struct CardFront: View {
             isDetailShow = true
         }
         .fullScreenCover(isPresented: $isDetailShow, content: {
-            CardDetailView(isMine: $isDetailShow, userInfo: learnerInfo)
+            CardDetailView(isMine: $isMine, userInfo: learnerInfo)
         })
         .onAppear {
             getPhotos()
