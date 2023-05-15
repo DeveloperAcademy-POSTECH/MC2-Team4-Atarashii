@@ -140,9 +140,9 @@ struct CardFront: View {
                                     Label("명함 내용 수정", systemImage: "pencil")
                                 }
                             } label: {
-                                Image(systemName: "ellipsis")
+                                Image(systemName: "gearshape.fill")
                                     .foregroundColor(.black)
-                                    .font(.system(size: 20))
+                                    .font(.system(size: 30))
                                     .padding(10)
                             }
                         } else {
@@ -191,6 +191,7 @@ struct CardFront: View {
                 }
                 .padding(22)
                 
+                
                 Spacer()
                 
                 HStack {
@@ -221,6 +222,7 @@ struct CardFront: View {
                     Spacer()
                 }
                 .padding(22)
+                
                 
             }
             .frame(height: 490)
@@ -262,13 +264,13 @@ struct CardFront: View {
                 .padding(22)
             }
             .frame(height: 490)
-        }
-        .onTapGesture {
+        }.onTapGesture(count: 2) {
             isDetailShow = true
         }
-        .fullScreenCover(isPresented: $isDetailShow, content: {
+        .navigationDestination(isPresented: $isDetailShow){
             CardDetailView(isMine: $isMine, userInfo: learnerInfo)
-        })
+        }
+        
         .onAppear {
             getPhotos()
         }
