@@ -16,52 +16,48 @@ struct WishSkillSetHorizontalScrollView: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false){
-            HStack{
+            HStack(spacing: 17){
                 ForEach(skills.indices, id: \.self) { index in
                     skillCard(skillName: skills[index])
                         .padding(.leading, index == 0 ? 20 : 0)
                 }
-            }
+            }.frame(height: 180)
         }
     }
     
     func skillCard(skillName: String) -> some View {
         return ZStack{
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
+            RoundedRectangle(cornerRadius: 13, style: .continuous)
                 .fill(Color.white)
-                .frame(width: 200, height: 250)
-                .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
+                .frame(width: 120, height: 150)
+                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
             VStack{
-                Spacer().frame(height: 20)
                 if defaultSkillLogoTitles.contains(skillName){
                     Image("\(skillName)")
                         .resizable()
-                        .frame(width: 60, height: 60)
-                        .offset(y: 3)
-                        .padding(30)
+                        .frame(width: 80, height: 80)
                         .background(Color.white)
                         .clipShape(Circle())
                         .overlay(Circle()
-                            .stroke(Color.white))
-                        .shadow(radius: 2)
+                            .stroke(Color.white)
+                            .frame(width: 80, height: 80)
+                            .shadow(radius: 2))
                 } else {
                     Image("\(randomSkillImageTitles.randomElement()!)")
                         .resizable()
-                        .frame(width: 60, height: 60)
-                        .offset(y: 3)
-                        .padding(30)
+                        .frame(width: 80, height: 80)
                         .background(Color.white)
                         .clipShape(Circle())
                         .overlay(Circle()
-                            .stroke(Color.white))
-                        .shadow(radius: 2)
+                            .stroke(Color.white)
+                            .frame(width: 80, height: 80)
+                            .shadow(radius: 2))
                 }
                 Text("\(skillName)")
                     .font(.system(size: 14.5, weight: .bold))
                     .foregroundColor(.black)
-                    .padding(.vertical, 3)
-            }.frame(width: 220, height: 370)
-        }
+            }
+        }.frame(width: 120,height: 150)
     }
 }
 
