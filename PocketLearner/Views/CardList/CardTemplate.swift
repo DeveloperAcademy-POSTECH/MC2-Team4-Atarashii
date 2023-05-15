@@ -358,35 +358,32 @@ struct CardFront: View {
             }
         } else {
             // Get the data from the database
-            let docRef = Firestore.firestore().collection("CardDetails").document(learnerInfo.id)
+//            let docRef = Firestore.firestore().collection("CardDetails").document(learnerInfo.id)
             
-            docRef.getDocument { (document, error) in
-                if let document = document, document.exists {
-                    let imagePath = document.get("memoji")
-                    print("CARDFRONT_IMAGEPATH: ", imagePath ?? "")
-                    
-                    // Get a reference to storage
-                    let storageRef = Storage.storage().reference()
-                    
-                    // Specify the path
-                    let fileRef = storageRef.child(imagePath as! String)
-                    
-                    // Retrieve the data
-                    fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-                        // Check for errors
-                        if error == nil && data != nil {
-                            // Create a UIImage and put it into display
-                            if let image = UIImage(data: data!) {
-                                DispatchQueue.main.async {
-                                    retrievedImage = image
-                                }
-                            }
+
+            let imagePath = learnerInfo.memoji
+            print("CARDFRONT_IMAGEPATH: ", imagePath ?? "")
+            
+            // Get a reference to storage
+            let storageRef = Storage.storage().reference()
+            
+            // Specify the path
+            let fileRef = storageRef.child(imagePath as! String)
+            
+            // Retrieve the data
+            fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+                // Check for errors
+                if error == nil && data != nil {
+                    // Create a UIImage and put it into display
+                    if let image = UIImage(data: data!) {
+                        DispatchQueue.main.async {
+                            retrievedImage = image
                         }
                     }
-                } else {
-                    print("Document does not exist")
                 }
             }
+
+            
         }
     }
 }
