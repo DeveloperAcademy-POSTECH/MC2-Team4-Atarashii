@@ -71,7 +71,7 @@ struct CardDetailView: View{
                     
                 VStack {
                     Group {
-                        Spacer().frame(height: 70)
+                        Spacer().frame(height: 150)
                         VStack{
                             Text("\(isMine ? user.nickEnglish:userInfo.nickEnglish)")
                                 .font(.system(size: 40, weight: .bold))
