@@ -42,6 +42,8 @@ struct EditCardInfoView: View {
                 
                 DetailEditCollaborationView()
             }
+            .padding(.horizontal, 20)
+            .scrollIndicators(.hidden)
             .onAppear {
                     retrievePhotos()
             }
@@ -52,8 +54,9 @@ struct EditCardInfoView: View {
             } label: {
                 Text("저장")
             }
-            
         }
+        .navigationTitle("명함 내용 수정")
+        .navigationBarTitleDisplayMode(.inline)
     }
     
 
@@ -211,7 +214,7 @@ struct ProfilePictureView: View {
                         Circle()
                             .stroke(Color.white, lineWidth: 2)
                     )
-                    .shadow(radius: 0.3)
+                    .shadow(color: Color.black.opacity(0.2), radius: 4)
             } else {
                 /// card.memoji != " ": 프로필 이미지가 아예 없을 시나리오 대응
                 if card.memoji != "" {
@@ -275,12 +278,13 @@ struct DetailEditProfileView: View {
     var body: some View {
         VStack {
             ProfilePictureView(selectedImage: $selectedImage, retrievedImage: $retrievedImage)
-                .padding()
+                .padding(.top, 15)
+                .padding(.bottom, 55)
             
             letterLimitTextField(placeholder: "안녕하세요! 겉바속촉 디발자 리앤입니다!", commentText: $discriptionText, letterLimit: 50)
                 .frame(maxWidth: .infinity)
                 .frame(height: 100)
-                .padding()
+                .padding(.bottom, 45)
                 .onAppear() {
                     discriptionText = card.introduce
                 }
@@ -307,22 +311,22 @@ struct DetailEditSkillView: View {
                 .bold()
                 .font(.system(size: 24))
                 .frame(maxWidth: .infinity,alignment: .leading)
-                .padding()
+                .padding(.bottom, 20)
             
             Text("나의 현재 스킬셋")
                 .bold()
                 .font(.system(size: 18))
                 .frame(maxWidth: .infinity,alignment: .leading)
-                .padding()
+                .padding(.bottom, 12)
             
             ScrollView(.horizontal, showsIndicators: true) {
                 HStack{
                     ForEach(card.skills, id: \.self){ item in
                         skillIconView(text: item)
                             .frame(minHeight: 35)
-                            .padding(.leading)
                     }
                 }
+                .padding(.leading, 2)
             }
             
             HStack {
@@ -345,17 +349,16 @@ struct DetailEditSkillView: View {
                 .frame(maxWidth: .infinity,alignment: .leading)
                 .bold()
                 .font(.system(size: 13))
-                .padding(.bottom,-15)
-                .padding(.leading)
+                .padding(.bottom, 5)
             letterLimitTextField(placeholder: "내가 가지고 있는 스킬셋에 대해 자세하게 서술해주세요!", commentText: $mySkillText, letterLimit: 100)
                 .frame(maxWidth: .infinity,minHeight: 160)
-                .padding()
                 .onAppear() {
                     mySkillText = card.introduceSkill
                 }
                 .onChange(of: mySkillText, perform: { newValue in
                     card.introduceSkill = mySkillText
                 })
+                .padding(.bottom, 30)
         }
         
         VStack {
@@ -363,17 +366,17 @@ struct DetailEditSkillView: View {
                 .bold()
                 .font(.system(size: 18))
                 .frame(maxWidth: .infinity,alignment: .leading)
-                .padding()
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(card.wishSkills, id: \.self){ item in
                         skillIconView(text: item)
                             .frame(minHeight: 35)
-                            .padding(.leading)
                     }
                 }
+                .padding(.leading, 2)
             }
+            .scrollIndicators(.hidden)
             
             HStack {
                 Spacer()
@@ -402,11 +405,9 @@ struct DetailEditSkillView: View {
                 .frame(maxWidth: .infinity,alignment: .leading)
                 .bold()
                 .font(.system(size: 13))
-                .padding(.bottom,-15)
-                .padding(.leading)
+                .padding(.bottom, 5)
             
             letterLimitTextField(placeholder: "내가 키우고 싶은 스킬셋에 대해 자세하게 서술해주세요!", commentText: $myFutureSkillText, letterLimit: 100)
-                .padding()
                 .frame(maxWidth: .infinity, minHeight: 160)
                 .onAppear() {
                     myFutureSkillText = card.wishSkillIntroduce
@@ -414,6 +415,7 @@ struct DetailEditSkillView: View {
                 .onChange(of: myFutureSkillText, perform: { newValue in
                     card.wishSkillIntroduce = myFutureSkillText
                 })
+                .padding(.bottom, 45)
         }
         
         
@@ -436,23 +438,24 @@ struct DetailEditSkillView: View {
         HStack {
             Text(text)
                 .font(.system(size: 15))
-                .padding(.leading,20)
+                .padding(.vertical, 5)
+                .padding(.horizontal, 12)
 //                .frame(minWidth: 107,minHeight: 30,alignment: .leading)
             
-            Button  {
-                //                arr = removeElements(withValue: text, from: arr)
-            } label: {
-                Image(systemName: "x.circle.fill")
-                    .foregroundColor(hexStringToColor(hexString: "#979797"))
-            }
+//            Button  {
+//            arr = removeElements(withValue: text, from: arr)
+//            } label: {
+//                Image(systemName: "x.circle.fill")
+//                    .foregroundColor(hexStringToColor(hexString: "#979797"))
+//            }
 //            .padding(.trailing,40)
-            .frame(minWidth: 14,minHeight: 14)
+            .frame(minWidth: 14, minHeight: 14)
         }
-        .frame(minWidth: 107,minHeight: 30)
+        .frame(minHeight: 25)
         .background {
             RoundedRectangle(cornerRadius: 35)
                 .foregroundColor(.white)
-                .shadow(radius: 3)
+                .shadow(color: Color.black.opacity(0.2), radius: 2)
         }
         
     }
@@ -468,7 +471,8 @@ struct DetailEditMyGoal: View {
         // myGoal -
         HStack {
             Text("아카데미에서의 성장목표")
-            
+                .fontWeight(.medium)
+            Spacer()
             Menu(content: {
                 Button("PM", action: handlePmSet)
                 Button("iOS 개발자", action: handleIosSet)
@@ -485,6 +489,7 @@ struct DetailEditMyGoal: View {
             
             
         }
+        .padding(.bottom, 50)
         .sheet(isPresented: $isSheet) {
             RoleGoalInputSheetView(sendInputText: $myGoal)
         }
@@ -545,19 +550,18 @@ struct DetailEditCollaborationView: View {
     var body: some View {
         VStack {
             Text("협업 관련 👥")
-                .padding()
                 .foregroundColor(hexStringToColor(hexString: "#979797"))
                 .bold()
                 .font(.system(size: 24))
+                .padding(.bottom, 15)
                 .frame(maxWidth: .infinity,alignment: .leading)
             
             HStack {
                 Text("나의 협업 유형은")
-                    .padding()
                     .bold()
                     .font(.system(size: 18))
                     .frame(minWidth: 130,alignment: .leading)
-                
+                Spacer()
                 Menu(content: {
                     Button("Driver", action: handleDriverSet)
                     Button("Analytical", action: handleAnalyticalSet)
@@ -585,10 +589,8 @@ struct DetailEditCollaborationView: View {
                     }
                 }
                 
-                Spacer()
-                
-                
             }
+            .padding(.bottom, -10)
             
             HStack {
                 Text("나의 협업 키워드")
@@ -596,17 +598,15 @@ struct DetailEditCollaborationView: View {
                     .bold()
                     .font(.system(size: 18))
                     .frame(minWidth: 150,alignment: .leading)
-                    .padding()
-                
+                Spacer()
                 Text("(3개 선택)")
                     .foregroundColor(hexStringToColor(hexString: "#979797"))
-                    .padding()
                     .padding(.leading,-50)
                 Spacer()
                 Button {
                     handleCollaborationBtnTapped()
                 } label: {
-                    VStack(){
+                    VStack(alignment: .trailing){
                         Text("\(collaboraionDatas[collaboraionIndexArr[0]].buttonTitle)")
                             .font(.system(size: 15))
                             .foregroundColor(hexStringToColor(hexString: "#979797"))
