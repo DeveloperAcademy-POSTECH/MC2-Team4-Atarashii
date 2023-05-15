@@ -163,6 +163,8 @@ struct CommentView: View {
     func loadComments(){
         let commentColRef = db.collection("Comments")
         
+        commentList.removeAll()
+        
         commentColRef.whereField("cardUserID", isEqualTo: isMine ? user.id : learnerInfo.id).getDocuments { snapshot, error in
             if let error = error {
                 print("comment fetching error: \(error) - commentView")

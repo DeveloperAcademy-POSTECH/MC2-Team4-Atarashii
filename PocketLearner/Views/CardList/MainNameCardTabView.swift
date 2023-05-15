@@ -79,7 +79,6 @@ struct MainNameCardTabView: View {
                 VStack {
                     // MARK: - 상단 Segmented Control
                     if !isQRCodePresented{
-                        
                         CustomSegmentedControlButton()
                             .padding(.top, 30)
                     }
@@ -169,6 +168,13 @@ struct MainNameCardTabView: View {
                 }
             }
         }.task {
+            loadExchangeUsers()
+            loadUserRanking()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                loadCollectedCards()
+                loadBookmarkUsers()
+            }
+        }.onChange(of: self.alertPresented) { newValue in
             loadExchangeUsers()
             loadUserRanking()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
