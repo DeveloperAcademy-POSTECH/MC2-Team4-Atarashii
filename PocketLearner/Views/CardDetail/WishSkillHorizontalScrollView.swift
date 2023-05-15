@@ -8,11 +8,14 @@ import SwiftUI
 
 struct WishSkillSetHorizontalScrollView: View {
     
+    let skills: [String]
+//    @Binding var skillsCount: [Int]
+    
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false){
             HStack{
-                ForEach(Array(["Figma", "GitHub", "SwiftUI", "Combine", "RxSwift"].enumerated()), id: \.element) { (index, skillName) in
-                    skillCard(skillName: skillName)
+                ForEach(skills.indices, id: \.self) { index in
+                    skillCard(skillName: skills[index])
                         .padding(.leading, index == 0 ? 20 : 0)
                 }
             }
@@ -38,7 +41,7 @@ struct WishSkillSetHorizontalScrollView: View {
                         .stroke(Color.white))
                     .shadow(radius: 2)
                 Text("\(skillName)")
-                    .font(.system(size: 20, weight: .bold))
+                    .font(.system(size: 14.5, weight: .bold))
                     .foregroundColor(.black)
                     .padding(.vertical, 3)
             }.frame(width: 220, height: 370)
@@ -46,9 +49,9 @@ struct WishSkillSetHorizontalScrollView: View {
     }
 }
 
-struct WishSkillSetHorizontalScrollView_Previews: PreviewProvider {
-    static var previews: some View {
-        WishSkillSetHorizontalScrollView()
-    }
-}
+//struct WishSkillSetHorizontalScrollView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        WishSkillSetHorizontalScrollView()
+//    }
+//}
 

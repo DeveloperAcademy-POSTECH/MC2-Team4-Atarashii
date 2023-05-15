@@ -9,18 +9,21 @@ import SwiftUI
 
 struct SkillSetHorizontalScrollView: View {
     
+    let skills: [String]
+    let skillCounts: [Int]
+    
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false){
             HStack{
-                ForEach(Array(["Figma", "GitHub", "SwiftUI", "Combine", "RxSwift"].enumerated()), id: \.element) { (index, skillName) in
-                    skillCard(skillName: skillName)
+                ForEach(skills.indices, id: \.self) { index in
+                    skillCard(skillName: skills[index],skillCount: skillCounts[index])
                         .padding(.leading, index == 0 ? 20 : 0)
                 }
             }
         }
     }
     
-    func skillCard(skillName: String) -> some View {
+    func skillCard(skillName: String, skillCount: Int) -> some View {
         return ZStack{
             RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .fill(Color.white)
@@ -50,11 +53,11 @@ struct SkillSetHorizontalScrollView: View {
                                 .stroke(radiusGrayColor, lineWidth: 1)
                         )
                     RoundedRectangle(cornerRadius: 200, style: .continuous)
-                        .fill(hexStringToColor(hexString: "#FF7E7E"))
-                        .frame(width: 160*0.7, height: 22)
-                    Text("70%")
+                        .fill(cardColorList.randomElement()!)
+                        .frame(width: 160 * CGFloat(skillCount) * 0.01, height: 22)
+                    Text("\(String(skillCount)) %")
                         .font(.system(size: 13, weight: .bold))
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .offset(x: 150*0.7 - 30)
                 }
                 Text("활용이 익숙하고, 팀원들에게\n지식 공유를 할 수 있어요.")
@@ -68,8 +71,8 @@ struct SkillSetHorizontalScrollView: View {
     }
 }
 
-struct SkillSetHorizontalScrollView_Previews: PreviewProvider {
-    static var previews: some View {
-        SkillSetHorizontalScrollView()
-    }
-}
+//struct SkillSetHorizontalScrollView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SkillSetHorizontalScrollView()
+//    }
+//}

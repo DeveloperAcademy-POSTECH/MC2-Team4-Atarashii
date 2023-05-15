@@ -100,7 +100,7 @@ struct CardDetailView: View{
                             textMultipleColor_CanSkillSet(text1: "현재 이런 ", text2: "스킬셋", text3: "을", text4: "활용할 수 있어요!")
                         }
                         .padding(.top, -20)
-                        SkillSetHorizontalScrollView()
+                        SkillSetHorizontalScrollView(skills: isMine ? card.skills: userInfo.skills, skillCounts: isMine ? card.skillLevel: userInfo.skillLevel)
                             .padding(.top,-20)
                         grayBackgroundIntroduceTextBox(introduceText: introduceText)
                         HStack(spacing: 30) {
@@ -109,7 +109,7 @@ struct CardDetailView: View{
                             textMultipleColor_CanSkillSet(text1: "앞으로 이런 ", text2: "스킬셋", text3: "을", text4: "키우고 싶어요!")
                         }
                         .padding()
-                        WishSkillSetHorizontalScrollView()
+                        WishSkillSetHorizontalScrollView(skills: isMine ? card.wishSkills:userInfo.wishSkills)
                             .padding(.top,-20)
                         grayBackgroundIntroduceTextBox(introduceText: introduceText2)
                         HStack(spacing: 30) {
