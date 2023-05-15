@@ -392,61 +392,62 @@ struct CardBack: View {
     let learnerInfo: UserInfo
     
     var body: some View {
-        VStack(alignment: .center, spacing: 10) {
-            HStack {
-                Spacer()
-            }
-            
-            HStack {
-                // MARK: - "(닉네임), 칭찬해요!" 문구
-                Text("\(isMine ? user.nickKorean : learnerInfo.nickKorean), \n칭찬해요!")
-                    .font(.system(size: 34))
-                    .fontWeight(.bold)
-                    .padding(.top, 80)
-                Spacer()
-            }
-            .padding(.horizontal, 22)
-            
-            Spacer()
-                .frame(height: 60)
-            
-            // MARK: - 칭찬 리뷰로 이동
-            NavigationLink {
-                CommentView(isMine: isMine, learnerInfo: learnerInfo).navigationTitle("칭찬 리뷰")
-            } label: {
-                HStack(alignment: .center) {
-                    Text("\(isMine ? user.nickKorean : learnerInfo.nickKorean)이(가) 받은 칭찬 보러가기")
-                        .padding(.trailing, -2)
-                    Image(systemName: "chevron.right")
+        ZStack {
+            VStack(alignment: .center, spacing: 10) {
+                HStack {
+                    Spacer()
                 }
-                .padding(.vertical, 10)
-                .padding(.horizontal, 13)
-                .background(.white)
-                .cornerRadius(30)
-                .font(.system(size: 14))
-                .foregroundColor(.black)
-                .fontWeight(.bold)
+                
+                HStack {
+                    // MARK: - "(닉네임), 칭찬해요!" 문구
+                    Text("\(isMine ? user.nickKorean : learnerInfo.nickKorean), \n칭찬해요!")
+                        .font(.system(size: 34))
+                        .fontWeight(.bold)
+                        .padding(.top, 80)
+                    Spacer()
+                }
+                .padding(.horizontal, 22)
+                
+                Spacer()
+            }
+            .frame(height: 490)
+            /// TODO: 컬러 extension 추가 후 적용
+            .background(cardColorList[isMine ? card.cardColor : learnerInfo.cardColor])
+            .overlay {
+                Image("cardBack")
+                    .blendMode(.overlay)
+                    .opacity(0.7)
+            }
+            .cornerRadius(32)
+            .overlay {
+                RoundedRectangle(cornerRadius: 32)
+                    .stroke(cardColorList[isMine ? card.cardColor : learnerInfo.cardColor], lineWidth: 3)
             }
             
-            Spacer()
-                .frame(height: 60)
+            VStack {
+                Spacer()
+                    .frame(height: 150)
+                
+                // MARK: - 칭찬 리뷰로 이동
+                NavigationLink {
+                    CommentView(isMine: isMine, learnerInfo: learnerInfo).navigationTitle("칭찬 리뷰")
+                } label: {
+                    HStack(alignment: .center) {
+                        Text("\(isMine ? user.nickKorean : learnerInfo.nickKorean)이(가) 받은 칭찬 보러가기")
+                            .padding(.trailing, -2)
+                        Image(systemName: "chevron.right")
+                    }
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 13)
+                    .background(.white)
+                    .cornerRadius(30)
+                    .font(.system(size: 14))
+                    .foregroundColor(.black)
+                    .fontWeight(.bold)
+                }
+            }
             
         }
-        .frame(height: 490)
-        /// TODO: 컬러 extension 추가 후 적용
-        .background(cardColorList[isMine ? card.cardColor : learnerInfo.cardColor])
-        .overlay {
-            Image("cardBack")
-                .blendMode(.overlay)
-                .opacity(0.7)
-        }
-        .cornerRadius(32)
-        .overlay {
-            RoundedRectangle(cornerRadius: 32)
-                .stroke(cardColorList[isMine ? card.cardColor : learnerInfo.cardColor], lineWidth: 3)
-        }
-//        .border(cardColorList[isMine ? card.cardColor : learnerInfo.cardColor])
         .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
-
     }
 }
