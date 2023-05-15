@@ -59,6 +59,7 @@
 		C3E8B3902A113C8600AA76CC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C3E8B38F2A113C8600AA76CC /* FirebaseAuth */; };
 		C3E8B3922A113C8600AA76CC /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C3E8B3912A113C8600AA76CC /* FirebaseFirestore */; };
 		C3E8B3942A113C8600AA76CC /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C3E8B3932A113C8600AA76CC /* FirebaseStorage */; };
+		C3E8B3962A11FCDF00AA76CC /* TeamCommingSoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8B3952A11FCDF00AA76CC /* TeamCommingSoonView.swift */; };
 		EF5D03522A0B86E100678E09 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5D034C2A0B86E100678E09 /* Character.swift */; };
 		EF5D03532A0B86E100678E09 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5D034D2A0B86E100678E09 /* String.swift */; };
 		EF5D03542A0B86E100678E09 /* MemojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5D034F2A0B86E100678E09 /* MemojiView.swift */; };
@@ -118,6 +119,7 @@
 		C3E8B3852A10C61900AA76CC /* SelectMySkillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMySkillView.swift; sourceTree = "<group>"; };
 		C3E8B38A2A11111300AA76CC /* SkillTitleInputSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillTitleInputSheetView.swift; sourceTree = "<group>"; };
 		C3E8B38C2A111AC700AA76CC /* SkillProficiencySheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillProficiencySheetView.swift; sourceTree = "<group>"; };
+		C3E8B3952A11FCDF00AA76CC /* TeamCommingSoonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCommingSoonView.swift; sourceTree = "<group>"; };
 		EF04E6402A0F4AAD00E7288F /* MemojiView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MemojiView.h; sourceTree = "<group>"; };
 		EF5D034C2A0B86E100678E09 /* Character.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		EF5D034D2A0B86E100678E09 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				0E113BE82A0A0FA400AB2EC8 /* PocketLearnerApp.swift */,
 				0E113BEC2A0A0FA500AB2EC8 /* Assets.xcassets */,
 				0E113BEE2A0A0FA500AB2EC8 /* Preview Content */,
+				C3E8B3952A11FCDF00AA76CC /* TeamCommingSoonView.swift */,
 			);
 			path = PocketLearner;
 			sourceTree = "<group>";
@@ -446,6 +449,7 @@
 				0EBBD8902A0D29E600B232F1 /* QRCodeScanner.swift in Sources */,
 				0EBBD88C2A0CDE2200B232F1 /* UserOB.swift in Sources */,
 				C32664662A0D6092004777FE /* CommunicationStyleCard.swift in Sources */,
+				C3E8B3962A11FCDF00AA76CC /* TeamCommingSoonView.swift in Sources */,
 				0E6DB2D52A0A2A0000F6C8DC /* CardCollectionView.swift in Sources */,
 				C3E8B38B2A11111300AA76CC /* SkillTitleInputSheetView.swift in Sources */,
 				EF5D03562A0B86E100678E09 /* MemojiTextField.swift in Sources */,
