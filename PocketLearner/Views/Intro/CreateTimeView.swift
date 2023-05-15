@@ -113,7 +113,7 @@ struct CreateTimeBtn: View {
             .background {
                 RoundedRectangle(cornerRadius: 10)
                     .fill(Color.white)
-                    .shadow(radius: isSelected ? 30 : 0)
+                    .shadow(color: .black.opacity(0.25), radius: isSelected ? 5.6 : 0)
                     .animation(.easeIn, value: 0.2)
             }
         }
