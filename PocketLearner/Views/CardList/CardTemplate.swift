@@ -104,7 +104,8 @@ struct CardFront: View {
     
     @Binding var bookmarkIDs: [String]
     @State var retrievedImage = UIImage()
-
+    
+    @State var isDetailShow: Bool = false
 
     var body: some View {
         ZStack{
@@ -277,6 +278,12 @@ struct CardFront: View {
             }
             .frame(height: 490)
         }
+        .onTapGesture {
+            isDetailShow = true
+        }
+        .fullScreenCover(isPresented: $isDetailShow, content: {
+            CardDetailView(isMine: $isDetailShow, userInfo: learnerInfo)
+        })
         .onAppear {
                 getPhotos()
         }
