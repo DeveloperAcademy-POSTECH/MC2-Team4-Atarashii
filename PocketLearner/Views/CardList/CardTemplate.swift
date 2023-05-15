@@ -33,8 +33,6 @@ struct CardTemplate: View {
     let learnerInfo: UserInfo
     @Binding var bookmarkIDs: [String]
     
-    
-    
     @State private var offset = CGSize.zero
     
     
@@ -280,13 +278,11 @@ struct CardFront: View {
             .frame(height: 490)
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                 getPhotos()
-            }
         }
-        .onChange(of: self.retrievedImage) { newValue in
+        .onChange(of: self.card.memoji) { newValue in
             print("IMAGE CHANGED")
-            self.retrievedImage = newValue
+            getPhotos()
         }
     }
     
@@ -328,7 +324,6 @@ struct CardFront: View {
     /// Storage에서 이미지 가져오기
     /// 중복 함수... 이렇게 쓰면 안될텐데..
     func getPhotos() {
-        
         // Get the data from the database
         let docRef = Firestore.firestore().collection("CardDetails").document(user.id)
         
@@ -345,20 +340,16 @@ struct CardFront: View {
                 
                 // Retrieve the data
                 fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-                    
                     // Check for errors
                     if error == nil && data != nil {
-                       
                         // Create a UIImage and put it into display
                         if let image = UIImage(data: data!) {
-                          
                             DispatchQueue.main.async {
                                 retrievedImage = image
                             }
                         }
                     }
                 }
-                
             } else {
                 print("Document does not exist")
             }
@@ -425,7 +416,5 @@ struct CardBack: View {
             .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
             
         }
-        
-        
     }
 }

@@ -82,7 +82,7 @@ struct EditCardInfoView: View {
             }
             
             uploadPhoto(selectedImage: selectedImage)
-
+            
             dismiss()
         }
     }
@@ -129,6 +129,7 @@ struct EditCardInfoView: View {
 //                        }
 //                    }
                 }
+                    card.memoji = path
             }
         }
     }
