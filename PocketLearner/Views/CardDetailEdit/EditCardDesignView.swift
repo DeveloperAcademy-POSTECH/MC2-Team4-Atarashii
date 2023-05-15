@@ -34,6 +34,8 @@ struct EditCardDesignView: View {
     @State private var patternSelection: Int = 0
     @State var SegmentButtonPosition = CGPoint(x: 85, y: 24)
     
+    @Binding var retrievedImage: UIImage
+    
     // MARK: - LazyGrid용 변수
     var colorColumns: [GridItem] = Array(repeating: .init(.flexible()), count: 4)
     var patternColumns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
@@ -50,7 +52,7 @@ struct EditCardDesignView: View {
             
             // MARK: - 카드 뷰
             /// 여기서는 CardTemplate와 프로필을 조금 다르게 보여줘야 해서 뷰를 재사용하지 않고 커스텀 뷰에서만 쓰이는 틀을 새롭게 구현하는 것으로 결정.
-            CustomCardTemplate(colorSelection: $colorSelection ,patternSelection: $patternSelection)
+            CustomCardTemplate(colorSelection: $colorSelection ,patternSelection: $patternSelection, retrievedImage: $retrievedImage)
                 .scaleEffect(0.8)
                 .frame(width: 300, height: 250)
             
@@ -231,9 +233,9 @@ struct CustomCardTemplate: View {
     
     @State private var emojiInput: String = ""
     
-    //    @State var uiImage = UIImage(named: "myImage")
     @Binding var colorSelection: Int
     @Binding var patternSelection: Int
+    @Binding var retrievedImage: UIImage
     
     var body: some View {
         ZStack {
@@ -295,45 +297,19 @@ struct CustomCardTemplate: View {
             // MARK: - 미모지 추가 영역
             VStack {
                 Spacer()
-                VStack {
+                HStack {
                     Spacer()
-                    // MARK: - 이모지 아바타 이미지 (임시방편)
-                    ZStack(alignment: .center) {
-                        HStack {
-                            Spacer()
-                            Circle()
-                                .frame(width: 100)
-                                .foregroundColor(gaugeGrayColor)
-                        }
-                        HStack {
-                            Spacer()
-                            EmojiTextField(text: $emojiInput, placeholder: "")
-                                .frame(width: 40, height: nil)
-                                .scaleEffect(3)
-                                .padding(.all, 5)
-                                .onChange(of: emojiInput) { _ in
-                                    emojiInput = String(emojiInput.prefix(emojiTextFieldLimit))
-                                }
-                        }
-                        
-                        if !emojiInput.containsEmoji {
-                            Image(systemName: "plus.circle")
-                                .font(.system(size: 40))
-                                .foregroundColor(.gray.opacity(0.4))
-                                .offset(x: 84)
-                        }
+                    if card.memoji != "" {
+                        Image(uiImage: retrievedImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 120)
+                            .clipShape(Circle())
+                    } else {
+                        Image(systemName: "person.circle.fill")
+                            .frame(width: 120)
+                            .foregroundColor(gaugeGrayColor)
                     }
-                    .offset(y: 163)
-                    
-                    // MARK: - 미모지 아바타 이미지
-                    /// UIKit으로된 MemojiView 코드 사용
-                    //                    ConvertedMemojiView()
-                    //                        .frame(width: 100, height: 100)
-                    //                        .onTapGesture {
-                    //                            /// 키보드 dismiss를 위한 메서드 - 작동이 안먹히는듯..
-                    //                            hideKeyboard()
-                    //                        }
-                    
                 }
                 .padding(22)
             }
@@ -342,4 +318,7 @@ struct CustomCardTemplate: View {
         
     }
 }
+
+
+
 

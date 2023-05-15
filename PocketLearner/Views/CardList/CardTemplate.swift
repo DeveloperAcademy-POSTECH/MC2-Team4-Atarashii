@@ -6,7 +6,10 @@
 //
 
 import SwiftUI
-
+import PhotosUI
+import Firebase
+import FirebaseFirestore
+import FirebaseStorage
 
 struct CardTemplate: View {
     @EnvironmentObject var user: userData
@@ -99,158 +102,189 @@ struct CardFront: View {
     @Binding var isQRCodePresented: Bool
     @Binding var QRAnimation: Bool
     
-    @State var isShowDetailView: Bool = false
-    
     let learnerInfo: UserInfo
     
     @Binding var bookmarkIDs: [String]
-    
-    
+    @State var retrievedImage = UIImage()
+
+
     var body: some View {
-        ZStack {
-            ZStack{
-                VStack(alignment: .leading, spacing: 10) {
-                    VStack(alignment: .leading) {
-                        HStack {
-                            // MARK: - 오전/오후 세션 태그
-                            HStack {
-                                Image(systemName: "\((isMine ? user.isSessionMorning : learnerInfo.isSessionMorning) ? "sun.and.horizon" : "sun.max")")
-                                Text("\((isMine ? user.isSessionMorning : learnerInfo.isSessionMorning) ? "오전" : "오후")")
-                            }
-                            
-                            .padding(.vertical, 6)
-                            .padding(.horizontal, 10)
-                            .background(Color.white)
-                            .cornerRadius(22)
-                            
-                            Spacer()
-                            /// isMine을 통해 내 명함, 타 러너의 명함을 구분
-                            if isMine {
-                                // MARK: - (내 명함일 경우) 편집 기능이 담긴 More Action 아이콘
-                                Menu {
-                                    // MARK: - 카드 커스텀 뷰로 이동
-                                    NavigationLink(destination: {
-                                        EditCardDesignView()
-                                    }){
-                                        Label("카드 커스텀", systemImage: "paintpalette")
-                                    }
-                                    // MARK: - 명함 내용 수정
-                                    NavigationLink(destination: {
-                                        EditCardInfoView()
-                                    }){
-                                        Label("명함 내용 수정", systemImage: "pencil")
-                                    }
-                                } label: {
-                                    Image(systemName: "ellipsis")
-                                }
-                            } else {
-                                // MARK: - (타인의 명함일 경우) 즐겨찾기 아이콘
-                                Button {
-                                    if isLiked {
-                                        //북마크 삭제
-                                        deleteBookmark()
-                                    } else {
-                                        //북마크 생성
-                                        createBookmark()
-                                    }
-                                    isLiked.toggle()
-                                    bookmarkIDs.append(learnerInfo.id)
-                                } label: {
-                                    if isLiked {
-                                        Image(systemName: "bookmark.fill")
-                                            .font(.system(size: 30))
-                                            .foregroundColor(.black)
-                                        
-                                    } else {
-                                        Image(systemName: "bookmark")
-                                            .font(.system(size: 30))
-                                        
-                                            .foregroundColor(.black)
-                                            .font(.system(size: 20))
-                                            .padding(10)
-                                    }
-                                }
-                            }
-                        }
-                        
-                        // MARK: - 국문 닉네임
-                        Text("\(isMine ? user.nickKorean : learnerInfo.nickKorean)")
-                            .font(.system(size: 34))
-                            .fontWeight(.bold)
-                            .padding(.top, 80)
-                        
-                        // MARK: - 영문 닉네임
-                        Text("\(isMine ? user.nickEnglish : learnerInfo.nickEnglish)")
-                            .font(.system(size: 30))
-                            .fontWeight(.bold)
-                            .padding(.bottom, 12)
-                        
-                        // MARK: - 자기 소개
-                        Text("\(isMine ? card.introduce : learnerInfo.introduce)")
-                            .fixedSize(horizontal: false, vertical: true)
-                            .font(.system(size: 20))
-                    }.padding(22)
-                    Spacer()
-                    
+        ZStack{
+            VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading) {
                     HStack {
-                        // MARK: - (내 명함일 경우) 카드 앞면에 큐알코드
-                        if isMine {
-                            Button(action: {
-                                QRAnimation.toggle()
-                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.6) {
-                                    withAnimation(.linear(duration: 0.5)) {
-                                        isQRCodePresented = true
-                                    }
-                                }
-                            }){
-                                Image("qrExample")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 60)
-                                    .blendMode(.darken)
-                            }
-                            .background(QRAnimation ? .white : .clear)
-                            .scaleEffect(QRAnimation ? 5 : 1)
-                            // offset 하드코딩.... 인데 아이폰14 기준이라 괜찮을지도.... 방법이 없음....
-                            .offset(x: QRAnimation ? 105 : 0,
-                                    y: QRAnimation ? -170 : 0)
-                            .animation(.easeOut(duration: 0.8))
+                        // MARK: - 오전/오후 세션 태그
+                        HStack {
+                            Image(systemName: "\((isMine ? user.isSessionMorning : learnerInfo.isSessionMorning) ? "sun.and.horizon" : "sun.max")")
+                            Text("\((isMine ? user.isSessionMorning : learnerInfo.isSessionMorning) ? "오전" : "오후")")
                         }
+                        .padding(.vertical, 6)
+                        .padding(.horizontal, 10)
+                        .background(Color.white)
+                        .cornerRadius(22)
                         
                         Spacer()
-                        // MARK: - 미모지 아바타 이미지
-                        /// TODO: API 연결
-                        Circle()
-                            .frame(width: 100)
+                        /// isMine을 통해 내 명함, 타 러너의 명함을 구분
+                        if isMine {
+                            // MARK: - (내 명함일 경우) 편집 기능이 담긴 More Action 아이콘
+                            Menu {
+                                // MARK: - 카드 커스텀 뷰로 이동
+                                NavigationLink(destination: {
+                                    EditCardDesignView(retrievedImage: $retrievedImage)
+                                }){
+                                    Label("카드 커스텀", systemImage: "paintpalette")
+                                }
+                                // MARK: - 명함 내용 수정
+                                NavigationLink(destination: {
+                                    EditCardInfoView(retrievedImage: $retrievedImage)
+                                }){
+                                    Label("명함 내용 수정", systemImage: "pencil")
+                                }
+                            } label: {
+                                Image(systemName: "ellipsis")
+                                    .foregroundColor(.black)
+                                    .font(.system(size: 20))
+                                    .padding(10)
+                            }
+                        } else {
+                            // MARK: - (타인의 명함일 경우) 즐겨찾기 아이콘
+                            Button {
+                                if isLiked {
+                                    //북마크 삭제
+                                    deleteBookmark()
+                                } else {
+                                    //북마크 생성
+                                    createBookmark()
+                                }
+                                isLiked.toggle()
+                                bookmarkIDs.append(learnerInfo.id)
+                            } label: {
+                                if isLiked {
+                                    Image(systemName: "bookmark.fill")
+                                        .font(.system(size: 30))
+                                        .foregroundColor(.black)
+                                    
+                                } else {
+                                    Image(systemName: "bookmark")
+                                        .font(.system(size: 30))
+                                        .foregroundColor(.black)
+                                }
+                            }
+                        }
                     }
-                    .padding(22)
                     
+                    // MARK: - 국문 닉네임
+                    Text("\(isMine ? user.nickKorean : learnerInfo.nickKorean)")
+                        .font(.system(size: 34))
+                        .fontWeight(.bold)
+                        .padding(.top, 80)
+                    
+                    // MARK: - 영문 닉네임
+                    Text("\(isMine ? user.nickEnglish : learnerInfo.nickEnglish)")
+                        .font(.system(size: 30))
+                        .fontWeight(.bold)
+                        .padding(.bottom, 12)
+                    
+                    // MARK: - 자기 소개
+                    Text("\(isMine ? card.introduce : learnerInfo.introduce)")
+                        .fixedSize(horizontal: false, vertical: true)
+                        .font(.system(size: 20))
                 }
-                .frame(height: 490)
-                /// TODO: 컬러 extension 추가 후 적용
-                .background(cardColorList[isMine ? card.cardColor : learnerInfo.cardColor])
-                .cornerRadius(32)
-                .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
+                .padding(22)
+                
+                Spacer()
+                
+                HStack {
+                    // MARK: - (내 명함일 경우) 카드 앞면에 큐알코드
+                    if isMine {
+                        Button(action: {
+                            QRAnimation.toggle()
+                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.6) {
+                                withAnimation(.linear(duration: 0.5)) {
+                                    isQRCodePresented = true
+                                }
+                            }
+                        }){
+                            Image("qrExample")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 60)
+                                .blendMode(.darken)
+                        }
+                        .background(QRAnimation ? .white : .clear)
+                        .scaleEffect(QRAnimation ? 5 : 1)
+                        // offset 하드코딩.... 인데 아이폰14 기준이라 괜찮을지도.... 방법이 없음....
+                        .offset(x: QRAnimation ? 105 : 0,
+                                y: QRAnimation ? -170 : 0)
+                        .animation(.easeOut(duration: 0.8))
+                    }
+                    
+                    Spacer()
+                    // MARK: - 미모지 아바타 이미지
+                    if card.memoji != "" {
+                        Image(uiImage: retrievedImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 140)
+                            .clipShape(Circle())
+                            .opacity(0)
+                    } else {
+                        Image(systemName: "person.circle.fill")
+                            .frame(width: 140)
+                            .foregroundColor(gaugeGrayColor)
+                            .opacity(0)
+                    }
+                }
+                .padding(22)
+                
             }
+            .frame(height: 490)
+            /// TODO: 컬러 extension 추가 후 적용
+            .background(cardColorList[isMine ? card.cardColor : learnerInfo.cardColor])
+            .cornerRadius(32)
+            .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
+            
             
             // MARK: 명함 패턴
             VStack {
                 Image("\(cardPatternList[isMine ? card.cardPattern : learnerInfo.cardPattern])")
                     .cornerRadius(32)
                     .blendMode(.overlay)
-                    .opacity(0.6)
+                    .opacity(0.5)
             }
             .frame(height: 490)
             .cornerRadius(32)
             .allowsHitTesting(false)
+            
+            
+            
+            // MARK: - 미모지 추가 영역 (패턴에 안가려지게 밖으로 뺌)
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    if card.memoji != "" {
+                        Image(uiImage: retrievedImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 140)
+                            .clipShape(Circle())
+                    } else {
+                        Image(systemName: "person.circle.fill")
+                            .frame(width: 140)
+                            .foregroundColor(gaugeGrayColor)
+                    }
+                }
+                .padding(22)
+            }
+            .frame(height: 490)
         }
-        .onTapGesture {
-            isShowDetailView = true
+        .onAppear {
+            getPhotos()
         }
-        .fullScreenCover(isPresented: $isShowDetailView) {
-            CardDetailView(isMine: $isMine, userInfo: learnerInfo)
-        }
+
     }
+    
     func deleteBookmark() {
         let bookmarkDocRef = db.collection("Bookmark").document("\(user.id)_\(learnerInfo.id)")
         
@@ -282,8 +316,49 @@ struct CardFront: View {
             }
         }
     }
+    
+    
+    
+    // MARK: - Storage: retrievePhotos() (Method)
+    /// Storage에서 이미지 가져오기
+    /// 중복 함수... 이렇게 쓰면 안될텐데..
+    func getPhotos() {
+        
+        // Get the data from the database
+        let docRef = Firestore.firestore().collection("CardDetails").document(user.id)
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let imagePath = document.get("memoji")
+                print(imagePath ?? "")
+                
+                // Get a reference to storage
+                let storageRef = Storage.storage().reference()
+                
+                // Specify the path
+                let fileRef = storageRef.child(imagePath as! String)
+                
+                // Retrieve the data
+                fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+                    
+                    // Check for errors
+                    if error == nil && data != nil {
+                       
+                        // Create a UIImage and put it into display
+                        if let image = UIImage(data: data!) {
+                          
+                            DispatchQueue.main.async {
+                                retrievedImage = image
+                            }
+                        }
+                    }
+                }
+                
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
 }
-
 
 
 
@@ -297,51 +372,54 @@ struct CardBack: View {
     let learnerInfo: UserInfo
     
     var body: some View {
-        VStack(alignment: .center, spacing: 10) {
-            HStack {
-                Spacer()
-            }
+        ZStack {
+            Image("cardBack")
+                .blendMode(.overlay)
             
-            HStack {
-                // MARK: - "(닉네임), 칭찬해요!" 문구
-                Text("\(isMine ? user.nickKorean : learnerInfo.nickKorean), \n칭찬해요!")
-                    .font(.system(size: 34))
-                    .fontWeight(.bold)
-                    .padding(.top, 80)
-                Spacer()
-            }
-            .padding(.horizontal, 22)
-            
-            // MARK: - 미모지 아바타 이미지
-            Circle()
-                .frame(width: 185)
-                .padding(.bottom, 30)
-            
-            // MARK: - 칭찬 리뷰로 이동
-            NavigationLink {
-                CommentView(isMine: isMine, learnerInfo: learnerInfo).navigationTitle("칭찬 리뷰")
-            } label: {
+            VStack(alignment: .center, spacing: 10) {
                 HStack {
-                    Text("\(isMine ? user.nickKorean : learnerInfo.nickKorean)이(가) 받은 칭찬 보러가기")
-                    Image(systemName: "chevron.right")
+                    Spacer()
                 }
-                .font(.system(size: 14))
-                .fontWeight(.bold)
+                
+                HStack {
+                    // MARK: - "(닉네임), 칭찬해요!" 문구
+                    Text("\(isMine ? user.nickKorean : learnerInfo.nickKorean), \n칭찬해요!")
+                        .font(.system(size: 34))
+                        .fontWeight(.bold)
+                        .padding(.top, 80)
+                    Spacer()
+                }
+                .padding(.horizontal, 22)
+                
+                // MARK: - 미모지 아바타 이미지
+//                Circle()
+//                    .frame(width: 185)
+//                    .padding(.bottom, 30)
+                
+                // MARK: - 칭찬 리뷰로 이동
+                NavigationLink {
+                    CommentView(isMine: isMine, learnerInfo: learnerInfo).navigationTitle("칭찬 리뷰")
+                } label: {
+                    HStack {
+                        Text("\(isMine ? user.nickKorean : learnerInfo.nickKorean)이(가) 받은 칭찬 보러가기")
+                        Image(systemName: "chevron.right")
+                    }
+                    .font(.system(size: 14))
+                    .fontWeight(.bold)
+                }
+                
+                Spacer()
+                    .frame(height: 60)
+                
             }
-            
-            Spacer()
-                .frame(height: 60)
+            .frame(height: 490)
+            /// TODO: 컬러 extension 추가 후 적용
+            .background(cardColorList[isMine ? card.cardColor : learnerInfo.cardColor].opacity(0.5))
+            .cornerRadius(32)
+            .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
             
         }
-        .frame(height: 490)
-        /// TODO: 컬러 extension 추가 후 적용
-        .background(cardColorList[isMine ? card.cardColor : learnerInfo.cardColor].opacity(0.6))
-        .cornerRadius(32)
-        .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
+        
         
     }
 }
-
-
-///=========
-
