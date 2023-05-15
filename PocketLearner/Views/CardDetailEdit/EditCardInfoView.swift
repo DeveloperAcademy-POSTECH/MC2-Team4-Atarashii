@@ -43,7 +43,7 @@ struct EditCardInfoView: View {
                 DetailEditCollaborationView()
             }
             .onAppear {
-                retrievePhotos()
+                    retrievePhotos()
             }
         }
         .toolbar {
@@ -110,6 +110,7 @@ struct EditCardInfoView: View {
         // Specify the file path and name
         let path = "images/\(UUID().uuidString).jpg"
         let fileRef = storageRef.child(path)
+        print("UPDATE_PATH: ", path)
         
         // Upload that data
         let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in

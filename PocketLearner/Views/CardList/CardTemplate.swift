@@ -280,9 +280,14 @@ struct CardFront: View {
             .frame(height: 490)
         }
         .onAppear {
-            getPhotos()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                getPhotos()
+            }
         }
-
+        .onChange(of: self.retrievedImage) { newValue in
+            print("IMAGE CHANGED")
+            self.retrievedImage = newValue
+        }
     }
     
     func deleteBookmark() {
@@ -326,10 +331,11 @@ struct CardFront: View {
         
         // Get the data from the database
         let docRef = Firestore.firestore().collection("CardDetails").document(user.id)
+        
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 let imagePath = document.get("memoji")
-                print(imagePath ?? "")
+                print("CARDFRONT_IMAGEPATH: ", imagePath ?? "")
                 
                 // Get a reference to storage
                 let storageRef = Storage.storage().reference()
