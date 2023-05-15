@@ -52,7 +52,7 @@ struct EditCardInfoView: View {
             } label: {
                 Text("저장")
             }
-
+            
         }
     }
     
@@ -61,7 +61,7 @@ struct EditCardInfoView: View {
     func handleUpdateCardDetailData(profileImage: UIImage?) {
 
         let washingtonRef = db.collection("CardDetails").document(user.id)
-
+        
         washingtonRef.updateData([
             "introduce": card.introduce,
             "skills": card.skills,
@@ -294,6 +294,10 @@ struct DetailEditSkillView: View {
     @State var mySkillText: String = ""
     @State var myFutureSkillText: String = ""
     @EnvironmentObject var card: CardDetailData
+    
+    @State var isMySkillEditShow: Bool = false
+    @State var isWishSkillEditShow: Bool = false
+    
     var body: some View {
         VStack {
             Text("스킬관련 🛠️")
@@ -309,10 +313,14 @@ struct DetailEditSkillView: View {
                 .frame(maxWidth: .infinity,alignment: .leading)
                 .padding()
             
-            HStack(spacing: 10) {
-                skillIconView()
-                skillIconView()
-                skillIconView()
+            ScrollView(.horizontal, showsIndicators: true) {
+                HStack{
+                    ForEach(card.skills, id: \.self){ item in
+                        skillIconView(text: item)
+                            .frame(minHeight: 35)
+                            .padding(.leading)
+                    }
+                }
             }
             
             HStack {
@@ -329,7 +337,7 @@ struct DetailEditSkillView: View {
                 }
                 .frame(minWidth: 88.5,minHeight: 18)
                 .padding()
-
+                
             }
             Text("추가 설명")
                 .frame(maxWidth: .infinity,alignment: .leading)
@@ -355,10 +363,14 @@ struct DetailEditSkillView: View {
                 .frame(maxWidth: .infinity,alignment: .leading)
                 .padding()
             
-            HStack(spacing: 10) {
-                skillIconView()
-                skillIconView()
-                skillIconView()
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(card.wishSkills, id: \.self){ item in
+                        skillIconView(text: item)
+                            .frame(minHeight: 35)
+                            .padding(.leading)
+                    }
+                }
             }
             
             HStack {
@@ -375,7 +387,13 @@ struct DetailEditSkillView: View {
                 }
                 .frame(minWidth: 88.5,minHeight: 18)
                 .padding()
-
+                
+            }
+            .sheet(isPresented: $isWishSkillEditShow) {
+                EditSkillView(isShow: $isWishSkillEditShow, card: card, isMySkill: false)
+            }
+            .sheet(isPresented: $isMySkillEditShow) {
+                EditSkillView(isShow: $isMySkillEditShow, card: card, isMySkill: true)
             }
             
             Text("추가 설명")
@@ -400,35 +418,39 @@ struct DetailEditSkillView: View {
     }
     
     func handleMySkillBtnTapped() {
-        
+        isMySkillEditShow = true
     }
     
     func handleFutureSkillBtnTapped() {
-        
+        isWishSkillEditShow = true
     }
     
-    func skillIconView() -> some View {
+    func removeElements(withValue value: String, from array: [String]) -> [String] {
+        return array.filter { $0 != value }
+    }
+    
+    
+    func skillIconView(text: String) -> some View {
         HStack {
-            Text("UX 라이팅")
+            Text(text)
                 .font(.system(size: 15))
                 .padding(.leading,20)
-                .frame(minWidth: 107,minHeight: 30,alignment: .leading)
+//                .frame(minWidth: 107,minHeight: 30,alignment: .leading)
             
             Button  {
-                //
+                //                arr = removeElements(withValue: text, from: arr)
             } label: {
                 Image(systemName: "x.circle.fill")
                     .foregroundColor(hexStringToColor(hexString: "#979797"))
             }
-            .padding(.trailing,40)
+//            .padding(.trailing,40)
             .frame(minWidth: 14,minHeight: 14)
         }
-
-        .frame(width: 107,height: 30)
+        .frame(minWidth: 107,minHeight: 30)
         .background {
             RoundedRectangle(cornerRadius: 35)
                 .foregroundColor(.white)
-                .shadow(radius: 2)
+                .shadow(radius: 3)
         }
         
     }
@@ -459,7 +481,7 @@ struct DetailEditMyGoal: View {
                     .foregroundColor(hexStringToColor(hexString: "#979797"))
             })
             
-
+            
         }
         .sheet(isPresented: $isSheet) {
             RoleGoalInputSheetView(sendInputText: $myGoal)
@@ -498,6 +520,18 @@ struct DetailEditCollaborationView: View {
     @State var collaborationTypes: String = "Driver"
     @State var isCollaborationSheet: Bool = false
     @EnvironmentObject var card: CardDetailData
+    
+    let collaboraionDatas: [CollaborationButtonData] = [
+        CollaborationButtonData(buttonColor: collaborationKeywordColor_0, buttonTitle: "갈등중재"),
+        CollaborationButtonData(buttonColor: collaborationKeywordColor_1, buttonTitle: "리더십"),
+        CollaborationButtonData(buttonColor: collaborationKeywordColor_2, buttonTitle: "팔로워십"),
+        CollaborationButtonData(buttonColor: collaborationKeywordColor_3, buttonTitle: "소통왕"),
+        CollaborationButtonData(buttonColor: collaborationKeywordColor_4, buttonTitle: "감성지능"),
+        CollaborationButtonData(buttonColor: collaborationKeywordColor_5, buttonTitle: "비판적 사고"),
+        CollaborationButtonData(buttonColor: collaborationKeywordColor_6, buttonTitle: "공감능력"),
+        CollaborationButtonData(buttonColor: collaborationKeywordColor_7, buttonTitle: "유연한 사고"),
+    ]
+    @State var collaboraionIndexArr: [Int] = [0,1,2]
     
     enum CollaborationTypes: Int {
         case Analytical = 0
@@ -548,7 +582,7 @@ struct DetailEditCollaborationView: View {
                         collaborationTypes = "Analytical"
                     }
                 }
-                   
+                
                 Spacer()
                 
                 
@@ -561,38 +595,46 @@ struct DetailEditCollaborationView: View {
                     .font(.system(size: 18))
                     .frame(minWidth: 150,alignment: .leading)
                     .padding()
-
-                    Text("(3개 선택)")
-                        .foregroundColor(hexStringToColor(hexString: "#979797"))
-                        .padding()
-                        .padding(.leading,-50)
+                
+                Text("(3개 선택)")
+                    .foregroundColor(hexStringToColor(hexString: "#979797"))
+                    .padding()
+                    .padding(.leading,-50)
                 Spacer()
-                    Button {
-                        handleCollaborationBtnTapped()
-                    } label: {
-                        VStack(){
-                            Text("공감능력")
-                                .font(.system(size: 15))
-                                .foregroundColor(hexStringToColor(hexString: "#979797"))
-                            Text("감성지능")
-                                .foregroundColor(.gray)
-                                .font(.system(size: 15))
-                            Text("유연한사고")
-                                .foregroundColor(hexStringToColor(hexString: "#979797"))
-                                .font(.system(size: 15))
-                        }
-                        Image(systemName: "chevron.forward")
-                            .padding(.top,-27)
+                Button {
+                    handleCollaborationBtnTapped()
+                } label: {
+                    VStack(){
+                        Text("\(collaboraionDatas[collaboraionIndexArr[0]].buttonTitle)")
+                            .font(.system(size: 15))
                             .foregroundColor(hexStringToColor(hexString: "#979797"))
+                        Text("\(collaboraionDatas[collaboraionIndexArr[1]].buttonTitle )")
+                            .foregroundColor(.gray)
+                            .font(.system(size: 15))
+                        Text("\(collaboraionDatas[collaboraionIndexArr[2]].buttonTitle)")
+                            .foregroundColor(hexStringToColor(hexString: "#979797"))
+                            .font(.system(size: 15))
                     }
-                    .sheet(isPresented: $isCollaborationSheet) {
-                        //MARK: 협업 선택 창 넣기
-//                        SelectCollaborationKeywordView(card: CardDetailData)
-                        IntroView()
-                    }
+                    .frame(minWidth: 80)
+                    Image(systemName: "chevron.forward")
+                        .padding(.top,-27)
+                        .foregroundColor(hexStringToColor(hexString: "#979797"))
+                }
+                .padding()
+                .sheet(isPresented: $isCollaborationSheet) {
+                    //MARK: 협업 선택 창 넣기
+                    EditCollaboraionView(goNext: $isCollaborationSheet)
+                        .onDisappear() {
+                            collaboraionIndexArr = indicesOfTrueValues(in: card.cooperationKeywords)
+                        }
+                }
+
                 
             }
             
+        }
+        .onAppear() {
+            collaboraionIndexArr = indicesOfTrueValues(in: card.cooperationKeywords)
         }
     }
     
@@ -616,7 +658,13 @@ struct DetailEditCollaborationView: View {
         self.collaborationTypes = "Expressive"
         card.communicationType = CollaborationTypes.Expressive.rawValue
     }
-
+    
+    func indicesOfTrueValues(in array: [Bool]) -> [Int] {
+        return array.enumerated().compactMap { index, value in
+            value ? index : nil
+        }
+    }
+    
 }
 
 
