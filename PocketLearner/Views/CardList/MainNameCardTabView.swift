@@ -182,6 +182,8 @@ struct MainNameCardTabView: View {
     func loadUserRanking() {
         let userColRef = db.collection("Users")
         
+        rankingData.removeAll()
+        
         userColRef.whereField("cardCollectCount", isGreaterThan: 0).order(by: "cardCollectCount", descending: true)
             .getDocuments() { (querySnapshot, err) in
                 if let err = err {
