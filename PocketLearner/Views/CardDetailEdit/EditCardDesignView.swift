@@ -303,11 +303,11 @@ struct CustomCardTemplate: View {
                         Image(uiImage: retrievedImage)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 120)
+                            .frame(width: 120, height: 120)
                             .clipShape(Circle())
                     } else {
                         Image(systemName: "person.circle.fill")
-                            .frame(width: 120)
+                            .frame(width: 120, height: 120)
                             .foregroundColor(gaugeGrayColor)
                     }
                 }
