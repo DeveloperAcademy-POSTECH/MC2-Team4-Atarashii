@@ -37,7 +37,7 @@ func letterLimitTextField(placeholder: String, commentText: Binding<String>, let
         }.padding()
     }.overlay(
         RoundedRectangle(cornerRadius: 20)
-            .stroke(Color(borderGrayColor), lineWidth: 2)
+            .stroke(Color(borderGrayColor), lineWidth: 1)
     )
 }
 
