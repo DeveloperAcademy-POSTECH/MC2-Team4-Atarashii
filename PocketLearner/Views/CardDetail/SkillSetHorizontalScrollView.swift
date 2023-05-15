@@ -41,7 +41,7 @@ struct SkillSetHorizontalScrollView: View {
                     .clipShape(Circle())
                     .overlay(Circle().stroke(Color.black, lineWidth: 1))
                 Text("\(skillName)")
-                    .font(.system(size: 20, weight: .bold))
+                    .font(.system(size: 14.5, weight: .bold))
                     .foregroundColor(.black)
                     .padding(.vertical, 3)
                 ZStack(alignment: .leading){
