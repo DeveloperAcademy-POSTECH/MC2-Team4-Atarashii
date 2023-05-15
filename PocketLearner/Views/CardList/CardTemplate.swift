@@ -104,8 +104,8 @@ struct CardFront: View {
     
     @Binding var bookmarkIDs: [String]
     @State var retrievedImage = UIImage()
-
-
+    
+    
     var body: some View {
         ZStack{
             VStack(alignment: .leading, spacing: 10) {
@@ -240,7 +240,7 @@ struct CardFront: View {
             /// TODO: 컬러 extension 추가 후 적용
             .background(cardColorList[isMine ? card.cardColor : learnerInfo.cardColor])
             .cornerRadius(32)
-//            .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
+            //            .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
             
             
             // MARK: 명함 패턴
@@ -278,7 +278,7 @@ struct CardFront: View {
             .frame(height: 490)
         }
         .onAppear {
-                getPhotos()
+            getPhotos()
         }
         .onChange(of: self.card.memoji) { newValue in
             print("IMAGE CHANGED")
@@ -325,34 +325,67 @@ struct CardFront: View {
     /// Storage에서 이미지 가져오기
     /// 중복 함수... 이렇게 쓰면 안될텐데..
     func getPhotos() {
-        // Get the data from the database
-        let docRef = Firestore.firestore().collection("CardDetails").document(user.id)
-        
-        docRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                let imagePath = document.get("memoji")
-                print("CARDFRONT_IMAGEPATH: ", imagePath ?? "")
-                
-                // Get a reference to storage
-                let storageRef = Storage.storage().reference()
-                
-                // Specify the path
-                let fileRef = storageRef.child(imagePath as! String)
-                
-                // Retrieve the data
-                fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-                    // Check for errors
-                    if error == nil && data != nil {
-                        // Create a UIImage and put it into display
-                        if let image = UIImage(data: data!) {
-                            DispatchQueue.main.async {
-                                retrievedImage = image
+        if isMine{
+            // Get the data from the database
+            let docRef = Firestore.firestore().collection("CardDetails").document(user.id)
+            
+            docRef.getDocument { (document, error) in
+                if let document = document, document.exists {
+                    let imagePath = document.get("memoji")
+                    print("CARDFRONT_IMAGEPATH: ", imagePath ?? "")
+                    
+                    // Get a reference to storage
+                    let storageRef = Storage.storage().reference()
+                    
+                    // Specify the path
+                    let fileRef = storageRef.child(imagePath as! String)
+                    
+                    // Retrieve the data
+                    fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+                        // Check for errors
+                        if error == nil && data != nil {
+                            // Create a UIImage and put it into display
+                            if let image = UIImage(data: data!) {
+                                DispatchQueue.main.async {
+                                    retrievedImage = image
+                                }
                             }
                         }
                     }
+                } else {
+                    print("Document does not exist")
                 }
-            } else {
-                print("Document does not exist")
+            }
+        } else {
+            // Get the data from the database
+            let docRef = Firestore.firestore().collection("CardDetails").document(learnerInfo.id)
+            
+            docRef.getDocument { (document, error) in
+                if let document = document, document.exists {
+                    let imagePath = document.get("memoji")
+                    print("CARDFRONT_IMAGEPATH: ", imagePath ?? "")
+                    
+                    // Get a reference to storage
+                    let storageRef = Storage.storage().reference()
+                    
+                    // Specify the path
+                    let fileRef = storageRef.child(imagePath as! String)
+                    
+                    // Retrieve the data
+                    fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+                        // Check for errors
+                        if error == nil && data != nil {
+                            // Create a UIImage and put it into display
+                            if let image = UIImage(data: data!) {
+                                DispatchQueue.main.async {
+                                    retrievedImage = image
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    print("Document does not exist")
+                }
             }
         }
     }
