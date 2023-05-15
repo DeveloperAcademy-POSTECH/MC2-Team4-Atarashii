@@ -127,7 +127,7 @@ struct SelectRoleGoalView: View {
             }
             cardGenerateViewsButton(title:"다음", disableCondition: self.selectedOption == nil || selectedOption!.title == "직접 입력" && sheetUserInputText.isEmpty, action: {
                 // Card Generate data update
-                card.growthTarget = selectedOption?.title ?? sheetUserInputText
+                card.growthTarget = selectedOption != nil ? (selectedOption!.title=="직접 입력" && sheetUserInputText.isEmpty==false ? sheetUserInputText : selectedOption?.title ?? " ") : self.placeHolder
                 goNext = true
             }).padding(.top, 20).navigationDestination(isPresented: $goNext){
 //                MyWishSkillsetTextEditorView(card: card)
