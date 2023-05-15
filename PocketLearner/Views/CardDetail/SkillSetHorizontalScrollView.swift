@@ -12,6 +12,9 @@ struct SkillSetHorizontalScrollView: View {
     let skills: [String]
     let skillCounts: [Int]
     
+    let defaultSkillLogoTitles: [String] = ["Adobe CC", "Figma", "Firebase", "RxSwift", "Sketch", "Swift", "SwiftUI", "UIKit"]
+    let randomSkillImageTitles: [String] = ["randomLogo_0", "randomLogo_1", "randomLogo_2", "randomLogo_3"]
+    
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false){
             HStack{
@@ -31,15 +34,28 @@ struct SkillSetHorizontalScrollView: View {
                 .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
             VStack{
                 Spacer().frame(height: 20)
-                Image("communicationTypeCardKangaroo")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 40, height: 40)
-                    .offset(y: 3)
-                    .padding(30)
-                    .background(Color.white)
-                    .clipShape(Circle())
-                    .overlay(Circle().stroke(Color.black, lineWidth: 1))
+                if defaultSkillLogoTitles.contains(skillName){ // defaultSkillLogoTitles에 해당 skill의 이름이 있을 경우 => 해당 스킬에 대한 로고가 있는 것.
+                    Image("\(skillName)")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 40, height: 40)
+                        .offset(y: 3)
+                        .padding(30)
+                        .background(Color.white)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(Color.black, lineWidth: 1))
+                } else { // defaultSkillLogoTitles에 해당 skill의 이름이 없을 경우 => 해당 스킬에 대한 로고가 없는 것. => 이때는 랜덤으로 준비된 일러스트중 하나를 선택.
+                    Image("\(randomSkillImageTitles.randomElement()!)")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 40, height: 40)
+                        .offset(y: 3)
+                        .padding(30)
+                        .background(Color.white)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(Color.black, lineWidth: 1))
+                }
+                    
                 Text("\(skillName)")
                     .font(.system(size: 14.5, weight: .bold))
                     .foregroundColor(.black)
