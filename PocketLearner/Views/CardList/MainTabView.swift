@@ -28,6 +28,9 @@ struct MainTabView: View {
                         Text("Second")
                     }
             }
+            .onAppear {
+                UITabBar.appearance().backgroundColor = .white
+            }
         }
     }
 }
