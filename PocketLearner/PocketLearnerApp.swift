@@ -31,6 +31,7 @@ struct PocketLearnerApp: App {
     var body: some Scene {
         WindowGroup {
             MainView().environmentObject(user).environmentObject(card)
+                .preferredColorScheme(.light) // 라이트 모드 고정
 //            welcomeAlertView().environmentObject(user)
         }
     }
