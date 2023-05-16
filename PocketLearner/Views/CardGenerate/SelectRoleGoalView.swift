@@ -82,26 +82,7 @@ struct SelectRoleGoalView: View {
                                     )
                                     .frame(maxWidth: 251, alignment: .leading)
                                     .padding(.vertical, 7)
-    //                                .overlay(alignment: .top){
-    //                                        VStack{
-    //                                            if self.isOptionsPresented {
-    //
-    //                                                //⭐️여기에 드롭다운 메뉴 옵션 리스트
-    //                                                Spacer(minLength: 10)
-    //                                                GoalPickerMenuList { option in
-    //                                                    isOptionsPresented = false
-    //                                                    selectedOption = option
-    //                                                }
-    //
-    //
-    //
-    //                                            }
-    //                                    }
-    //                                }
-
                             }
-                            
-                           
                         }
                         Text("로서 성장하고 싶어요")
                             .font(.system(size: 27, weight: .regular))

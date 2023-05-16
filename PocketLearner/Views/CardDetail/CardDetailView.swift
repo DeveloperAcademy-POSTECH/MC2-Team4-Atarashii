@@ -212,29 +212,32 @@ struct CardDetailView: View{
     }
     
     func whiteBackgroundIntroduceTextBox(introduceText: String) -> some View{
-        ZStack {
-            Text("나는 아카데미에서의 협업을 통해                         \n                            로서 성장하고 싶어요")
+        VStack {
+            Text("나는 아카데미에서의 협업을 통해")
                 .font(.system(size: 16, weight: .regular))
                 .multilineTextAlignment(.leading)
                 .padding(.horizontal, 20)
-                .lineSpacing(7)
-                .padding(.vertical, 20)
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.white)
-                        .shadow(radius: 5)
-                )
-            Text(introduceText)
-                .bold()
-                .font(.system(size: 15))
-                .padding([.horizontal,.vertical],5)
-                .background(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(mainOrengeColor,lineWidth: 2)
-                )
-                .padding(.leading,-120)
-                .padding(.top,27)
-        }
+                .padding(.top, 20)
+            HStack{
+                Text(introduceText)
+                    .bold()
+                    .font(.system(size: 15))
+                    .padding(5)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(mainOrengeColor,lineWidth: 2)
+                    )
+                Text(" 로서 성장하고 싶어요")
+                    .font(.system(size: 16, weight: .regular))
+                    .multilineTextAlignment(.leading)
+                    .padding(.horizontal, 2)
+            }
+        }.padding(.horizontal, 20).padding(.bottom, 20)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color.white)
+                .shadow(radius: 5)
+        ).padding(.horizontal, 20)
     }
     
     func textMultipleColor_CanSkillSet(text1:String,text2:String,text3:String,text4:String) -> some View{
