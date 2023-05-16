@@ -40,13 +40,7 @@ struct MyCardView: View {
                             .font(.system(size: 12))
                             .fontWeight(.semibold)
                             .foregroundColor(.gray)
-//                            .opacity(blinkingAnimation ? 1.0 : 0.0)
-//                            .animation(Animation.easeIn(duration: 1).repeatForever(autoreverses: true))
-//                            .onAppear {
-//                                withAnimation {
-//                                    blinkingAnimation = true
-//                                }
-//                            }
+
                         Spacer()
                     }
                 }
@@ -61,10 +55,3 @@ struct MyCardView: View {
     }
 }
 
-
-//
-//struct MyCardView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MyCardView()
-//    }
-//}

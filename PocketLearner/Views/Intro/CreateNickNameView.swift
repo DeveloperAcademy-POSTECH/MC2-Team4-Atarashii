@@ -63,33 +63,9 @@ struct CreateNickNameView : View {
             }
         }
     }
-    
-//    func applyNickname(){
-//        db.collection("users").document(user.id).setData([
-//            "nickEnglish": englishText,
-//            "nickKorean": koreanText
-//        ], merge: true) { err in
-//            if let err = err {
-//                print("Error writing document: \(err) - CreateNickNameView")
-//            } else {
-//                // db setdata 성공 시
-//                print("User nickname Successfully Saved : \(user.id) - CreateNickNameView")
-//                user.nickEnglish = englishText
-//                user.nickKorean = koreanText
-//                UserDefaults().set(englishText, forKey: "nickEnglish")
-//                UserDefaults().set(koreanText, forKey: "nickKorean")
-//            }
-//        }
-//    }
+
 }
 
-
-struct CreateNickNameView_Previews: PreviewProvider {
-    static var previews: some View {
-        CreateNickNameView()
-            .previewDevice("iPhone 14")
-    }
-}
 
 
 struct RoundedTextFieldWithButton: View {

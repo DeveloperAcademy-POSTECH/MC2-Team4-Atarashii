@@ -69,9 +69,3 @@ struct InitialCardNameView: View {
         }
     }
 }
-
-//struct InitailCardMainView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        InitailCardMainView().previewDevice("iPhone 14")
-//    }
-//}

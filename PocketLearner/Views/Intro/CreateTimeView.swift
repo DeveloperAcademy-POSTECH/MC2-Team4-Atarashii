@@ -96,7 +96,6 @@ struct CreateTimeBtn: View {
             VStack{
                 Image(isTimeMorning ? (isSelected ? "morning_color": "morning_gray") : (isSelected ? "afternoon_color": "afternoon_gray"))
                     .resizable()
-//                    .rotationEffect(timeText == "오후" ? Angle(degrees: 90): Angle(degrees: 0))
                     .renderingMode(.original)
                     .frame(width: 63,height: 63)
                 Text(isTimeMorning ? "오전 세션" : "오후 세션")

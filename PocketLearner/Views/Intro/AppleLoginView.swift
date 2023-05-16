@@ -150,10 +150,3 @@ struct AppleLoginView : View {
         }
     }
 }
-
-
-struct AppleLoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        AppleLoginView().previewDevice("iPhone 14")
-    }
-}
