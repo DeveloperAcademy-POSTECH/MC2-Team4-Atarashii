@@ -117,10 +117,8 @@ struct EditCardInfoView: View {
         
         // Upload that data
         let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
-            
             // Check for errors
             if error == nil && metadata != nil {
-                
                 // Save a reference to the file in Firestore DB
                 let db = db.collection("CardDetails").document(user.id)
                 db.updateData(["memoji":path]) { error in
@@ -491,7 +489,9 @@ struct DetailEditMyGoal: View {
         }
         .padding(.bottom, 50)
         .sheet(isPresented: $isSheet) {
-            RoleGoalInputSheetView(sendInputText: $myGoal)
+            RoleGoalInputSheetView(sendInputText: $myGoal).onDisappear{
+                card.growthTarget = myGoal
+            }
         }
         .onAppear() {
             myGoal = card.growthTarget

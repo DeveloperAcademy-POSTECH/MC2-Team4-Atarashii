@@ -143,7 +143,7 @@ struct CardFront: View {
                                 Image(systemName: "gearshape.fill")
                                     .foregroundColor(.black)
                                     .font(.system(size: 30))
-                                    .padding(10)
+//                                    .padding(10)
                             }
                         } else {
                             // MARK: - (타인의 명함일 경우) 즐겨찾기 아이콘
@@ -356,13 +356,13 @@ struct CardFront: View {
             
 
             let imagePath = learnerInfo.memoji
-            print("CARDFRONT_IMAGEPATH: ", imagePath ?? "")
+            print("CARDFRONT_IMAGEPATH: ", imagePath)
             
             // Get a reference to storage
             let storageRef = Storage.storage().reference()
             
             // Specify the path
-            let fileRef = storageRef.child(imagePath as! String)
+            let fileRef = storageRef.child(imagePath)
             
             // Retrieve the data
             fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in

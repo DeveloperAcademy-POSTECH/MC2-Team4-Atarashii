@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>210164514992-45tl9unu7f30d182gcq3rk7gnu5fbdob.apps.googleusercontent.com</string>
+	<string>976436808415-7j1flgv8r1pvk8n6dbtf5rt7ea02ts26.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.210164514992-45tl9unu7f30d182gcq3rk7gnu5fbdob</string>
+	<string>com.googleusercontent.apps.976436808415-7j1flgv8r1pvk8n6dbtf5rt7ea02ts26</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBINd-kHIST6hN05qg1QuK9lyZwV89UA8A</string>
+	<string>AIzaSyCni1OBfJo_j5Kx5Q6c5fgzYmGrrepSj40</string>
 	<key>GCM_SENDER_ID</key>
-	<string>210164514992</string>
+	<string>976436808415</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>Atarashii.PocketLearner</string>
 	<key>PROJECT_ID</key>
-	<string>acardemy-e3e77</string>
+	<string>atarashii2-fa9ec</string>
 	<key>STORAGE_BUCKET</key>
-	<string>acardemy-e3e77.appspot.com</string>
+	<string>atarashii2-fa9ec.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:210164514992:ios:ede1d5179786f7c7ee3b75</string>
-	<key>DATABASE_URL</key>
-	<string>https://acardemy-e3e77-default-rtdb.firebaseio.com</string>
+	<string>1:976436808415:ios:dd66aa1158df718f2fb76a</string>
 </dict>
 </plist>
