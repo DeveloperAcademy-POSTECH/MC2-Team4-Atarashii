@@ -39,7 +39,7 @@ struct MainView: View {
             }
         }.onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                withAnimation (.easeIn(duration: 1.5)){
+                withAnimation (.easeIn(duration: 0.8)){
                     isSplash = false
                 }
             }

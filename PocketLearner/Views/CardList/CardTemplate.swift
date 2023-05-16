@@ -256,9 +256,11 @@ struct CardFront: View {
                             .aspectRatio(contentMode: .fill)
                             .clipShape(Circle())
                     } else {
-                        Image(systemName: "person.circle.fill")
+                        Image("mainCharacter")
+                            .resizable()
                             .frame(width: 140, height: 140)
-                            .foregroundColor(gaugeGrayColor)
+                            .aspectRatio(contentMode: .fill)
+                            .clipShape(Circle())
                     }
                 }
                 .padding(22)

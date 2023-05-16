@@ -7,6 +7,8 @@
 
 import Foundation
 import SwiftUI
+import FirebaseStorage
+
 
 struct CardDetailView: View{
     @Environment(\.dismiss) private var dismiss
@@ -17,23 +19,15 @@ struct CardDetailView: View{
     @EnvironmentObject var user: userData
     @EnvironmentObject var card: CardDetailData
     
-    @State var introduceText: String = """
-    Sketch보다는 Figma를 선호하는 취향이 확고한
-    편이에요 :) 저는 디자인 업무를 주로 해봤기 때문
-    에 디자인 툴 활용이 익숙하지만, iOS 개발자로서
-    의 커리어를 좀 더 키우고 싶어요, UIKit은 이제 배
-    우고 있는 단계이지만, SwiftUI는 나름 능숙하게
-    다룰 수 있답니다!
-    """
-    @State var introduceText2: String = """
-    개발공부를 시작한지 얼마 안되기도 했고, 다른 개
-    발자와 협업해 본 적이 없어서 Git CLI가 익숙하지
-    않아요! 같이 Git 공부할 사람?
-    """
+    @State var introduceText: String = ""
+    @State var introduceText2: String = ""
     @State var introduceText3: String = "iOS 개발자"
+
     
     @State var isHardSkillSet: Bool = true
     @State var isHardSkillSet_Button: Bool = true
+    
+    @State var retrievedImage = UIImage()
     
     let fourTypeCardsDatas : [FourTypeCardData] = [
         FourTypeCardData(title: "Analytical", englishDescription: "Fact-Based Introvert", description: "결과보다는 관계와 과정을,\n리스크 보다는 안정감을 중요시해요.", imageTitle: "analyticalCardImage"),
@@ -162,6 +156,7 @@ struct CardDetailView: View{
                                     Text(skill.0)
                                         .foregroundColor(skill.1)
                                         .font(.system(size: 20, weight: .bold))
+                                        .multilineTextAlignment(.center)
                                 }.padding(.horizontal, 10)
                             }
                         }.padding(.bottom, 50)
@@ -179,15 +174,70 @@ struct CardDetailView: View{
             
         }.ignoresSafeArea().frame(maxWidth: .infinity, maxHeight: .infinity)
             .onAppear() {
-//                if isMine {
-//                    let mine: UserInfo = UserInfo(id: user.id, nickKorean: user.nickKorean, nickEnglish: user.nickEnglish, isSessionMorning: user.isSessionMorning, introduce: card.introduce, skills: card.skills, skillLevel: card.skillLevel, introduceSkill: card.introduceSkill, growthTarget: card.growthTarget, wishSkills: card.wishSkills, wishSkillIntroduce: card.wishSkillIntroduce , communicationType: card.communicationType , cooperationKeywords: card.cooperationKeywords , cooperationIntroduce: card.cooperationIntroduce, cardColor: card.cardColor, cardPattern: card.cardPattern , memoji: card.memoji )
-//                    userInfo = mine
-//                }
                 self.introduceText = isMine ?  card.introduceSkill : userInfo.introduceSkill
                 self.introduceText2 = isMine ? card.wishSkillIntroduce : userInfo.wishSkillIntroduce
                 self.introduceText3 = isMine ? card.growthTarget : userInfo.growthTarget
                 self.collaboraionIndexArr = indicesOfTrueValues(in: isMine ? card.cooperationKeywords : userInfo.cooperationKeywords)
+                getPhotos()
             }
+    }
+    
+    func getPhotos() {
+        if isMine{
+            // Get the data from the database
+            let docRef = db.collection("CardDetails").document(user.id)
+            docRef.getDocument { (document, error) in
+                if let document = document, document.exists {
+                    let imagePath = document.get("memoji")
+                    print("CARDFRONT_IMAGEPATH: ", imagePath ?? "")
+                    
+                    // Get a reference to storage
+                    let storageRef = Storage.storage().reference()
+                    
+                    // Specify the path
+                    let fileRef = storageRef.child(imagePath as! String)
+                    
+                    // Retrieve the data
+                    fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+                        // Check for errors
+                        if error == nil && data != nil {
+                            // Create a UIImage and put it into display
+                            if let image = UIImage(data: data!) {
+                                DispatchQueue.main.async {
+                                    retrievedImage = image
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    print("Document does not exist")
+                }
+            }
+        } else {
+            // Get the data from the database
+//            let docRef = Firestore.firestore().collection("CardDetails").document(learnerInfo.id)
+            let imagePath = userInfo.memoji
+            print("CARDFRONT_IMAGEPATH: ", imagePath)
+            
+            // Get a reference to storage
+            let storageRef = Storage.storage().reference()
+            
+            // Specify the path
+            let fileRef = storageRef.child(imagePath)
+            
+            // Retrieve the data
+            fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+                // Check for errors
+                if error == nil && data != nil {
+                    // Create a UIImage and put it into display
+                    if let image = UIImage(data: data!) {
+                        DispatchQueue.main.async {
+                            retrievedImage = image
+                        }
+                    }
+                }
+            }
+        }
     }
     
     
@@ -314,12 +364,10 @@ struct CardDetailView: View{
     /// 190 x 190 pixel.
     func profileCircle(isMorning: Bool) -> some View{
         ZStack {
-            Image("dummypikachu")
+            Image(uiImage: retrievedImage)
                 .resizable()
-                .scaledToFill()
-                .frame(width: 130, height: 130)
-                .offset(x:5, y: 4)
-                .padding(30)
+                .frame(width: 180, height: 180)
+                .aspectRatio(contentMode: .fill)
                 .background(Color.white)
                 .clipShape(Circle())
                 .overlay(
@@ -333,14 +381,10 @@ struct CardDetailView: View{
                         .fill(.white)
 //                        .stroke()
                 )
-                .padding(.top, 185)
+                .padding(.top, 170)
         }
     }
     
+    
+    
 }
-
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CardDetailView().previewDevice("iPhone 14")
-//    }
-//}
