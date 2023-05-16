@@ -110,6 +110,10 @@ struct EditCardInfoView: View {
             return
         }
         
+        // 수정 전 사진의 ref 미리 저장.
+        let pathHistory = card.memoji
+        let fileRefHistory = storageRef.child(pathHistory)
+        
         // Specify the file path and name
         let path = "images/\(UUID().uuidString).jpg"
         let fileRef = storageRef.child(path)
@@ -117,20 +121,30 @@ struct EditCardInfoView: View {
         
         // Upload that data
         let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+            if error != nil {
+                print("Error uploading image: \(error?.localizedDescription)")
+                return
+            }
+            
             // Check for errors
-            if error == nil && metadata != nil {
+            if metadata != nil {
                 // Save a reference to the file in Firestore DB
                 let db = db.collection("CardDetails").document(user.id)
                 db.updateData(["memoji":path]) { error in
                     
-                    // if there were no errors, display the new image
-//                    if error == nil {
-//                        DispatchQueue.main.async {
-//                            self.retrievePhotos()
-//                        }
-//                    }
                 }
-                    card.memoji = path
+                // 옛날 사진 지우기
+                if pathHistory != "" {
+                    fileRefHistory.delete { error in
+                        if let error = error {
+                            print("error on delete image : \(error)")
+                        } else {
+                            print("success on delete image")
+                        }
+                    }
+                }
+                      
+                card.memoji = path
             }
         }
     }
