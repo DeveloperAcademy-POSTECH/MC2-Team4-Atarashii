@@ -27,7 +27,7 @@ struct EditCardInfoView: View {
     @State private var profileImage: UIImage?
     @State var selectedImage: UIImage?
     
-    @Binding var retrievedImage: UIImage
+    @Binding var retrievedImage: UIImage?
     
     var body: some View {
         NavigationView {
@@ -212,7 +212,7 @@ struct ProfilePictureView: View {
     @State private var profileImage: UIImage?
     
     @Binding var selectedImage: UIImage?
-    @Binding var retrievedImage: UIImage
+    @Binding var retrievedImage: UIImage?
     
     var body: some View {
         VStack {
@@ -230,16 +230,33 @@ struct ProfilePictureView: View {
             } else {
                 /// card.memoji != " ": 프로필 이미지가 아예 없을 시나리오 대응
                 if card.memoji != "" {
-                    Image(uiImage: retrievedImage)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 154, height: 154)
-                        .clipShape(Circle())
-                        .overlay(
-                            Circle()
-                                .stroke(Color.white, lineWidth: 2)
-                        )
-                        .shadow(radius: 0.3)
+//                    Image(uiImage: retrievedImage)
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fill)
+//                        .frame(width: 154, height: 154)
+//                        .clipShape(Circle())
+//                        .overlay(
+//                            Circle()
+//                                .stroke(Color.white, lineWidth: 2)
+//                        )
+//                        .shadow(radius: 0.3)
+                    if let profileImage = retrievedImage {
+                        Image(uiImage: profileImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 154, height: 154)
+                            .clipShape(Circle())
+                            .overlay(
+                                Circle()
+                                    .stroke(Color.white, lineWidth: 2)
+                            )
+                            .shadow(radius: 0.3)
+                    } else {
+                        Rectangle()
+                            .foregroundColor(.white)
+                            .frame(width: 154, height: 154)
+                            .clipShape(Circle())
+                    }
                 } else {
                     Image(systemName: "person.circle.fill")
                         .resizable()
@@ -285,7 +302,7 @@ struct DetailEditProfileView: View {
     @EnvironmentObject var card: CardDetailData
     
     @Binding var selectedImage: UIImage?
-    @Binding var retrievedImage: UIImage
+    @Binding var retrievedImage: UIImage?
     
     var body: some View {
         VStack {
@@ -691,7 +708,7 @@ struct DetailEditCollaborationView: View {
 func retrievePhotos(retrievedImage: UIImage?) {
     @EnvironmentObject var card: CardDetailData
     @EnvironmentObject var user: userData
-    @State var retrievedImage = UIImage()
+    @State var retrievedImage: UIImage? = nil
     
     // Get the data from the database
     let docRef = Firestore.firestore().collection("CardDetails").document(user.id)

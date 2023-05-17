@@ -103,7 +103,7 @@ struct CardFront: View {
     let learnerInfo: UserInfo
     
     @Binding var bookmarkIDs: [String]
-    @State var retrievedImage = UIImage()
+    @State var retrievedImage: UIImage? = nil
     
     @State var isDetailShow: Bool = false
 
@@ -250,11 +250,18 @@ struct CardFront: View {
                 HStack {
                     Spacer()
                     if card.memoji != "" {
-                        Image(uiImage: retrievedImage)
-                            .resizable()
-                            .frame(width: 140, height: 140)
-                            .aspectRatio(contentMode: .fill)
-                            .clipShape(Circle())
+                        if let profileImage = retrievedImage {
+                            Image(uiImage: profileImage)
+                                .resizable()
+                                .frame(width: 140, height: 140)
+                                .aspectRatio(contentMode: .fill)
+                                .clipShape(Circle())
+                        } else {
+                            Rectangle()
+                                .foregroundColor(.white)
+                                .frame(width: 140, height: 140)
+                                .clipShape(Circle())
+                        }
                     } else {
                         Image("mainCharacter")
                             .resizable()

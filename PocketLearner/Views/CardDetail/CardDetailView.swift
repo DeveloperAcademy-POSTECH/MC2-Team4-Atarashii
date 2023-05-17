@@ -27,7 +27,7 @@ struct CardDetailView: View{
     @State var isHardSkillSet: Bool = true
     @State var isHardSkillSet_Button: Bool = true
     
-    @State var retrievedImage = UIImage()
+    @State var retrievedImage: UIImage? = nil
     
     let fourTypeCardsDatas : [FourTypeCardData] = [
         FourTypeCardData(title: "Analytical", englishDescription: "Fact-Based Introvert", description: "결과보다는 관계와 과정을,\n리스크 보다는 안정감을 중요시해요.", imageTitle: "analyticalCardImage"),
@@ -364,15 +364,35 @@ struct CardDetailView: View{
     /// 190 x 190 pixel.
     func profileCircle(isMorning: Bool) -> some View{
         ZStack {
-            Image(uiImage: retrievedImage)
-                .resizable()
-                .frame(width: 180, height: 180)
-                .aspectRatio(contentMode: .fill)
-                .background(Color.white)
-                .clipShape(Circle())
-                .overlay(
-                    Circle().stroke(mainOrengeColor, lineWidth: 3.84)
-                )
+//            Image(uiImage: retrievedImage)
+//                .resizable()
+//                .frame(width: 180, height: 180)
+//                .aspectRatio(contentMode: .fill)
+//                .background(Color.white)
+//                .clipShape(Circle())
+//                .overlay(
+//                    Circle().stroke(mainOrengeColor, lineWidth: 3.84)
+//                )
+            if let profileImage = retrievedImage {
+                Image(uiImage: profileImage)
+                    .resizable()
+                    .frame(width: 180, height: 180)
+                    .aspectRatio(contentMode: .fill)
+                    .background(.white)
+                    .clipShape(Circle())
+                    .overlay(
+                        Circle().stroke(mainOrengeColor, lineWidth: 3.84)
+                    )
+            } else {
+                Rectangle()
+                    .foregroundColor(.white)
+                    .frame(width: 180, height: 180)
+                    .clipShape(Circle())
+                    .overlay(
+                        Circle().stroke(mainOrengeColor, lineWidth: 3.84)
+                    )
+            }
+            
             
             Text(isMorning ? "🌞 오전":"🌝 오후")
                 .frame(maxWidth: 69,maxHeight: 28)

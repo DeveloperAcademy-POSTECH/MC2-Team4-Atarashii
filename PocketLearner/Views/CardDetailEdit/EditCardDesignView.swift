@@ -34,7 +34,7 @@ struct EditCardDesignView: View {
     @State private var patternSelection: Int = 0
     @State var SegmentButtonPosition = CGPoint(x: 85, y: 24)
     
-    @Binding var retrievedImage: UIImage
+    @Binding var retrievedImage: UIImage?
     
     // MARK: - LazyGrid용 변수
     var colorColumns: [GridItem] = Array(repeating: .init(.flexible()), count: 4)
@@ -235,7 +235,7 @@ struct CustomCardTemplate: View {
     
     @Binding var colorSelection: Int
     @Binding var patternSelection: Int
-    @Binding var retrievedImage: UIImage
+    @Binding var retrievedImage: UIImage?
     
     var body: some View {
         ZStack {
@@ -300,11 +300,23 @@ struct CustomCardTemplate: View {
                 HStack {
                     Spacer()
                     if card.memoji != "" {
-                        Image(uiImage: retrievedImage)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 120, height: 120)
-                            .clipShape(Circle())
+//                        Image(uiImage: retrievedImage)
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fit)
+//                            .frame(width: 120, height: 120)
+//                            .clipShape(Circle())
+                        if let profileImage = retrievedImage {
+                            Image(uiImage: profileImage)
+                                .resizable()
+                                .frame(width: 120, height: 120)
+                                .aspectRatio(contentMode: .fit)
+                                .clipShape(Circle())
+                        } else {
+                            Rectangle()
+                                .foregroundColor(.white)
+                                .frame(width: 120, height: 120)
+                                .clipShape(Circle())
+                        }
                     } else {
                         Image(systemName: "person.circle.fill")
                             .frame(width: 120, height: 120)
