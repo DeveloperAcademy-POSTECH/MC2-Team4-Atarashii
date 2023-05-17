@@ -41,6 +41,7 @@ struct CardCollectionView: View {
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
     var body: some View {
+        GeometryReader { geometry in
         VStack {
             HStack {
                 // MARK: - 슬라이드/갤러리 뷰 필터링 아이콘
@@ -60,6 +61,7 @@ struct CardCollectionView: View {
                 } label: {
                     Image(systemName: "slider.horizontal.3")
                         .foregroundColor(.black)
+                        .font(.system(size: 20))
                 }
                 
                 Spacer()
@@ -90,8 +92,10 @@ struct CardCollectionView: View {
                     LazyVGrid(columns: columns) {
                         ForEach(learnerInfos.indices, id: \.self) { index in
                             if !isBookmarkSection || bookmarkIDs.contains(learnerInfos[index].id){
-                                CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, learnerInfo: learnerInfos[index], bookmarkIDs: $bookmarkIDs)
-                                    .scaleEffect(0.5)
+                                    CardTemplate(isMine: $isMine, isQRCodePresented: $isQRCodePresented, QRAnimation: $QRAnimation, learnerInfo: learnerInfos[index], bookmarkIDs: $bookmarkIDs)
+                                        .scaleEffect(0.5)
+                                        .frame(width: geometry.size.width / 2, height: geometry.size.height / 2 - 50)
+                                }
                             }
                         }
                     }

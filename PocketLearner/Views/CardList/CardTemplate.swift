@@ -38,14 +38,14 @@ struct CardTemplate: View {
     
     
     var drag: some Gesture {
-        DragGesture(minimumDistance: 20)
+        DragGesture()
             .onChanged { gesture in
                 offset.width = gesture.translation.width
                 offset.height = gesture.translation.height
                 filpCardAnimation()
             }
             .onEnded { _ in
-                offset = .zero
+//                offset = .zero
             }
     }
     
@@ -258,6 +258,7 @@ struct CardFront: View {
                     } else {
                         Image("mainCharacter")
                             .resizable()
+                            .background(.white)
                             .frame(width: 140, height: 140)
                             .aspectRatio(contentMode: .fill)
                             .clipShape(Circle())
