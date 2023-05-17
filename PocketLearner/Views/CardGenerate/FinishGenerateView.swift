@@ -62,7 +62,7 @@ struct FinishGenerateView: View {
                             }, buttonColor: errorGray)
 
                         } else {
-                            returnfinishGenerateContent (title: "명함 생성 완료!", description: "이제 명함을 교환하고,\n수집해 보세요!\n\n(앱을 재접속해 주세요!)", buttonTitle: "명함 수집하러 가기", buttonAction: {
+                            returnfinishGenerateContent (title: "명함 생성 완료!", description: "이제 명함을 교환하고,\n수집해 보세요!", buttonTitle: "명함 수집하러 가기", buttonAction: {
                                 UtilFunction.popToRootView()
                             }, buttonColor: mainAccentColor)
                         }// else
