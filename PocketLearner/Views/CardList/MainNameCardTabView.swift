@@ -179,7 +179,9 @@ struct MainNameCardTabView: View {
                 loadBookmarkUsers()
             })
             loadUserRanking()
-
+        }.onAppear{
+            loadUserData()
+            loadCardDetailData()
         }
     }
     
@@ -305,6 +307,63 @@ struct MainNameCardTabView: View {
         }
     }
     
+    func loadUserData(){
+        print("Load User Data... \(user.id)")
+        let userDocRef = db.collection("Users").document(user.id)
+        
+        userDocRef.getDocument() { (document, error) in
+            if let document = document {
+                let data = document.data()
+                //---
+                user.id = data?["id"] as? String ?? ""
+                user.nickEnglish = data?["nickEnglish"] as? String ?? ""
+                user.nickKorean = data?["nickKorean"] as? String ?? ""
+                user.isSessionMorning = data?["isSessionMorning"] as? Bool ?? false
+                user.cardCollectCount = data?["cardCollectCount"] as? Int ?? 0
+                
+                if let err = error{
+                    print("Error getting Card Detail Data - MainView: \(err)")
+                }
+            } else {
+                print("Card Detail Data doesn't Exist - MainView")
+            }
+        }
+    }
+    
+    func loadCardDetailData(){
+        print("Load Card Detail Data... \(user.id)")
+        let cardDetailDocRef = db.collection("CardDetails").document(user.id)
+        
+        cardDetailDocRef.getDocument() { (document, error) in
+            if let document = document {
+                let data = document.data()
+                card.introduce = data?["introduce"] as? String ?? ""
+                card.skills = data?["skills"] as? [String] ?? []
+                card.skillLevel = data?["skillLevel"] as? [Int] ?? []
+                card.introduceSkill = data?["introduceSkill"] as? String ?? ""
+                card.growthTarget = data?["growthTarget"] as? String ?? ""
+                card.wishSkills = data?["wishSkills"] as? [String] ?? []
+                card.wishSkillIntroduce = data?["wishSkillIntroduce"] as? String ?? ""
+                card.communicationType = data?["communicationType"] as? Int ?? 0
+                card.cooperationKeywords = data?["cooperationKeywords"] as? [Bool] ?? []
+                card.cooperationIntroduce = data?["cooperationIntroduce"] as? String ?? ""
+                card.cardColor = data?["cardColor"] as? Int ?? 0
+                card.cardPattern = data?["cardPattern"] as? Int ?? 0
+                card.memoji = data?["memoji"] as? String ?? ""
+                //---
+                card.id = data?["id"] as? String ?? ""
+                card.nickEnglish = data?["nickEnglish"] as? String ?? ""
+                card.nickKorean = data?["nickKorean"] as? String ?? ""
+                card.isSessionMorning = data?["isSessionMorning"] as? Bool ?? false
+                
+                if let err = error{
+                    print("Error getting Card Detail Data - MainView: \(err)")
+                }
+            } else {
+                print("Card Detail Data doesn't Exist - MainView")
+            }
+        }
+    }
     
     
     // MARK: - 커스텀 SegmentedControl (Method)
