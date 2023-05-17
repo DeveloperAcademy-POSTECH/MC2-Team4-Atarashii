@@ -45,7 +45,7 @@ struct CardTemplate: View {
                 filpCardAnimation()
             }
             .onEnded { _ in
-//                offset = .zero
+                //                offset = .zero
             }
     }
     
@@ -106,7 +106,7 @@ struct CardFront: View {
     @State var retrievedImage: UIImage? = nil
     
     @State var isDetailShow: Bool = false
-
+    
     var body: some View {
         ZStack{
             VStack(alignment: .leading, spacing: 10) {
@@ -143,7 +143,7 @@ struct CardFront: View {
                                 Image(systemName: "gearshape.fill")
                                     .foregroundColor(.black)
                                     .font(.system(size: 30))
-//                                    .padding(10)
+                                //                                    .padding(10)
                             }
                         } else {
                             // MARK: - (타인의 명함일 경우) 즐겨찾기 아이콘
@@ -191,9 +191,60 @@ struct CardFront: View {
                 }
                 .padding(22)
                 
-                
                 Spacer()
-                
+            }
+            .frame(height: 490)
+            /// TODO: 컬러 extension 추가 후 적용
+            .background(cardColorList[isMine ? card.cardColor : learnerInfo.cardColor])
+            .cornerRadius(32)
+            
+            
+            // MARK: 명함 패턴
+            VStack {
+                Image("\(cardPatternList[isMine ? card.cardPattern : learnerInfo.cardPattern])")
+                    .cornerRadius(32)
+                    .blendMode(.overlay)
+                    .opacity(0.5)
+            }
+            .frame(height: 490)
+            .cornerRadius(32)
+            .allowsHitTesting(false)
+        
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    // MARK: - 미모지 추가 영역 (패턴에 안가려지게 밖으로 뺌)
+                    Button(action: {
+                        isDetailShow = true
+                    }){
+                        if card.memoji != "" {
+                            if let profileImage = retrievedImage {
+                                Image(uiImage: profileImage)
+                                    .resizable()
+                                    .frame(width: 140, height: 140)
+                                    .aspectRatio(contentMode: .fill)
+                                    .clipShape(Circle())
+                            } else {
+                                Rectangle()
+                                    .foregroundColor(.white)
+                                    .frame(width: 140, height: 140)
+                                    .clipShape(Circle())
+                            }
+                        } else {
+                            Image("mainCharacter")
+                                .resizable()
+                                .background(.white)
+                                .frame(width: 140, height: 140)
+                                .aspectRatio(contentMode: .fill)
+                                .clipShape(Circle())
+                        }
+                    }
+                }.padding(22)
+            }
+            
+            VStack{
+                Spacer()
                 HStack {
                     // MARK: - (내 명함일 경우) 카드 앞면에 큐알코드
                     if isMine {
@@ -218,77 +269,22 @@ struct CardFront: View {
                                 y: QRAnimation ? -170 : 0)
                         .animation(.easeOut(duration: 0.8))
                     }
-                    
                     Spacer()
-                }
-                .padding(22)
-                
-                
+                }.padding(22)
             }
-            .frame(height: 490)
-            /// TODO: 컬러 extension 추가 후 적용
-            .background(cardColorList[isMine ? card.cardColor : learnerInfo.cardColor])
-            .cornerRadius(32)
-            
-            
-            // MARK: 명함 패턴
-            VStack {
-                Image("\(cardPatternList[isMine ? card.cardPattern : learnerInfo.cardPattern])")
-                    .cornerRadius(32)
-                    .blendMode(.overlay)
-                    .opacity(0.5)
+        }.frame(height: 490)
+            .navigationDestination(isPresented: $isDetailShow){
+                CardDetailView(isMine: $isMine, userInfo: learnerInfo)
             }
-            .frame(height: 490)
-            .cornerRadius(32)
-            .allowsHitTesting(false)
-            
-            
-            
-            // MARK: - 미모지 추가 영역 (패턴에 안가려지게 밖으로 뺌)
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    if card.memoji != "" {
-                        if let profileImage = retrievedImage {
-                            Image(uiImage: profileImage)
-                                .resizable()
-                                .frame(width: 140, height: 140)
-                                .aspectRatio(contentMode: .fill)
-                                .clipShape(Circle())
-                        } else {
-                            Rectangle()
-                                .foregroundColor(.white)
-                                .frame(width: 140, height: 140)
-                                .clipShape(Circle())
-                        }
-                    } else {
-                        Image("mainCharacter")
-                            .resizable()
-                            .background(.white)
-                            .frame(width: 140, height: 140)
-                            .aspectRatio(contentMode: .fill)
-                            .clipShape(Circle())
-                    }
-                }
-                .padding(22)
-            }
-            .frame(height: 490)
-        }.onTapGesture(count: 2) {
-            isDetailShow = true
-        }
-        .navigationDestination(isPresented: $isDetailShow){
-            CardDetailView(isMine: $isMine, userInfo: learnerInfo)
-        }
         
-        .onAppear {
-            getPhotos()
-        }
-        .onChange(of: self.card.memoji) { newValue in
-            print("IMAGE CHANGED")
-            getPhotos()
-        }
-        .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
+            .onAppear {
+                getPhotos()
+            }
+            .onChange(of: self.card.memoji) { newValue in
+                print("IMAGE CHANGED")
+                getPhotos()
+            }
+            .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
     }
     
     func deleteBookmark() {
@@ -362,9 +358,9 @@ struct CardFront: View {
             }
         } else {
             // Get the data from the database
-//            let docRef = Firestore.firestore().collection("CardDetails").document(learnerInfo.id)
+            //            let docRef = Firestore.firestore().collection("CardDetails").document(learnerInfo.id)
             
-
+            
             let imagePath = learnerInfo.memoji
             print("CARDFRONT_IMAGEPATH: ", imagePath)
             
@@ -386,7 +382,7 @@ struct CardFront: View {
                     }
                 }
             }
-
+            
             
         }
     }
