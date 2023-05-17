@@ -302,8 +302,7 @@ struct MainNameCardTabView: View {
                 learnerInfos.append(learnerInfo)
             }
             
-            // 이제 userInfos 배열에 UserInfo 구조체들이 들어 있습니다.
-            print("LearnerInfo: \(learnerInfos)")
+//            print("LearnerInfo: \(learnerInfos)")
         }
     }
     

@@ -21,8 +21,8 @@ struct CardDetailView: View{
     
     @State var introduceText: String = ""
     @State var introduceText2: String = ""
-    @State var introduceText3: String = "iOS 개발자"
-
+    @State var introduceText3: String = ""
+    @State var introduceText4: String = ""
     
     @State var isHardSkillSet: Bool = true
     @State var isHardSkillSet_Button: Bool = true
@@ -82,6 +82,7 @@ struct CardDetailView: View{
                             .font(.system(size: 18))
                             .multilineTextAlignment(.center)
                             .frame(height: 80)
+                            .padding(.horizontal, 15)
                         Spacer().frame(height: 30)
                         skillCooperationButton()
                         Spacer().frame(height: 60)
@@ -160,7 +161,7 @@ struct CardDetailView: View{
                                 }.padding(.horizontal, 10)
                             }
                         }.padding(.bottom, 50)
-                        grayBackgroundIntroduceTextBox(introduceText: introduceText)
+                        grayBackgroundIntroduceTextBox(introduceText: introduceText4)
                     }
                 }
                 VStack{
@@ -174,10 +175,11 @@ struct CardDetailView: View{
             
         }.ignoresSafeArea().frame(maxWidth: .infinity, maxHeight: .infinity)
             .onAppear() {
-                self.introduceText = isMine ?  card.introduceSkill : userInfo.introduceSkill
+                self.introduceText = isMine ? card.introduceSkill : userInfo.introduceSkill
                 self.introduceText2 = isMine ? card.wishSkillIntroduce : userInfo.wishSkillIntroduce
                 self.introduceText3 = isMine ? card.growthTarget : userInfo.growthTarget
                 self.collaboraionIndexArr = indicesOfTrueValues(in: isMine ? card.cooperationKeywords : userInfo.cooperationKeywords)
+                self.introduceText4 = isMine ? card.cooperationIntroduce : userInfo.cooperationIntroduce
                 getPhotos()
             }
     }
@@ -258,7 +260,7 @@ struct CardDetailView: View{
             .background(
                 RoundedRectangle(cornerRadius: 10)
                     .fill(textBackgroundGrayColor)
-            )
+            ).padding(.horizontal, 10)
     }
     
     func whiteBackgroundIntroduceTextBox(introduceText: String) -> some View{
