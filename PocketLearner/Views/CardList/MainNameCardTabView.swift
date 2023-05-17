@@ -101,7 +101,7 @@ struct MainNameCardTabView: View {
 
                     case .cardCollection:
                         // MARK: - 교환한 명함이 존재하지 않을 때는 초기화면 띄우기
-                        if user.cardCollectCount != 0 {
+                        if !learnerIDs.isEmpty {
                             CardCollectionView(learnerInfos: $learnerInfos, bookmarkIDs: $bookmarkIDs, isBookmarkSection: false, rankingData: $rankingData, myRank: $myRank)
                                 .frame(height: 636)
                         } else {
@@ -110,7 +110,7 @@ struct MainNameCardTabView: View {
                         }
                     case .likedCards:
                         // MARK: - 즐겨찾기 한 명함이 존재하지 않을 때는 초기화면 띄우기
-                        if bookmarkIDs.count != 0 {
+                        if !bookmarkIDs.isEmpty {
                             CardCollectionView(learnerInfos: $learnerInfos, bookmarkIDs: $bookmarkIDs, isBookmarkSection: true, rankingData: $rankingData, myRank: $myRank)
                             .frame(height: 636)
                         } else {
@@ -168,19 +168,18 @@ struct MainNameCardTabView: View {
                 }
             }
         }.task {
-            loadExchangeUsers()
-            loadUserRanking()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            loadExchangeUsers(completion: {
                 loadCollectedCards()
                 loadBookmarkUsers()
-            }
-        }.onChange(of: self.alertPresented) { newValue in
-            loadExchangeUsers()
+            })
             loadUserRanking()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        }.onChange(of: self.cardViewSelection) { newValue in
+            loadExchangeUsers(completion: {
                 loadCollectedCards()
                 loadBookmarkUsers()
-            }
+            })
+            loadUserRanking()
+
         }
     }
     
@@ -217,7 +216,7 @@ struct MainNameCardTabView: View {
     }
   
     
-    func loadExchangeUsers() {
+    func loadExchangeUsers(completion: @escaping () -> Void) {
         learnerIDs.removeAll()
         // MARK: 모든 교환 상대 id Fetching
         let exchangeHistoryRef = db.collection("CardExchangeHistory")
@@ -235,6 +234,7 @@ struct MainNameCardTabView: View {
             }
             
             print("id2 Array: \(learnerIDs)")
+            completion()
         }
     }
     
