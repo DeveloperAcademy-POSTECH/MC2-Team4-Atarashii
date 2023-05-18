@@ -103,7 +103,7 @@ struct SelectRoleGoalView: View {
                 }
                 
             }
-            cardGenerateViewsButton(title:"다음", disableCondition: self.selectedOption == nil || selectedOption!.title == "직접 입력" && sheetUserInputText.isEmpty, action: {
+            1cardGenerateViewsButton(title:"다음", disableCondition: self.selectedOption == nil || selectedOption!.title == "직접 입력" && sheetUserInputText.isEmpty, action: {
                 // Card Generate data update
                 card.growthTarget = selectedOption != nil ? (selectedOption!.title=="직접 입력" && sheetUserInputText.isEmpty==false ? sheetUserInputText : selectedOption?.title ?? " ") : self.placeHolder
                 goNext = true
