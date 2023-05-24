@@ -49,8 +49,8 @@ struct AppleLoginView : View {
             SignInWithAppleButton(
                 onRequest: configure,
                 onCompletion: handle)
-            .frame(width: 285, height: 60)
-            .padding(.top, 600)
+            .frame(width: screenWidth*0.73, height: screenHeight*0.07)
+            .padding(.top, screenHeight*0.71)
         }
     }
     

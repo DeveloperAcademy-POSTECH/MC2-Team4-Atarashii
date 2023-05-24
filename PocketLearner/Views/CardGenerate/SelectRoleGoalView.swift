@@ -30,7 +30,7 @@ struct SelectRoleGoalView: View {
                 ZStack(alignment: .leading) { // 카드 내부 뷰
                     RoundedRectangle(cornerRadius: 32)
                         .stroke(Color(strokeGray), lineWidth: 1)
-                    .frame(width: 315, height: 430, alignment: .center)
+                        .frame(width: 315, height: screenHeight*0.5, alignment: .center)
                     
                     VStack(alignment: .leading) { // 내부 텍스트 + Dropdown 버튼 스택뷰
                         Text("나는\n아카데미에서의\n팀 협업을 통해")
@@ -103,7 +103,7 @@ struct SelectRoleGoalView: View {
                 }
                 
             }
-            1cardGenerateViewsButton(title:"다음", disableCondition: self.selectedOption == nil || selectedOption!.title == "직접 입력" && sheetUserInputText.isEmpty, action: {
+            cardGenerateViewsButton(title:"다음", disableCondition: self.selectedOption == nil || selectedOption!.title == "직접 입력" && sheetUserInputText.isEmpty, action: {
                 // Card Generate data update
                 card.growthTarget = selectedOption != nil ? (selectedOption!.title=="직접 입력" && sheetUserInputText.isEmpty==false ? sheetUserInputText : selectedOption?.title ?? " ") : self.placeHolder
                 goNext = true

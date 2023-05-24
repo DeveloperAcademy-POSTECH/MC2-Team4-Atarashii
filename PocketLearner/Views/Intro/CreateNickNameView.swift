@@ -26,7 +26,7 @@ struct CreateNickNameView : View {
                             .font(.system(size: 25))
                             .multilineTextAlignment(.leading)
                         
-                        Text("`영문 닉네임` 에는 아카데미에서 사용하는 영문 닉네임을,\n`한글 닉네임` 에는 닉네임의 발음을 한글로 적어주세요.")
+                        Text("영문 닉네임에는 아카데미에서 사용하는 영문 닉네임을,\n한글 닉네임에는 닉네임의 발음을 한글로 적어주세요.")
                             .lineSpacing(5)
                             .font(.system(size: 12))
                             .foregroundColor(mainSubColor)
@@ -56,7 +56,8 @@ struct CreateNickNameView : View {
                         .background(!englishText.isEmpty && !koreanText.isEmpty ? mainAccentColor : Color(buttonDisabledGrayColor))
                         .cornerRadius(10)
                 }.disabled(englishText.isEmpty || koreanText.isEmpty)
-                    .padding(.top, 100)
+                    .padding(.top, screenHeight*0.05)
+                    .padding(.bottom, screenHeight*0.05)
                     .navigationDestination(isPresented: $nextPage){
                         CreateTimeView(nickEnglish: englishText, nickKorean: koreanText)
                     }
