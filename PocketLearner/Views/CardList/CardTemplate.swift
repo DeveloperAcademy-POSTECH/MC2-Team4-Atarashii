@@ -107,6 +107,8 @@ struct CardFront: View {
     
     @State var isDetailShow: Bool = false
     
+    @State var showingUnregister: Bool = false
+    
     var body: some View {
         ZStack{
             VStack(alignment: .leading, spacing: 10) {
@@ -139,6 +141,12 @@ struct CardFront: View {
                                 }){
                                     Label("명함 내용 수정", systemImage: "pencil")
                                 }
+                                // MARK: - 회원탈퇴 버튼
+                                Button(action: {
+                                    showingUnregister = true
+                                }, label: {
+                                    Label("회원탈퇴", systemImage: "trash")
+                                })
                             } label: {
                                 Image(systemName: "gearshape.fill")
                                     .foregroundColor(.black)
@@ -276,7 +284,16 @@ struct CardFront: View {
             .navigationDestination(isPresented: $isDetailShow){
                 CardDetailView(isMine: $isMine, userInfo: learnerInfo)
             }
-        
+            .alert(isPresented: $showingUnregister) {
+                Alert(
+                    title: Text("정말 탈퇴하시겠습니까?"),
+                    message: Text("한 번 탈퇴하면 다시 되돌릴 수 없으며, 재가입 해야 합니다."),
+                    primaryButton: .cancel(Text("취소하기")),
+                    secondaryButton: .destructive(Text("탈퇴하기")) {
+                        print("Deleting...")
+                    }
+                )
+            }
             .onAppear {
                 getPhotos()
             }
