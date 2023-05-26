@@ -38,6 +38,12 @@ class AppleLoginViewModel: ObservableObject{
             return
         }
         
+        // authorization Code to Unregister! => get user authorizationCode when login.
+        if let authorizationCode = appleIDCredential.authorizationCode,
+           let codeString = String(data: authorizationCode, encoding: .utf8) {
+            print(codeString)
+        }
+        
         // Initialize a Firebase credential.
         let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com", idToken: tokenString, rawNonce: nonce)
         // Sign in with Firebase.

@@ -291,6 +291,7 @@ struct CardFront: View {
                     primaryButton: .cancel(Text("취소하기")),
                     secondaryButton: .destructive(Text("탈퇴하기")) {
                         print("Deleting...")
+                        //TODO: 회원탈퇴 기능 구현
                     }
                 )
             }
@@ -334,6 +335,11 @@ struct CardFront: View {
                 print("즐겨찾기 등록 성공!")
             }
         }
+    }
+    
+    // MARK: 회원 탈퇴 기능
+    func deleteUserAccount(){
+        
     }
     
     
