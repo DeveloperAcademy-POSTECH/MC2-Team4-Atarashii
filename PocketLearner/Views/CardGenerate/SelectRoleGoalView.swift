@@ -50,12 +50,6 @@ struct SelectRoleGoalView: View {
                                     Text(
                                         //🔴 텍스트 로직 바꾸기 - 삼항연산자로 분기
                                         
-                                        // SelectedOption이 nil일 경우 => self.placeHolder
-                                        // SelectedOptin이 nil이 아닐 경우
-                                            // => selectedOption?.title ?? " "
-                                            // SelectedOption이 직접입력이고, sheetUserInputText가 있을 경우
-                                               // => sheetUserInputText
-                                            
                                         selectedOption != nil ? (selectedOption!.title=="직접 입력" && sheetUserInputText.isEmpty==false ? sheetUserInputText : selectedOption?.title ?? " ") : self.placeHolder
                                             
                                     )
