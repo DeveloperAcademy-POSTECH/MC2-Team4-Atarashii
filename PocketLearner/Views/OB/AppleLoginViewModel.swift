@@ -39,15 +39,23 @@ class AppleLoginViewModel: ObservableObject{
         }
         
         // authorization Code to Unregister! => get user authorizationCode when login.
-        if let authorizationCode = appleIDCredential.authorizationCode,
-           let codeString = String(data: authorizationCode, encoding: .utf8) {
-            print(codeString)
+        if let authorizationCode = credential.authorizationCode, let codeString = String(data: authorizationCode, encoding: .utf8) {
+            let url = URL(string: "https://us-central1-atarashii2-fa9ec.cloudfunctions.net/getRefreshToken?code=\(codeString)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "https://apple.com")!
+            let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+                if let data = data {
+                    let refreshToken = String(data: data, encoding: .utf8) ?? ""
+                    print(refreshToken)
+                    // TODO: *For security reasons, we recommend iCloud keychain rather than UserDefaults.
+                    UserDefaults.standard.set(refreshToken, forKey: "refreshToken")
+                    UserDefaults.standard.synchronize()
+                }
+            }
+            task.resume()
         }
         
         // Initialize a Firebase credential.
         let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com", idToken: tokenString, rawNonce: nonce)
         // Sign in with Firebase.
-        
         Auth.auth().signIn(with: firebaseCredential) { (result, err) in
             if let error = err {
                 // Error. If error.code == .MissingOrInvalidNonce, make sure

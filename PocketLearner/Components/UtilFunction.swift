@@ -42,6 +42,21 @@ class UtilFunction: Functions {
         return nil
     }
     
+    
+    func removeAccount() {
+      let token = UserDefaults.standard.string(forKey: "refreshToken")
+
+      if let token = token {
+          let url = URL(string: "https://YOUR-URL.cloudfunctions.net/revokeToken?refresh_token=\(token)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "https://apple.com")!
+          
+          let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            guard data != nil else { return }
+          }
+          task.resume()
+      }
+      //Delete other information from the database...
+      FirebaseAuthentication.shared.signOut()
+    }
 }
 
 
