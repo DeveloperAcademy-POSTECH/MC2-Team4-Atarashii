@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Firebase
+import FirebaseAuth
 
 protocol Functions : AnyObject {
     
@@ -43,11 +44,13 @@ class UtilFunction: Functions {
     }
     
     
-    func removeAccount() {
+    static func removeAccount() {
       let token = UserDefaults.standard.string(forKey: "refreshToken")
+        
+    print(token)
 
       if let token = token {
-          let url = URL(string: "https://YOUR-URL.cloudfunctions.net/revokeToken?refresh_token=\(token)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "https://apple.com")!
+          let url = URL(string: "https://us-central1-atarashii2-fa9ec.cloudfunctions.net/revokeToken?refresh_token=\(token)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "https://apple.com")!
           
           let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
             guard data != nil else { return }
@@ -55,7 +58,19 @@ class UtilFunction: Functions {
           task.resume()
       }
       //Delete other information from the database...
-      FirebaseAuthentication.shared.signOut()
+        
+        // Delete All UserDefaults
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
+        
+        // Sign out on FirebaseAuth
+        do {
+            try Auth.auth().signOut()
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+        }
+        print("Sign out Success")
     }
 }
 

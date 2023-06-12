@@ -10,6 +10,7 @@ import FirebaseAuth
 import AuthenticationServices
 import Firebase
 
+
 // AppleUser 객체를 Codable로 설정하여
 // Encoding, Decoding이 가능 => UserDefault에 저장이 가능한 형태로.
 struct AppleUser: Codable {

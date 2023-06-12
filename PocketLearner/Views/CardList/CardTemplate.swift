@@ -292,6 +292,7 @@ struct CardFront: View {
                     secondaryButton: .destructive(Text("탈퇴하기")) {
                         print("Deleting...")
                         //TODO: 회원탈퇴 기능 구현
+                        UtilFunction.removeAccount()
                     }
                 )
             }

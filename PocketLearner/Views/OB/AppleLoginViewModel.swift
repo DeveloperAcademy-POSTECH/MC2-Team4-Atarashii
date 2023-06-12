@@ -24,6 +24,8 @@ class AppleLoginViewModel: ObservableObject{
     @Published var nonce = ""
     
     func authenticate(credential: ASAuthorizationAppleIDCredential, failHandler : @escaping (String,String) -> Void ){
+        
+        print("authenticate 시작")
         // get Token
         guard let token = credential.identityToken else{
             print("Error with Firebase - Apple Login : GETTING TOKEN")
@@ -40,14 +42,18 @@ class AppleLoginViewModel: ObservableObject{
         
         // authorization Code to Unregister! => get user authorizationCode when login.
         if let authorizationCode = credential.authorizationCode, let codeString = String(data: authorizationCode, encoding: .utf8) {
+            print("authorizationCode :: ", codeString)
             let url = URL(string: "https://us-central1-atarashii2-fa9ec.cloudfunctions.net/getRefreshToken?code=\(codeString)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "https://apple.com")!
             let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
                 if let data = data {
                     let refreshToken = String(data: data, encoding: .utf8) ?? ""
-                    print(refreshToken)
+                    print("refreshToken :: ", refreshToken)
                     // TODO: *For security reasons, we recommend iCloud keychain rather than UserDefaults.
                     UserDefaults.standard.set(refreshToken, forKey: "refreshToken")
                     UserDefaults.standard.synchronize()
+                }
+                if let error = error {
+                    print("Error on get Refresh Token :: \(error)")
                 }
             }
             task.resume()
