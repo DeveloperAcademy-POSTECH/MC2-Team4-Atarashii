@@ -291,8 +291,7 @@ struct CardFront: View {
                     primaryButton: .cancel(Text("취소하기")),
                     secondaryButton: .destructive(Text("탈퇴하기")) {
                         print("Deleting...")
-                        //TODO: 회원탈퇴 기능 구현
-                        UtilFunction.removeAccount()
+                        deleteUserAccount()
                     }
                 )
             }
@@ -340,7 +339,23 @@ struct CardFront: View {
     
     // MARK: 회원 탈퇴 기능
     func deleteUserAccount(){
+        // Revoke - Sign in with Apple
+        UtilFunction.removeAccount()
         
+        // remove user data from firestore
+        let batch = db.batch()
+        let userDocRef = UtilFunction.getUserDocRef(userId: user.id)
+        batch.deleteDocument(userDocRef)
+        
+        // TODO: 회원탈퇴 시 나머지 Collection의 data 지우기.
+        
+        batch.commit() { err in
+            if let err = err {
+                print("Error writing batch \(err)")
+            } else {
+                print("Batch write succeeded.")
+            }
+        }
     }
     
     
