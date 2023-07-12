@@ -90,10 +90,6 @@ struct CommentView: View {
                     }
                     .padding(.trailing, 15)
                 }.padding(.top, 10).padding(.bottom, 20)
-//                Divider()
-//                    .frame(height: 1)
-//                    .foregroundColor(Color(dividerGrayColor))
-//                    .padding(.vertical, 10)
             }
             ScrollView(showsIndicators: false){
                 ForEach(commentList.indices, id: \.self) { index in

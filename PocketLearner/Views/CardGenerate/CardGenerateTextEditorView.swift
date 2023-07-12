@@ -126,6 +126,9 @@ struct CardGenerateTextEditorView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
+//                    let domain = Bundle.main.bundleIdentifier!
+//                    UserDefaults.standard.removePersistentDomain(forName: domain)
+//                    UserDefaults.standard.synchronize()
                     switch activatedCircleNumber {
                     case 1:
                         card.introduce = inputText
@@ -143,7 +146,7 @@ struct CardGenerateTextEditorView: View {
                     Text("나중에 적을래요")
                         .foregroundColor(Color("mainAccentColor"))
                         .font(.system(size: 17, weight: .semibold))
-                        .padding(.trailing, 5)
+                        .padding(.trailing, 5) 
                 }
             }
         }

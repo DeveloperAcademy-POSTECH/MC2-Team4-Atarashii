@@ -23,16 +23,14 @@ struct PocketLearnerApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var user = userData()
     @StateObject var card = CardDetailData()
-    
-    @State var a: Bool = true
-    
+        
     @State var myInfo: UserInfo = UserInfo(id: "", nickKorean: "", nickEnglish: "", isSessionMorning: true, introduce: "", skills: [], skillLevel: [], introduceSkill: "", growthTarget: "", wishSkills: [], wishSkillIntroduce: "", communicationType: 0, cooperationKeywords: [], cooperationIntroduce: "", cardColor: 0, cardPattern: 0, memoji: "")
     
     var body: some Scene {
         WindowGroup {
-//            MainView().environmentObject(user).environmentObject(card)
-//                .preferredColorScheme(.light) // 라이트 모드 고정
-            CreateNickNameView()
+            MainView().environmentObject(user).environmentObject(card)
+                .preferredColorScheme(.light) // 라이트 모드 고정
+//            CreateNickNameView()
         }
     }
 }
