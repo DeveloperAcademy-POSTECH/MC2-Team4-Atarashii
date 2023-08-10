@@ -61,7 +61,7 @@ struct CommentCreateView: View {
             Alert(title: Text(alertMessage), dismissButton: .default(Text("확인")){
                 presentationMode.wrappedValue.dismiss()
             })
-        }d
+        }
     }
     
     func editComment() {
