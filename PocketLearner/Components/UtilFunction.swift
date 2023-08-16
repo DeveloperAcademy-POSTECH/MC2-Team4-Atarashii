@@ -73,30 +73,30 @@ class UtilFunction: Functions {
         print("Sign out Success")
     }
     
-//   ⛔️ static func getUsersDocRef(userId: String) -> String {
-//        let docRef = db.collection("Users").document(userId)
-//        return docRef
-//    }
-//
-//    static func getCardDetailDocRef(userId: String) -> String {
-//        let docRef = db.collection("CardDetails").document(userId)
-//        return docRef
-//    }
-//
-//    static func getCommentsDocRef(userId1: String, userId2: String) -> String {
-//        let docRef = db.collection("Comments").document("\(userId1)_\(userId2)")
-//        return docRef
-//    }
-//
-//    static func getCardExchangeHistoryDocRef(userId1: String, userId2: String) -> String {
-//        let docRef = db.collection("CardExchangeHistory").document("\(userId1)_\(userId2)")
-//        return docRef
-//    }
-//
-//    static func getBookmarkDocRef(userId1: String, userId2: String) -> String {
-//        let docRef = db.collection("Bookmark").document("\(userId1)_\(userId2)")
-//        return docRef
-//    }
+    static func getUsersDocRef(userId: String) -> String {
+        let docRef = db.collection("Users").document(userId)
+        return docRef
+    }
+
+    static func getCardDetailDocRef(userId: String) -> String {
+        let docRef = db.collection("CardDetails").document(userId)
+        return docRef
+    }
+
+    static func getCommentsDocRef(userId1: String, userId2: String) -> String {
+        let docRef = db.collection("Comments").document("\(userId1)_\(userId2)")
+        return docRef
+    }
+
+    static func getCardExchangeHistoryDocRef(userId1: String, userId2: String) -> String {
+        let docRef = db.collection("CardExchangeHistory").document("\(userId1)_\(userId2)")
+        return docRef
+    }
+
+    static func getBookmarkDocRef(userId1: String, userId2: String) -> String {
+        let docRef = db.collection("Bookmark").document("\(userId1)_\(userId2)")
+        return docRef
+    }
 }
 
 

@@ -56,8 +56,8 @@
 		C36366292A0A31B400E4E9C6 /* CardGenerateViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36366282A0A31B400E4E9C6 /* CardGenerateViewHeader.swift */; };
 		C363662B2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C363662A2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift */; };
 		C3B5E1F22A84E6A000A801E6 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B5E1F12A84E6A000A801E6 /* Color+.swift */; };
-		C3B5E1F42A84E9B900A801E6 /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B5E1F32A84E9B900A801E6 /* Font+.swift */; };
 		C3B5E1FB2A85242D00A801E6 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B5E1FA2A85242D00A801E6 /* UIScreen+.swift */; };
+		C3E62CEB2A8CC43800A96CF7 /* Text+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E62CEA2A8CC43800A96CF7 /* Text+.swift */; };
 		C3E8B3842A0DF55E00AA76CC /* SelectCollaborationKeywordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8B3832A0DF55E00AA76CC /* SelectCollaborationKeywordView.swift */; };
 		C3E8B3862A10C61900AA76CC /* SelectMySkillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8B3852A10C61900AA76CC /* SelectMySkillView.swift */; };
 		C3E8B3892A110AB300AA76CC /* Flow in Frameworks */ = {isa = PBXBuildFile; productRef = C3E8B3882A110AB300AA76CC /* Flow */; };
@@ -121,8 +121,8 @@
 		C36366282A0A31B400E4E9C6 /* CardGenerateViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGenerateViewHeader.swift; sourceTree = "<group>"; };
 		C363662A2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGenerateTextEditorView.swift; sourceTree = "<group>"; };
 		C3B5E1F12A84E6A000A801E6 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
-		C3B5E1F32A84E9B900A801E6 /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		C3B5E1FA2A85242D00A801E6 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
+		C3E62CEA2A8CC43800A96CF7 /* Text+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+.swift"; sourceTree = "<group>"; };
 		C3E8B3832A0DF55E00AA76CC /* SelectCollaborationKeywordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCollaborationKeywordView.swift; sourceTree = "<group>"; };
 		C3E8B3852A10C61900AA76CC /* SelectMySkillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMySkillView.swift; sourceTree = "<group>"; };
 		C3E8B38A2A11111300AA76CC /* SkillTitleInputSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillTitleInputSheetView.swift; sourceTree = "<group>"; };
@@ -329,8 +329,8 @@
 			isa = PBXGroup;
 			children = (
 				C3B5E1F12A84E6A000A801E6 /* Color+.swift */,
-				C3B5E1F32A84E9B900A801E6 /* Font+.swift */,
 				C3B5E1FA2A85242D00A801E6 /* UIScreen+.swift */,
+				C3E62CEA2A8CC43800A96CF7 /* Text+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -439,7 +439,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E6DB2E42A0A305C00F6C8DC /* CommentView.swift in Sources */,
-				C3B5E1F42A84E9B900A801E6 /* Font+.swift in Sources */,
 				0E3742732A0B618400647F0E /* Components.swift in Sources */,
 				C32FEA7A2A0BE4A800CE0663 /* GoalOption.swift in Sources */,
 				0E6DB2DF2A0A2A1C00F6C8DC /* CreateNickNameView.swift in Sources */,
@@ -458,6 +457,7 @@
 				869C37892A11905300C1034B /* EditCollaboraionView.swift in Sources */,
 				0E6DB2E02A0A2A1C00F6C8DC /* CreateTimeView.swift in Sources */,
 				EF5D03522A0B86E100678E09 /* Character.swift in Sources */,
+				C3E62CEB2A8CC43800A96CF7 /* Text+.swift in Sources */,
 				0EF982522A0FDBFF000AB165 /* FinishGenerateView.swift in Sources */,
 				0E6DB2C82A0A29D700F6C8DC /* EditCardDesignView.swift in Sources */,
 				0E6DB2D62A0A2A0000F6C8DC /* MainTabView.swift in Sources */,
