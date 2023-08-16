@@ -344,8 +344,8 @@ struct CardFront: View {
         
         // remove user data from firestore
         let batch = db.batch()
-        let userDocRef = UtilFunction.getUserDocRef(userId: user.id)
-        batch.deleteDocument(userDocRef)
+//        ⛔️let userDocRef = UtilFunction.getUserDocRef(userId: user.id)
+//        ⛔️batch.deleteDocument(userDocRef)
         
         // TODO: 회원탈퇴 시 나머지 Collection의 data 지우기.
         

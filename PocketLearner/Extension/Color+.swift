@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension Color {
-    static let cpPink = Color(#colorLiteral(red: 1, green: 0.7509847879, blue: 0.7738938928, alpha: 1))
+    static let cpPink = Color(#colorLiteral(red: 1, green: 0.6901960784, blue: 0.7254901961, alpha: 1))
     static let cpYellow = Color(#colorLiteral(red: 0.9725490196, green: 0.9254901961, blue: 0.5333333333, alpha: 1))
     static let cpBlue = Color(#colorLiteral(red: 0.5411764706, green: 0.9176470588, blue: 0.9725490196, alpha: 1))
     static let cpPurple = Color(#colorLiteral(red: 0.8, green: 0.7960784314, blue: 1, alpha: 1))
