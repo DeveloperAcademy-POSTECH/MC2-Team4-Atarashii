@@ -9,7 +9,7 @@ import SwiftUI
 
 // Image Asset
 extension Image {
-    enum imageAssetName: String {
+    enum ImageAssetName: String {
         case mainCharacter
     }
     init(_ imageName: imageAssetName){
