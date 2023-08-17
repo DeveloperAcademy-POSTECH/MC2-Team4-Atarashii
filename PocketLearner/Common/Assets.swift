@@ -12,7 +12,7 @@ extension Image {
     enum ImageAssetName: String {
         case mainCharacter
     }
-    init(_ imageName: imageAssetName){
+    init(_ imageName: ImageAssetName){
         self.init(imageName.rawValue)
     }
 }
