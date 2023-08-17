@@ -12,4 +12,5 @@
 | Lianne (최예은)  |    https://github.com/lianne-b     |
 | Swimmer (황지우) | https://github.com/earlysummer0303 |
 | David (정용기)   |    https://github.com/bravej1x4    |
+| Ollie (김세이)   |    https://github.com/vanism2091    |
 
