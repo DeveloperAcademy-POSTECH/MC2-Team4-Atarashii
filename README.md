@@ -11,4 +11,5 @@
 |  Jerry (이주환)  |     https://github.com/Jhwan2      |
 | Lianne (최예은)  |    https://github.com/lianne-b     |
 | Swimmer (황지우) | https://github.com/earlysummer0303 |
+| David (정용기)   |    https://github.com/bravej1x4    |
 
