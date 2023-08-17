@@ -56,6 +56,7 @@
 		C36366292A0A31B400E4E9C6 /* CardGenerateViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36366282A0A31B400E4E9C6 /* CardGenerateViewHeader.swift */; };
 		C363662B2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C363662A2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift */; };
 		C374ADC92A8E47B400A1D795 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C374ADC82A8E47B400A1D795 /* Assets.swift */; };
+		C374ADCE2A8E758C00A1D795 /* DummyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C374ADCD2A8E758C00A1D795 /* DummyModel.swift */; };
 		C3B5E1F22A84E6A000A801E6 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B5E1F12A84E6A000A801E6 /* Color+.swift */; };
 		C3B5E1FB2A85242D00A801E6 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B5E1FA2A85242D00A801E6 /* UIScreen+.swift */; };
 		C3E62CEB2A8CC43800A96CF7 /* Text+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E62CEA2A8CC43800A96CF7 /* Text+.swift */; };
@@ -121,6 +122,7 @@
 		C36366282A0A31B400E4E9C6 /* CardGenerateViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGenerateViewHeader.swift; sourceTree = "<group>"; };
 		C363662A2A0B6C6900E4E9C6 /* CardGenerateTextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGenerateTextEditorView.swift; sourceTree = "<group>"; };
 		C374ADC82A8E47B400A1D795 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
+		C374ADCD2A8E758C00A1D795 /* DummyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyModel.swift; sourceTree = "<group>"; };
 		C3B5E1F12A84E6A000A801E6 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		C3B5E1FA2A85242D00A801E6 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		C3E62CEA2A8CC43800A96CF7 /* Text+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+.swift"; sourceTree = "<group>"; };
@@ -329,6 +331,7 @@
 		C374ADCC2A8E50E000A1D795 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C374ADCD2A8E758C00A1D795 /* DummyModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 				0E52FFE82A11378E004E39F2 /* welcomeAlertView.swift in Sources */,
 				C32FEA7E2A0BE59900CE0663 /* GoalPickerMenuList.swift in Sources */,
 				0E113BE92A0A0FA400AB2EC8 /* PocketLearnerApp.swift in Sources */,
+				C374ADCE2A8E758C00A1D795 /* DummyModel.swift in Sources */,
 				C3E8B38D2A111AC700AA76CC /* SkillProficiencySheetView.swift in Sources */,
 				0EBBD8902A0D29E600B232F1 /* QRCodeScanner.swift in Sources */,
 				0EBBD88C2A0CDE2200B232F1 /* UserOB.swift in Sources */,
