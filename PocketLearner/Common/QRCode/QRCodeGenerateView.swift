@@ -12,8 +12,8 @@ import FirebaseFirestore
 
 struct QRCodeGenerateView: View {
     @State private var isQRCodeExpired = false
-    @State private var timer: Timer?
-    @State private var timeRemaining = 10
+//    @State private var timer: Timer?
+//    @State private var timeRemaining = 10
     @State private var qrCodeTimestamp = Date().timeIntervalSince1970
     @Binding var isQRCodePresented: Bool
     @Binding var QRAnimation: Bool
@@ -33,7 +33,11 @@ struct QRCodeGenerateView: View {
                         .foregroundColor(.black)
                 }.padding(.top, 50)
             }
-            Text(timeRemaining == 0 ? "QR코드가 만료되었습니다" : "\(timeRemaining) 초 후 QR코드가 만료됩니다")
+//            Text(timeRemaining == 0 ? "QR코드가 만료되었습니다" : "\(timeRemaining) 초 후 QR코드가 만료됩니다")
+//                .font(.system(size: 20, weight: .bold))
+//                .foregroundColor(mainAccentColor)
+//                .padding(.bottom, 20).padding(.top, 10)
+            Text("QR코드는 생성된 지 10분 후 만료됩니다.")
                 .font(.system(size: 20, weight: .bold))
                 .foregroundColor(mainAccentColor)
                 .padding(.bottom, 20).padding(.top, 10)
@@ -42,30 +46,30 @@ struct QRCodeGenerateView: View {
             
             cardGenerateViewsButton(title: "QR코드 재생성", disableCondition: !isQRCodeExpired, action: {
                 isQRCodeExpired = false
-                timeRemaining = 10
+//                timeRemaining = 10
                 qrCodeTimestamp = Date().timeIntervalSince1970
-                startTimer()
+//                startTimer()
             }).padding(.top, 30).padding(.bottom, 50)
         }.background(.white)
         .onAppear {
-            startTimer()
+//            startTimer()
         }
         .onDisappear {
-            timer?.invalidate()
+//            timer?.invalidate()
         }
     }
     
-    func startTimer() {
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            if timeRemaining > 0 {
-                timeRemaining -= 1
-            } else {
-                isQRCodeExpired = true
-                timer.invalidate()
-            }
-        }
-    }
+//    func startTimer() {
+//        timer?.invalidate()
+//        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+//            if timeRemaining > 0 {
+//                timeRemaining -= 1
+//            } else {
+//                isQRCodeExpired = true
+//                timer.invalidate()
+//            }
+//        }
+//    }
 }
 
 struct QRCodeView: View {

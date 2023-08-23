@@ -179,7 +179,8 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
                 AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
                 self.delegate?.qrCodeScannerViewController(self, didScanCode: uuid, counterpartID: counterpartID)
                 
-                if timeDifference <= 10 {
+                // 만료 시간 10분
+                if timeDifference <= 600 {
                     changeCard(counterpartID: counterpartID)
                 } else {
                     print("QR Code Expired")
