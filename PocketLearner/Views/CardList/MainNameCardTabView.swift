@@ -212,7 +212,6 @@ struct MainNameCardTabView: View {
                             myRank = index
                         }
                     }
-                    print(rankingData)
                 }
             }
     }
