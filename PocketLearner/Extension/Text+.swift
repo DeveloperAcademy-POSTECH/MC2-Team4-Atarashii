@@ -10,39 +10,39 @@ import SwiftUI
 extension Text {
     func largeTitleFont() -> some View {
         self.font(.system(size: 20 * setFontSize(), weight: .bold))
-            .lineSpacing(40.5)
+            .lineSpacing(8.5)
     }
     func titleFont() -> some View {
         self.font(.system(size: 20 * setFontSize(), weight: .bold))
-            .lineSpacing(31)
+            .lineSpacing(9)
     }
     func semiBodyFont() -> some View {
         self.font(.system(size: 16 * setFontSize(), weight: .semibold))
-            .lineSpacing(25)
+            .lineSpacing(9)
     }
     func boldBodyFont() -> some View {
         self.font(.system(size: 16 * setFontSize(), weight: .bold))
-            .lineSpacing(25)
+            .lineSpacing(9)
     }
     func navigationFont() -> some View {
         self.font(.system(size: 16 * setFontSize(), weight: .medium))
-            .lineSpacing(25)
+            .lineSpacing(9)
     }
     func buttonFont() -> some View {
         self.font(.system(size: 15 * setFontSize(), weight: .semibold))
-            .lineSpacing(25)
+            .lineSpacing(9)
     }
     func calloutFont() -> some View {
         self.font(.system(size: 14 * setFontSize(), weight: .medium))
-            .lineSpacing(20.3)
+            .lineSpacing(6.3)
     }
     func labelFont() -> some View {
         self.font(.system(size: 12 * setFontSize(), weight: .semibold))
-            .lineSpacing(20.5)
+            .lineSpacing(8.5)
     }
     func captionFont() -> some View {
         self.font(.system(size: 10 * setFontSize(), weight: .bold))
-            .lineSpacing(18)
+            .lineSpacing(8)
     }
     
     // MARK: Screen의 해상도에 따른 대략적인 폰트 사이즈 비율 변경 (Screen의 height 사용.)
